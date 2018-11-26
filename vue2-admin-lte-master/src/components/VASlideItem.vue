@@ -1,0 +1,108 @@
+<template>
+    <router-link tag="li" v-if="router && router.name" :to="router">
+        <a href="#">
+            <i :class="icon"></i> <span>{{ name }}</span>
+        </a>
+    </router-link>
+    <li :class="getType" v-else-if="root.indexOf(getAuthInfo.group_id)!==-1">
+        {{ isHeader ? name : '' }}
+        <a href="#" v-if="!isHeader">
+            <i :class="icon"></i> <span>{{ name }}</span>
+      <span class="pull-right-container">
+        <small v-if="badge && badge.data" class="label pull-right"
+               :class="[badge.type==='String'?'bg-green':'label-primary']">{{ badge.data }}
+        </small>
+        <i v-else class="fa fa-angle-left pull-right"></i>
+      </span>
+        </a>
+        <ul class="treeview-menu" v-if="items.length > 0">
+            <router-link class="subnav-item-container" tag="li" v-for="(item,index) in items" :data="item" :key="index"
+                         :to="item.router" v-if="(item.router && item.router.name)&&(item.root.indexOf(getAuthInfo.group_id)!=-1)">
+                <a>
+                    <!-- <i :class="item.icon"></i> --> {{ item.name }}
+                </a>
+                <!--         <ul v-if="item.items" v-show="">
+                          <router-link tag="li" :key="index1" :to="sub.router" class="text-white" v-for="(sub, index1) in item.items">{{sub.name}}</router-link>
+                        </ul> -->
+            </router-link>
+            <li v-else-if="item.root.indexOf(getAuthInfo.group_id)!=-1" class="subnav-item-container">
+                <a>
+                    <!-- <i :class="item.icon"></i> --> {{ item.name }}
+                </a>
+            </li>
+        </ul>
+    </li>
+</template>
+
+<script type="text/ecmascript-6">
+    import { mapGetters, mapActions } from 'vuex'
+    export default {
+        name: 'va-slide-item',
+        props: {
+            type: {
+                type: String,
+                default: 'item'
+            },
+            isHeader: {
+                type: Boolean,
+                default: false
+            },
+            icon: {
+                type: String,
+                default: ''
+            },
+            name: {
+                type: String
+            },
+            badge: {
+                type: Object,
+                default () {
+                    return {}
+                }
+            },
+            items: {
+                type: Array,
+                default () {
+                    return []
+                }
+            },
+            router: {
+                type: Object,
+                default () {
+                    return {
+                        name: ''
+                    }
+                }
+            },
+            link: {
+                type: String,
+                default: ''
+            },
+            root: {
+                type: Array,
+                default() {
+                    return []
+                }
+            }
+        },
+        created () {
+
+        },
+        computed: {
+            getType () {
+                if (this.isHeader) {
+                    return 'header'
+                }
+                return this.type === 'item' ? '' : 'treeview'
+            },
+            ...mapGetters([
+                'getAuthInfo'
+            ])
+        }
+    }
+</script>
+<style>
+    .treeview-menu > li > a {
+        padding-left: 36px;
+    }
+</style>
