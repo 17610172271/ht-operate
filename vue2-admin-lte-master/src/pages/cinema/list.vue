@@ -399,6 +399,11 @@
                     value: ''
                 },
                 {
+                    type:'city',
+                    name:'区域',
+                    value:''
+                },
+                {
                     type: 'select',
                     name: '状态',
                     value: '',
@@ -412,11 +417,6 @@
                             label: '失效'
                         }
                     ]
-                },
-                {
-                    type:'city',
-                    name:'区域',
-                    value:''
                 },
             ],
         }),
@@ -436,10 +436,10 @@
                 this.$http.post(api.cinema.list, {
                     name: this.searchOptions[0].value,
                     agent_name: this.searchOptions[1].value,
-                    status: this.searchOptions[2].value,
-                    region_id: this.searchOptions[3].value.split('/')[0],
-                    province_id: this.searchOptions[3].value.split('/')[1],
-                    city_id: this.searchOptions[3].value.split('/')[2],
+                    status: this.searchOptions[3].value,
+                    region_id: this.searchOptions[2].value.split('/')[0],
+                    province_id: this.searchOptions[2].value.split('/')[1],
+                    city_id: this.searchOptions[2].value.split('/')[2],
                     page: this.page,
                     limit: this.limit
                 }).then(res => {

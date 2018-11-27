@@ -44,7 +44,7 @@
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('分账比例')!=-1">分账比例</li>
                             <li class="col-xs-24 p-n" v-show="selectVal.indexOf('状态')!=-1">状态</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('管理账号')!=-1">管理账号</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 100px;">操作</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 150px;">操作</li>
                         </ul>
                         <ul class="table-tbody clear" v-for="(item, index) in data.items" @click="selectItem(item.id)">
                             <li class="col-xs-24 p-n select-box">
@@ -61,9 +61,9 @@
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('分账比例')!=-1":title="item.proportion">{{item.proportion || 0}}%</li>
                             <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('状态')!=-1" :title="item.status_name"  :class="item.status==2?'text-red':'text-green'">{{item.status_name}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('管理账号')!=-1" :title="item.username">{{item.username}}</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 100px;">
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 150px;">
                                 <a href="javascript:;" title="查看次级代理商" :disabled="!item.isHaveChildren" class="candle-btn btn" @click.stop="lookNextAgent(item)"><i
-                                    class="fa fa-paper-plane text-lg"></i></a>
+                                    class="fa fa-sign-in text-lg"></i></a>
                                 <a href="javascript:;" title="编辑" class="candle-btn btn" @click.stop="editItem(item)"><i
                                     class="fa fa-edit"></i></a>
                                 <a href="javascript:;" title="分账设置" class="candle-btn btn" @click.stop="openAccount(item)"><i
@@ -358,11 +358,6 @@
             //搜索
             searchOptions: [
                 {
-                    type:'city',
-                    name:'地区',
-                    value:''
-                },
-                {
                     type: 'text',
                     name: '代理商名称',
                     value: ''
@@ -381,6 +376,11 @@
                             label: '失效'
                         }
                     ]
+                },
+                {
+                    type:'city',
+                    name:'地区',
+                    value:''
                 },
             ],
         }),
@@ -402,11 +402,11 @@
                 this.loading = true
                 this.$http.post(api.agent.list, {
                     pid: this.$route.query.id || '',
-                    region_id: this.searchOptions[0].value.split('/')[0],
-                    province_id: this.searchOptions[0].value.split('/')[1],
-                    city_id: this.searchOptions[0].value.split('/')[2],
-                    name: this.searchOptions[1].value,
-                    status: this.searchOptions[2].value,
+                    region_id: this.searchOptions[2].value.split('/')[0],
+                    province_id: this.searchOptions[2].value.split('/')[1],
+                    city_id: this.searchOptions[2].value.split('/')[2],
+                    name: this.searchOptions[0].value,
+                    status: this.searchOptions[1].value,
                     page: this.page,
                     limit: this.limit
                 }).then(res => {

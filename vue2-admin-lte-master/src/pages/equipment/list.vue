@@ -417,7 +417,7 @@
                 return (this.page - 1) * this.limit
             },
             uploadUrl () {
-                return api.common.upload
+                return api.device.export
             }
         },
         methods: {

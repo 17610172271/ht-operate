@@ -171,12 +171,6 @@
                 },
                 {
                     type: 'searchSelect',
-                    name: '区域代理',
-                    value: '',
-                    options: []
-                },
-                {
-                    type: 'searchSelect',
                     name: '影院',
                     value: '',
                     options: []
@@ -256,11 +250,10 @@
                 this.loading = true
                 this.$http.post(api.order.list, {
                     agent_id: this.searchOptions[0].value,
-                    region_agent_id: this.searchOptions[1].value,
-                    cinema_id: this.searchOptions[2].value,
-                    pay_type: this.searchOptions[3].value,
-                    order_before_time: this.searchOptions[4].value,
-                    order_after_time: this.searchOptions[5].value,
+                    cinema_id: this.searchOptions[1].value,
+                    pay_type: this.searchOptions[2].value,
+                    order_before_time: this.searchOptions[3].value,
+                    order_after_time: this.searchOptions[4].value,
                     status: this.status.value,
                     page: this.page,
                     limit: this.limit
@@ -292,20 +285,15 @@
                 this.$http.post(api.agent.getAllList).then(res => {
                     if (res.data.code === 1) {
                         this.agentList = res.data.data
-                        this.searchOptions[0].options = res.data.data.map(val => {
-                            return {
-                                label: val.name,
-                                value: val.id
-                            }
-                        })
+                        this.searchOptions[0].options = res.data.data
                     } else {
                         this.agentList = []
                         this.searchOptions[0].options = []
                     }
                 })
             },
-            getRegionAgent () {
-                this.$http.post(api.circuit.getAllList).then(res => {
+            getCinema () {
+                this.$http.post(api.cinema.getAllList).then(res => {
                     if (res.data.code === 1) {
                         this.searchOptions[1].options = res.data.data.map(val => {
                             return {
@@ -315,20 +303,6 @@
                         })
                     } else {
                         this.searchOptions[1].options = []
-                    }
-                })
-            },
-            getCinema () {
-                this.$http.post(api.cinema.getAllList).then(res => {
-                    if (res.data.code === 1) {
-                        this.searchOptions[2].options = res.data.data.map(val => {
-                            return {
-                                label: val.name,
-                                value: val.id
-                            }
-                        })
-                    } else {
-                        this.searchOptions[2].options = []
                     }
                 })
             },
@@ -366,7 +340,6 @@
             searchShow (val) {
                 if (val) {
                     this.getGroupList()
-                    this.getRegionAgent()
                     this.getCinema()
                 }
             },
