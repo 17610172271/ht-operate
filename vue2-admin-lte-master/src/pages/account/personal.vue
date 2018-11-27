@@ -134,7 +134,7 @@
                     }
                 },
                 childNode: {
-                    name: '个人资料',
+                    name: '个人配置',
                     router: {
                         name: 'account_personal'
                     }

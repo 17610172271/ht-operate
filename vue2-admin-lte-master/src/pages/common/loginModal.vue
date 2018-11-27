@@ -61,7 +61,14 @@
             updateId () {
                 this.id = Math.floor(Math.random() * 1000000)
             },
-
+            getNav () {
+                this.$http.get(api.account.getRight).then(res => {
+                    if (res.data.code === 1) {
+                        this.saveNavList(res.data.data)
+                        window.localStorage.setItem('navList', JSON.stringify(res.data.data))
+                    }
+                })
+            },
             submit () {
                 if (!this.username) {
                     this.$message({
@@ -107,6 +114,7 @@
                                     if (res.data.code === 1) {
                                         window.localStorage.setItem('authInfo', JSON.stringify(res.data.data))
                                         that.setAuthInfo(res.data.data)
+                                        that.getNav()
                                         that.updateId()
                                         that.validateCode = ''
                                         $('.sidebar-menu .treeview').removeClass('menu-open')

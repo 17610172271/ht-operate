@@ -58,7 +58,7 @@
                         <div class="equipment-item p-o-sm">
                             <div class="text-lg text-bold">代理商: <span class="text-normal">{{item.name}}</span></div>
                             <div class="p-t-md clear">
-                                <div class="col-xs-4 text-bold p-n">区域代理: <span class="text-normal">{{item.region_agent}}家</span></div>
+                                <div class="col-xs-4 text-bold p-n">次级代理: <span class="text-normal">{{item.agent_son}}家</span></div>
                                 <div class="col-xs-4 text-bold p-n">影院: <span class="text-normal">{{item.cinema}}家</span></div>
                                 <div class="col-xs-4 text-bold p-n">影厅: <span class="text-normal">{{item.hall}}家</span></div>
                             </div>

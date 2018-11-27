@@ -53,7 +53,7 @@
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('ID')!=-1" :title="item.id">{{item.id}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('代理商名称')!=-1" :title="item.name">{{item.name}}</li>
                             <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('区域')!=-1" :title="item.region_name">{{item.region_name}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('省份')!=-1" :title="item.city_name">{{item.city_name}}</li>
+                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('省份')!=-1" :title="item.province_name">{{item.province_name}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('座机')!=-1" :title="item.fixed_telephone">{{item.fixed_telephone}}</li>
                             <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('法人')!=-1":title="item.legal_person">{{item.legal_person}}</li>
                             <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('负责人')!=-1":title="item.leader">{{item.leader}}</li>
