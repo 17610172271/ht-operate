@@ -159,6 +159,11 @@
         },
         created () {
             this.updateId()
+        },
+        watch: {
+            '$route' (val) {
+                this.updateId()
+            }
         }
     }
 </script>

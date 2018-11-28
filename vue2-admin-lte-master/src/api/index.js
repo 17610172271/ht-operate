@@ -162,6 +162,7 @@ export const device = {
     modelDel: '/api/v1/device/del_model', // 型号删除
     map: '/api/v1/device/distribute', // 设备分布
     mapDetail: '/api/v1/hall/hallsInfo', // 设备分布
+    export: '/api/v1/device/play_export', // 播放设备导入
 }
 
 //控制设备管理

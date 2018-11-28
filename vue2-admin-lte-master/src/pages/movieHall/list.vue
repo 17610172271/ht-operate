@@ -121,7 +121,7 @@
                         custom-class="dialog-modal1">
                         <div v-loading="modalLoading">
                             <div class="clear m-t-sm">
-                                <div class="line-height-40 pull-left text-bold">院线: {{hallStatus.region_agent_name}}</div>
+                                <div class="line-height-40 pull-left text-bold">代理商: {{hallStatus.agent_name}}</div>
                                 <div class="line-height-40 pull-left text-bold m-l-lg">影厅: {{hallStatus.hall_name}}</div>
                             </div>
                             <div class="clear m-t-sm">
@@ -365,7 +365,22 @@
                         },
                         {
                             value: 2,
-                            label: '失效'
+                            label: '异常'
+                        }
+                    ]
+                },
+                {
+                    type: 'select',
+                    name: '设备状态',
+                    value: '',
+                    options:[
+                        {
+                            value: 1,
+                            label: '无设备'
+                        },
+                        {
+                            value: 2,
+                            label: '已绑定'
                         }
                     ]
                 },
@@ -389,6 +404,7 @@
                     agent_name: this.searchOptions[1].value,
                     cinema_name: this.searchOptions[2].value,
                     status: this.searchOptions[3].value,
+                    device_status: this.searchOptions[4].value,
                     page: this.page,
                     limit: this.limit
                 }).then(res => {

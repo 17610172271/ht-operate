@@ -434,6 +434,7 @@
             },
             getAgent () {
                 this.$http.post(api.agent.getAllList).then(res => {
+                    this.addressError = false
                     if (res.data.code === 1) {
                         this.agentOptions = res.data.data
                     } else {
@@ -456,7 +457,7 @@
                         level: item.level
                     })
                 }
-                this.$router.replace({name: 'agent_list', query: {id: item.id, level: item.level, page: this.page}})
+                this.$router.push({name: 'agent_list', query: {id: item.id, level: item.level, page: this.page}})
             },
             openAccount (item) {
                 this.accountNum = item.proportion || 0

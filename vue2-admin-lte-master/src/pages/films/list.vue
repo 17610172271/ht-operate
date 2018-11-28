@@ -108,49 +108,45 @@
                                 <div class="col-xs-8 line-height-40 text-bold">内容</div>
                             </div>
                             <div class="clear bg-f9">
-                                <div class="col-xs-2 line-height-40 text-right min-width-105">影片ID:</div>
-                                <div class="col-xs-8 line-height-40">{{detailVal.id}}</div>
-                            </div>
-                            <div class="clear">
                                 <div class="col-xs-2 line-height-40 text-right min-width-105">
                                     影片名称:</div>
                                 <div class="col-xs-8 line-height-40">{{detailVal.film_name}}</div>
                             </div>
-                            <div class="clear bg-f9">
+                            <div class="clear">
                                 <div class="col-xs-2 line-height-40 text-right min-width-105">
                                     英文名称:</div>
                                 <div class="col-xs-8 line-height-40">{{detailVal.film_en_name}}</div>
                             </div>
-                            <div class="clear">
+                            <div class="clear bg-f9">
                                 <div class="col-xs-2 line-height-40 text-right min-width-105">时长:</div>
                                 <div class="col-xs-8 line-height-40">{{detailVal.length}}</div>
                             </div>
-                            <div class="clear bg-f9">
+                            <div class="clear">
                                 <div class="col-xs-2 line-height-40 text-right min-width-105">分类:</div>
                                 <div class="col-xs-8 line-height-40">{{detailVal.class}}</div>
                             </div>
-                            <div class="clear">
+                            <div class="clear bg-f9">
                                 <div class="col-xs-2 line-height-40 text-right min-width-105">演员:</div>
                                 <div class="col-xs-8 line-height-40">{{detailVal.actor}}</div>
                             </div>
-                            <div class="clear bg-f9">
+                            <div class="clear">
                                 <div class="col-xs-2 line-height-40 text-right min-width-105">国家:</div>
                                 <div class="col-xs-8 line-height-40">{{detailVal.zone}}</div>
                             </div>
-                            <div class="clear">
+                            <div class="clear bg-f9">
                                 <div class="col-xs-2 line-height-40 text-right min-width-105">导演:</div>
                                 <div class="col-xs-8 line-height-40">{{detailVal.director}}</div>
                             </div>
-                            <div class="clear bg-f9">
+                            <div class="clear">
                                 <div class="col-xs-2 line-height-40 text-right min-width-105">
                                     语言:</div>
                                 <div class="col-xs-8 line-height-40">{{detailVal.language}}</div>
                             </div>
-                            <div class="clear">
+                            <div class="clear bg-f9">
                                 <div class="col-xs-2 line-height-40 text-right min-width-105">上映日期:</div>
                                 <div class="col-xs-8 line-height-40">{{detailVal.release_date}}</div>
                             </div>
-                            <div class="clear bg-f9">
+                            <div class="clear">
                                 <div class="col-xs-2 line-height-40 text-right min-width-105">编剧:</div>
                                 <div class="col-xs-8 line-height-40">{{detailVal.screenwriter}}</div>
                             </div>

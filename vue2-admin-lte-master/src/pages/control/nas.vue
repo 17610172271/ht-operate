@@ -93,10 +93,10 @@
                         :close-on-click-modal="false">
                         <div v-loading="modalLoading">
                             <div class="clear m-b-sm">
-                                <div class="col-xs-12 col-md-2 p-v-sm p-r-n text-right min-width-105"><span class="text-red">*</span>设备编号:</div>
+                                <div class="col-xs-12 col-md-2 p-v-sm p-r-n text-right min-width-105"><span class="text-red">*</span>NAS服务编号:</div>
                                 <div class="col-xs-12 col-md-8">
-                                    <el-input placeholder="请输入设备编号" :class="{'border-red': codeError}" v-model="detailVal.code" @blur="validateCode(detailVal.code)"></el-input>
-                                    <p v-if="codeError" class="text-red"><span class="fa fa-close m-r-xs"></span>设备编号不能为空</p>
+                                    <el-input placeholder="请输入NAS服务编号" :class="{'border-red': codeError}" v-model="detailVal.code" @blur="validateCode(detailVal.code)"></el-input>
+                                    <p v-if="codeError" class="text-red"><span class="fa fa-close m-r-xs"></span>NAS服务编号不能为空</p>
                                 </div>
                             </div>
                             <div class="clear m-b-sm">

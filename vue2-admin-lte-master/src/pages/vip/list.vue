@@ -27,24 +27,26 @@
                 <div class="page-contaoner">
                     <div class="lk-table m-t-sm">
                         <ul class="table-thead clear">
-                            <li class="col-xs-24 p-n select-box">
+                            <!-- <li class="col-xs-24 p-n select-box">
                                 <el-checkbox v-model="selectAll">全选</el-checkbox>
-                            </li>
+                            </li> -->
                             <li class="col-xs-24 p-n" v-show="selectVal.indexOf('ID')!=-1">ID</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('昵称')!=-1">昵称</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('邮箱')!=-1">邮箱</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('性别')!=-1">性别</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('手机号')!=-1">手机号</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('地址')!=-1">地址</li>
                             <li class="col-xs-24 p-n" v-show="selectVal.indexOf('状态')!=-1">状态</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1">操作</li>
                         </ul>
                         <ul class="table-tbody clear" v-for="(item, index) in data.items" @click="selectItem(item.id)">
-                            <li class="col-xs-24 p-n select-box">
+                           <!--  <li class="col-xs-24 p-n select-box">
                                 <el-checkbox :label="item.id" v-model="selectedGroup"></el-checkbox>
-                            </li>
+                            </li> -->
                             <li class="col-xs-24 p-n" v-show="selectVal.indexOf('ID')!=-1" :title="item.id">{{item.id}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('昵称')!=-1" :title="item.nickname">{{item.nickname}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('邮箱')!=-1" :title="item.email">{{item.email}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('性别')!=-1" :title="item.sex">{{item.sex}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('手机号')!=-1" :title="item.mobile">{{item.mobile}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('地址')!=-1" :title="item.address">{{item.address}}</li>
                             <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('状态')!=-1" :title="item.status" :class="item.status==1?'text-green':'text-red'">{{item.status_name}}</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1">
                                 <a href="javascript:;" title="详情" class="candle-btn btn" @click.stop="openDetail(item)"><i
@@ -219,8 +221,8 @@
             teamOptions: [],
             loading: false,
             modalLoading: false,
-            selectVal: ['ID',  '昵称', '邮箱', '手机号', '状态', '操作'],
-            showList: ['ID',  '昵称', '邮箱', '手机号', '状态', '操作'],
+            selectVal: ['ID',  '昵称', '性别', '手机号', '地址', '状态', '操作'],
+            showList: ['ID',  '昵称', '性别', '手机号', '地址', '状态', '操作'],
             options: [10, 25, 50],   //条数数目
             searchShow: false,   //搜索开关
             selectAll: false,    //多选框开关
