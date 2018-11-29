@@ -48,7 +48,7 @@
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('NAS编号')!=-1" :title="item.code">{{item.code}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('NAS名称')!=-1" :title="item.name">{{item.name}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('MAC地址')!=-1" :title="item.mac_address">{{item.mac_address}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('创建时间')!=-1" :title="item.createtime">{{item.createtime}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('创建时间')!=-1" :title="item.create_time">{{item.create_time}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('影院名称')!=-1" :title="item.cinema_name">{{item.cinema_name}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('区域代理')!=-1" :title="item.region_agent_name">{{item.region_agent_name}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('代理商')!=-1" :title="item.agent_name">{{item.agent_name}}</li>

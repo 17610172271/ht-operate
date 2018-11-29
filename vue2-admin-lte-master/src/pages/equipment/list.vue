@@ -61,7 +61,7 @@
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('设备编号')!=-1" :title="item.serial_number">{{item.serial_number}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('别名')!=-1" :title="item.alias">{{item.alias}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('mac地址')!=-1" :title="item.mac_address">{{item.mac_address}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('创建时间')!=-1" :title="item.createtime">{{item.createtime}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('创建时间')!=-1" :title="item.create_time">{{item.create_time}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('密钥起止时间')!=-1" :title="item.key_valid_time">{{item.key_valid_time}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('影厅名称')!=-1" :title="item.hall_name">{{item.hall_name}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('影院名称')!=-1" :title="item.cinema_name">{{item.cinema_name}}</li>

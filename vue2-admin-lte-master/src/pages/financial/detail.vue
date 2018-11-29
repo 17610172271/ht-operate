@@ -36,7 +36,7 @@
                         </ul>
                         <ul class="table-tbody clear" v-for="(item, index) in data.items">
                             <li class="col-xs-24 p-n" v-show="selectVal.indexOf('ID')!=-1" :title="item.id">{{item.id}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('完成时间')!=-1" :title="item.createtime">{{item.createtime}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('完成时间')!=-1" :title="item.create_time">{{item.create_time}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('影片名称')!=-1" :title="item.film_name">{{item.film_name}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('影厅名称')!=-1" :title="item.hall_name">{{item.hall_name}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('影厅号')!=-1" :title="item.hall_code">{{item.hall_code}}</li>

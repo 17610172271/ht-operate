@@ -54,7 +54,7 @@
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('代理商')!=-1"  :title="item.agent_name">{{item.agent_name}}</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('城市')!=-1"  :title="item.city_name">{{item.city_name}}</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1">
-                                <router-link :to="{name: 'financial_detail', query: {id: item.id, time: item.createtime}}" href="javascript:;" title="详情"
+                                <router-link :to="{name: 'financial_detail', query: {id: item.id, time: item.create_time}}" href="javascript:;" title="详情"
                                              class="candle-btn btn"><i class="fa fa-search-plus"></i></router-link>
                             </li>
                         </ul>
