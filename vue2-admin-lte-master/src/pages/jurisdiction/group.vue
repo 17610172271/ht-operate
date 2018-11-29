@@ -435,7 +435,7 @@
             editModal (val) {
                 if (val) {
                     this.nameError = false
-                    this.$http.get(api.account.getGroups).then(res => {
+                    this.$http.get(api.account.childGroup).then(res => {
                         if (res.data.code === 1) {
                             this.parentsGroup = res.data.data.items
                         } else {

@@ -34,6 +34,7 @@ export  const account = {
     getGroups: 'api/v1/group/getGroups', // 获取父分组
     getRule: 'api/v1/authRule/authRuleNode', // 获取规则
     getRight: '/api/v1/admin/getMenu', // 获取菜单权限
+    childGroup: '/api/v1/admin/childrenGroupsList', // 获取子用户组
 }
 
 // 规则管理

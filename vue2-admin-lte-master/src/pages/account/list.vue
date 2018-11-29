@@ -340,9 +340,7 @@
             },
             // 角色分组列表
             getGroupList () {
-                this.$http.post(api.account.group, {
-                    pid: ''
-                }).then(res => {
+                this.$http.get(api.account.childGroup).then(res => {
                     if (res.data.code === 1) {
                         this.teamOptions = res.data.data.items
                         if (this.type === 'edit') {
