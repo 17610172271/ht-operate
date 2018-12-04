@@ -126,10 +126,17 @@
                                 </div>
                             </div>
                             <div class="clear m-b-sm">
-                                <div class="col-xs-12 col-md-2 p-v-sm p-r-n text-right min-width-105"><span class="text-red">*</span>影院:</div>
+                                <div class="col-xs-12 col-md-2 p-v-sm p-r-n text-right min-width-105"><span class="text-red">*</span>影院名称:</div>
                                 <div class="col-xs-12 col-md-8">
                                     <el-input placeholder="请输入影院名称" :class="{'border-red': nameError}" v-model="detailVal.name" @blur="validateName(detailVal.name)"></el-input>
                                     <p v-if="nameError" class="text-red"><span class="fa fa-close m-r-xs"></span>影院不能为空</p>
+                                </div>
+                            </div>
+                            <div class="clear m-b-sm">
+                                <div class="col-xs-12 col-md-2 p-v-sm p-r-n text-right min-width-105"><span class="text-red">*</span>影院编码:</div>
+                                <div class="col-xs-12 col-md-8">
+                                    <el-input placeholder="请输入影院编码" :class="{'border-red': codeError}" v-model="detailVal.code" @blur="validateCode(detailVal.code)"></el-input>
+                                    <p v-if="codeError" class="text-red"><span class="fa fa-close m-r-xs"></span>影院不能为空</p>
                                 </div>
                             </div>
                             <div class="clear m-b-sm">
@@ -331,6 +338,7 @@
             detailVal:{
                 agent_id: '', // 代理商id
                 name:'',  //影院名称
+                code: '', // 影院编码
                 fixed_telephone:'',  //座机
                 cityLink: '',
                 province_id:'',  //区域
@@ -352,6 +360,7 @@
 
             },
             nameError: false,
+            codeError: false,
             addressError: false,
             fixedTelError: false,
             adminError: false,
@@ -559,7 +568,8 @@
                 this.type = 'add'
                 this.detailVal = {
                     agent_id: '', // 代理商id
-                    name:'',  //影院名称
+                    name:'',  // 影院名称
+                    code: '', // 影院编码
                     fixed_telephone:'',  //座机
                     cityLink: '',
                     province_id:'',  //区域
@@ -676,6 +686,7 @@
                 this.validateAgent()
                 this.validateUsername(this.detailVal.username)
                 this.validateName(this.detailVal.name)
+                this.validateCode(this.detailVal.code)
                 this.validatePsd(this.detailVal.password)
                 this.validatePasswordAgain(this.detailVal.password_again)
                 this.validateFixedTel(this.detailVal.fixed_telephone)
@@ -684,9 +695,8 @@
                 this.validateAdmin(this.detailVal.admin)
                 this.validateAdminTel(this.detailVal.admin_phone)
                 this.validateAddress()
-                console.log(1);
                 if (this.nameError || this.addressError || this.fixedTelError || this.adminError || this.adminTelError || this.leaderError
-                    || this.leaderTelError || this.passwordError || this.passwordAgainError || this.usernameError || this.agentError || this.regionAgentError) {
+                    || this.leaderTelError || this.passwordError || this.passwordAgainError || this.usernameError || this.agentError || this.regionAgentError || this.codeError) {
                     this.$message({
                         type: 'warning',
                         message: '您填写的信息格式错误'
@@ -751,6 +761,9 @@
             },
             validateName (val) {
                 this.nameError = val ? false : true
+            },
+            validateCode (val) {
+                this.codeError = val ? false : true
             },
             validateAddress () {
                 if (this.detailVal.cityLink.split('/')[2] && this.detailVal.address) {
@@ -869,6 +882,7 @@
             editModal (val) {
                 if (val) {
                     this.nameError =  false
+                    this.codeError = false
                     this.addressError =  false
                     this.fixedTelError =  false
                     this.adminError =  false
