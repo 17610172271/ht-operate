@@ -51,11 +51,11 @@
             ])
         },
         created () {
-            this.getNav()
+//            this.getNav()
         },
         watch: {
             getNavList (val) {
-                 this.getRoot()
+//                 this.getRoot()
             }
         },
         computed: {

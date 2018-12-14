@@ -54,7 +54,7 @@
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('代理商名称')!=-1" :title="item.name">{{item.name}}</li>
                             <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('区域')!=-1" :title="item.region_name">{{item.region_name}}</li>
                             <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('省份')!=-1" :title="item.province_name">{{item.province_name}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('座机')!=-1" :title="item.fixed_telephone">{{item.fixed_telephone}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('座机')!=-1" :title="item.legal_phone">{{item.legal_phone}}</li>
                             <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('法人')!=-1":title="item.legal_person">{{item.legal_person}}</li>
                             <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('负责人')!=-1":title="item.leader">{{item.leader}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('负责人电话')!=-1":title="item.leader_phone">{{item.leader_phone}}</li>
@@ -62,7 +62,7 @@
                             <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('状态')!=-1" :title="item.status_name"  :class="item.status==2?'text-red':'text-green'">{{item.status_name}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('管理账号')!=-1" :title="item.username">{{item.username}}</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 150px;">
-                                <a href="javascript:;" title="查看次级代理商" :disabled="!item.isHaveChildren" class="candle-btn btn" @click.stop="lookNextAgent(item)"><i
+                                <a href="javascript:;" title="查看次级代理商" :class="{'disabled': !item.isHaveChildren}" class="candle-btn btn" @click.stop="lookNextAgent(item)"><i
                                     class="fa fa-sign-in text-lg"></i></a>
                                 <a href="javascript:;" title="编辑" class="candle-btn btn" @click.stop="editItem(item)"><i
                                     class="fa fa-edit"></i></a>
@@ -129,11 +129,11 @@
                         :close-on-click-modal="false">
                         <div v-loading="modalLoading">
                             <div class="clear m-b-sm">
-                                <div class="col-xs-12 col-md-2 p-v-sm p-r-n text-right min-width-105">所属代理商:</div>
+                                <div class="col-xs-12 col-md-2 p-v-sm p-r-n text-right min-width-105">所属区域:</div>
                                 <div class="col-xs-12 col-md-8">
-                                    <el-select v-model="detailVal.pid" filterable clearable placeholder="请选择代理商">
+                                    <el-select v-model="detailVal.region_id" filterable clearable placeholder="请选择所属区域">
                                         <el-option
-                                        v-for="item in agentOptions"
+                                        v-for="item in regionOptions"
                                         :key="item.value"
                                         :label="item.label"
                                         :value="item.value">
@@ -148,10 +148,10 @@
                                     <p v-if="nameError" class="text-red"><span class="fa fa-close m-r-xs"></span>代理商不能为空</p>
                                 </div>
                             </div>
-                            <div class="clear">
+                            <div class="clear m-b-sm">
                                 <div class="col-xs-12 col-md-2 p-v-sm p-r-n text-right min-width-105"><span class="text-red">*</span>代理商地址:</div>
                                 <div class="col-xs-12 col-md-9">
-                                    <city-select v-model="detailVal.cityLink" :class="{'border-red': addressError}"></city-select>
+                                    <city-select v-model="detailVal.cityLink" :pid="detailVal.region_id" :class="{'border-red': addressError}"></city-select>
                                 </div>
                             </div>
                             <div class="clear m-b-sm">
@@ -162,23 +162,20 @@
                                 </div>
                             </div>
                             <div class="clear m-b-sm">
-                                <div class="col-xs-12 col-md-2 p-v-sm p-r-n text-right min-width-105"><span class="text-red">*</span>代理商电话:</div>
+                                <div class="col-xs-12 col-md-2 p-v-sm p-r-n text-right min-width-105"><span class="text-red">*</span>描述:</div>
                                 <div class="col-xs-12 col-md-8">
-                                    <el-input placeholder="请输入代理商电话" :class="{'border-red': fixedTelError}" v-model="detailVal.fixed_telephone" @blur="validateFixedTel(detailVal.fixed_telephone)"></el-input>
-                                    <p v-if="fixedTelError" class="text-red"><span class="fa fa-close m-r-xs"></span>代理商电话格式不正确</p>
+                                    <el-input placeholder="请输入描述" type="textarea" rows="4" :class="{'border-red': introduceError}" v-model="detailVal.introduce" @blur="validateIntroduce(detailVal.introduce)"></el-input>
+                                    <p v-if="introduceError" class="text-red"><span class="fa fa-close m-r-xs"></span>请输入代理商描述</p>
                                 </div>
                             </div>
+
+                            <div class="p-lg border-top"></div>
+
                             <div class="clear m-b-sm">
-                                <div class="col-xs-12 col-md-2 p-v-sm p-r-n text-right min-width-105"><span class="text-red">*</span>法人姓名:</div>
+                                <div class="col-xs-12 col-md-2 p-v-sm p-r-n text-right min-width-105"><span class="text-red">*</span>管理账号:</div>
                                 <div class="col-xs-12 col-md-8">
-                                    <el-input placeholder="请输入法人姓名" :class="{'border-red': legalError}" v-model="detailVal.legal_person" @blur="validateLegal(detailVal.legal_person)"></el-input>
-                                    <p v-if="legalError" class="text-red"><span class="fa fa-close m-r-xs"></span>法人姓名不能为空</p>
-                                </div>
-                            </div>
-                            <div class="clear m-b-sm">
-                                <div class="col-xs-12 col-md-2 p-v-sm p-r-n text-right min-width-105">法人身份证号:</div>
-                                <div class="col-xs-12 col-md-8">
-                                    <el-input placeholder="请输入法人身份证号" v-model="detailVal.legal_person_id"></el-input>
+                                    <el-input placeholder="请输入管理账号" :disabled="type=='edit'" :class="{'border-red': usernameError}" v-model="detailVal.username" @blur="validateUsername(detailVal.username)"></el-input>
+                                    <p v-if="usernameError" class="text-red"><span class="fa fa-close m-r-xs"></span>管理账号由3-20位英文,数字及下划线组成</p>
                                 </div>
                             </div>
                             <div class="clear m-b-sm">
@@ -195,10 +192,43 @@
                                     <p v-if="leaderTelError" class="text-red"><span class="fa fa-close m-r-xs"></span>手机号格式不正确</p>
                                 </div>
                             </div>
+
+                            <div class="p-lg border-top"></div>
+
                             <div class="clear m-b-sm">
-                                <div class="col-xs-12 col-md-2 p-v-sm p-r-n text-right min-width-105">负责人邮箱:</div>
+                                <div class="col-xs-12 col-md-2 p-v-sm p-r-n text-right min-width-105"><span class="text-red">*</span>公司全称:</div>
                                 <div class="col-xs-12 col-md-8">
-                                    <el-input placeholder="请输入负责人邮箱" :class="{'border-red': leaderEmailError}" v-model="detailVal.leader_email" @blur="validateLeaderEmail(detailVal.leader_email)"></el-input>
+                                    <el-input placeholder="请输入公司全称" :class="{'border-red': companyError}" v-model="detailVal.company" @blur="validateLegal(detailVal.company)"></el-input>
+                                    <p v-if="companyError" class="text-red"><span class="fa fa-close m-r-xs"></span>公司全称不能为空</p>
+                                </div>
+                            </div>
+                            <div class="clear m-b-sm">
+                                <div class="col-xs-12 col-md-2 p-v-sm p-r-n text-right min-width-105"><span class="text-red">*</span>法人姓名:</div>
+                                <div class="col-xs-12 col-md-8">
+                                    <el-input placeholder="请输入法人姓名" :class="{'border-red': legalError}" v-model="detailVal.legal_person" @blur="validateLegal(detailVal.legal_person)"></el-input>
+                                    <p v-if="legalError" class="text-red"><span class="fa fa-close m-r-xs"></span>法人姓名不能为空</p>
+                                </div>
+                            </div>
+
+                            <div class="clear m-b-sm">
+                                <div class="col-xs-12 col-md-2 p-v-sm p-r-n text-right min-width-105"><span class="text-red">*</span>法人手机号:</div>
+                                <div class="col-xs-12 col-md-8">
+                                    <el-input placeholder="请输入法人手机号" :class="{'border-red': fixedTelError}" v-model="detailVal.legal_phone" @blur="validateFixedTel(detailVal.legal_phone)"></el-input>
+                                    <p v-if="fixedTelError" class="text-red"><span class="fa fa-close m-r-xs"></span>请输入正确的手机号格式</p>
+                                </div>
+                            </div>
+
+                            <div class="clear m-b-sm">
+                                <div class="col-xs-12 col-md-2 p-v-sm p-r-n text-right min-width-105">法人身份证号:</div>
+                                <div class="col-xs-12 col-md-8">
+                                    <el-input placeholder="请输入法人身份证号" v-model="detailVal.legal_person_id"></el-input>
+                                </div>
+                            </div>
+
+                            <div class="clear m-b-sm">
+                                <div class="col-xs-12 col-md-2 p-v-sm p-r-n text-right min-width-105">邮箱:</div>
+                                <div class="col-xs-12 col-md-8">
+                                    <el-input placeholder="请输入邮箱" :class="{'border-red': leaderEmailError}" v-model="detailVal.leader_email" @blur="validateLeaderEmail(detailVal.leader_email)"></el-input>
                                     <p v-if="leaderEmailError" class="text-red"><span class="fa fa-close m-r-xs"></span>邮箱格式不正确</p>
                                 </div>
                             </div>
@@ -218,33 +248,7 @@
                                     </el-upload>
                                 </div>
                             </div>
-                            <div class="clear m-b-sm">
-                                <div class="col-xs-12 col-md-2 p-v-sm p-r-n text-right min-width-105">代理商介绍:</div>
-                                <div class="col-xs-12 col-md-8">
-                                    <el-input placeholder="请输入代理商介绍" type="textarea" rows="4" v-model="detailVal.introduce"></el-input>
-                                </div>
-                            </div>
-                            <div class="clear m-b-sm">
-                                <div class="col-xs-12 col-md-2 p-v-sm p-r-n text-right min-width-105"><span class="text-red">*</span>管理账号:</div>
-                                <div class="col-xs-12 col-md-8">
-                                    <el-input placeholder="请输入管理账号" :disabled="type=='edit'" :class="{'border-red': usernameError}" v-model="detailVal.username" @blur="validateUsername(detailVal.username)"></el-input>
-                                    <p v-if="usernameError" class="text-red"><span class="fa fa-close m-r-xs"></span>管理账号由3-20位英文,数字及下划线组成</p>
-                                </div>
-                            </div>
-                            <div class="clear m-b-sm">
-                                <div class="col-xs-12 col-md-2 p-v-sm p-r-n text-right min-width-105"><span class="text-red">*</span>管理密码:</div>
-                                <div class="col-xs-12 col-md-8">
-                                    <el-input placeholder="请输入管理密码" type="password" :class="{'border-red': passwordError}" v-model="detailVal.password" @blur="validatePsd(detailVal.password)"></el-input>
-                                    <p v-if="passwordError" class="text-red"><span class="fa fa-close m-r-xs"></span>密码由6-20位英文,数字及特殊字符组成</p>
-                                </div>
-                            </div>
-                            <div class="clear m-b-sm">
-                                <div class="col-xs-12 col-md-2 p-v-sm p-r-n text-right min-width-105"><span class="text-red">*</span>确认密码:</div>
-                                <div class="col-xs-12 col-md-8">
-                                    <el-input placeholder="请再次输入管理密码" type="password" :class="{'border-red': passwordAgainError}" v-model="detailVal.password_again" @blur="validatePasswordAgain(detailVal.password_again)"></el-input>
-                                    <p v-if="passwordAgainError" class="text-red"><span class="fa fa-close m-r-xs"></span>两次密码输入不一致</p>
-                                </div>
-                            </div>
+
                             <div class="text-center m-t-lg clear">
                                 <div class="col-xs-12 col-md-9">
                                     <el-button type="primary" @click="dailogSubmit">确 定</el-button>
@@ -289,7 +293,7 @@
                     level: 0
                 }
             ],
-            agentOptions: [],
+            regionOptions: [],
             teamOptions: [],
             loading: false,
             modalLoading: false,
@@ -303,36 +307,35 @@
             page: 1,
             //编辑
             detailVal:{
-                pid:'',
+                region_id:'',
                 name:'',  //代理商名称
-                fixed_telephone:'',  //座机
+                legal_phone:'',  //座机
                 cityLink: '',
                 province_id:'',  //区域
                 city_id:'', //城市ID
                 region_id: '', // 区域id
                 address:'', //详细地址
+                introduce: '', // 代理商描述
+                company: '',
                 legal_person:'',   // 法人
                 legal_person_id: '', // 法人身份证号
                 leader: '',     //  负责人
                 leader_phone: '',   // 负责人电话
                 leader_email:'', //负责人邮箱
                 business_licence:'', //营业执照
-                introduce:'', //介绍
                 username:'',  //管理用户名
-                password:'',  //管理密码
-                password_again: '', // 确认密码
             },
             // 编辑添加提示
             nameError: false,
             addressError: false,
+            introduceError: false,
             fixedTelError: false,
+            companyError: false,
             legalError: false,
             leaderError: false,
             leaderTelError: false,
             leaderEmailError: false,
             usernameError:false,
-            passwordError: false,
-            passwordAgainError: false,
             header: {ContentType: 'application/x-www-form-urlencoded'},
             id: '',
             type: '',
@@ -433,12 +436,19 @@
                 })
             },
             getAgent () {
-                this.$http.post(api.agent.getAllList).then(res => {
+                this.$http.post(api.common.getCity,{
+                    status: 1
+                }).then(res => {
                     this.addressError = false
                     if (res.data.code === 1) {
-                        this.agentOptions = res.data.data
+                        this.regionOptions = res.data.data.map(val => {
+                            return {
+                                label: val.name,
+                                value: val.id
+                            }
+                        })
                     } else {
-                        this.agentOptions = []
+                        this.regionOptions = []
                         this.$message({
                             type: 'warning',
                             message: res.data.msg
@@ -537,24 +547,23 @@
             addItem () {
                 this.type = 'add'
                 this.detailVal = {
-                    pid: '',
+                    region_id: '',
                     name:'',  //代理商名称
-                    fixed_telephone:'',  //座机
+                    legal_phone:'',  //座机
                     cityLink: '',
                     province_id:'', //省份ID
                     city_id:'', //城市ID
-                    region_id: '',
+                    county_id: '',
+                    company: '',
                     address:'', //详细地址
+                    introduce: '', // 描述
                     legal_person:'',   // 法人
                     legal_person_id: '',   // 法人身份证号
                     leader: '',     //  负责人
                     leader_phone: '',   // 负责人电话
                     leader_email:'', //负责人邮箱
                     business_licence:'', //营业执照
-                    introduce:'', //介绍
                     username:'',  //管理用户名
-                    password:'',  //管理密码
-                    password_again: ''
                 }
                 this.editModal = true
                 this.addressError = false
@@ -573,7 +582,7 @@
                             that.modalLoading = false
                         }, 500)
                         this.detailVal = res.data.data
-                        this.detailVal.pid = this.detailVal.pid === 0 ? '' : this.detailVal.pid
+                        this.detailVal.region_id = this.detailVal.region_id === 0 ? '' : this.detailVal.region_id
                         this.$set(this.detailVal, 'cityLink', this.detailVal.region_id + '/' + this.detailVal.province_id + '/' + this.detailVal.city_id)
                     } else {
                         this.$message({
@@ -628,21 +637,20 @@
                 this.validateName(this.detailVal.name)
                 this.validateLeaderEmail(this.detailVal.leader_email)
                 this.validateLeaderTel(this.detailVal.leader_phone)
-                this.validatePsd(this.detailVal.password)
-                this.validatePasswordAgain(this.detailVal.password_again)
-                this.validateFixedTel(this.detailVal.fixed_telephone)
+                this.validateIntroduce(this.detailVal.introduce)
+                this.validateFixedTel(this.detailVal.legal_phone)
                 this.validateLeader(this.detailVal.leader)
+                this.validateCompany(this.detailVal.company)
                 this.validateLegal(this.detailVal.legal_person)
                 this.validateAddress()
-                if (this.nameError || this.addressError || this.fixedTelError || this.legalError || this.leaderError || this.leaderTelError || this.leaderEmailError
-                 || this.passwordError || this.passwordAgainError || this.usernameError) {
+                if (this.nameError || this.addressError || this.fixedTelError || this.legalError || this.leaderError || this.leaderTelError
+                    || this.leaderEmailError || this.usernameError || this.introduceError || this.companyError) {
                     this.$message({
                         type: 'warning',
                         message: '您填写的信息格式错误'
                     })
                     return
                 }
-                // this.detailVal.pid = this.detailVal.pid[this.detailVal.pid.length - 1]
                 if (this.type === 'edit') {
                     this.$http.post(api.agent.edit, this.detailVal).then(res => {
                         if (res.data.code === 1) {
@@ -701,29 +709,31 @@
             },
             validateAddress () {
                 if (this.detailVal.cityLink.split('/')[2] && this.detailVal.address) {
-                    this.detailVal.region_id = this.detailVal.cityLink.split('/')[0] || ''
-                    this.detailVal.province_id = this.detailVal.cityLink.split('/')[1] || ''
-                    this.detailVal.city_id = this.detailVal.cityLink.split('/')[2] || ''
+                    this.detailVal.province_id = this.detailVal.cityLink.split('/')[0] || ''
+                    this.detailVal.city_id = this.detailVal.cityLink.split('/')[1] || ''
+                    this.detailVal.county_id = this.detailVal.cityLink.split('/')[2] || ''
                     this.addressError = false
                 } else {
                     this.addressError = true
                 }
             },
             validateFixedTel (val) {
-                this.fixedTelError = this.vTel(val)
+                this.fixedTelError = this.vMobile(val)
             },
             validateLeader (val) {
                 this.leaderError = val ? false : true
             },
+            validateIntroduce (val) {
+                this.introduceError = val ? false : true
+            },
             validateLegal (val) {
                 this.legalError = val ? false : true
             },
+            validateCompany (val) {
+                this.companyError = val ? false : true
+            },
             validateLeaderEmail (val) {
                 if (val) {
-                    this.leaderEmailError = this.vEmail(val)
-                } else {
-                    this.leaderEmailError = false
-                }if (val) {
                     this.leaderEmailError = this.vEmail(val)
                 } else {
                     this.leaderEmailError = false
@@ -732,18 +742,10 @@
             validateLeaderTel (val) {
                 this.leaderTelError = this.vMobile(val)
             },
-            validatePsd (val) {
-                if (this.type === 'add' || this.detailVal.password) this.passwordError = this.vPassword(val)
-                if (this.type === 'edit' && !this.detailVal.password) this.passwordError = false
-            },
-            validatePasswordAgain (val) {
-                this.passwordAgainError = val === this.detailVal.password ? false : true
-            },
             vUsername: validate.username,
             vEmail: validate.email,
             vMobile: validate.mobile,
             vTel: validate.tel,
-            vPassword: validate.password,
             groupChange () {
                 this.groupError = false
             },
@@ -825,14 +827,14 @@
                 if (val) {
                     this.nameError =  false
                     this.addressError =  false
+                    this.introduceError = false
                     this.fixedTelError =  false
                     this.legalError =  false
                     this.leaderError =  false
                     this.leaderTelError =  false
                     this.leaderEmailError =  false
-                    this.passwordError =  false
-                    this.passwordAgainError =  false
                     this.usernameError = false
+                    this.companyError = false
                     this.getAgent()
                 } else {
                     document.getElementsByClassName('el-dialog__body')[0].scrollTo(0, 0)

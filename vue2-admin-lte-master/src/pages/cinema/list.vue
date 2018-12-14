@@ -129,14 +129,14 @@
                                 <div class="col-xs-12 col-md-2 p-v-sm p-r-n text-right min-width-105"><span class="text-red">*</span>影院名称:</div>
                                 <div class="col-xs-12 col-md-8">
                                     <el-input placeholder="请输入影院名称" :class="{'border-red': nameError}" v-model="detailVal.name" @blur="validateName(detailVal.name)"></el-input>
-                                    <p v-if="nameError" class="text-red"><span class="fa fa-close m-r-xs"></span>影院不能为空</p>
+                                    <p v-if="nameError" class="text-red"><span class="fa fa-close m-r-xs"></span>影院名称不能为空</p>
                                 </div>
                             </div>
                             <div class="clear m-b-sm">
                                 <div class="col-xs-12 col-md-2 p-v-sm p-r-n text-right min-width-105"><span class="text-red">*</span>影院编码:</div>
                                 <div class="col-xs-12 col-md-8">
                                     <el-input placeholder="请输入影院编码" :class="{'border-red': codeError}" v-model="detailVal.code" @blur="validateCode(detailVal.code)"></el-input>
-                                    <p v-if="codeError" class="text-red"><span class="fa fa-close m-r-xs"></span>影院不能为空</p>
+                                    <p v-if="codeError" class="text-red"><span class="fa fa-close m-r-xs"></span>影院编码不能为空</p>
                                 </div>
                             </div>
                             <div class="clear m-b-sm">

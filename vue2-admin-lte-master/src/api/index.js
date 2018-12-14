@@ -14,7 +14,8 @@ export const common = {
     emailCodeSend: '/api/5b7f731b36b0e', // 发送邮箱验证码
     emailCodeCheck: '/api/5b7f73451beb6', // 邮箱验证码验证
     telCodeSend: '/api/v1/sms/sendCode', // 发送短信验证码
-    setPassword: '/api/v1/common/lostPassword' // 找回密码
+    setPassword: '/api/v1/common/lostPassword', // 找回密码
+    getCity: '/api/v1/support/getCity', // 获取区域及省市区
 }
 
 // 管理员模块

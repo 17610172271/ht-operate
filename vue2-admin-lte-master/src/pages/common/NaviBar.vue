@@ -5,7 +5,7 @@
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini" style="font-size: 14px;">SPCB</span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>航天云管理平台</b></span>
+            <span class="logo-lg"><b>代理商运营平台</b></span>
         </router-link>
 
         <!-- Header Navbar: style can be found in header.less -->

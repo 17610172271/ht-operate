@@ -221,7 +221,7 @@
         },
         created () {
             this.getData()
-            this.getNav()
+//            this.getNav()
         },
         mounted () {
             let that = this

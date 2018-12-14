@@ -1,7 +1,7 @@
 <template>
     <div class="address-link-container clear">
-        <div class="address-item p-n m-b-sm">
-            <el-select v-model="province" placeholder="请选择区域" style="width: 120px;" @visible-change="selectProvince">
+        <div class="address-item p-n">
+            <el-select v-model="province" placeholder="请选择省" style="width: 120px;" @visible-change="selectProvince">
                 <el-option
                     v-for="item in provinceList"
                     :key="item.id"
@@ -11,8 +11,8 @@
                 </el-option>
             </el-select>
         </div>
-        <div class="address-item p-n m-b-sm">
-            <el-select v-model="city" placeholder="请选择省份" style="width: 120px;" @visible-change="selectCity">
+        <div class="address-item p-n">
+            <el-select v-model="city" placeholder="请选择市" style="width: 120px;" @visible-change="selectCity">
                 <el-option
                     v-for="item in cityList"
                     :key="item.id"
@@ -22,8 +22,8 @@
                 </el-option>
             </el-select>
         </div>
-        <div class="address-item p-n m-b-sm">
-            <el-select v-model="area" placeholder="请选择城市" style="width: 120px;" @change="selectArea">
+        <div class="address-item p-n">
+            <el-select v-model="area" placeholder="请选择区" style="width: 120px;" @change="selectArea">
                 <el-option
                     v-for="item in areaList"
                     :key="item.id"
@@ -38,7 +38,8 @@
     import api from '@/api'
     export default {
         props: {
-            value: ''
+            value: '',
+            pid: ''
         },
         data: () => ({
             provinceList: [],
@@ -51,7 +52,10 @@
         }),
         methods: {
             getProvince () {
-                this.$http.get(api.agent.getArea).then(res => {
+                this.$http.post(api.common.getCity, {
+                    pid: this.pid || '',
+                    status: 2
+                }).then(res => {
                     if (res.data.code === 1) {
                         this.provinceList = res.data.data
                     } else {
@@ -63,10 +67,9 @@
                 })
             },
             getCity () {
-                this.$http.get(api.agent.getProvince, {
-                    params: {
-                        pid: this.province
-                    }
+                this.$http.post(api.common.getCity, {
+                    pid: this.province,
+                    status: 2
                 }).then(res => {
                     if (res.data.code === 1) {
                         this.cityList = res.data.data
@@ -79,10 +82,9 @@
                 })
             },
             getArea () {
-                this.$http.get(api.agent.getCity, {
-                    params: {
-                        pid: this.city
-                    }
+                this.$http.post(api.common.getCity, {
+                    pid: this.city,
+                    status: 2
                 }).then(res => {
                     if (res.data.code === 1) {
                         this.areaList = res.data.data
@@ -116,10 +118,12 @@
         },
         watch: {
             value (val) {
-                console.log(val)
                 this.province = val.split('/')[0] ? val.split('/')[0] * 1 : ''
                 this.city = val.split('/')[1] ? val.split('/')[1] * 1 : ''
                 this.area = val.split('/')[2] ? val.split('/')[2] * 1 : ''
+            },
+            pid (val) {
+                this.getProvince()
             },
             province (val) {
                 if (this.selectShow) {
