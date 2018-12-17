@@ -23,7 +23,7 @@ const router = new Router({
                     path: '/map',
                     meta: {requreAuth: true},
                     component: rs('map/index'),
-                    redirect: '/list',
+                    redirect: '/map/list',
                     children: [
                         {
                             path: 'list',
@@ -38,37 +38,6 @@ const router = new Router({
                     ]
                 },
                 {
-                    path: '/account',
-                    component: rs('account/index'),
-                    meta: {requreAuth: true},
-                    redirect: '/account/list',
-                    children: [
-                        {
-                            path: 'personal',
-                            name: 'account_personal',
-                            component: rs('account/personal')
-                        },
-                        {
-                            path: 'list',
-                            name: 'account_list',
-                            component: rs('account/list')
-                        }
-                    ]
-                },
-                {
-                    path: '/vip',
-                    component: rs('vip/index'),
-                    meta: {requreAuth: true},
-                    redirect: '/vip/list',
-                    children: [
-                        {
-                            path: 'list',
-                            name: 'vip_list',
-                            component: rs('vip/list')
-                        }
-                    ]
-                },
-                {
                     path: '/agent',
                     component: rs('agent/index'),
                     meta: {requreAuth: true},
@@ -78,6 +47,35 @@ const router = new Router({
                             path: 'list',
                             name: 'agent_list',
                             component: rs('agent/list')
+                        },
+                        {
+                            path: 'detail/:id',
+                            name: 'agent_detail',
+                            component: rs('agent/detail')
+                        },
+                        {
+                            path: 'add',
+                            name: 'agent_add',
+                            component: rs('agent/add')
+                        },
+                        {
+                            path: 'edit/:id',
+                            name: 'agent_edit',
+                            component: rs('agent/add')
+                        },{
+                            path: 'mine',
+                            name: 'agent_mine',
+                            component: rs('agent/mine')
+                        },
+                        {
+                            path: 'check',
+                            name: 'agent_check',
+                            component: rs('agent/checkList')
+                        },
+                        {
+                            path: 'check/detail/:id',
+                            name: 'agent_check_detail',
+                            component: rs('agent/checkDetail')
                         }
                     ]
                 },
@@ -93,217 +91,64 @@ const router = new Router({
                             component: rs('cinema/list')
                         },
                         {
-                            path: 'sync/:id',
-                            name: 'sync_list',
-                            component: rs('cinema/sync')
-                        }
-                    ]
-                },
-                {
-                    path: '/nasSync',
-                    component: rs('nasSync/index'),
-                    meta: {requreAuth: true},
-                    redirect: '/nasSync/list',
-                    children: [
-                        {
-                            path: 'list',
-                            name: 'sync',
-                            component: rs('nasSync/sync')
-                        }
-                    ]
-                },
-                {
-                    path: '/movieHall',
-                    component: rs('movieHall/index'),
-                    meta: {requreAuth: true},
-                    redirect: '/movieHall/list',
-                    children: [
-                        {
-                            path: 'list',
-                            name: 'movieHall_list',
-                            component: rs('movieHall/list')
-                        },
-                        {
-                            path: 'addcinemas',
-                            name: 'movieHall_addcinemas',
-                            component: rs('movieHall/addcinemas')
-                        },
-                    ]
-                },
-                {
-                    path: '/equipment',
-                    component: rs('equipment/index'),
-                    meta: {requreAuth: true},
-                    redirect: '/equipment/list',
-                    children: [
-                        {
-                            path: 'list',
-                            name: 'equipment_list',
-                            component: rs('equipment/list')
-                        },
-                        {
-                            path: 'manufacturer',
-                            name: 'manufacturer_list',
-                            component: rs('equipment/manufacturer')
-                        },
-                        {
-                            path: 'model',
-                            name: 'model_list',
-                            component: rs('equipment/model')
-                        }
-                    ]
-                },
-                {
-                    path: '/order',
-                    component: rs('order/index'),
-                    meta: {requreAuth: true},
-                    redirect: '/order/list',
-                    children: [
-                        {
-                            path: 'list',
-                            name: 'order_list',
-                            component: rs('order/list')
-                        },
-                        {
                             path: 'detail/:id',
-                            name: 'order_detail',
-                            component: rs('order/detail')
+                            name: 'cinema_detail',
+                            component: rs('cinema/detail')
+                        },
+                        {
+                            path: 'edit/:id',
+                            name: 'cinema_edit',
+                            component: rs('cinema/edit')
+                        },
+                        {
+                            path: 'check',
+                            name: 'cinema_check',
+                            component: rs('cinema/check')
+                        },
+                        {
+                            path: 'check/detail',
+                            name: 'cinema_check_detail',
+                            component: rs('cinema/checkDetail')
                         }
                     ]
                 },
                 {
-                    path: '/financial',
-                    component: rs('financial/index'),
+                    path: '/region',
+                    name: 'region_list',
                     meta: {requreAuth: true},
-                    redirect: '/financial/list',
-                    children: [
-                        {
-                            path: 'list',
-                            name: 'financial_list',
-                            component: rs('financial/list')
-                        },
-                        {
-                            path: 'detail',
-                            name: 'financial_detail',
-                            component: rs('financial/detail')
-                        },
-                    ]
+                    component: rs('region/list')
+                },
+                {
+                    path: '/city',
+                    name: 'city_list',
+                    meta: {requreAuth: true},
+                    component: rs('city/list')
                 },
                 {
                     path: '/statistics',
                     component: rs('statistics/index'),
                     meta: {requreAuth: true},
-                    redirect: '/statistics/order',
+                    redirect: '/statistics/agent',
                     children: [
                         {
-                            path: 'order',
-                            name: 'statistics_order',
-                            component: rs('statistics/order')
+                            path: 'agent',
+                            name: 'statistics_agent',
+                            component: rs('statistics/agent')
                         },
                         {
-                            path: 'vip',
-                            name: 'statistics_vip',
-                            component: rs('statistics/vip')
+                            path: 'cinema',
+                            name: 'statistics_cinema',
+                            component: rs('statistics/cinema')
                         },
                         {
-                            path: 'equipment',
-                            name: 'statistics_equipment',
-                            component: rs('statistics/equipment')
+                            path: 'play',
+                            name: 'statistics_play',
+                            component: rs('statistics/play')
                         },
                         {
-                            path: 'movieHall',
-                            name: 'statistics_movieHall',
-                            component: rs('statistics/movieHall')
-                        }
-                    ]
-                },
-                {
-                    path: '/films',
-                    component: rs('films/index'),
-                    meta: {requreAuth: true},
-                    redirect: '/films/list',
-                    children: [
-                        {
-                            path: 'list',
-                            name: 'films_list',
-                            component: rs('films/list')
-                        },
-                        {
-                            path: 'filmdetails',
-                            name: 'films_filmdetails',
-                            component: rs('films/filmdetails')
-                        },
-                    ]
-                },
-                {
-                    path: '/control',
-                    component: rs('control/index'),
-                    meta: {requreAuth: true},
-                    redirect: '/control/gateway',
-                    children: [
-                        {
-                            path: 'gateway',
-                            name: 'control_gateway',
-                            component: rs('control/gateway')
-                        },
-                        {
-                            path: 'nas',
-                            name: 'control_nas',
-                            component: rs('control/nas')
-                        },
-                        {
-                            path: 'list',
-                            name: 'control_list',
-                            component: rs('control/list')
-                        }
-                    ]
-                },
-                {
-                    path: '/news',
-                    component: rs('news/index'),
-                    meta: {requreAuth: true},
-                    redirect: '/news/list',
-                    children: [
-                        {
-                            path: 'list',
-                            name: 'news_list',
-                            component: rs('news/news')
-                        },
-                        {
-                            path: 'add',
-                            name: 'news_add',
-                            component: rs('news/add')
-                        }
-                    ]
-                },
-                {
-                    path: '/kdmnew',
-                    component: rs('kdmnew/index'),
-                    meta: {requreAuth: true},
-                    redirect: '/kdmnew/list',
-                    children: [
-                        {
-                            path: 'list',
-                            name: 'kdmnew_list',
-                            component: rs('kdmnew/list')
-                        }
-                    ]
-                },
-                {
-                    path: '/jurisdiction',
-                    component: rs('jurisdiction/index'),
-                    meta: {requreAuth: true},
-                    redirect: '/jurisdiction/list',
-                    children: [
-                        {
-                            path: 'list',
-                            name: 'jurisdiction_list',
-                            component: rs('jurisdiction/list')
-                        },
-                        {
-                            path: 'group',
-                            name: 'account_group',
-                            component: rs('jurisdiction/group')
+                            path: 'film',
+                            name: 'statistics_film',
+                            component: rs('statistics/film')
                         }
                     ]
                 },

@@ -22,12 +22,12 @@
                     <li class="dropdown top-nav-username hidden-xs"><a href="javascript:;">欢迎您， {{getAuthInfo.nickname
                         || getAuthInfo.username}} !</a></li>
                     <!-- Notifications: style can be found in dropdown.less -->
-                    <li class="dropdown notifications-menu">
-                        <router-link :to="{name: 'news_list'}" class="dropdown-toggle" title="消息">
-                            <i class="fa fa-bell-o"></i>
+                    <!--<li class="dropdown notifications-menu">-->
+                        <!--<router-link :to="{name: 'news_list'}" class="dropdown-toggle" title="消息">-->
+                            <!--<i class="fa fa-bell-o"></i>-->
                             <!--<span class="label label-warning">{{ getNewsNum }}</span>-->
-                        </router-link>
-                    </li>
+                        <!--</router-link>-->
+                    <!--</li>-->
                     <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -48,38 +48,16 @@
                                     <small class="m-t-sm">电话: {{getAuthInfo.mobile}}</small>
                                 </p>
                             </li>
-                            <!-- Menu Body -->
-                            <!--             <li class="user-body">
-                                          <row>
-                                            <div class="col-xs-4 text-center">
-                                              <a href="#">Followers</a>
-                                            </div>
-                                            <div class="col-xs-4 text-center">
-                                              <a href="#">Sales</a>
-                                            </div>
-                                            <div class="col-xs-4 text-center">
-                                              <a href="#">Friends</a>
-                                            </div>
-                                          </row>
-                                        </li> -->
-                            <!-- Menu Footer-->
                             <li class="user-footer">
-                                <!-- <div class="pull-left">
-                                  <a href="#" class="btn btn-default btn-flat">Profile</a>
-                                </div> -->
-                                <div class="pull-left">
-                                    <router-link :to="{name: 'account_personal'}" class="btn btn-default btn-flat">个人配置</router-link>
-                                </div>
+                                <!--<div class="pull-left">-->
+                                    <!--<router-link :to="{name: 'account_personal'}" class="btn btn-default btn-flat">个人配置</router-link>-->
+                                <!--</div>-->
                                 <div class="pull-right">
                                     <a href="#" class="btn bg-red1 text-white" style="color: #fff;" @click="signOut"><i class="fa fa-sign-out"></i>退出</a>
                                 </div>
                             </li>
                         </ul>
                     </li>
-                    <!-- Control Sidebar Toggle Button -->
-                    <!--           <li>
-                                <a href="#" data-toggle="control-sidebar"><i class="fa fa-chevron-down"></i></a>
-                              </li> -->
                 </ul>
             </div>
         </nav>

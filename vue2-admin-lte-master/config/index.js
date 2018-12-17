@@ -27,21 +27,13 @@ module.exports = {
         assetsSubDirectory: 'static',
         assetsPublicPath: '/',
         proxyTable: {
-            '/resourceapi': {
-                target: 'http://192.168.58.57',
-                changeOrigin: true
-            },
-            '/v1': {
-                target: 'http://192.168.58.55',
-                changeOrigin: true
-            },
             '/api': {
-                //target: 'http://rap2api.taobao.org',
-                target: 'http://xg_silo_api.net',
+                target: 'http://rap2api.taobao.org',
+                //target: 'http://xg_silo_api.net',
                 changeOrigin: true,
                 pathRewrite: {
-                    //'^/api': '/app/mock/115071/api'
-                    '^/api': '/api'
+                    '^/api': '/app/mock/115071/api'
+                    //'^/api': '/api'
                 }
             },
             '/uploads': {
@@ -49,20 +41,6 @@ module.exports = {
                 changeOrigin: true,
                 pathRewrite: {
                     '^/uploads': '/uploads'
-                }
-            },
-            '/assets': {
-                target: 'http://192.168.58.55',
-                changeOrigin: true,
-                pathRewrite: {
-                    '^/assets': '/xg_channel_api/ApiAdmin/public/assets'
-                }
-            },
-            '/testapi': {
-                target: 'http://rap2api.taobao.org',
-                changeOrigin: true,
-                pathRewrite: {
-                    '^/testapi': '/app/mock/115102/testapi'
                 }
             }
         },

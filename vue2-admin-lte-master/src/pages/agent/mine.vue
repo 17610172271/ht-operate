@@ -1,5 +1,5 @@
 <template>
-    <!--管理员账号列表-->
+    <!--代理商列表-->
     <div v-loading="loading">
         <div class="p-lg appli-container">
             <sub-header :list="subNavList"></sub-header>
@@ -7,6 +7,7 @@
                 <div class="page-toolbar clear m-t-sm">
                     <search-ipts :options="searchOptions" @submit="doSearch" v-show="searchShow"></search-ipts>
                     <div class="pull-left toolbar-candle clear">
+                        <router-link :to="{name: 'agent_add'}" href="javascript:;" title="添加" class="app-add btn bg-blue1 text-white"><i class="fa fa-plus-square"></i>添加</router-link>
                         <div class="app-refresh btn bg-gray1" title="刷新" @click="refresh"><i
                             class="fa fa-refresh"></i></div>
                     </div>
@@ -21,32 +22,33 @@
                 <div class="page-contaoner">
                     <div class="lk-table m-t-sm">
                         <ul class="table-thead clear">
-                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('ID')!=-1">ID</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('完成时间')!=-1">完成时间</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('影片名称')!=-1">影片名称</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('影厅名称')!=-1">影厅名称</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('影厅号')!=-1">影厅号</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('订单金额')!=-1">订单金额</li>
-                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('影院收入')!=-1">影院收入</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('区域代理收入')!=-1">区域代理收入</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('代理商收入')!=-1">代理商收入</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('影院')!=-1">影院</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('区域代理')!=-1">区域代理</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('代理商')!=-1">代理商</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">序号</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('代理商编号')!=-1">代理商编号</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('代理商名称')!=-1">代理商名称</li>
+                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('所属区域')!=-1">所属区域</li>
+                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('影院数量')!=-1">影院数量</li>
+                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('影厅数量')!=-1">影厅数量</li>
+                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('影院设备')!=-1">影院设备</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('创建时间')!=-1">创建时间</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('合同截止日期')!=-1">合同截止日期</li>
+                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('状态')!=-1">状态</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 120px;">操作</li>
                         </ul>
                         <ul class="table-tbody clear" v-for="(item, index) in data.items">
-                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('ID')!=-1" :title="item.id">{{item.id}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('完成时间')!=-1" :title="item.create_time">{{item.create_time}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('影片名称')!=-1" :title="item.film_name">{{item.film_name}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('影厅名称')!=-1" :title="item.hall_name">{{item.hall_name}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('影厅号')!=-1" :title="item.hall_code">{{item.hall_code}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('订单金额')!=-1" :title="item.order_money">{{item.order_money}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('影院收入')!=-1" :title="item.cinema_income" >{{item.cinema_income}}</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('区域代理收入')!=-1"  :title="item.region_agent_income">{{item.region_agent_income}}</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('代理商收入')!=-1"  :title="item.agent_income">{{item.agent_income}}</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('影院')!=-1"  :title="item.cinema_name">{{item.cinema_name}}</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('区域代理')!=-1"  :title="item.regionagent_name">{{item.regionagent_name}}</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('代理商')!=-1"  :title="item.agent_name">{{item.agent_name}}</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">{{offset + index + 1}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('代理商编号')!=-1" :title="item.name">{{item.code}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('代理商名称')!=-1" :title="item.name">{{item.name}}</li>
+                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('所属区域')!=-1" :title="item.region_name">{{item.region_name}}</li>
+                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('影院数量')!=-1":title="item.cinema_num">{{item.cinema_num}}</li>
+                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('影厅数量')!=-1":title="item.hall_num">{{item.hall_num}}</li>
+                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('影院设备')!=-1":title="item.device_num">{{item.device_num}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('创建时间')!=-1":title="item.create_time">{{item.create_time}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('合同截止日期')!=-1":title="item.contract_after_time">{{item.contract_after_time}}</li>
+                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('状态')!=-1" :title="item.status_name" :class="item.status==1?'text-green':'text-red'">{{item.status_name}}</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 120px;">
+                                <router-link :to="{name: 'agent_detail', params: {id: item.id}}" href="javascript:;" class="link" @click.stop>查看</router-link>
+                                <router-link :to="{name: 'agent_edit',params: {id: item.id}}" href="javascript:;" class="link" @click.stop>编辑</router-link>
+                            </li>
                         </ul>
                         <ul class="table-tbody clear" v-if="data.items.length===0">
                             <li class="p-n over-omit">暂无更多数据</li>
@@ -83,8 +85,6 @@
 <script type="text/ecmascript-6">
     import SubHeader from '../common/subheader'
     import api from '@/api'
-    import format from '@/tools/format'
-    import validate from '@/tools/validate'
     import SelectCheckbox from '@/components/SelectCheckbox'
     import SearchIpts from '../common/searchIpts'
     export default {
@@ -92,7 +92,7 @@
         components: {
             SelectCheckbox,
             SearchIpts,
-            SubHeader,
+            SubHeader
         },
         data: () => ({
             data: {
@@ -103,35 +103,48 @@
                 items: []
             },
             loading: false,
-            selectVal: ['ID', '完成时间', '影片名称', '影厅名称', '影厅号', '订单金额', '影院收入', '区域代理收入','代理商收入','影院','区域代理','代理商'],
-            showList: ['ID', '完成时间', '影片名称', '影厅名称', '影厅号', '订单金额', '影院收入', '区域代理收入','代理商收入','影院','区域代理','代理商'],
+            selectVal: ['序号', '代理商编号', '代理商名称', '所属区域', '影院数量', '影厅数量', '影院设备', '创建时间', '合同截止日期', '状态', '操作'],
+            showList: ['序号', '代理商编号', '代理商名称', '所属区域', '影院数量', '影厅数量', '影院设备', '创建时间', '合同截止日期', '状态', '操作'],
             options: [10, 25, 50],   //条数数目
             searchShow: false,   //搜索开关
-            selectAll: false,    //多选框开关
             limit: 10,
             page: 1,
-            //头部文字
             subNavList: {
                 parentNode: {
-                    name: '收入统计',
+                    name: '代理商管理',
                     router: {
-                        name: 'financial_list'
+                        name: 'agent_list'
                     }
                 },
                 childNode: {
-                    name: '收入详情',
-                    desc: '主要用财务的查看及管理',
+                    name: '我的代理商',
+                    desc: '主要用于我的代理商的查看及管理',
                     router: {
-                        name: 'financial_detail'
+                        name: 'agent_mine'
                     }
                 }
             },
             //搜索
             searchOptions: [
                 {
-                    type: 'time',
-                    name: '时间',
+                    type: 'text',
+                    name: '代理商名称',
                     value: ''
+                },
+                {
+                    type: 'select',
+                    name: '状态',
+                    value: '',
+                    options: [
+                        {
+                            value: 1,
+                            label: '正常'
+                        },
+                        {
+                            value: 2,
+                            label: '失效'
+                        }
+                    ]
                 }
             ],
         }),
@@ -148,14 +161,14 @@
             //列表页获取
             getList () {
                 this.loading = true
-                this.$http.get(api.income.detail, {
-                    params:{
-                        time: this.searchOptions[0].value || this.$route.query.time,
-                        id: this.$route.query.id,
-                        page: this.page,
-                        limit: this.limit
-                    }
+                this.$http.post(api.agent.list, {
+                    name: this.searchOptions[0].value,
+                    status: this.searchOptions[1].value,
+                    type: 2,
+                    page: this.page,
+                    limit: this.limit
                 }).then(res => {
+                    this.selectedGroup = []
                     let that = this
                     setTimeout(function () {
                         that.loading = false
@@ -163,7 +176,13 @@
                     if (res.data.code === 1) {
                         this.data = res.data.data
                     } else {
-                        this.data = {}
+                        this.data = {
+                            limit: 10,
+                            page: 1,
+                            pageSize: 1,
+                            total: 1,
+                            items: []
+                        }
                         this.$message({
                             type: 'warning',
                             message: res.data.msg
@@ -188,8 +207,7 @@
             // 上一页
             delPage () {
                 if (this.page > 1) this.page -= 1
-            },
-            format: format
+            }
         },
         created () {
             this.page = this.$route.query.page ? parseInt(this.$route.query.page) : 1
@@ -197,16 +215,14 @@
         },
         watch: {
             page (val) {
-                this.$router.replace({name: 'financial_detail', query: {page: val}})
+                this.$router.replace({name: 'agent_mine', query: {page: val}})
                 this.getList()
             },
             limit (val) {
                 this.getList()
-            },
+            }
         }
     }
 </script>
-<style>
-
+<style scoped>
 </style>
-

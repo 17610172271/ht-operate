@@ -1,7 +1,7 @@
 <template>
     <div class="address-link-container clear">
         <div class="address-item p-n">
-            <el-select v-model="province" placeholder="请选择省" style="width: 120px;" @visible-change="selectProvince">
+            <el-select v-model="province" :disabled="disabled" placeholder="请选择省" style="width: 120px;" @visible-change="selectProvince">
                 <el-option
                     v-for="item in provinceList"
                     :key="item.id"
@@ -12,7 +12,7 @@
             </el-select>
         </div>
         <div class="address-item p-n">
-            <el-select v-model="city" placeholder="请选择市" style="width: 120px;" @visible-change="selectCity">
+            <el-select v-model="city" :disabled="disabled" placeholder="请选择市" style="width: 120px;" @visible-change="selectCity">
                 <el-option
                     v-for="item in cityList"
                     :key="item.id"
@@ -23,7 +23,7 @@
             </el-select>
         </div>
         <div class="address-item p-n">
-            <el-select v-model="area" placeholder="请选择区" style="width: 120px;" @change="selectArea">
+            <el-select v-model="area" :disabled="disabled" placeholder="请选择区" style="width: 120px;" @change="selectArea">
                 <el-option
                     v-for="item in areaList"
                     :key="item.id"
@@ -39,7 +39,8 @@
     export default {
         props: {
             value: '',
-            pid: ''
+            pid: '',
+            disabled: false
         },
         data: () => ({
             provinceList: [],

@@ -4,7 +4,7 @@
             <sub-header :list="subNavList"></sub-header>
             <div class="page-container">
                 <div class="m-t-sm">
-                    影厅统计
+                    影院统计
                 </div>
             </div>
         </div>
@@ -24,10 +24,10 @@
                     }
                 },
                 childNode: {
-                    name: '影厅统计',
-                    desc: '主要用于影厅的查看及统计',
+                    name: '会员统计',
+                    desc: '主要用于会员的查看及统计',
                     router: {
-                        name: 'statistics_movieHall'
+                        name: 'statistics_vip'
                     }
                 }
             }

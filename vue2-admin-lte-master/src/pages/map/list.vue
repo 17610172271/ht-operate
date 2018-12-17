@@ -21,12 +21,13 @@
                 </div>
             </div>
             <div class="map-container m-t-lg">
-                <el-amap vid="amap" style="height: 550px;width: 800px;" zooms="14" :center="center" :dragEnable="true" :zoomEnable="false">
+                <el-amap vid="amap" style="height: 550px;" :zooms="zooms" zoom="14" :center="center" :dragEnable="true" :zoomEnable="true">
                     <el-amap-marker v-for="(marker, index) in markers" :position="marker.position" :info="marker.info.visible" :events="events" :vid="marker.id"></el-amap-marker>
                     <el-amap-info-window
                         v-for="(marker, index) in markers"
                         :position="marker.position"
                         :offset="mapOffset"
+                        :autoMove="false"
                         :visible="marker.visible">
                         <ul class="equipment-map-container">
                             <li class="text-center border-bottom text-bold text-lg" style="display: block; padding: 5px 0;margin-bottom: 10px;">{{marker.info.region_agent_name}}</li>
@@ -70,6 +71,7 @@
             const self = this
             return {
                 data: '',
+                zooms: [3, 18],
                 regionAgentList: [],
                 cinemaList: [],
                 searchShow: false,
@@ -109,13 +111,8 @@
                 },
                 searchOptions: [
                     {
-                        type:'city',
-                        name:'地区',
-                        value:''
-                    },
-                    {
                         type:'searchSelect',
-                        name:'区域代理商',
+                        name:'影院',
                         value:'',
                         options: []
                     },
@@ -133,7 +130,12 @@
                                 label: '暂停'
                             }
                         ]
-                    }
+                    },
+                    {
+                        type:'city',
+                        name:'地区',
+                        value:''
+                    },
                 ],
             }
         },
@@ -143,7 +145,13 @@
         },
         methods: {
             getList() {
-                this.$http.post(api.device.map).then(res => {
+                this.$http.post(api.device.map, {
+                    region_id: this.searchOptions[2].value.split('/')[0] || '',
+                    province_id: this.searchOptions[2].value.split('/')[1] || '',
+                    city_id: this.searchOptions[2].value.split('/')[2] || '',
+                    cinema_id: this.searchOptions[0].value || '',
+                    status: this.searchOptions[1].value || ''
+                }).then(res => {
                     if (res.data.code === 1) {
                         this.statistics = res.data.data.statistics
                         this.markers = res.data.data.items.map((val, index) => {
@@ -162,38 +170,28 @@
                     }
                 })
             },
-            getRegionAgent () {
-                this.$http.post(api.circuit.getAllList).then(res => {
-                    if (res.data.code === 1) {
-                        this.searchOptions[1].options = res.data.data.map(val => {
-                            return {
-                                label: val.name,
-                                value: val.id
-                            }
-                        })
-                    } else {
-                        this.searchOptions[1].options = []
-                    }
-                })
-            },
             getCinema () {
                 this.$http.post(api.cinema.getAllList).then(res => {
                     if (res.data.code === 1) {
-                        this.searchOptions[2].options = res.data.data.map(val => {
+                        this.searchOptions[0].options = res.data.data.map(val => {
                             return {
                                 label: val.name,
                                 value: val.id
                             }
                         })
                     } else {
-                        this.searchOptions[2].options = []
+                        this.searchOptions[0].options = []
                     }
                 })
             },
             goDetail (id) {
               this.$router.push({name: 'map_detail', params: {id: id}})
             },
-            doSearch () {},
+            doSearch (data) {
+                this.page = 1
+                this.searchOptions = data
+                this.getList()
+            },
             refresh () {
                 this.getList()
             }
@@ -205,7 +203,6 @@
         watch: {
             searchShow (val) {
                 if (val) {
-                    this.getRegionAgent()
                     this.getCinema()
                 }
             }
@@ -214,7 +211,6 @@
 </script>
 <style scoped>
     .map-container {
-        width: 800px;
         height: 600px;
         margin: 20px auto 0;
     }

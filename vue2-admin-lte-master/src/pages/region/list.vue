@@ -4,7 +4,7 @@
             <sub-header :list="subNavList"></sub-header>
             <div class="page-container">
                 <div class="m-t-sm">
-                    会员统计
+                    区域管理
                 </div>
             </div>
         </div>
@@ -18,16 +18,16 @@
             data: '',
             subNavList: {
                 parentNode: {
-                    name: '数据统计',
+                    name: '日志管理',
                     router: {
-                        name: 'statistics_order'
+                        name: 'log_list'
                     }
                 },
                 childNode: {
-                    name: '会员统计',
-                    desc: '主要用于会员的查看及统计',
+                    name: '日志列表',
+                    desc: '主要用日志的查看及管理',
                     router: {
-                        name: 'statistics_vip'
+                        name: 'log_list'
                     }
                 }
             }

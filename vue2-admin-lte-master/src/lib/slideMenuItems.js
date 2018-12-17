@@ -14,15 +14,23 @@ module.exports = [
         },
         root: [1,2,3,5,6,7,8]
     },
-    //{
-    //    type: 'item',
-    //    icon: 'fa fa-home',
-    //    name: '设备分布',
-    //    router: {
-    //        name: 'map_list'
-    //    },
-    //    root: [1,2,3,5,6,7,8]
-    //},
+    {
+        type: 'tree',
+        icon: 'fa fa-users',
+        name: '影院地图统计',
+        root: [1,2,3,5,6,7,8],
+        items: [
+            {
+                type: 'item',
+                icon: 'fa fa-circle-o',
+                name: '影院地图',
+                router: {
+                    name: 'map_list'
+                },
+                root: [1,2,3,5,6,7,8]
+            }
+        ]
+    },
     {
         type: 'tree',
         icon: 'fa fa-users',
@@ -37,7 +45,25 @@ module.exports = [
                     name: 'agent_list'
                 },
                 root: [1,2,3,5,6,7,8]
-            }
+            },
+            {
+                type: 'item',
+                icon: 'fa fa-circle-o',
+                name: '我的代理商',
+                router: {
+                    name: 'agent_mine'
+                },
+                root: [1,2,3,5,6,7,8]
+            },
+            {
+                type: 'item',
+                icon: 'fa fa-circle-o',
+                name: '代理商审核',
+                router: {
+                    name: 'agent_check'
+                },
+                root: [1,2,3,5,6,7,8]
+            },
         ]
     },
     {
@@ -54,21 +80,13 @@ module.exports = [
                     name: 'cinema_list'
                 },
                 root: [1,2,3,5,6,7,8]
-            }
-        ]
-    },
-    {
-        type: 'tree',
-        icon: 'fa fa-caret-square-o-right text-lg',
-        name: '影厅管理',
-        root: [1,2,3,5,6,7,8],
-        items: [
+            },
             {
                 type: 'item',
                 icon: 'fa fa-circle-o',
-                name: '影厅列表',
+                name: '影院审核',
                 router: {
-                    name: 'movieHall_list'
+                    name: 'cinema_check'
                 },
                 root: [1,2,3,5,6,7,8]
             }
@@ -76,81 +94,21 @@ module.exports = [
     },
     {
         type: 'item',
-        icon: 'fa fa-circle-o-notch',
-        name: 'NAS影片同步',
+        icon: 'fa fa-home',
+        name: '区域管理',
         router: {
-            name: 'sync'
+            name: 'region_list'
         },
         root: [1,2,3,5,6,7,8]
     },
-    //{
-    //    type: 'tree',
-    //    icon: 'fa fa-podcast',
-    //    name: '播放设备管理',
-    //    root: [1,2,3,5,6,7,8],
-    //    items: [
-    //        {
-    //            type: 'item',
-    //            icon: 'fa fa-circle-o',
-    //            name: '播放设备列表',
-    //            router: {
-    //                name: 'equipment_list'
-    //            },
-    //            root: [1,2,3,5,6,7,8]
-    //        },
-    //        {
-    //            type: 'item',
-    //            icon: 'fa fa-circle-o',
-    //            name: '厂商管理',
-    //            router: {
-    //                name: 'manufacturer_list'
-    //            },
-    //            root: [1,2,3,5,6,7,8]
-    //        },
-    //        {
-    //            type: 'item',
-    //            icon: 'fa fa-circle-o',
-    //            name: '型号管理',
-    //            router: {
-    //                name: 'model_list'
-    //            },
-    //            root: [1,2,3,5,6,7,8]
-    //        }
-    //    ]
-    //},
     {
-        type: 'tree',
-        icon: 'fa fa-list-alt',
-        name: '订单管理',
-        root: [1,2,3,5,6,7,8],
-        items: [
-            {
-                type: 'item',
-                icon: 'fa fa-circle-o',
-                name: '订单列表',
-                router: {
-                    name: 'order_list'
-                },
-                root: [1,2,3,5,6,7,8]
-            }
-        ]
-    },
-    {
-        type: 'tree',
-        icon: 'fa fa-gg',
-        name: '财务管理',
-        root: [1,2,3,5,6,7,8],
-        items: [
-            {
-                type: 'item',
-                icon: 'fa fa-circle-o',
-                name: '收入统计',
-                router: {
-                    name: 'financial_list'
-                },
-                root: [1,2,3,5,6,7,8]
-            }
-        ]
+        type: 'item',
+        icon: 'fa fa-home',
+        name: '城市管理',
+        router: {
+            name: 'city_list'
+        },
+        root: [1,2,3,5,6,7,8]
     },
     {
         type: 'tree',
@@ -161,110 +119,41 @@ module.exports = [
             {
                 type: 'item',
                 icon: 'fa fa-circle-o',
-                name: '订单统计',
+                name: '代理商统计',
                 router: {
-                    name: 'statistics_order'
+                    name: 'statistics_agent'
                 },
                 root: [1,2,3,5,6,7,8]
             },
             {
                 type: 'item',
                 icon: 'fa fa-circle-o',
-                name: '会员统计',
+                name: '影院统计',
                 router: {
-                    name: 'statistics_vip'
+                    name: 'statistics_cinema'
                 },
                 root: [1,2,3,5,6,7,8]
             },
             {
                 type: 'item',
                 icon: 'fa fa-circle-o',
-                name: '设备统计',
+                name: '播放统计',
                 router: {
-                    name: 'statistics_equipment'
+                    name: 'statistics_play'
                 },
                 root: [1,2,3,5,6,7,8]
             },
             {
                 type: 'item',
                 icon: 'fa fa-circle-o',
-                name: '影厅统计',
+                name: '影片统计',
                 router: {
-                    name: 'statistics_movieHall'
+                    name: 'statistics_film'
                 },
                 root: [1,2,3,5,6,7,8]
             }
         ]
     },
-    //{
-    //    type: 'tree',
-    //    icon: 'fa fa-film',
-    //    name: '影片库管理',
-    //    root: [1,2,3,5,6,7,8],
-    //    items: [
-    //        {
-    //            type: 'item',
-    //            icon: 'fa fa-circle-o',
-    //            name: '影片库列表',
-    //            router: {
-    //                name: 'films_list'
-    //            },
-    //            root: [1,2,3,5,6,7,8]
-    //        },
-    //    ]
-    //},
-    //{
-    //    type: 'tree',
-    //    icon: 'fa fa-gamepad',
-    //    name: '控制设备管理',
-    //    root: [1,2,3,5,6,7,8],
-    //    items: [
-    //        {
-    //            type: 'item',
-    //            icon: 'fa fa-circle-o',
-    //            name: '物联网网关管理',
-    //            router: {
-    //                name: 'control_gateway'
-    //            },
-    //            root: [1,2,3,5,6,7,8]
-    //        },
-    //        {
-    //            type: 'item',
-    //            icon: 'fa fa-circle-o',
-    //            name: 'NAS服务器',
-    //            router: {
-    //                name: 'control_nas'
-    //            },
-    //            root: [1,2,3,5,6,7,8]
-    //        }
-    //    ]
-    //},
-    //{
-    //    type: 'tree',
-    //    icon: 'fa fa-bell-o',
-    //    name: '消息管理',
-    //    root: [1,2,3,5,6,7,8],
-    //    items: [
-    //        {
-    //            type: 'item',
-    //            icon: 'fa fa-circle-o',
-    //            name: '消息列表',
-    //            router: {
-    //                name: 'news_list'
-    //            },
-    //            root: [1,2,3,5,6,7,8]
-    //        },
-    //        //{
-    //        //    type: 'item',
-    //        //    icon: 'fa fa-circle-o',
-    //        //    name: '发布消息',
-    //        //    router: {
-    //        //        name: 'news_add'
-    //        //    },
-    //        //    root: [1,2,3,5,6,7,8]
-    //        //}
-    //    ]
-    //},
     {
         type: 'tree',
         icon: 'fa fa-file-text-o',
@@ -282,90 +171,56 @@ module.exports = [
             }
         ]
     },
-    {
-        type: 'tree',
-        icon: 'fa fa-user-circle-o',
-        name: '账号管理',
-        root: [1,2,3,5,6,7,8],
-        items: [
-            {
-                type: 'item',
-                icon: 'fa fa-circle-o',
-                name: '个人配置',
-                router: {
-                    name: 'account_personal'
-                },
-                root: [1,2,3,5,6,7,8]
-            },
-            {
-                type: 'item',
-                icon: 'fa fa-circle-o',
-                name: '管理账号列表',
-                router: {
-                    name: 'account_list'
-                },
-                root: [1,2,3,5,6,7,8]
-            }
-        ]
-    },
-    {
-        type: 'tree',
-        icon: 'fa fa-registered',
-        name: '权限管理',
-        root: [1,2,3,5,6,7,8],
-        items: [
-            {
-                type: 'item',
-                icon: 'fa fa-circle-o',
-                name: '规则列表',
-                router: {
-                    name: 'jurisdiction_list'
-                },
-                root: [1,2,3,5,6,7,8]
-            },
-            {
-                type: 'item',
-                icon: 'fa fa-circle-o',
-                name: '用户组管理',
-                router: {
-                    name: 'account_group'
-                },
-                root: [1,2,3,5,6,7,8]
-            }
-        ]
-    },
-    {
-        type: 'tree',
-        icon: 'fa fa-diamond',
-        name: '会员管理',
-        root: [1,2,3,5,6,7,8],
-        items: [
-            {
-                type: 'item',
-                icon: 'fa fa-circle-o',
-                name: '会员列表',
-                router: {
-                    name: 'vip_list'
-                },
-                root: [1,2,3,5,6,7,8]
-            }
-        ]
-    },
     //{
     //    type: 'tree',
-    //    icon: 'fa fa-cubes',
-    //    name: 'kdm管理',
+    //    icon: 'fa fa-user-circle-o',
+    //    name: '账号管理',
     //    root: [1,2,3,5,6,7,8],
     //    items: [
     //        {
     //            type: 'item',
     //            icon: 'fa fa-circle-o',
-    //            name: 'kdm列表',
+    //            name: '个人配置',
     //            router: {
-    //                name: 'kdmnew_list'
+    //                name: 'account_personal'
+    //            },
+    //            root: [1,2,3,5,6,7,8]
+    //        },
+    //        {
+    //            type: 'item',
+    //            icon: 'fa fa-circle-o',
+    //            name: '管理账号列表',
+    //            router: {
+    //                name: 'account_list'
     //            },
     //            root: [1,2,3,5,6,7,8]
     //        }
     //    ]
     //},
+    //{
+    //    type: 'tree',
+    //    icon: 'fa fa-registered',
+    //    name: '权限管理',
+    //    root: [1,2,3,5,6,7,8],
+    //    items: [
+    //        {
+    //            type: 'item',
+    //            icon: 'fa fa-circle-o',
+    //            name: '规则列表',
+    //            router: {
+    //                name: 'jurisdiction_list'
+    //            },
+    //            root: [1,2,3,5,6,7,8]
+    //        },
+    //        {
+    //            type: 'item',
+    //            icon: 'fa fa-circle-o',
+    //            name: '用户组管理',
+    //            router: {
+    //                name: 'account_group'
+    //            },
+    //            root: [1,2,3,5,6,7,8]
+    //        }
+    //    ]
+    //}
 ]
