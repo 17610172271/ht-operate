@@ -16,7 +16,7 @@ module.exports = [
     },
     {
         type: 'tree',
-        icon: 'fa fa-users',
+        icon: 'fa fa-globe',
         name: '影院地图统计',
         root: [1,2,3,5,6,7,8],
         items: [
@@ -92,24 +92,24 @@ module.exports = [
             }
         ]
     },
-    {
-        type: 'item',
-        icon: 'fa fa-home',
-        name: '区域管理',
-        router: {
-            name: 'region_list'
-        },
-        root: [1,2,3,5,6,7,8]
-    },
-    {
-        type: 'item',
-        icon: 'fa fa-home',
-        name: '城市管理',
-        router: {
-            name: 'city_list'
-        },
-        root: [1,2,3,5,6,7,8]
-    },
+    //{
+    //    type: 'item',
+    //    icon: 'fa fa-ravelry',
+    //    name: '区域管理',
+    //    router: {
+    //        name: 'region_list'
+    //    },
+    //    root: [1,2,3,5,6,7,8]
+    //},
+    //{
+    //    type: 'item',
+    //    icon: 'fa fa-hospital-o',
+    //    name: '城市管理',
+    //    router: {
+    //        name: 'city_list'
+    //    },
+    //    root: [1,2,3,5,6,7,8]
+    //},
     {
         type: 'tree',
         icon: 'fa fa-bar-chart',
@@ -171,56 +171,47 @@ module.exports = [
             }
         ]
     },
-    //{
-    //    type: 'tree',
-    //    icon: 'fa fa-user-circle-o',
-    //    name: '账号管理',
-    //    root: [1,2,3,5,6,7,8],
-    //    items: [
-    //        {
-    //            type: 'item',
-    //            icon: 'fa fa-circle-o',
-    //            name: '个人配置',
-    //            router: {
-    //                name: 'account_personal'
-    //            },
-    //            root: [1,2,3,5,6,7,8]
-    //        },
-    //        {
-    //            type: 'item',
-    //            icon: 'fa fa-circle-o',
-    //            name: '管理账号列表',
-    //            router: {
-    //                name: 'account_list'
-    //            },
-    //            root: [1,2,3,5,6,7,8]
-    //        }
-    //    ]
-    //},
-    //{
-    //    type: 'tree',
-    //    icon: 'fa fa-registered',
-    //    name: '权限管理',
-    //    root: [1,2,3,5,6,7,8],
-    //    items: [
-    //        {
-    //            type: 'item',
-    //            icon: 'fa fa-circle-o',
-    //            name: '规则列表',
-    //            router: {
-    //                name: 'jurisdiction_list'
-    //            },
-    //            root: [1,2,3,5,6,7,8]
-    //        },
-    //        {
-    //            type: 'item',
-    //            icon: 'fa fa-circle-o',
-    //            name: '用户组管理',
-    //            router: {
-    //                name: 'account_group'
-    //            },
-    //            root: [1,2,3,5,6,7,8]
-    //        }
-    //    ]
-    //}
+    {
+        type: 'tree',
+        icon: 'fa fa-user-circle-o',
+        name: '账号管理',
+        root: [1,2,3,5,6,7,8],
+        items: [
+            {
+                type: 'item',
+                icon: 'fa fa-circle-o',
+                name: '管理账号列表',
+                router: {
+                    name: 'account_list'
+                },
+                root: [1,2,3,5,6,7,8]
+            }
+        ]
+    },
+    {
+        type: 'tree',
+        icon: 'fa fa-registered',
+        name: '权限管理',
+        root: [1,2,3,5,6,7,8],
+        items: [
+            {
+                type: 'item',
+                icon: 'fa fa-circle-o',
+                name: '规则列表',
+                router: {
+                    name: 'jurisdiction_list'
+                },
+                root: [1,2,3,5,6,7,8]
+            },
+            {
+                type: 'item',
+                icon: 'fa fa-circle-o',
+                name: '用户组管理',
+                router: {
+                    name: 'account_group'
+                },
+                root: [1,2,3,5,6,7,8]
+            }
+        ]
+    }
 ]

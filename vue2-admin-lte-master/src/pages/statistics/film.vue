@@ -1,6 +1,6 @@
 <template>
     <div class="">
-        <div class="p-lg appli-container">
+        <div class="p-lg">
             <sub-header :list="subNavList"></sub-header>
             <div class="page-container">
                 <div class="m-t-sm">
@@ -20,14 +20,14 @@
                 parentNode: {
                     name: '数据统计',
                     router: {
-                        name: 'statistics_order'
+                        name: 'statistics_agent'
                     }
                 },
                 childNode: {
-                    name: '会员统计',
-                    desc: '主要用于会员的查看及统计',
+                    name: '影片统计',
+                    desc: '主要用于影片的查看及统计',
                     router: {
-                        name: 'statistics_vip'
+                        name: 'statistics_film'
                     }
                 }
             }

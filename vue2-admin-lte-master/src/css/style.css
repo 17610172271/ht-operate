@@ -407,6 +407,10 @@ textarea {
     font-size: 22px;
 }
 
+.text-30 {
+    font-size: 30px;
+}
+
 .text-40 {
     font-size: 40px;
 }
@@ -757,6 +761,9 @@ textarea {
 }
 .bg-qing {
     background-color: #77d1f5;
+}
+.bg-dark {
+    background-color: #314659;
 }
 /*.bg-red1 {
   background-color: #FF2121;
@@ -1118,6 +1125,10 @@ a:hover .fa-edit {
 
 .link {
     color: #72afd2;
+}
+
+.chart-container {
+    height: 300px;
 }
 /*操作图标颜色*/
 @media (max-width: 768px) {

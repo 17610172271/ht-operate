@@ -40,6 +40,15 @@ export  const cinema = {
     agent:'/api/v1/cinema/get_region_agent',   //获取院线列表
     getAllList: '/api/v1/cinema/get_cinema', // 获取全部影院列表
     status: '/api/v1/cinema/device', // 影院设备状态
+    map: '/api/v1/statistics/cinemaMap', // 影院地图列表
+    mapDetail: '/api/v1/statistics/cinemaMapDetail', // 影院地图详情
+}
+
+// 统计
+export const statistics = {
+    agent: '/api/v1/statistics/agent', // 代理商统计
+    cinema: '/api/v1/statistics/cinema', // 影院统计
+    play: '/api/v1/statistics/play', // 播放统计
 }
 
 // 首页
@@ -47,10 +56,43 @@ export const home = {
     home: '/api/v1/statistics/index' ,
 }
 
+// 管理员模块
+export  const account = {
+    list: '/api/v1/admin/list', // 管理员列表
+    detail: '/api/v1/admin/detail', // 管理员详情
+    add:'/api/v1/admin/add',  //添加管理员
+    edit:'/api/v1/admin/edit' ,   //编辑管理员
+    delete:'/api/v1/admin/del',  //删除管理员
+    disable:'/api/v1/admin/stop',   //禁用管理员
+    password:'/api/v1/admin/editpwd',   //密码修改
+    group:'/api/v1/group/list',   //用户组列表
+    groupDetail: '/api/v1/group/detail', // 用户组详情
+    useradd:'/api/v1/group/add',   //添加用户组
+    useredit:'/api/v1/group/edit',   //编辑用户组
+    userdeldte:'/api/v1/group/del',  // 删除用户组
+    getGroups: 'api/v1/group/getGroups', // 获取父分组
+    getRule: 'api/v1/authRule/authRuleNode', // 获取规则
+    getRight: '/api/v1/admin/getMenu', // 获取菜单权限
+    childGroup: '/api/v1/admin/childrenGroupsList', // 获取子用户组
+}
+
+// 规则管理
+export const authrule = {
+    list: '/api/v1/authrule/list', // 规则列表
+    add: '/api/v1/AuthRule/add', // 规则添加
+    edit: '/api/v1/AuthRule/edit', // 规则编辑
+    del: '/api/v1/AuthRule/del', //规则删除
+    rule:'/api/v1/authRule/authRuleList',  //规则选项列表
+    detail:'/api/v1/authRule/detail'  //规则详情
+}
+
 export default {
     BASE_URL,
     common,
     home,
     cinema,
-    agent
-    }
+    agent,
+    statistics,
+    account,
+    authrule
+}

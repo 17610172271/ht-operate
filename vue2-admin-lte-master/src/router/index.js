@@ -166,6 +166,37 @@ const router = new Router({
                     ]
                 },
                 {
+                    path: '/account',
+                    component: rs('account/index'),
+                    meta: {requreAuth: true},
+                    redirect: '/account/list',
+                    children: [
+                        {
+                            path: 'list',
+                            name: 'account_list',
+                            component: rs('account/list')
+                        }
+                    ]
+                },
+                {
+                    path: '/jurisdiction',
+                    component: rs('jurisdiction/index'),
+                    meta: {requreAuth: true},
+                    redirect: '/jurisdiction/list',
+                    children: [
+                        {
+                            path: 'list',
+                            name: 'jurisdiction_list',
+                            component: rs('jurisdiction/list')
+                        },
+                        {
+                            path: 'group',
+                            name: 'account_group',
+                            component: rs('jurisdiction/group')
+                        }
+                    ]
+                },
+                {
                     path: '/login',
                     name: 'login',
                     component: rs('common/login')
