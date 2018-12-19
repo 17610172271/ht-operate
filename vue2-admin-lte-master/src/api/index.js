@@ -53,7 +53,7 @@ export const statistics = {
 
 // 首页
 export const home = {
-    home: '/api/v1/statistics/index' ,
+    home: '/api/v1/statistics/agentAdmin' ,
 }
 
 // 管理员模块
