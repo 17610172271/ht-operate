@@ -195,14 +195,14 @@
     .days-select-container {
         position: absolute;
         top: 22px;
-        right: 130px;
+        right: 30px;
         z-index: 999;
     }
     .month-select-container {
         position: absolute;
         width: 90px;
         top: 22px;
-        right: 30px;
+        right: 250px;
         z-index: 999;;
     }
     .home-data-item {

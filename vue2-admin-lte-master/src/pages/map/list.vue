@@ -16,7 +16,7 @@
                 </div>
             </div>
             <el-amap vid="amap" id="cinemaMap" style="height: 550px;" :zoom="zoom" :center="center" :dragEnable="true" :zoomEnable="true" v-loading="loading">
-                <el-amap-marker v-for="(marker, index) in markers" :key="marker.cinema_id" :position="marker.position" :events="events" :vid="marker.cinema_id"></el-amap-marker>
+                <el-amap-marker v-for="(marker, index) in markers" :draggable="true" :key="marker.cinema_id" :position="marker.position" :events="events" :vid="marker.cinema_id"></el-amap-marker>
                 <el-amap-info-window
                     v-for="(marker, index) in markers"
                     :position="marker.position"

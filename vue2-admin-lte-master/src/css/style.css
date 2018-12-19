@@ -848,6 +848,12 @@ textarea {
 .hiden {
     visibility: hidden;
 }
+.v-a-3 {
+    vertical-align: 3px;
+}
+.v-a--3 {
+    vertical-align: -3px;
+}
 /*flex*/
 .app-content-container > ul {
     display: flex;

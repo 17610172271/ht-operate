@@ -11,10 +11,13 @@
                     <div class="statistics-datas-item pull-left m-r-lg">
                         <h5 class="p-o-md">本周播放次数:</h5>
                         <div class="p-v-sm text-30 text-center">{{data.week_play}} 个</div>
+                        <p class="p-md" v-if="data.week_ratio"><span class="text-999">周环比 </span><span class="fa" :class="data.week_ratio>0?'fa-sort-up text-green v-a--3':'fa-sort-down text-red v-a-3'"></span> {{data.week_ratio}}%</p>
                     </div>
                     <div class="statistics-datas-item pull-left">
                         <h5 class="p-o-md">本月播放次数:</h5>
                         <div class="p-v-sm text-30 text-center">{{data.month_play}} 个</div>
+                        <p class="p-md" v-if="data.month_ratio"><span class="text-999">月环比 </span><span class="fa" :class="data.month_ratio>0?'fa-sort-up text-green v-a--3':'fa-sort-down text-red v-a-3'"></span> {{data.month_ratio}}%</p>
+
                     </div>
                 </div>
                 <div class="m-t-md">
