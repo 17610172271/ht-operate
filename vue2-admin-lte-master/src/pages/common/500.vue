@@ -1,17 +1,17 @@
 <template>
   <div class="login-container">
     <div class="login-bg" style="background-color: #edf1f4;"></div>
-<!--     <div class="tips-content">
-      <img src="../../../static/img/login/404.png" alt="" width="100%" height="100%">
-      <div class="tips-candle text-lg">
-        请 <a href="javascript:;" @click="refresh">刷新</a> 或 <a href="javascript:;" @click="goBack">返回上一级</a>
-      </div>
-    </div> -->
+    <!--     <div class="tips-content">
+          <img src="../../../static/img/login/404.png" alt="" width="100%" height="100%">
+          <div class="tips-candle text-lg">
+            请 <a href="javascript:;" @click="refresh">刷新</a> 或 <a href="javascript:;" @click="goBack">返回上一级</a>
+          </div>
+        </div> -->
     <div class="tips-content text-center">
       <img src="../../../static/img/login/500.gif" alt="">
       <div class="text-500-title">呃! 服务器君打瞌睡了......</div>
       <div class="m-t-sm tips-candle">错误代码: 500 (服务器错误)</div>
-      <div class="tips-candle m-t-sm">请 <a href="javascript:;" @click="refresh">刷新</a> 或 <a href="javascript:;" @click="goBack">返回上一级</a></div>
+      <div class="tips-candle m-t-sm">请前往 <a href="javascript:;" @click="goHome">首页</a> 或 <a href="javascript:;" @click="goBack">返回上一级</a></div>
     </div>
   </div>
 </template>
@@ -23,8 +23,8 @@
     components: {
     },
     methods: {
-      refresh () {
-        window.location.reload(true)
+      goHome () {
+        this.$router.replace({name: 'home'})
       },
       goBack () {
         this.$router.go(-1)

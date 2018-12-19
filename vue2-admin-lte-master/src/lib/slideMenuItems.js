@@ -3,7 +3,7 @@ module.exports = [
         type: 'item',
         isHeader: true,
         name: '',
-        root: [1,2,3,5,6,7,8]
+        root: [1,2,3,4,5,6,7,8]
     },
     {
         type: 'item',
@@ -12,13 +12,13 @@ module.exports = [
         router: {
             name: 'home'
         },
-        root: [1,2,3,5,6,7,8]
+        root: [1,2,3,4,5,6,7,8]
     },
     {
         type: 'tree',
         icon: 'fa fa-globe',
         name: '影院地图统计',
-        root: [1,2,3,5,6,7,8],
+        root: [1,2,3,4,5,6,7,8],
         items: [
             {
                 type: 'item',
@@ -27,7 +27,7 @@ module.exports = [
                 router: {
                     name: 'map_list'
                 },
-                root: [1,2,3,5,6,7,8]
+                root: [1,2,3,4,5,6,7,8]
             }
         ]
     },
@@ -35,7 +35,7 @@ module.exports = [
         type: 'tree',
         icon: 'fa fa-users',
         name: '代理商管理',
-        root: [1,2,3,5,6,7,8],
+        root: [1,2,3,4,5,6,7,8],
         items: [
             {
                 type: 'item',
@@ -44,7 +44,7 @@ module.exports = [
                 router: {
                     name: 'agent_list'
                 },
-                root: [1,2,3,5,6,7,8]
+                root: [1,2,3,4,5,6,7,8]
             },
             {
                 type: 'item',
@@ -53,7 +53,7 @@ module.exports = [
                 router: {
                     name: 'agent_mine'
                 },
-                root: [1,2,3,5,6,7,8]
+                root: [1,2,3,4,5,6,7,8]
             },
             {
                 type: 'item',
@@ -62,7 +62,7 @@ module.exports = [
                 router: {
                     name: 'agent_check'
                 },
-                root: [1,2,3,5,6,7,8]
+                root: [1,2,3,4,5,6,7,8]
             },
         ]
     },
@@ -70,7 +70,7 @@ module.exports = [
         type: 'tree',
         icon: 'fa fa-support',
         name: '影院管理',
-        root: [1,2,3,5,6,7,8],
+        root: [1,2,3,4,5,6,7,8],
         items: [
             {
                 type: 'item',
@@ -79,7 +79,7 @@ module.exports = [
                 router: {
                     name: 'cinema_list'
                 },
-                root: [1,2,3,5,6,7,8]
+                root: [1,2,3,4,5,6,7,8]
             },
             {
                 type: 'item',
@@ -88,7 +88,7 @@ module.exports = [
                 router: {
                     name: 'cinema_check'
                 },
-                root: [1,2,3,5,6,7,8]
+                root: [1,2,3,4,5,6,7,8]
             }
         ]
     },
@@ -99,7 +99,7 @@ module.exports = [
     //    router: {
     //        name: 'region_list'
     //    },
-    //    root: [1,2,3,5,6,7,8]
+    //    root: [1,2,3,4,5,6,7,8]
     //},
     //{
     //    type: 'item',
@@ -108,13 +108,13 @@ module.exports = [
     //    router: {
     //        name: 'city_list'
     //    },
-    //    root: [1,2,3,5,6,7,8]
+    //    root: [1,2,3,4,5,6,7,8]
     //},
     {
         type: 'tree',
         icon: 'fa fa-bar-chart',
         name: '数据统计',
-        root: [1,2,3,5,6,7,8],
+        root: [1,2,3,4,5,6,7,8],
         items: [
             {
                 type: 'item',
@@ -123,7 +123,7 @@ module.exports = [
                 router: {
                     name: 'statistics_agent'
                 },
-                root: [1,2,3,5,6,7,8]
+                root: [1,2,3,4,5,6,7,8]
             },
             {
                 type: 'item',
@@ -132,7 +132,7 @@ module.exports = [
                 router: {
                     name: 'statistics_cinema'
                 },
-                root: [1,2,3,5,6,7,8]
+                root: [1,2,3,4,5,6,7,8]
             },
             {
                 type: 'item',
@@ -141,7 +141,7 @@ module.exports = [
                 router: {
                     name: 'statistics_play'
                 },
-                root: [1,2,3,5,6,7,8]
+                root: [1,2,3,4,5,6,7,8]
             },
             {
                 type: 'item',
@@ -150,7 +150,7 @@ module.exports = [
                 router: {
                     name: 'statistics_film'
                 },
-                root: [1,2,3,5,6,7,8]
+                root: [1,2,3,4,5,6,7,8]
             }
         ]
     },
@@ -158,7 +158,7 @@ module.exports = [
         type: 'tree',
         icon: 'fa fa-file-text-o',
         name: '日志管理',
-        root: [1,2,3,5,6,7,8],
+        root: [1,2,3,4,5,6,7,8],
         items: [
             {
                 type: 'item',
@@ -167,7 +167,7 @@ module.exports = [
                 router: {
                     name: 'log_list'
                 },
-                root: [1,2,3,5,6,7,8]
+                root: [1,2,3,4,5,6,7,8]
             }
         ]
     },
@@ -175,7 +175,7 @@ module.exports = [
         type: 'tree',
         icon: 'fa fa-user-circle-o',
         name: '账号管理',
-        root: [1,2,3,5,6,7,8],
+        root: [1,2,3,4,5,6,7,8],
         items: [
             {
                 type: 'item',
@@ -184,7 +184,7 @@ module.exports = [
                 router: {
                     name: 'account_list'
                 },
-                root: [1,2,3,5,6,7,8]
+                root: [1,2,3,4,5,6,7,8]
             }
         ]
     },
@@ -192,7 +192,7 @@ module.exports = [
         type: 'tree',
         icon: 'fa fa-registered',
         name: '权限管理',
-        root: [1,2,3,5,6,7,8],
+        root: [1,2,3,4,5,6,7,8],
         items: [
             {
                 type: 'item',
@@ -201,7 +201,7 @@ module.exports = [
                 router: {
                     name: 'jurisdiction_list'
                 },
-                root: [1,2,3,5,6,7,8]
+                root: [1,2,3,4,5,6,7,8]
             },
             {
                 type: 'item',
@@ -210,7 +210,7 @@ module.exports = [
                 router: {
                     name: 'account_group'
                 },
-                root: [1,2,3,5,6,7,8]
+                root: [1,2,3,4,5,6,7,8]
             }
         ]
     }

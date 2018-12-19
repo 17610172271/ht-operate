@@ -86,6 +86,11 @@ export const authrule = {
     detail:'/api/v1/authRule/detail'  //规则详情
 }
 
+export const log = {
+    list: '/api/v1/log/list', // 列表
+    detail:'/api/v1/log/detail', //详情
+}
+
 export default {
     BASE_URL,
     common,
@@ -94,5 +99,6 @@ export default {
     agent,
     statistics,
     account,
-    authrule
+    authrule,
+    log
 }

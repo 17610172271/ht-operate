@@ -85,6 +85,11 @@
                                 }
                             })
                         })
+                    },
+                    dragend: (e) => {
+                        self.$nextTick(() => {
+                            console.log(e)
+                        })
                     }
                 },
                 events1: {
