@@ -1041,7 +1041,7 @@ a:hover .fa-edit {
 /*数据统计card*/
 .home-data-item {
     height: 80px;
-    padding: 14px 0px 0px 80px;
+    padding: 14px 10px 0px 80px;
     width: 100%;
     /*margin-right: 1.6%;*/
     display: inline-block;
