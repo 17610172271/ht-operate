@@ -1,5 +1,4 @@
 <template>
-    <!--代理商列表-->
     <div v-loading="loading">
         <div class="p-lg appli-container">
             <sub-header :list="subNavList"></sub-header>
@@ -42,7 +41,7 @@
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('代理商')!=-1" :title="item.agent_name">{{item.agent_name}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('创建时间')!=-1":title="item.create_time">{{item.create_time}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('审核时间')!=-1":title="item.check_time">{{item.check_time}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('状态')!=-1" :title="item.status_name" :class="item.status_name=='正常'?'text-green':'text-red'">{{item.status_name}}</li>
+                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('状态')!=-1" :title="item.status_name" :class="item.status_name=='正常'?'text-green':(item.status_name=='待审核'? 'text-orange':'text-red')">{{item.status_name}}</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1">
                                 <router-link :to="{name: 'cinema_check_detail',params: {id: item.id}}" href="javascript:;" class="link" @click.stop v-if="item.status_name=='待审核'">审核</router-link>
                                 <router-link :to="{name: 'cinema_detail', params: {id: item.id}}" href="javascript:;" class="link" @click.stop v-else>查看</router-link>
@@ -109,16 +108,16 @@
             page: 1,
             subNavList: {
                 parentNode: {
-                    name: '代理商管理',
+                    name: '影院管理',
                     router: {
                         name: 'cinema_list'
                     }
                 },
                 childNode: {
-                    name: '代理商列表',
-                    desc: '主要用代理商的查看及管理',
+                    name: '影院审核列表',
+                    desc: '主要用应用的审核管理',
                     router: {
-                        name: 'cinema_list'
+                        name: 'cinema_check'
                     }
                 }
             },
@@ -126,7 +125,7 @@
             searchOptions: [
                 {
                     type: 'text',
-                    name: '代理商名称',
+                    name: '影院名称',
                     value: ''
                 },
                 {
@@ -213,7 +212,7 @@
         },
         watch: {
             page (val) {
-                this.$router.replace({name: 'cinema_list', query: {page: val}})
+                this.$router.replace({name: 'cinema_check', query: {page: val}})
                 this.getList()
             },
             limit (val) {
