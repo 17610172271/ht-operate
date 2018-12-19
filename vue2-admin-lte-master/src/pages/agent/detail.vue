@@ -71,7 +71,9 @@
                     <div class="p-o-sm p-v-sm clear flex">
                         <div class="col-xs-12 col-md-6 clear p-v-sm">
                             <div class="col-xs-4 max-width-105 p-n text-right">合同:</div>
-                            <div class="col-xs-8"><a :href="data.agreement" target="_blank" class="link" v-if="data.agreement">查看详情</a></div>
+                            <div class="col-xs-8">
+                                <a v-for="(item, index) in data.contract" :href="item" target="_blank" class="link" v-if="data.contract" style="margin-right: 15px;">图片{{index + 1}}</a>
+                            </div>
                         </div>
                         <div class="col-xs-12 col-md-6 clear p-v-sm">
                             <div class="col-xs-4 max-width-105 p-n text-right">合同起止日期:</div>

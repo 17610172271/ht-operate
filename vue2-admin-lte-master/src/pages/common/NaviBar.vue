@@ -80,7 +80,7 @@
         },
         methods: {
             signOut () {
-                this.$http.get(api.user.logout).then(res => {
+                this.$http.get(api.common.logout).then(res => {
                 })
                 this.$router.replace({name: 'login'})
             },

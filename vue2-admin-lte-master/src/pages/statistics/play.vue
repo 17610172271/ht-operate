@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div class="m-t-md">
-                    <h5 class="border-bottom text-bold text-xxlg p-v-sm">区域影院播放统计统计</h5>
+                    <h5 class="border-bottom text-bold text-xxlg p-v-sm">区域影院播放统计</h5>
                     <div class="clear flex p-v-md">
                         <div id="agentNum-chart" class="chart-container col-xs-12 col-lg-8 p-n"></div>
                         <div class="col-xs-12 col-lg-3 p-n" style="max-width: 320px;">
@@ -26,7 +26,7 @@
                             <div class="rank-item clear flex" v-for="(item, index) in rankList">
                                 <div class="rank-num col-xs-3 p-n m-t-sm" style="max-width: 20px;" :class="{'bg-dark text-white': index < 3}">{{index + 1}}</div>
                                 <div class="col-xs-6 p-n over-omit"> {{item.region_name}}</div>
-                                <div class="col-xs-3 p-n text-center" style="padding: 0 10px;">{{item.agent_num}}</div>
+                                <div class="col-xs-3 p-n text-center" style="padding: 0 10px;">{{item.play_num}}</div>
                             </div>
                         </div>
                     </div>
@@ -100,7 +100,7 @@
                         let column1 = []
                         this.data.region_cinema_film_play.map(val => {
                             data1.push(val.film_play_num)
-                            column1.push(val.cienma_name)
+                            column1.push(val.cinema_name)
                         })
                         // 画图
                         this.drawChart('agentNum-chart', '各区域影院统计', data, column)
@@ -121,6 +121,7 @@
                                 value: val.id
                             }
                         })
+                        this.region_id = this.regionList[0].value
                     } else {
                         this.regionList = []
                     }

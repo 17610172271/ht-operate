@@ -816,7 +816,9 @@ textarea {
 .text-orange {
     color: #ff834d;
 }
-
+.text-999 {
+    color: #999;
+}
 .block {
     display: block;
 }
@@ -843,7 +845,9 @@ textarea {
     background-color: #f5f6f7;
     border: 1px dashed #cecfcf;
 }
-
+.hiden {
+    visibility: hidden;
+}
 /*flex*/
 .app-content-container > ul {
     display: flex;

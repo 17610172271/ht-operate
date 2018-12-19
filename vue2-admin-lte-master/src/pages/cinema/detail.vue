@@ -71,35 +71,67 @@
                     </div>
                 </div>
             </div>
-            <div>
-                <h5 class="border-bottom text-xxlg text-bold p-b-sm">影厅信息</h5>
-                <div class="lk-table">
-                    <ul class="table-thead clear">
-                        <li class="col-xs-1 p-n" style="max-width: 60px;">序号</li>
-                        <li class="col-xs-3 p-n">影厅名称</li>
-                        <li class="col-xs-2 p-n">服务器(NAS)</li>
-                        <li class="col-xs-2 p-n">服务器(NAS)编号</li>
-                        <li class="col-xs-2 p-n">放映机</li>
-                        <li class="col-xs-2 p-n">放映机序列号</li>
-                        <li class="col-xs-2 p-n">网关</li>
-                        <li class="col-xs-2 p-n">网关编号</li>
-                        <li class="col-xs-2 p-n">创建时间</li>
-                        <li class="col-xs-2 p-n">状态</li>
-                    </ul>
-                    <ul class="table-tbody clear" v-for="(item, index) in data.hall_list" v-if="data.hall_list.length>0">
-                        <li class="col-xs-1 p-n" style="max-width: 60px;">{{index + 1}}</li>
-                        <li class="col-xs-3 p-n over-omit" :title="item.name">{{item.name}}</li>
-                        <li class="col-xs-2 p-n over-omit" :title="item.nas_name">{{item.nas_name}}</li>
-                        <li class="col-xs-2 p-n over-omit" :title="item.nas_code">{{item.nas_code}}</li>
-                        <li class="col-xs-2 p-n over-omit" :title="item.play_name">{{item.play_name}}</li>
-                        <li class="col-xs-2 p-n over-omit" :title="item.play_code">{{item.play_code}}</li>
-                        <li class="col-xs-2 p-n over-omit" :title="item.gateway_name">{{item.gateway_name}}</li>
-                        <li class="col-xs-2 p-n over-omit" :title="item.gateway_code">{{item.gateway_code}}</li>
-                        <li class="col-xs-2 p-n over-omit" :title="item.create_time">{{item.create_time}}</li>
-                        <li class="col-xs-2 p-n over-omit" :class="item.status_name=='正常'?'text-green':'text-orange'">{{item.status_name}}</li>
-                    </ul>
-                    <p class="p-v-sm" v-if="data.hall_list.length<=0">暂无影厅信息</p>
-                </div>
+            <div class="m-t-lg">
+                <el-tabs v-model="activeName">
+                    <el-tab-pane label="影厅信息" name="first">
+                        <div class="p-sm">
+                            <div class="lk-table">
+                                <ul class="table-thead clear">
+                                    <li class="col-xs-1 p-n" style="max-width: 60px;">序号</li>
+                                    <li class="col-xs-3 p-n">影厅名称</li>
+                                    <li class="col-xs-2 p-n">服务器(NAS)</li>
+                                    <li class="col-xs-2 p-n">服务器(NAS)编号</li>
+                                    <li class="col-xs-2 p-n">放映机</li>
+                                    <li class="col-xs-2 p-n">放映机序列号</li>
+                                    <li class="col-xs-2 p-n">网关</li>
+                                    <li class="col-xs-2 p-n">网关编号</li>
+                                    <li class="col-xs-2 p-n">创建时间</li>
+                                    <li class="col-xs-2 p-n">状态</li>
+                                </ul>
+                                <ul class="table-tbody clear" v-for="(item, index) in data.hall_list" v-if="data.hall_list.length>0">
+                                    <li class="col-xs-1 p-n" style="max-width: 60px;">{{index + 1}}</li>
+                                    <li class="col-xs-3 p-n over-omit" :title="item.name">{{item.name}}</li>
+                                    <li class="col-xs-2 p-n over-omit" :title="item.nas_name">{{item.nas_name}}</li>
+                                    <li class="col-xs-2 p-n over-omit" :title="item.nas_code">{{item.nas_code}}</li>
+                                    <li class="col-xs-2 p-n over-omit" :title="item.play_name">{{item.play_name}}</li>
+                                    <li class="col-xs-2 p-n over-omit" :title="item.play_code">{{item.play_code}}</li>
+                                    <li class="col-xs-2 p-n over-omit" :title="item.gateway_name">{{item.gateway_name}}</li>
+                                    <li class="col-xs-2 p-n over-omit" :title="item.gateway_code">{{item.gateway_code}}</li>
+                                    <li class="col-xs-2 p-n over-omit" :title="item.create_time">{{item.create_time}}</li>
+                                    <li class="col-xs-2 p-n over-omit" :class="item.status_name=='正常'?'text-green':'text-orange'">{{item.status_name}}</li>
+                                </ul>
+                                <p class="p-v-sm" v-if="data.hall_list.length<=0">暂无影厅信息</p>
+                            </div>
+                        </div>
+                    </el-tab-pane>
+                    <el-tab-pane label="设备申请单" name="second">
+                        <div class="p-sm">
+                            <div class="lk-table">
+                                <ul class="table-thead clear">
+                                    <li class="col-xs-1 p-n" style="max-width: 60px;">序号</li>
+                                    <li class="col-xs-2 p-n">申请单编号</li>
+                                    <li class="col-xs-2 p-n">申请日期</li>
+                                    <li class="col-xs-1 p-n">申请数量</li>
+                                    <li class="col-xs-1 p-n">负责人</li>
+                                    <li class="col-xs-2 p-n">联系方式</li>
+                                    <li class="col-xs-2 p-n">审核时间</li>
+                                    <li class="col-xs-1 p-n">状态</li>
+                                </ul>
+                                <ul class="table-tbody clear" v-for="(item, index) in data.apply_list" v-if="data.apply_list.length>0">
+                                    <li class="col-xs-1 p-n" style="max-width: 60px;">{{index + 1}}</li>
+                                    <li class="col-xs-2 p-n over-omit" :title="item.code">{{item.code}}</li>
+                                    <li class="col-xs-2 p-n over-omit" :title="item.create_time">{{item.create_time}}</li>
+                                    <li class="col-xs-1 p-n over-omit" :title="item.num">{{item.num}}</li>
+                                    <li class="col-xs-1 p-n over-omit" :title="item.leader">{{item.leader}}</li>
+                                    <li class="col-xs-2 p-n over-omit" :title="item.leader_phone">{{item.leader_phone}}</li>
+                                    <li class="col-xs-2 p-n over-omit" :title="item.check_time">{{item.check_time}}</li>
+                                    <li class="col-xs-1 p-n over-omit" :class="item.status_name=='已完成'?'text-green':'text-orange'">{{item.status_name}}</li>
+                                </ul>
+                                <p class="p-v-sm" v-if="data.apply_list.length<=0">暂无申请单信息</p>
+                            </div>
+                        </div>
+                    </el-tab-pane>
+                </el-tabs>
             </div>
         </div>
     </div>
@@ -110,9 +142,11 @@
     export default {
         data: () => ({
             data: {
-                hall_list: []
+                hall_list: [],
+                apply_list: []
             },
             loading: false,
+            activeName: 'first'
         }),
         methods: {
             getData () {
@@ -128,6 +162,7 @@
                     }, 500)
                     if (res.data.code === 1) {
                         this.data = res.data.data
+                        if (this.data.status_name !== '正常') this.activeName = 'second'
                         this.data.hall_list = res.data.data.hall_list.map(val => {
                             return {
                                 ...val,
@@ -155,5 +190,18 @@
     }
 </script>
 <style scoped>
-
+    .lk-table .table-tbody {
+        border-bottom: none;
+    }
+    .lk-table > ul {
+        background-color: #fff;
+    }
+    .lk-table .table-thead li,
+    .lk-table .table-tbody li {
+        border-right: none;
+    }
+    .lk-table {
+        border: none;
+        border-top: 1px solid #eaeaea;
+    }
 </style>

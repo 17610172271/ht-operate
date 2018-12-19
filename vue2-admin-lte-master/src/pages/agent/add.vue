@@ -15,7 +15,7 @@
                     <div class="clear m-b-sm flex">
                         <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;"><span class="text-red">*</span>所属区域:</div>
                         <div class="col-xs-9">
-                            <el-select v-model="addInfo.region_id" :class="{'border-red': regionError}" @visible-change="statusChange" style="width: 100%;max-width: 366px;" placeholder="请选择所属区域">
+                            <el-select v-model="addInfo.region_id" multiple :class="{'border-red': regionError}" @visible-change="statusChange" style="width: 100%;max-width: 366px;" placeholder="请选择所属区域">
                                 <el-option
                                     v-for="item in regionList"
                                     :key="item.id"
@@ -232,7 +232,7 @@
             addInfo: {
                 cityLink: '',
                 name: '',
-                region_id: '',
+                region_id: [],
                 province_id: '',
                 city_id: '',
                 county_id: '',
@@ -312,6 +312,10 @@
                     }, 500)
                     if (res.data.code === 1) {
                         this.addInfo = res.data.data
+                        this.addInfo.region_id = this.addInfo.region_id.split(',').map(val => {
+                            return parseInt(val)
+                        })
+                        this.addInfo.pay_id = this.addInfo.pay_id ? this.addInfo.pay_id : ''
                         this.$set(this.addInfo, 'cityLink', this.addInfo.province_id + '/' + this.addInfo.city_id + '/' + this.addInfo.county_id)
                         this.fileList = this.addInfo.contract.map(val => {
                             return {
@@ -414,7 +418,7 @@
                 if (this.$route.name.indexOf('edit') > 0) {
                     this.$http.post(api.agent.edit, {
                         ...this.addInfo,
-                        region_id: this.addInfo.region_id,
+                        region_id: this.addInfo.region_id.join(','),
                         province_id: this.addInfo.cityLink.split('/')[0],
                         city_id: this.addInfo.cityLink.split('/')[1],
                         county_id: this.addInfo.cityLink.split('/')[2],
@@ -430,7 +434,7 @@
                 } else {
                     this.$http.post(api.agent.add, {
                         ...this.addInfo,
-                        region_id: this.addInfo.region_id,
+                        region_id: this.addInfo.region_id.join(','),
                         province_id: this.addInfo.cityLink.split('/')[0],
                         city_id: this.addInfo.cityLink.split('/')[1],
                         county_id: this.addInfo.cityLink.split('/')[2],
@@ -446,7 +450,7 @@
                 }
             },
             validateRegion () {
-                this.regionError = this.addInfo.region_id ? false : true
+                this.regionError = this.addInfo.region_id && this.addInfo.region_id.length > 0 ? false : true
             },
             validateName () {
                 this.nameError = this.addInfo.name ? false : true

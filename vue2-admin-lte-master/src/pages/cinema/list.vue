@@ -7,7 +7,6 @@
                 <div class="page-toolbar clear m-t-sm">
                     <search-ipts :options="searchOptions" @submit="doSearch" v-show="searchShow"></search-ipts>
                     <div class="pull-left toolbar-candle clear">
-                        <router-link :to="{name: 'agent_add'}" href="javascript:;" title="添加" class="app-add btn bg-blue1 text-white"><i class="fa fa-plus-square"></i>添加</router-link>
                         <div class="app-refresh btn bg-gray1" title="刷新" @click="refresh"><i
                             class="fa fa-refresh"></i></div>
                     </div>
@@ -44,11 +43,11 @@
                             <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('影厅数量')!=-1":title="item.hall_num">{{item.hall_num}}</li>
                             <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('影院设备')!=-1":title="item.device_num">{{item.device_num}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('创建时间')!=-1":title="item.create_time">{{item.create_time}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('状态')!=-1" :title="item.status_name" :class="item.status==1?'text-green':'text-red'">{{item.status_name}}</li>
+                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('状态')!=-1" :title="item.status_name" :class="item.status_name=='正常'?'text-green':'text-red'">{{item.status_name}}</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 120px;">
                                 <router-link :to="{name: 'cinema_detail', params: {id: item.id}}" href="javascript:;" class="link" @click.stop>查看</router-link>
                                 <router-link :to="{name: 'cinema_edit',params: {id: item.id}}" href="javascript:;" class="link" @click.stop>编辑</router-link>
-                                <a href="javascript:;" class="link" @click.stop="statusChange(item)">{{item.status==2 ? '启用' : '禁用'}}</a>
+                                <a href="javascript:;" class="link" @click.stop="statusChange(item)" :class="{'hiden': item.status_name=='待审核'}">{{item.status_name=='正常' ? '禁用' : '启用'}}</a>
                             </li>
                         </ul>
                         <ul class="table-tbody clear" v-if="data.items.length===0">
@@ -192,7 +191,7 @@
                 })
             },
             statusChange (item) {
-                this.$confirm(item.status === 2 ? '此操作将启用该影院, 是否继续?' : '此操作将禁用该影院, 是否继续?', '提示', {
+                this.$confirm(item.status_name === '正常' ? '此操作将禁用该影院, 是否继续?' : '此操作将启用该影院, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
@@ -200,7 +199,7 @@
                     this.$http.get(api.cinema.disable, {
                         params: {
                             id: item.id,
-                            status: item.status === 2 ? 1 : 2
+                            status: item.status_name === '正常' ? 2 : 1
                         }
                     }).then(res => {
                         if(res.data.code === 1) {
@@ -208,12 +207,10 @@
                                 type: 'success',
                                 message: '操作成功'
                             })
-                            if (item.status === 2) {
-                                item.status = 1
-                                item.status_name = '正常'
+                            if (item.status_name == '正常') {
+                                item.status_name = '已禁用'
                             } else {
-                                item.status = 2
-                                item.status_name = '失效'
+                                item.status_name = '正常'
                             }
                         } else {
                             this.$message({

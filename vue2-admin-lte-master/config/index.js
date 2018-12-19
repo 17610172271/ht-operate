@@ -28,12 +28,12 @@ module.exports = {
         assetsPublicPath: '/',
         proxyTable: {
             '/api': {
-                target: 'http://rap2api.taobao.org',
-                //target: 'http://xg_silo_api.net',
+                //target: 'http://rap2api.taobao.org',
+                target: 'http://xg_silo_api.net',
                 changeOrigin: true,
                 pathRewrite: {
-                    '^/api': '/app/mock/115071/api'
-                    //'^/api': '/api'
+                    //'^/api': '/app/mock/115071/api'
+                    '^/api': '/api'
                 }
             },
             '/uploads': {

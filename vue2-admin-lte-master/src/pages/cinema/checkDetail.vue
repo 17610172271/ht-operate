@@ -78,7 +78,7 @@
 <script type="text/ecmascript-6">
     import api from '@/api'
     import validate from '@/tools/validate'
-    import CitySelect from '@/components/citySelect'
+    import CitySelect from '@/components/citySelect1'
     export default {
         data: () => ({
             data: {

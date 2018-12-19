@@ -52,7 +52,10 @@
     import sort from '@/tools/sort'
     export default {
         data: () => ({
-            data: '',
+            data: {
+                region_cinema: [],
+                region_agent: []
+            },
             region_id: '',
             regionList: [],
             rankList: [],
@@ -117,6 +120,7 @@
                                 value: val.id
                             }
                         })
+                        this.region_id = this.regionList[0].value
                     } else {
                         this.regionList = []
                     }

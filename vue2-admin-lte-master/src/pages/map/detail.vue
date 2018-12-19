@@ -1,44 +1,44 @@
 <template>
-    <div class="p-lg appli-container">
-        <sub-header :list="subNavList"></sub-header>
-        <div class="page-container">
-            <div class="page-toolbar clear">
-                <div class="pull-left toolbar-candle clear">
-                    <div class="app-refresh btn bg-gray1" title="刷新" @click="refresh"><i class="fa fa-refresh"></i></div>
-                </div>
-            </div>
-            <div class="device-list m-t-md">
-                <div class="clear">
-                    <div v-for="item in data" class="col-xs-12 col-lg-6 clear" style="padding: 5px;">
-                        <div class="device-item">
-                            <h5 class="clear">
-                                <div class="pull-left">影厅名称: {{item.name}} 影厅号: {{item.code}}</div>
-                                <span class="pull-right status-container" :class="item.hall_status=='空闲中'?'bg-green':'bg-red'"></span>
-                            </h5>
-                            <div class="p-o-sm">
-                                <div class="clear m-t-md">
-                                    <div class="col-xs-4 p-n">代理商: {{item.agent_name}}</div>
-                                    <div class="col-xs-4 p-n">区域代理: {{item.region_agent_name}}</div>
-                                    <div class="col-xs-4 p-n">影院名称: {{item.cinema_name}}</div>
-                                </div>
-                                <div class="clear m-t-md">
-                                    <div class="col-xs-4 p-n">影厅: {{item.name}}</div>
-                                    <div class="col-xs-4 p-n">设备状态: {{item.device_status}}</div>
-                                    <div class="col-xs-4 p-n">影片名称: {{item.film_name}}</div>
-                                </div>
-                                <div class="m-t-md">播放时间： {{item.play_time}}</div>
-                                <div class="m-t-md">NAS服务器: {{item.nas_status}}</div>
-                                <ul class="device-status-container clear m-t-lg">
-                                    <li class="col-xs-1 p-n center" v-for="device in item.$device_info">
-                                        <div>{{device.device_name}}</div>
-                                        <div>{{device.status_name}}</div>
-                                    </li>
-                                </ul>
-                            </div>
+    <div class="bg-white">
+        <div class="p-md border-bottom relative">
+            <el-breadcrumb separator="/">
+                <el-breadcrumb-item :to="{name: 'home'}">首页</el-breadcrumb-item>
+                <el-breadcrumb-item :to="{name: 'map_list'}">影院地图统计</el-breadcrumb-item>
+                <el-breadcrumb-item>影院详情</el-breadcrumb-item>
+            </el-breadcrumb>
+            <a href="javascript:;" class="btn bg-blue1 text-white btn-back" @click="goBack">返回</a>
+        </div>
+        <div class="p-o-lg p-v-sm" style="padding-bottom: 50px;" v-loading="loading">
+            <h5 class="text-xxlg text-bold p-b-sm m-n">{{$route.query.title || '影院信息'}}</h5>
+            <el-collapse class="p-v-sm p-o-md" v-model="activeNames" @change="handleChange">
+                <el-collapse-item name="playing">
+                    <template slot="title"><span class="text-bold text-lg">正在播放 ({{data.play_hall_num}}场)</span></template>
+                    <div class="clear flex p-v-sm" v-for="item in data.play_hall">
+                        <div class="col-xs-3" style="max-width: 250px;">{{item.hall_name}}</div>
+                        <div class="col-xs-9">
+                            <span style="min-width: 160px;display:inline-block;">{{item.film_name}}</span>
+                            <span class="m-l-sm">{{item.time}}</span>
                         </div>
                     </div>
-                </div>
-            </div>
+                </el-collapse-item>
+                <el-collapse-item name="reserve">
+                    <template slot="title"><span class="text-bold text-lg">今日预定 ({{data.today_reserve_num}}场)</span></template>
+                    <div class="clear">
+                        <div class="col-xs-6 p-v-sm" v-for="item in data.today_reserve" :class="{'text-999': item.is_expire==1}">
+                            <span class="m-r-lg">{{item.hall_name}}</span>
+                            <span class="m-r-sm" style="min-width: 160px;display:inline-block;">{{item.film_name}}</span>
+                            <span>{{item.time}}</span>
+                        </div>
+                    </div>
+                </el-collapse-item>
+                <el-collapse-item name="all">
+                    <template slot="title"><span class="text-bold text-lg">全部影厅 ({{data.hall_num}}个)</span></template>
+                    <div class="clear flex p-v-sm" v-for="item in data.hall">
+                        <div class="col-xs-3" style="max-width: 250px;">{{item.hall_name}}</div>
+                        <div class="col-xs-9" :class="item.status==1?'text-green':'text-red'">{{item.status_name}}</div>
+                    </div>
+                </el-collapse-item>
+            </el-collapse>
         </div>
     </div>
 </template>
@@ -49,21 +49,8 @@
         data () {
             return {
                 data: '',
-                subNavList: {
-                    parentNode: {
-                        name: '设备分布',
-                        router: {
-                            name: 'map_list'
-                        }
-                    },
-                    childNode: {
-                        name: '设备分布详情',
-                        desc: '主要用于查看设备情况',
-                        router: {
-                            name: 'map_detail'
-                        }
-                    }
-                },
+                loading: false,
+                activeNames: 'playing'
             }
         },
         components: {
@@ -71,8 +58,10 @@
         },
         methods: {
             getList () {
-              this.$http.post(api.device.mapDetail, {
-                  cinema_id: this.$route.params.id || ''
+              this.$http.get(api.cinema.mapDetail, {
+                  params: {
+                      id: this.$route.params.id || ''
+                  }
               }).then(res => {
                   if (res.data.code === 1) {
                       this.data = res.data.data
@@ -85,6 +74,10 @@
                   }
               })
             },
+            goBack () {
+                this.$router.go(-1)
+            },
+            handleChange () {},
             refresh () {
                 this.getList()
             }
