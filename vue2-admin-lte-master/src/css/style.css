@@ -466,7 +466,10 @@ textarea {
 .clear {
     zoom: 1;
 }
-
+.m-o-xs {
+    margin-left: 5px;
+    margin-right: 5px;
+}
 .m-r-15 {
     margin-right: 15px;
 }
