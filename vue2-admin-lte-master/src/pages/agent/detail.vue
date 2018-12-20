@@ -116,6 +116,12 @@
                             <div class="col-xs-8">{{data.leader_phone}}</div>
                         </div>
                     </div>
+                    <div class="p-o-sm p-v-sm clear flex">
+                        <div class="col-xs-12 col-md-12 clear p-v-sm">
+                            <div class="col-xs-2 max-width-105 p-n text-right p-right-6">备注:</div>
+                            <div class="col-xs-10">{{data.check_remark}}</div>
+                        </div>
+                    </div>
                 </div>
                 <div v-if="data.cinema_list.length > 0" class="m-t-lg">
                     <h5 class="border-bottom text-xxlg text-bold p-b-sm">影院</h5>
@@ -219,5 +225,7 @@
     }
 </script>
 <style scoped>
-
+ .p-right-6{
+     padding-right: 6px;
+ }
 </style>

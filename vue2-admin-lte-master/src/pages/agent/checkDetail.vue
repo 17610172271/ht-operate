@@ -197,7 +197,7 @@
 
             <div class="border-bottom p-v-lg">
                 <div class="clear m-b-sm flex">
-                    <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;"><span class="text-red">*</span>审核备注:</div>
+                    <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;">审核备注:</div>
                     <div class="col-xs-9">
                         <el-input v-model="remark" type="textarea" rows="6" placeholder="请输入审核备注" style="max-width: 450px;"></el-input>
                     </div>

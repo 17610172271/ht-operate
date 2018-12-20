@@ -69,6 +69,12 @@
                             <div class="col-xs-8">{{data.status_name}}</div>
                         </div>
                     </div>
+                    <div class="p-o-sm p-v-xs clear flex">
+                        <div class="col-xs-12 col-md-12 clear p-v-sm">
+                            <div class="col-xs-2 max-width-105 p-n text-right p-right-6">备注:</div>
+                            <div class="col-xs-10">{{data.check_remark}}</div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="m-t-lg">
@@ -203,5 +209,8 @@
     .lk-table {
         border: none;
         border-top: 1px solid #eaeaea;
+    }
+    .p-right-6{
+        padding-right: 6px;
     }
 </style>
