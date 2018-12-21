@@ -132,20 +132,27 @@
                     value: ''
                 },
                 {
-                    type: 'select',
-                    name: '状态',
+                    type: 'searchSelect',
+                    name: '代理商',
                     value: '',
-                    options: [
-                        {
-                            value: 1,
-                            label: '正常'
-                        },
-                        {
-                            value: 2,
-                            label: '失效'
-                        }
-                    ]
-                }
+                    options: []
+                },
+                {
+                    type: 'time',
+                    name: '创建起始时间',
+                    value: ''
+                },
+                {
+                    type: 'time',
+                    name: '截止时间',
+                    value: ''
+                },
+                {
+                    type: 'searchSelect',
+                    name: '所属区域',
+                    value: '',
+                    options: []
+                },
             ],
         }),
         computed: {
@@ -163,7 +170,10 @@
                 this.loading = true
                 this.$http.post(api.cinema.list, {
                     name: this.searchOptions[0].value,
-                    status: this.searchOptions[1].value,
+                    agent_id: this.searchOptions[1].value,
+                    start_time: this.searchOptions[2].value,
+                    end_time: this.searchOptions[3].value,
+                    region_id: this.searchOptions[4].value,
                     type: 1,
                     page: this.page,
                     limit: this.limit
@@ -221,6 +231,36 @@
                     })
                 })
             },
+            //获取区域
+            getCity(){
+                this.$http.post(api.common.getCity, {
+                    status: 1
+                }).then(res => {
+                    if (res.data.code === 1) {
+                        this.searchOptions[4].options = res.data.data.map(val => {
+                            return {
+                                label: val.name,
+                                value: val.id
+                            }
+                        })
+                    }
+                })
+            },
+            //获取全部代理商接口
+            getAllAgent(){
+                this.$http.post(api.agent.getAllAgent, {
+//                        status: 1
+                }).then(res => {
+                    if (res.data.code === 1) {
+                        this.searchOptions[1].options = res.data.data.map(val => {
+                            return {
+                                label: val.name,
+                                value: val.id
+                            }
+                        })
+                    }
+                })
+            },
             //刷新
             refresh () {
                 this.getList()    //列表刷新
@@ -251,6 +291,10 @@
             },
             limit (val) {
                 this.getList()
+            },
+            searchShow (searchShow){
+                this.getCity()
+                this.getAllAgent()
             }
         }
     }
