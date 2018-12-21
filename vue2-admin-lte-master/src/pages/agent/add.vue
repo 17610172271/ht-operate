@@ -61,7 +61,7 @@
                 <div class="clear m-b-sm flex m-t-lg">
                     <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;"><span class="text-red">*</span>管理账户(手机号):</div>
                     <div class="col-xs-9">
-                        <el-input v-model="addInfo.username" :disabled="$route.name.indexOf('edit')>0" :class="{'border-red': usernameError}" @blur="validateUsername" placeholder="请输入管理账户" style="max-width: 366px;"></el-input>
+                        <el-input v-model="addInfo.username" :disabled="" :class="{'border-red': usernameError}" @blur="validateUsername" placeholder="请输入管理账户" style="max-width: 366px;"></el-input>
                         <p v-if="usernameError" class="text-red"><span class="fa fa-close m-r-xs"></span>请输入正确的手机号格式</p>
                     </div>
                 </div>

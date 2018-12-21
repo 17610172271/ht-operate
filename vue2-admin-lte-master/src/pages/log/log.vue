@@ -1,5 +1,5 @@
 <template>
-    <div class="">
+    <div class="" v-loading="loading">
         <div class="p-lg appli-container">
             <sub-header :list="subNavList"></sub-header>
             <div class="page-container">

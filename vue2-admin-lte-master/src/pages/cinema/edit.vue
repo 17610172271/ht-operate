@@ -41,7 +41,7 @@
                         <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;"><span class="text-red">*</span>城市:</div>
                         <div class="col-xs-9">
                             <city-select v-model="addInfo.cityLink" :class="{'border-red': cityError}" :pid="addInfo.region_id"></city-select>
-                            <p v-if="cityError" class="text-red"><span class="fa fa-close m-r-xs"></span>请选择所属城市</p>
+                            <p v-if="cityError" class="text-red"><span class="fa fa-close m-r-xs"></span>请选择省市区</p>
                         </div>
                     </div>
                     <div class="clear m-b-sm flex">
