@@ -4,13 +4,13 @@
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item :to="{name: 'home'}">首页</el-breadcrumb-item>
                 <el-breadcrumb-item :to="{name: 'cinema_list'}">代理商管理</el-breadcrumb-item>
-                <el-breadcrumb-item>{{$route.name.indexOf('edit')>0?'编辑影院':'新增影院'}}</el-breadcrumb-item>
+                <el-breadcrumb-item>{{$route.name.indexOf('edit')>0?'编辑代理商':'新增代理商'}}</el-breadcrumb-item>
             </el-breadcrumb>
             <a href="javascript:;" class="btn bg-blue1 text-white btn-back" @click="goBack">返回</a>
         </div>
         <div class="p-o-lg p-v-sm" style="padding-bottom: 50px;" v-loading="loading">
             <div class=" border-bottom">
-                <h5 class="border-bottom text-xxlg text-bold p-b-sm">新增代理商</h5>
+                <h5 class="border-bottom text-xxlg text-bold p-b-sm">{{$route.name.indexOf('edit')>0?'编辑代理商':'新增代理商'}}</h5>
                 <div class="p-v-md">
                     <div class="clear m-b-sm flex">
                         <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;"><span class="text-red">*</span>所属区域:</div>
@@ -61,7 +61,7 @@
                 <div class="clear m-b-sm flex m-t-lg">
                     <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;"><span class="text-red">*</span>管理账户(手机号):</div>
                     <div class="col-xs-9">
-                        <el-input v-model="addInfo.username" :class="{'border-red': usernameError}" @blur="validateUsername" placeholder="请输入管理账户" style="max-width: 366px;"></el-input>
+                        <el-input v-model="addInfo.username" :disabled="$route.name.indexOf('edit')>0" :class="{'border-red': usernameError}" @blur="validateUsername" placeholder="请输入管理账户" style="max-width: 366px;"></el-input>
                         <p v-if="usernameError" class="text-red"><span class="fa fa-close m-r-xs"></span>请输入正确的手机号格式</p>
                     </div>
                 </div>
