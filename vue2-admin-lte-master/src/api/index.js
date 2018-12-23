@@ -23,8 +23,8 @@ export  const agent = {
     add:'/api/v1/agent/add',   //添加代理商
     del:'/api/v1/agent/del',   //删除代理商
     disable: '/api/v1/agent/stop', // 代理商启用禁用
-    getAllList: '/api/v1/agent/get_agent', // 获取全部代理商列表
     check: '/api/v1/agent/audit', // 代理商审核
+    getAllAgent:'/api/v1/agent/getAllAgent',  //获取全部代理商
 }
 
 // 影院

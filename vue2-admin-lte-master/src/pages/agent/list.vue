@@ -135,20 +135,26 @@
                     value: ''
                 },
                 {
-                    type: 'select',
-                    name: '状态',
+                    type: 'text',
+                    name: '上级代理',
+                    value: ''
+                },
+                {
+                    type: 'time',
+                    name: '创始起始时间',
+                    value: ''
+                },
+                {
+                    type: 'time',
+                    name: '截止时间',
+                    value: ''
+                },
+                {
+                    type: 'searchSelect',
+                    name: '所属区域',
                     value: '',
-                    options: [
-                        {
-                            value: 1,
-                            label: '正常'
-                        },
-                        {
-                            value: 2,
-                            label: '失效'
-                        }
-                    ]
-                }
+                    options: []
+                },
             ],
         }),
         computed: {
@@ -166,7 +172,10 @@
                 this.loading = true
                 this.$http.post(api.agent.list, {
                     name: this.searchOptions[0].value,
-                    status: this.searchOptions[1].value,
+                    pid: this.searchOptions[1].value,
+                    start_time: this.searchOptions[2].value,
+                    end_time: this.searchOptions[3].value,
+                    region_id: this.searchOptions[4].value,
                     type: 1,
                     page: this.page,
                     limit: this.limit
@@ -254,6 +263,24 @@
             },
             limit (val) {
                 this.getList()
+            },
+            searchShow (searchShow){
+                this.$http.post(api.common.getCity, {
+                    status: 1
+                }).then(res => {
+                    if (res.data.code === 1) {
+                        this.searchOptions[4].options = res.data.data.map(val => {
+                            return {
+                                label: val.name,
+                                value: val.id
+                            }
+                        })
+        //                        this.region_id = this.regionList[0].value
+                    }
+        //                    else {
+        //                        this.regionList = []
+        //                    }
+                })
             }
         }
     }

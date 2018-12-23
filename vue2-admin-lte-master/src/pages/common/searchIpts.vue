@@ -83,6 +83,7 @@
                     <city-select v-model="item.value"></city-select>
                 </div>
             </div>
+
         </div>
         <div class="search-btns col-xs-4 col-sm-4 col-md-4 col-lg-3 m-b-sm p-l-n text-center">
             <a href="javascript:;" class="btn bg-blue1 text-white app-add m-r-sm" @click="submit">提交</a>
