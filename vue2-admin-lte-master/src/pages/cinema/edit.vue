@@ -49,7 +49,7 @@
                         <div class="col-xs-9">
                             <el-input v-model="addInfo.address" :class="{'border-red': addressError}" @focus="addressSearchShow=true"  @blur="validateAddress" placeholder="请输入详细地址" style="max-width: 366px;"></el-input>
                             <ul class="search-list-container" v-if="addInfo.address && addressSearchShow">
-                                <li v-for="item in searchList" class="over-omit p-v-xs p-o-sm" @click="selectItem(item.location)">{{item.district}}-{{item.address.length > 0 ? item.address : ''}}-{{item.name}}</li>
+                                <li v-for="item in searchList" class="over-omit p-v-xs p-o-sm" @click="selectItem(item)">{{item.district}}-{{item.address.length > 0 ? item.address : ''}}-{{item.name}}</li>
                             </ul>
                             <div class="modal1" v-if="addInfo.address && addressSearchShow" @click="addressSearchShow=false"></div>
                             <p v-if="addressError" class="text-red"><span class="fa fa-close m-r-xs"></span>详细地址不能为空</p>
@@ -195,12 +195,13 @@
             getResult (result) {
                 this.searchList = result
             },
-            selectItem (position) {
-                if (position) {
-                    this.position = [position.lng, position.lat]
-                    this.addInfo.longitude = position.lng
-                    this.addInfo.latitude = position.lat
+            selectItem (item) {
+                if (item.location) {
+                    this.position = [item.location.lng, item.location.lat]
+                    this.addInfo.longitude = item.location.lng
+                    this.addInfo.latitude = item.location.lat
                 }
+                this.addInfo.address = item.district + item.address + item.name
                 this.addressSearchShow = false
             },
             getPosition (val) {
