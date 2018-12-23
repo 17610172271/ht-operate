@@ -162,7 +162,6 @@
                     }, 500)
                     if (res.data.code === 1) {
                         this.data = res.data.data
-                        if (this.data.status_name !== '正常') this.activeName = 'second'
                         this.data.hall_list = res.data.data.hall_list.map(val => {
                             return {
                                 ...val,

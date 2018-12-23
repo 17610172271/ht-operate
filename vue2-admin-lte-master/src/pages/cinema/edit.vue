@@ -41,14 +41,24 @@
                         <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;"><span class="text-red">*</span>城市:</div>
                         <div class="col-xs-9">
                             <city-select v-model="addInfo.cityLink" :class="{'border-red': cityError}" :pid="addInfo.region_id"></city-select>
-                            <p v-if="cityError" class="text-red"><span class="fa fa-close m-r-xs"></span>请选择所属城市</p>
+                            <p v-if="cityError" class="text-red"><span class="fa fa-close m-r-xs"></span>请选择省市区</p>
                         </div>
                     </div>
                     <div class="clear m-b-sm flex">
                         <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;"><span class="text-red">*</span>详细地址:</div>
                         <div class="col-xs-9">
-                            <el-input v-model="addInfo.address" :class="{'border-red': addressError}"  @blur="validateAddress" placeholder="请输入详细地址" style="max-width: 366px;"></el-input>
+                            <el-input v-model="addInfo.address" :class="{'border-red': addressError}" @focus="addressSearchShow=true"  @blur="validateAddress" placeholder="请输入详细地址" style="max-width: 366px;"></el-input>
+                            <ul class="search-list-container" v-if="addInfo.address && addressSearchShow">
+                                <li v-for="item in searchList" class="over-omit p-v-xs p-o-sm" @click="selectItem(item.location)">{{item.district}}-{{item.address.length > 0 ? item.address : ''}}-{{item.name}}</li>
+                            </ul>
+                            <div class="modal1" v-if="addInfo.address && addressSearchShow" @click="addressSearchShow=false"></div>
                             <p v-if="addressError" class="text-red"><span class="fa fa-close m-r-xs"></span>详细地址不能为空</p>
+                        </div>
+                    </div>
+                    <div class="clear m-b-sm flex">
+                        <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;"></div>
+                        <div class="col-xs-9">
+                            <map-search :address="addInfo.address" :position="position" @marker="getPosition" @searchResult="getResult"></map-search>
                         </div>
                     </div>
                     <div class="clear m-b-sm flex">
@@ -73,11 +83,15 @@
     import api from '@/api'
     import validate from '@/tools/validate'
     import CitySelect from '@/components/citySelect1'
+    import MapSearch from '@/components/mapSearch'
     export default {
         data: () => ({
             data: {
                 hall_list: []
             },
+            position: [],
+            addressSearchShow: false,
+            searchList: [],
             addInfo: {
                 upper_agent: '',
                 cityLink: '',
@@ -105,7 +119,8 @@
         }),
 
         components: {
-            CitySelect
+            CitySelect,
+            MapSearch
         },
         methods: {
             getData () {
@@ -122,6 +137,7 @@
                     if (res.data.code === 1) {
                         this.addInfo = res.data.data
                         this.$set(this.addInfo, 'cityLink', this.addInfo.province_id + '/' + this.addInfo.city_id + '/' + this.addInfo.county_id)
+                        this.position = [this.addInfo.longitude, this.addInfo.latitude]
                     } else {
                         this.$message({
                             type: 'error',
@@ -164,7 +180,9 @@
                     region_id: this.addInfo.region_id,
                     province_id: this.addInfo.cityLink.split('/')[0],
                     city_id: this.addInfo.cityLink.split('/')[1],
-                    county_id: this.addInfo.cityLink.split('/')[2]
+                    county_id: this.addInfo.cityLink.split('/')[2],
+                    longitude: this.addInfo.longitude,
+                    latitude: this.addInfo.latitude
                 }).then(res => {
                     if (res.data.code === 1) {
                         this.$message.success('保存成功')
@@ -173,6 +191,21 @@
                         this.$message.error(res.data.msg)
                     }
                 })
+            },
+            getResult (result) {
+                this.searchList = result
+            },
+            selectItem (position) {
+                if (position) {
+                    this.position = [position.lng, position.lat]
+                    this.addInfo.longitude = position.lng
+                    this.addInfo.latitude = position.lat
+                }
+                this.addressSearchShow = false
+            },
+            getPosition (val) {
+                this.addInfo.longitude = val && val.length === 2 ? val[0] : ''
+                this.addInfo.latitude = val && val.length === 2 ? val[1] : ''
             },
             validateRegion () {
                 this.regionError = this.addInfo.region_id ? false : true
@@ -225,5 +258,18 @@
     }
 </script>
 <style scoped>
-
+    .search-list-container {
+        width: 366px;
+        overflow: hidden;
+        position: absolute;
+        top: 41px;
+        left: 15px;
+        z-index: 999;
+        background-color: #fff;
+        border: 1px solid #ccc;
+    }
+    .search-list-container li:hover {
+        background-color: #cae1ff;
+        cursor: pointer;
+    }
 </style>

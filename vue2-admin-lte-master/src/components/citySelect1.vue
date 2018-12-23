@@ -130,6 +130,8 @@
                 if (this.selectShow) {
                     this.city = ''
                     this.area = ''
+                    this.cityList = []
+                    this.areaList = []
                 }
                 this.getCity()
                 this.$emit('input', this.province + '/' + this.city + '/' + this.area)
@@ -137,6 +139,7 @@
             city (val) {
                 if (this.selectShow) {
                     this.area = ''
+                    this.areaList = []
                 }
                 if (this.city) this.getArea()
                 this.$emit('input', this.province + '/' + this.city + '/' + this.area)
