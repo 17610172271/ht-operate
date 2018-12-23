@@ -153,6 +153,30 @@
                     value: '',
                     options: []
                 },
+                {
+                    type: 'select',
+                    name: '状态',
+                    value: '',
+                    options: [
+                        {
+                            value:'1',
+                            label:'正常'
+                        },
+                        {
+                            value:'2',
+                            label:'待审核'
+                        },
+                        {
+                            value:'3',
+                            label:'未通过'
+                        },
+                        {
+                            value:'4',
+                            label:'已禁用'
+                        },
+
+                    ]
+                },
             ],
         }),
         computed: {
@@ -174,6 +198,7 @@
                     start_time: this.searchOptions[2].value,
                     end_time: this.searchOptions[3].value,
                     region_id: this.searchOptions[4].value,
+                    states: this.searchOptions[5].value,
                     type: 1,
                     page: this.page,
                     limit: this.limit

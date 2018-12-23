@@ -131,12 +131,12 @@
                     value: ''
                 },
                 {
-                    type: 'text',
+                    type: 'time',
                     name: '创建起始时间',
                     value: ''
                 },
                 {
-                    type: 'text',
+                    type: 'time',
                     name: '截止时间',
                     value: ''
                 },
@@ -145,6 +145,30 @@
                     name: '所属区域',
                     value: '',
                     options:[]
+                },
+                {
+                    type: 'select',
+                    name: '状态',
+                    value: '',
+                    options: [
+                        {
+                            value:'1',
+                            label:'正常'
+                        },
+                        {
+                            value:'2',
+                            label:'待审核'
+                        },
+                        {
+                            value:'3',
+                            label:'未通过'
+                        },
+                        {
+                            value:'4',
+                            label:'已禁用'
+                        },
+
+                    ]
                 },
             ],
         }),
@@ -166,6 +190,7 @@
                     start_time: this.searchOptions[1].value,
                     end_time: this.searchOptions[2].value,
                     region_id: this.searchOptions[3].value,
+                    status: this.searchOptions[4].value,
                     type: 2,
                     page: this.page,
                     limit: this.limit
