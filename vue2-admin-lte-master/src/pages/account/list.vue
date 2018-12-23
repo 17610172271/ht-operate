@@ -54,12 +54,10 @@
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1">
                                 <!--<a href="javascript:;" title="详情" class="candle-btn btn" @click.stop="openDetail(item)"><i-->
                                     <!--class="fa fa-search-plus"></i></a>-->
-                                <a href="javascript:;" title="编辑" class="candle-btn btn" @click.stop="editItem(item)"><i
-                                    class="fa fa-edit"></i></a>
-                                <a href="javascript:;" :title="item.status==2?'点击启用':'点击禁用'" class="candle-btn btn" @click.stop="statusChange(item)"><i
-                                    class="fa" :class="item.status==2? 'fa-lightbulb-o' : 'fa-ban'"></i></a>
-                                <a href="javascript:;" title="删除" class="candle-btn btn"
-                                   @click.stop="delItem([item.id])"><i class="fa fa-trash"></i></a>
+                                <a href="javascript:;" title="编辑" class="link" @click.stop="editItem(item)">编辑</a>
+                                <a href="javascript:;" :title="item.status==2?'点击启用':'点击禁用'" class="link" @click.stop="statusChange(item)">{{item.status==2?'开启':'禁用'}}</a>
+                                <a href="javascript:;" title="删除" class="link"
+                                   @click.stop="delItem([item.id])">删除</a>
                             </li>
                         </ul>
                         <ul class="table-tbody clear" v-if="data.items.length===0">
