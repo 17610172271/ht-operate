@@ -39,10 +39,14 @@
     export default {
         props: {
             value: '',
-            pid: '',
+            pid: {
+                type: Array,
+                default: []
+            },
             disabled: false
         },
         data: () => ({
+            pids: '',
             provinceList: [],
             cityList: [],
             areaList: [],
@@ -54,7 +58,7 @@
         methods: {
             getProvince () {
                 this.$http.post(api.common.getCity, {
-                    pid: this.pid || '',
+                    pid: this.pids || '',
                     status: 2
                 }).then(res => {
                     if (res.data.code === 1) {
@@ -124,14 +128,13 @@
                 this.area = val.split('/')[2] ? val.split('/')[2] * 1 : ''
             },
             pid (val) {
+                this.pids = val && val.length > 0 ? val.join(',') : ''
                 this.getProvince()
             },
             province (val) {
                 if (this.selectShow) {
                     this.city = ''
                     this.area = ''
-                    this.cityList = []
-                    this.areaList = []
                 }
                 this.getCity()
                 this.$emit('input', this.province + '/' + this.city + '/' + this.area)
@@ -139,7 +142,6 @@
             city (val) {
                 if (this.selectShow) {
                     this.area = ''
-                    this.areaList = []
                 }
                 if (this.city) this.getArea()
                 this.$emit('input', this.province + '/' + this.city + '/' + this.area)

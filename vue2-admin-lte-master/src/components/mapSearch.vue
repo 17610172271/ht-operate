@@ -1,71 +1,30 @@
 <template>
-    <div>
-        <el-amap vid="amap" id="cinemaMap" style="height: 400px;" :zoom="zoom" :center="center" :dragEnable="true" :zoomEnable="true">
-            <el-amap-marker :draggable="true" :position="marker" v-if="position.length>0"  :events="events"></el-amap-marker>
-        </el-amap>
+    <div class="relative select-container">
+        <div class="ipt-select relative" @click="iptShow = !iptShow">
+            <input type="text" class="triangle" disabled v-model="iptName" placeholder="全部状态">
+            <div class="triangle triangle-position" v-show="!iptShow"></div>
+            <div class="de-triangle triangle-position1" v-show="iptShow"></div>
+        </div>
+        <ul class="ipt-option" v-show="iptShow">
+            <li class="modal1" @click="iptShow=false"></li>
+            <li class="option-item" v-for="item in list" @click="doSelect(item)">{{item.name}}</li>
+        </ul>
     </div>
 </template>
 <script type="text/ecmascript-6">
     export default {
         props: {
-            address: '',
-            position: {
-                type: Array,
-                default: []
-            }
+            address: ''
         },
         data () {
-            const self = this
             return {
-                marker: [],
-                dragMarker: [],
-                zoom: 4,
-                center: [107.1386718750, 38.3416561928],
-                searchOption: {
-                    city: '',
-                    citylimit: false
-                },
-                events: {
-                    dragend: (e) => {
-                        self.$nextTick(() => {
-                            self.dragMarker = [e.lnglat.lng, e.lnglat.lat]
-                        })
-                    }
-                },
+
             }
-        },
-        computed: {
-            _autoComplete () {
-                return new AMap.Autocomplete(this.searchOption || {})
-            },
-            _placeSearch () {
-                return new AMap.PlaceSearch(this.searchOption || {})
-            },
         },
         methods: {
-            search () {
-                this._autoComplete.search(this.address, (status, result) => {
-                    if (status === 'complete') {
-                        this.$emit('searchResult', result.tips)
-                    }
-                })
-            }
+
         },
-        created () {
-        },
-        watch: {
-            address (val) {
-                this.search()
-            },
-            position (val) {
-                this.marker = val
-                this.center = val
-                this.zoom = 18
-            },
-            dragMarker (val) {
-                this.$emit('marker', val)
-            }
-        }
+        watch: {}
     }
 </script>
 <style scoped>
