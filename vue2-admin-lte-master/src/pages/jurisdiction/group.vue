@@ -44,10 +44,8 @@
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('分组名称')!=-1":title="item.name">{{item.name}}</li>
                             <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('状态')!=-1" :class="{'text-green': item.status==1, 'text-red': item.status==2}" :title="item.status_name">{{item.status_name}}</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1">
-                                <a href="javascript:;" title="编辑" :class="{'disabled': item.name == '超级管理员'}" class="candle-btn btn" @click.stop="editItem(item)"><i
-                                    class="fa fa-edit"></i></a>
-                                <a href="javascript:;" title="删除" class="candle-btn btn"
-                                   @click.stop="delItem([item.id])"><i class="fa fa-trash"></i></a>
+                                <a href="javascript:;" title="编辑" :class="{'disabled': item.name == '超级管理员'}" class="link" @click.stop="editItem(item)">编辑</a>
+                                <a href="javascript:;" title="删除" class="link" @click.stop="delItem([item.id])">删除</a>
                             </li>
                         </ul>
                         <ul class="table-tbody clear" v-if="data.items.length===0">
