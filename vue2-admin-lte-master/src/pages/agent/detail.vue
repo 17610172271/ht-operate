@@ -116,6 +116,12 @@
                             <div class="col-xs-8">{{data.leader_phone}}</div>
                         </div>
                     </div>
+					<div class="p-o-sm p-v-sm clear flex">
+                        <div class="col-xs-12 col-md-12 clear p-v-sm">
+                            <div class="col-xs-2 max-width-105 p-n text-right p-right-6">付款方式:</div>
+                            <div class="col-xs-10">{{data.pay_name}}</div>
+                        </div>
+                    </div>
                     <div class="p-o-sm p-v-sm clear flex">
                         <div class="col-xs-12 col-md-12 clear p-v-sm">
                             <div class="col-xs-2 max-width-105 p-n text-right p-right-6">审核备注:</div>
