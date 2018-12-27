@@ -141,10 +141,11 @@ textarea {
 }
 
 .el-tabs--card>.el-tabs__header .el-tabs__item.is-active {
-    color: #fff;
-    background-color: #409eff;
+    border-bottom-color: transparent;
 }
-
+.el-tabs__header {
+    margin: 0 0 -1px 0;
+}
 .el-dialog__title {
     color: #fff;
 }

@@ -113,16 +113,47 @@ const router = new Router({
                     ]
                 },
                 {
-                    path: '/region',
-                    name: 'region_list',
+                    path: '/financial',
+                    component: rs('financial/index'),
                     meta: {requreAuth: true},
-                    component: rs('region/list')
-                },
-                {
-                    path: '/city',
-                    name: 'city_list',
-                    meta: {requreAuth: true},
-                    component: rs('city/list')
+                    redirect: '/financial/statistics',
+                    children: [
+                        {
+                            path: 'statistics',
+                            name: 'financial_statistics',
+                            component: rs('financial/statistics')
+                        },
+                        {
+                            path: 'watercourse',
+                            name: 'financial_watercourse',
+                            component: rs('financial/watercourse')
+                        },
+                        {
+                            path: 'order',
+                            name: 'financial_order',
+                            component: rs('financial/order')
+                        },
+                        {
+                            path: 'clearing',
+                            name: 'financial_clearing',
+                            component: rs('financial/clearing')
+                        },
+                        {
+                            path: 'report',
+                            name: 'financial_report',
+                            component: rs('financial/report')
+                        },
+                        {
+                            path: 'routing',
+                            name: 'financial_routing',
+                            component: rs('financial/routing')
+                        },
+                        {
+                            path: 'income',
+                            name: 'financial_income',
+                            component: rs('financial/income')
+                        }
+                    ]
                 },
                 {
                     path: '/statistics',
