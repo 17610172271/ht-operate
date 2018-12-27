@@ -175,7 +175,7 @@ module.exports = [
         type: 'tree',
         icon: 'fa fa-user-circle-o',
         name: '账号管理',
-        root: [1,2,3,4,5,6,7,8],
+        root: [1],
         items: [
             {
                 type: 'item',
@@ -184,7 +184,7 @@ module.exports = [
                 router: {
                     name: 'account_list'
                 },
-                root: [1,2,3,4,5,6,7,8]
+                root: [1]
             }
         ]
     },
@@ -192,7 +192,7 @@ module.exports = [
         type: 'tree',
         icon: 'fa fa-registered',
         name: '权限管理',
-        root: [1,2,3,4,5,6,7,8],
+        root: [1],
         items: [
             {
                 type: 'item',
@@ -201,7 +201,7 @@ module.exports = [
                 router: {
                     name: 'jurisdiction_list'
                 },
-                root: [1,2,3,4,5,6,7,8]
+                root: [1]
             },
             {
                 type: 'item',
@@ -210,7 +210,7 @@ module.exports = [
                 router: {
                     name: 'account_group'
                 },
-                root: [1,2,3,4,5,6,7,8]
+                root: [1]
             }
         ]
     }
