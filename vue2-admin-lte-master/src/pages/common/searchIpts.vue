@@ -2,8 +2,8 @@
     <div class="search-ipts-container clear">
         <div class="search-item col-md-4 col-lg-3 m-b-sm p-l-n" :class="{'col-md-6 col-lg-6': item.type=='city'}" v-for="item in searchOptions">
             <div v-if="item.type=='text'">
-                <div class="col-xs-4 p-n search-name">{{item.name}}</div>
-                <div class="col-xs-8 p-n">
+                <div class="col-xs-5 p-n search-name">{{item.name}}</div>
+                <div class="col-xs-7 p-n">
                     <el-input
                         :placeholder="item.name"
                         v-model="item.value"
@@ -12,8 +12,8 @@
                 </div>
             </div>
             <div v-if="item.type=='time'">
-                <div class="col-xs-4 p-n search-name">{{item.name}}</div>
-                <div class="col-xs-8 p-n">
+                <div class="col-xs-5 p-n search-name">{{item.name}}</div>
+                <div class="col-xs-7 p-n">
                     <el-date-picker
                         v-model="item.value"
                         type="date"
@@ -25,8 +25,8 @@
                 </div>
             </div>
             <div v-if="item.type=='select'">
-                <div class="col-xs-4 p-n search-name">{{item.name}}</div>
-                <div class="col-xs-8 p-n">
+                <div class="col-xs-5 p-n search-name">{{item.name}}</div>
+                <div class="col-xs-7 p-n">
                     <el-select v-model="item.value" placeholder="请选择" style="width: 100%;" clearable>
                         <el-option
                             v-for="option in item.options"
@@ -39,8 +39,8 @@
                 </div>
             </div>
             <div v-if="item.type=='searchSelect'">
-                <div class="col-xs-4 p-n search-name">{{item.name}}</div>
-                <div class="col-xs-8 p-n">
+                <div class="col-xs-5 p-n search-name">{{item.name}}</div>
+                <div class="col-xs-7 p-n">
                     <el-select v-model="item.value" filterable  placeholder="请选择" style="width: 100%;" clearable>
                         <el-option
                             v-for="option in item.options"
@@ -52,8 +52,8 @@
                 </div>
             </div>
             <div v-if="item.type=='time1'">
-                <div class="col-xs-4 p-n search-name">{{item.name}}</div>
-                <div class="col-xs-8 p-n">
+                <div class="col-xs-5 p-n search-name">{{item.name}}</div>
+                <div class="col-xs-7 p-n">
                     <el-date-picker
                         v-model="item.value"
                         type="date"
@@ -65,8 +65,8 @@
                 </div>
             </div>
             <div v-if="item.type=='time2'">
-                <div class="col-xs-4 p-n search-name">{{item.name}}</div>
-                <div class="col-xs-8 p-n">
+                <div class="col-xs-5 p-n search-name">{{item.name}}</div>
+                <div class="col-xs-7 p-n">
                     <el-date-picker
                         v-model="item.value"
                         type="month"
