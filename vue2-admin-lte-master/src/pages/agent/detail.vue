@@ -154,6 +154,7 @@
                             <li class="col-xs-2 p-n over-omit" :title="item.create_time">{{item.create_time}}</li>
                             <li class="col-xs-2 p-n over-omit" :class="item.status==1?'text-green':'text-orange'">{{item.status_name}}</li>
                         </ul>
+                        
                     </div>
                 </div>
                 <div v-if="data.agent_list.length > 0" class="m-t-lg">
