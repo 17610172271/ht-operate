@@ -148,7 +148,7 @@
             //审核
             checkSubmit (type) {
                 if (type === 'notpass') {
-                    this.$confirm('此操作将 不通过审核, 是否继续?', '提示', {
+                    this.$confirm('此操作将\'不通过审核\', 是否继续?', '提示', {
                         confirmButtonText: '确定',
                         cancelButtonText: '取消',
                         type: 'warning'
@@ -164,7 +164,7 @@
                         }
                     })
                 } else {
-                    this.$confirm('此操作将 通过审核, 是否继续?', '提示', {
+                    this.$confirm('此操作将\'通过审核\', 是否继续?', '提示', {
                         confirmButtonText: '确定',
                         cancelButtonText: '取消',
                         type: 'warning'

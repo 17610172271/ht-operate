@@ -141,10 +141,11 @@ textarea {
 }
 
 .el-tabs--card>.el-tabs__header .el-tabs__item.is-active {
-    color: #fff;
-    background-color: #409eff;
+    border-bottom-color: transparent;
 }
-
+.el-tabs__header {
+    margin: 0 0 -1px 0;
+}
 .el-dialog__title {
     color: #fff;
 }
@@ -1138,6 +1139,17 @@ a:hover .fa-edit {
 
 .link {
     color: #72afd2;
+}
+
+a.link.disabled, fieldset[disabled] a.link {
+    pointer-events: none;
+}
+.link.disabled, .link[disabled], fieldset[disabled] .link {
+    cursor: not-allowed;
+    filter: alpha(opacity=65);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    opacity: .65;
 }
 
 .chart-container {

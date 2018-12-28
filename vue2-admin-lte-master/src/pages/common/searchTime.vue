@@ -154,10 +154,14 @@
 <style scoped>
     .search-name {
         height: 40px;
-        line-height: 40px;
         padding-right: 10px;
         text-align: right;
         overflow: hidden;
+        display: -webkit-flex;
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-pack: end;
+        justify-content: center;
     }
 
     .search-btns {

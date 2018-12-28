@@ -1,0 +1,236 @@
+<template>
+    <!--代理商列表-->
+    <div v-loading="loading">
+        <div class="p-lg appli-container">
+            <sub-header :list="subNavList"></sub-header>
+            <div class="page-container">
+                <div class="page-toolbar clear m-t-sm">
+                    <search-ipts :options="searchOptions" @submit="doSearch" v-show="searchShow"></search-ipts>
+                    <h5 class="text-center text-bold text-xxlg">{{searchOptions[0].value}}年{{searchOptions[1].value}}月报表</h5>
+                </div>
+                <div class="page-contaoner">
+                    <div class="lk-table m-t-sm">
+                        <ul class="table-thead clear">
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('日期')!=-1">日期</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('收入')!=-1">收入</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('航天收益')!=-1">航天收益</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('新光')!=-1">新光</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('代理商')!=-1">代理商</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('影院')!=-1">影院</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('版权')!=-1">版权</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('5%专项资金')!=-1">5%专项资金</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('3.3%营业税')!=-1">3.3%营业税</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('小计')!=-1">小计</li>
+                        </ul>
+                        <ul class="table-tbody clear">
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('日期')!=-1">总计</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('收入')!=-1" :title="data.code">{{data.code}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('航天收益')!=-1" :title="data.name">{{data.name}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('新光')!=-1" :title="data.region_name">{{data.region_name}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('代理商')!=-1" :title="data.city_name">{{data.city_name}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('影院')!=-1" :title="data.upper_agent">{{data.upper_agent}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('版权')!=-1":title="data.cinema_num">{{data.cinema_num}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('5%专项资金')!=-1":title="data.hall_num">{{data.hall_num}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('3.3%营业税')!=-1":title="data.device_num">{{data.device_num}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('小计')!=-1":title="data.create_time">{{data.create_time}}</li>
+                        </ul>
+                        <ul class="table-tbody clear" v-for="(item, index) in data.items">
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('日期')!=-1" :title="item.id">{{item.id}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('收入')!=-1" :title="item.code">{{item.code}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('航天收益')!=-1" :title="item.name">{{item.name}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('新光')!=-1" :title="item.region_name">{{item.region_name}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('代理商')!=-1" :title="item.city_name">{{item.city_name}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('影院')!=-1" :title="item.upper_agent">{{item.upper_agent}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('版权')!=-1":title="item.cinema_num">{{item.cinema_num}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('5%专项资金')!=-1":title="item.hall_num">{{item.hall_num}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('3.3%营业税')!=-1":title="item.device_num">{{item.device_num}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('小计')!=-1":title="item.create_time">{{item.create_time}}</li>
+                        </ul>
+                        <ul class="table-tbody clear" v-if="data.items.length===0">
+                            <li class="p-n over-omit">暂无更多数据</li>
+                        </ul>
+                    </div>
+                    <div class="footer clear m-t-md">
+                        <div class="pull-left news-record text-lg">
+                            <span v-show="data.items.length>0">显示{{offset + 1}}到{{offset + data.items.length}}条记录，</span>共<span
+                            class="text-blue">{{data.total}}</span>条记录 每页显示
+                            <el-select v-model="limit" placeholder="请选择" style="width: 66px;">
+                                <el-option
+                                    v-for="(item,index) in options"
+                                    :key="index"
+                                    :label="item"
+                                    :value="item">
+                                </el-option>
+                            </el-select>
+                            条记录
+                        </div>
+                        <div class="pull-right">
+                            <el-pagination
+                                background
+                                layout="prev, pager, next"
+                                :current-page.sync="page"
+                                :page-count="pages">
+                            </el-pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<script type="text/ecmascript-6">
+    import SubHeader from '../common/subheader'
+    import api from '@/api'
+    import SelectCheckbox from '@/components/SelectCheckbox'
+    import SearchIpts from '../common/searchIpts'
+    export default {
+        //组件
+        components: {
+            SelectCheckbox,
+            SearchIpts,
+            SubHeader
+        },
+        data: () => ({
+            data: {
+                limit: 10,
+                page: 1,
+                pageSize: 1,
+                total: 1,
+                items: []
+            },
+            yearList: [],
+            monthList: [],
+            loading: false,
+            selectVal: ['日期', '收入', '航天收益', '新光', '代理商', '影院', '版权', '5%专项资金', '3.3%营业税', '小计'],
+            showList: ['日期', '收入', '航天收益', '新光', '代理商', '影院', '版权', '5%专项资金', '3.3%营业税', '小计'],
+            options: [10, 25, 50],   //条数数目
+            searchShow: true,   //搜索开关
+            limit: 10,
+            page: 1,
+            subNavList: {
+                parentNode: {
+                    name: '财务管理',
+                    router: {
+                        name: 'financial_statistics'
+                    }
+                },
+                childNode: {
+                    name: '月报表',
+                    desc: '主要用于代理商报表的查看及管理',
+                    router: {
+                        name: 'financial_report'
+                    }
+                }
+            },
+            //搜索
+            searchOptions: [
+                {
+                    type: 'select',
+                    name: '选择年份',
+                    value: '',
+                    options: []
+                },
+                {
+                    type: 'select',
+                    name: '选择月份',
+                    value: '',
+                    options: []
+                }
+            ],
+        }),
+        computed: {
+            //页数和总条数
+            pages () {
+                return this.data.pageSize || 1
+            },
+            offset () {
+                return (this.page - 1) * this.limit
+            }
+        },
+        methods: {
+            //列表页获取
+            getList () {
+                this.loading = true
+                this.$http.post(api.agent.list, {
+                    name: this.searchOptions[0].value,
+                    pid: this.searchOptions[1].value,
+                    page: this.page,
+                    limit: this.limit
+                }).then(res => {
+                    this.selectedGroup = []
+                    let that = this
+                    setTimeout(function () {
+                        that.loading = false
+                    }, 500)
+                    if (res.data.code === 1) {
+                        this.data = res.data.data
+                    } else {
+                        this.data = {
+                            limit: 10,
+                            page: 1,
+                            pageSize: 1,
+                            total: 1,
+                            items: []
+                        }
+                        this.$message({
+                            type: 'warning',
+                            message: res.data.msg
+                        })
+                    }
+                })
+            },
+            getOptions () {
+                let year = new Date().getFullYear()
+                let month = new Date().getMonth() + 1
+                for (let i = 2000; i <= year; i++) {
+                    this.searchOptions[0].options.push({
+                        label: i + '年',
+                        value: i
+                    })
+                }
+                for (let i = 1; i < 13; i ++) {
+                    this.searchOptions[1].options.push({
+                        label: i + '月',
+                        value: i
+                    })
+                }
+                this.searchOptions[0].value = year
+                this.searchOptions[1].value = month
+            },
+            //刷新
+            refresh () {
+                this.getList()    //列表刷新
+            },
+            // 搜索
+            doSearch (data) {
+                this.page = 1
+                this.searchOptions = data
+                this.getList()
+            },
+            // 下一页
+            addPage () {
+                if (this.page < this.pages) this.page += 1
+            },
+            // 上一页
+            delPage () {
+                if (this.page > 1) this.page -= 1
+            }
+        },
+        created () {
+            this.getOptions()
+            this.page = this.$route.query.page ? parseInt(this.$route.query.page) : 1
+            this.getList()
+        },
+        watch: {
+            page (val) {
+                this.$router.replace({name: 'financial_report', query: {page: val}})
+                this.getList()
+            },
+            limit (val) {
+                this.getList()
+            }
+        }
+    }
+</script>
+<style scoped>
+</style>

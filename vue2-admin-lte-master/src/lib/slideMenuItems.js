@@ -92,6 +92,95 @@ module.exports = [
             }
         ]
     },
+    {
+        type: 'tree',
+        icon: 'fa fa-gg',
+        name: '财务管理',
+        root: [1,2,3,4,5,6,7,8],
+        items: [
+            {
+                type: 'item',
+                icon: 'fa fa-circle-o',
+                name: '默认统计',
+                router: {
+                    name: 'financial_statistics'
+                },
+                root: [1,2,3,4,5,6,7,8]
+            },
+            {
+                type: 'item',
+                icon: 'fa fa-circle-o',
+                name: '收入明细',
+                router: {
+                    name: 'financial_income'
+                },
+                root: [1,2,3,4,5,6,7,8]
+            },
+            {
+                type: 'item',
+                icon: 'fa fa-circle-o',
+                name: '支出明细',
+                router: {
+                    name: 'financial_expend'
+                },
+                root: [1,2,3,4,5,6,7,8]
+            },
+            {
+                type: 'item',
+                icon: 'fa fa-circle-o',
+                name: '用户订单',
+                router: {
+                    name: 'financial_order'
+                },
+                root: [1,2,3,4,5,6,7,8]
+            },
+            {
+                type: 'item',
+                icon: 'fa fa-circle-o',
+                name: '结算管理',
+                router: {
+                    name: 'financial_clearing'
+                },
+                root: [1,2,3,4,5,6,7,8]
+            },
+            {
+                type: 'item',
+                icon: 'fa fa-circle-o',
+                name: '月报表',
+                router: {
+                    name: 'financial_report'
+                },
+                root: [1,2,3,4,5,6,7,8]
+            },
+            {
+                type: 'item',
+                icon: 'fa fa-circle-o',
+                name: '分账设置',
+                router: {
+                    name: 'financial_routing'
+                },
+                root: [1,2,3,4,5,6,7,8]
+            },
+            {
+                type: 'item',
+                icon: 'fa fa-circle-o',
+                name: '代理商分账管理',
+                router: {
+                    name: 'financial_agentRouting'
+                },
+                root: [1,2,3,4,5,6,7,8]
+            },
+            {
+                type: 'item',
+                icon: 'fa fa-circle-o',
+                name: '收益管理',
+                router: {
+                    name: 'financial_incomes'
+                },
+                root: [1,2,3,4,5,6,7,8]
+            }
+        ]
+    },
     //{
     //    type: 'item',
     //    icon: 'fa fa-ravelry',

@@ -4,13 +4,13 @@
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item :to="{name: 'home'}">首页</el-breadcrumb-item>
                 <el-breadcrumb-item :to="{name: 'cinema_list'}">代理商管理</el-breadcrumb-item>
-                <el-breadcrumb-item>{{$route.name.indexOf('edit')>0?'编辑代理商':'新增代理商'}}</el-breadcrumb-item>
+                <el-breadcrumb-item>{{$route.name.indexOf('edit')>0?'编辑代理商':'添加代理商'}}</el-breadcrumb-item>
             </el-breadcrumb>
             <a href="javascript:;" class="btn bg-blue1 text-white btn-back" @click="goBack">返回</a>
         </div>
         <div class="p-o-lg p-v-sm" style="padding-bottom: 50px;" v-loading="loading">
             <div class=" border-bottom">
-                <h5 class="border-bottom text-xxlg text-bold p-b-sm">{{$route.name.indexOf('edit')>0?'编辑代理商':'新增代理商'}}</h5>
+                <h5 class="border-bottom text-xxlg text-bold p-b-sm">{{$route.name.indexOf('edit')>0?'编辑代理商':'添加代理商'}}</h5>
                 <div class="p-v-md">
                     <div class="clear m-b-sm flex">
                         <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;"><span class="text-red">*</span>所属区域:</div>
@@ -133,7 +133,8 @@
                             <img v-if="addInfo.business_licence" :src="addInfo.business_licence" class="avatar">
                             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                         </el-upload>
-                        <p v-if="licenceError" class="text-red"><span class="fa fa-close m-r-xs"></span>请上传营业执照</p>
+                        <p v-if="licenceError" class="text-red"><span class="fa fa-close m-r-xs"></span>请上传营业执照(2M以内jpg格式图片)</p>
+                        <p v-else class="text-999">(请上传2M以内jpg格式图片)</p>
                     </div>
                 </div>
             </div>
@@ -203,6 +204,7 @@
                             :on-success="contractUpload">
                             <i class="el-icon-plus"></i>
                         </el-upload>
+                        <p class="text-999">(请上传2M以内jpg格式图片)</p>
                         <el-dialog :visible.sync="dialogVisible" title="查看图片">
                             <img width="100%" :src="previewImage" alt="">
                         </el-dialog>

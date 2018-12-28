@@ -43,7 +43,8 @@
                             <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('影厅数量')!=-1":title="item.hall_num">{{item.hall_num}}</li>
                             <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('影院设备')!=-1":title="item.device_num">{{item.device_num}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('创建时间')!=-1":title="item.create_time">{{item.create_time}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('状态')!=-1" :title="item.status_name" :class="item.status_name=='正常'?'text-green':'text-red'">{{item.status_name}}</li>
+                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('状态')!=-1" :title="item.status_name"
+                                :class="{'text-green':item.status==1, 'text-red':item.status==3||item.status==4, 'text-orange': item.status==2}">{{item.status_name}}</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 120px;">
                                 <router-link :to="{name: 'cinema_detail', params: {id: item.id}}" href="javascript:;" class="link" @click.stop>查看</router-link>
                                 <router-link :to="{name: 'cinema_edit',params: {id: item.id}}" href="javascript:;" class="link" @click.stop>编辑</router-link>
@@ -159,19 +160,15 @@
                     value: '',
                     options: [
                         {
-                            value:'1',
+                            value: 1,
                             label:'正常'
                         },
                         {
-                            value:'2',
+                            value: 2,
                             label:'待审核'
                         },
                         {
-                            value:'3',
-                            label:'未通过'
-                        },
-                        {
-                            value:'4',
+                            value: 4,
                             label:'已禁用'
                         },
 
@@ -198,7 +195,7 @@
                     start_time: this.searchOptions[2].value,
                     end_time: this.searchOptions[3].value,
                     region_id: this.searchOptions[4].value,
-                    states: this.searchOptions[5].value,
+                    status: this.searchOptions[5].value,
                     type: 1,
                     page: this.page,
                     limit: this.limit

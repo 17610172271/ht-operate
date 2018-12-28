@@ -149,7 +149,8 @@
             //获取区域列表
             getRegionList () {
                 this.$http.post(api.common.getCity, {
-                    status: 1
+                    status: 1,
+                    cinema_id: this.$route.params.id
                 }).then(res => {
                     if (res.data.code === 1) {
                         this.regionList = res.data.data

@@ -88,7 +88,10 @@
                         text: title,
                         left: 'center'
                     },
-                    tooltip: {trigger: 'axis'},
+                    tooltip: {
+                        trigger: 'axis',
+                        formatter: '{b} <br/>{a} : {c} 个'
+                    },
                     grid: {
                         left: '2%', // 图表距边框的距离
                         top: '20%',

@@ -6,6 +6,7 @@
         </el-breadcrumb>
         <div class="page-container">
             <div class="clear p-b-sm">
+                <div class="pull-left app-refresh btn bg-gray1 m-r-md" title="刷新" @click="refresh"><i class="fa fa-refresh text-white"></i></div>
                 <div class="pull-left text-blue p-v-sm">目前已有{{data.cinema_num || 0}}个影院正常使用，涉及{{data.province_num || 0}}个省，{{data.city_num || 0}}个市。</div>
                 <div class="pull-right clear flex" style="width: 300px;">
                     <div class="col-xs-1" style="min-width: 70px;padding: 10px 0;">影院搜索:</div>
@@ -143,6 +144,7 @@
                 document.getElementById('cinemaMap').style.height = h - 220 + 'px'
             },
             refresh () {
+                this.searchVal = ''
                 this.getList()
             }
         },
