@@ -98,7 +98,7 @@
                             column.push(val.day)
                             datas.push(val.num)
                         })
-                        this.drawLine('incomeChart', '播放统计', '日', datas, column)
+                        this.drawLine('incomeChart', '播放统计', '播放次数', datas, column)
                     } else {
                         this.loading = false
                         this.$message({
@@ -117,12 +117,10 @@
                         left:'left',//离容器左侧的距离
                         top:'top'//距离容器上测的距离
                     },
-                    tooltip: {trigger: 'axis'},
-//                    legend: {
-//                        data: ['订单数量'],
-//                        x: 'center',
-//                        y: 'bottom'
-//                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        formatter: '日期: {b} <br/>{a} : {c} 次'
+                    },
                     grid: {
                         left: '2%', // 图表距边框的距离
                         top: '20%',
@@ -142,6 +140,9 @@
                             color: ['#7eb6ec'],
                             type: 'line',
                             smooth: true,
+                            axisLabel: {
+                                formatter: '(次)'
+                            },
 //                            itemStyle: {normal: {areaStyle: {type: 'default'}}},
                             data: data
                         }

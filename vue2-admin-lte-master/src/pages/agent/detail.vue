@@ -116,9 +116,15 @@
                             <div class="col-xs-8">{{data.leader_phone}}</div>
                         </div>
                     </div>
+					<div class="p-o-sm p-v-sm clear flex">
+                        <div class="col-xs-12 col-md-12 clear p-v-sm">
+                            <div class="col-xs-2 max-width-105 p-n text-right p-right-6">付款方式:</div>
+                            <div class="col-xs-10">{{data.pay_name}}</div>
+                        </div>
+                    </div>
                     <div class="p-o-sm p-v-sm clear flex">
                         <div class="col-xs-12 col-md-12 clear p-v-sm">
-                            <div class="col-xs-2 max-width-105 p-n text-right p-right-6">备注:</div>
+                            <div class="col-xs-2 max-width-105 p-n text-right p-right-6">审核备注:</div>
                             <div class="col-xs-10">{{data.check_remark}}</div>
                         </div>
                     </div>
@@ -148,6 +154,7 @@
                             <li class="col-xs-2 p-n over-omit" :title="item.create_time">{{item.create_time}}</li>
                             <li class="col-xs-2 p-n over-omit" :class="item.status==1?'text-green':'text-orange'">{{item.status_name}}</li>
                         </ul>
+
                     </div>
                 </div>
                 <div v-if="data.agent_list.length > 0" class="m-t-lg">

@@ -22,34 +22,32 @@
                     <div class="lk-table m-t-sm">
                         <ul class="table-thead clear">
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">序号</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('代理商编号')!=-1">代理商编号</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('代理商名称')!=-1">代理商名称</li>
-                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('所属区域')!=-1">所属区域</li>
-                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('城市')!=-1">城市</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('上级代理')!=-1">上级代理</li>
-                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('影院数量')!=-1">影院数量</li>
-                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('影厅数量')!=-1">影厅数量</li>
-                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('影院设备')!=-1">影院设备</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('创建时间')!=-1">创建时间</li>
-                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('状态')!=-1">状态</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 120px;">操作</li>
+                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('订单编号')!=-1">订单编号</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('用户昵称')!=-1">用户昵称</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('城市')!=-1">城市</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('影片名称')!=-1">影片名称</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('影院')!=-1">影院</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('支付方式')!=-1">支付方式</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('原价')!=-1">原价</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('实付')!=-1">实付</li>
+                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('创建时间')!=-1">创建时间</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('状态')!=-1">状态</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1">操作</li>
                         </ul>
                         <ul class="table-tbody clear" v-for="(item, index) in data.items">
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">{{offset + index + 1}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('代理商编号')!=-1" :title="item.code">{{item.code}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('代理商名称')!=-1" :title="item.name">{{item.name}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('所属区域')!=-1" :title="item.region_name">{{item.region_name}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('城市')!=-1" :title="item.city_name">{{item.city_name}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('上级代理')!=-1" :title="item.upper_agent">{{item.upper_agent}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('影院数量')!=-1":title="item.cinema_num">{{item.cinema_num}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('影厅数量')!=-1":title="item.hall_num">{{item.hall_num}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('影院设备')!=-1":title="item.device_num">{{item.device_num}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('创建时间')!=-1":title="item.create_time">{{item.create_time}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('状态')!=-1" :title="item.status_name" :class="item.status_name=='正常'?'text-green':(item.status_name=='已禁用'?'text-red':'text-orange')">{{item.status_name}}</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 120px;">
-                                <router-link :to="{name: 'agent_detail', params: {id: item.id}}" href="javascript:;" class="link" @click.stop>查看</router-link>
-                                <router-link :to="{name: 'agent_edit',params: {id: item.id}}" href="javascript:;" class="link" @click.stop>编辑</router-link>
-                                <a href="javascript:;" class="link" @click.stop="statusChange(item)" :class="{'hiden': item.status_name=='待审核'}">{{item.status_name=='正常' ? '禁用' : '启用'}}</a>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('订单编号')!=-1" :title="item.code">{{item.code}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('用户昵称')!=-1" :title="item.name">{{item.name}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('城市')!=-1" :title="item.region_name">{{item.region_name}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('影片名称')!=-1" :title="item.city_name">{{item.city_name}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('影院')!=-1" :title="item.upper_agent">{{item.upper_agent}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('支付方式')!=-1":title="item.cinema_num">{{item.cinema_num}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('原价')!=-1":title="item.hall_num">{{item.hall_num}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('实付')!=-1":title="item.device_num">{{item.device_num}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('创建时间')!=-1":title="item.create_time">{{item.create_time}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('状态')!=-1" :title="item.status_name" :class="item.status_name=='正常'?'text-green':(item.status_name=='已禁用'?'text-red':'text-orange')">{{item.status_name}}</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1">
+                                <a href="javascript:;" class="link" @click.stop="lookDetail(item)">查看</a>
                             </li>
                         </ul>
                         <ul class="table-tbody clear" v-if="data.items.length===0">
@@ -79,6 +77,85 @@
                             </el-pagination>
                         </div>
                     </div>
+                    <el-dialog
+                        title="详情"
+                        :visible.sync="detailModal"
+                        custom-class="dialog-modal1">
+                        <div v-loading="modalLoading">
+                            <div class="clear">
+                                <div class="col-xs-2 line-height-40 text-right text-bold min-width-105">标题</div>
+                                <div class="col-xs-8 line-height-40 text-bold">内容</div>
+                            </div>
+                            <div class="clear bg-f9">
+                                <div class="col-xs-2 line-height-40 text-right min-width-105">订单编号:</div>
+                                <div class="col-xs-8 line-height-40">{{detailVal.username}}</div>
+                            </div>
+                            <div class="clear">
+                                <div class="col-xs-2 line-height-40 text-right min-width-105">城市:</div>
+                                <div class="col-xs-8 line-height-40">{{detailVal.nickname}}</div>
+                            </div>
+                            <div class="clear bg-f9">
+                                <div class="col-xs-2 line-height-40 text-right min-width-105">代理商:</div>
+                                <div class="col-xs-8 line-height-40">{{detailVal.groupname}}</div>
+                            </div>
+                            <div class="clear">
+                                <div class="col-xs-2 line-height-40 text-right min-width-105">代理商编码:</div>
+                                <div class="col-xs-8 line-height-40">{{detailVal.email}}</div>
+                            </div>
+                            <div class="clear bg-f9">
+                                <div class="col-xs-2 line-height-40 text-right min-width-105">用户:</div>
+                                <div class="col-xs-8 line-height-40">{{detailVal.mobile}}</div>
+                            </div>
+                            <div class="clear">
+                                <div class="col-xs-2 line-height-40 text-right min-width-105">用户ID:</div>
+                                <div class="col-xs-8 line-height-40">{{detailVal.status}}</div>
+                            </div>
+                            <div class="clear bg-f9">
+                                <div class="col-xs-2 line-height-40 text-right min-width-105">影片:</div>
+                                <div class="col-xs-8 line-height-40">{{detailVal.status}}</div>
+                            </div>
+                            <div class="clear">
+                                <div class="col-xs-2 line-height-40 text-right min-width-105">影院:</div>
+                                <div class="col-xs-8 line-height-40">{{detailVal.status}}</div>
+                            </div>
+                            <div class="clear bg-f9">
+                                <div class="col-xs-2 line-height-40 text-right min-width-105">影院编码:</div>
+                                <div class="col-xs-8 line-height-40">{{detailVal.status}}</div>
+                            </div>
+                            <div class="clear">
+                                <div class="col-xs-2 line-height-40 text-right min-width-105">原价:</div>
+                                <div class="col-xs-8 line-height-40">{{detailVal.status}}</div>
+                            </div>
+                            <div class="clear bg-f9">
+                                <div class="col-xs-2 line-height-40 text-right min-width-105">优惠:</div>
+                                <div class="col-xs-8 line-height-40">{{detailVal.status}}</div>
+                            </div>
+                            <div class="clear">
+                                <div class="col-xs-2 line-height-40 text-right min-width-105">实付:</div>
+                                <div class="col-xs-8 line-height-40">{{detailVal.status}}</div>
+                            </div>
+                            <div class="clear bg-f9">
+                                <div class="col-xs-2 line-height-40 text-right min-width-105">支付方式:</div>
+                                <div class="col-xs-8 line-height-40">{{detailVal.status}}</div>
+                            </div>
+                            <div class="clear">
+                                <div class="col-xs-2 line-height-40 text-right min-width-105">创建时间:</div>
+                                <div class="col-xs-8 line-height-40">{{detailVal.status}}</div>
+                            </div>
+                            <div class="clear bg-f9">
+                                <div class="col-xs-2 line-height-40 text-right min-width-105">支付时间:</div>
+                                <div class="col-xs-8 line-height-40">{{detailVal.status}}</div>
+                            </div>
+                            <div class="clear">
+                                <div class="col-xs-2 line-height-40 text-right min-width-105">观看时间:</div>
+                                <div class="col-xs-8 line-height-40">{{detailVal.status}}</div>
+                            </div>
+                            <div class="clear bg-f9">
+                                <div class="col-xs-2 line-height-40 text-right min-width-105">订单状态:</div>
+                                <div class="col-xs-8 line-height-40">{{detailVal.status}}</div>
+                            </div>
+                        </div>
+                    </el-dialog>
                 </div>
             </div>
         </div>
@@ -105,8 +182,11 @@
                 items: []
             },
             loading: false,
-            selectVal: ['序号', '代理商编号', '代理商名称', '所属区域', '城市', '上级代理', '影院数量', '影厅数量', '影院设备', '创建时间', '状态', '操作'],
-            showList: ['序号', '代理商编号', '代理商名称', '所属区域', '城市', '上级代理', '影院数量', '影厅数量', '影院设备', '创建时间', '状态', '操作'],
+            modalLoading: false,
+            detailModal: false,
+            detailVal: {},
+            selectVal: ['序号', '订单编号', '用户昵称', '城市', '影片名称', '影院', '支付方式', '原价', '实付', '创建时间', '状态', '操作'],
+            showList: ['序号', '订单编号', '用户昵称', '城市', '影片名称', '影院', '支付方式', '原价', '实付', '创建时间', '状态', '操作'],
             options: [10, 25, 50],   //条数数目
             searchShow: false,   //搜索开关
             limit: 10,
@@ -130,17 +210,34 @@
             searchOptions: [
                 {
                     type: 'text',
-                    name: '代理商名称',
+                    name: '订单编号',
                     value: ''
                 },
                 {
                     type: 'text',
-                    name: '上级代理',
+                    name: '用户昵称',
                     value: ''
                 },
                 {
+                    type: 'searchSelect',
+                    name: '影院',
+                    value: '',
+                    options: []
+                },
+                {
+                    type: 'select',
+                    name: '状态',
+                    value: '',
+                    options: [
+                        {
+                            label: '已完成',
+                            value: 1
+                        }
+                    ]
+                },
+                {
                     type: 'time',
-                    name: '创始起始时间',
+                    name: '开始时间',
                     value: ''
                 },
                 {
@@ -149,8 +246,13 @@
                     value: ''
                 },
                 {
+                    type: 'text',
+                    name: '影片',
+                    value: ''
+                },
+                {
                     type: 'searchSelect',
-                    name: '所属区域',
+                    name: '城市',
                     value: '',
                     options: []
                 },
@@ -175,7 +277,6 @@
                     start_time: this.searchOptions[2].value,
                     end_time: this.searchOptions[3].value,
                     region_id: this.searchOptions[4].value,
-                    type: 1,
                     page: this.page,
                     limit: this.limit
                 }).then(res => {
@@ -201,36 +302,14 @@
                     }
                 })
             },
-            statusChange (item) {
-                this.$confirm(item.status_name === '已禁用' ? '此操作将启用该代理商, 是否继续?' : '此操作将禁用该代理商, 是否继续?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(() => {
-                    this.$http.get(api.agent.disable, {
-                        params: {
-                            id: item.id,
-                            status: item.status_name === '已禁用' ? 1 : 2
-                        }
-                    }).then(res => {
-                        if(res.data.code === 1) {
-                            this.$message({
-                                type: 'success',
-                                message: '操作成功'
-                            })
-                            if (item.status_name === '已禁用') {
-                                item.status_name = '正常'
-                            } else {
-                                item.status_name = '已禁用'
-                            }
-                        } else {
-                            this.$message({
-                                type: 'error',
-                                message: res.data.msg
-                            })
-                        }
-                    })
-                })
+            lookDetail (item) {
+                this.modalLoading = true
+                this.detailModal = true
+                let that = this
+                setTimeout(function () {
+                    that.modalLoading = false
+                    this.detailVal = item
+                }, 500)
             },
             //刷新
             refresh () {

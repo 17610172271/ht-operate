@@ -1,4 +1,5 @@
 <template>
+    <!--代理商列表-->
     <div v-loading="loading">
         <div class="p-lg appli-container">
             <sub-header :list="subNavList"></sub-header>
@@ -26,10 +27,11 @@
                             <li class="col-xs-24 p-n" v-show="selectVal.indexOf('所属区域')!=-1">所属区域</li>
                             <li class="col-xs-24 p-n" v-show="selectVal.indexOf('城市')!=-1">城市</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('代理商')!=-1">代理商</li>
+                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('影厅数量')!=-1">影厅数量</li>
+                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('影院设备')!=-1">影院设备</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('创建时间')!=-1">创建时间</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('审核时间')!=-1">审核时间</li>
                             <li class="col-xs-24 p-n" v-show="selectVal.indexOf('状态')!=-1">状态</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1">操作</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 120px;">操作</li>
                         </ul>
                         <ul class="table-tbody clear" v-for="(item, index) in data.items">
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">{{offset + index + 1}}</li>
@@ -38,13 +40,14 @@
                             <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('所属区域')!=-1" :title="item.region_name">{{item.region_name}}</li>
                             <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('城市')!=-1" :title="item.city_name">{{item.city_name}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('代理商')!=-1" :title="item.agent_name">{{item.agent_name}}</li>
+                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('影厅数量')!=-1":title="item.hall_num">{{item.hall_num}}</li>
+                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('影院设备')!=-1":title="item.device_num">{{item.device_num}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('创建时间')!=-1":title="item.create_time">{{item.create_time}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('审核时间')!=-1":title="item.check_time">{{item.check_time}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('状态')!=-1" :title="item.status_name"
-                                :class="{'text-green':item.status==1, 'text-red':item.status==3||item.status==4, 'text-orange': item.status==2}">{{item.status_name}}</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1">
-                                <router-link :to="{name: 'cinema_check_detail',params: {id: item.id}}" href="javascript:;" class="link" @click.stop v-if="item.status_name=='待审核'">审核</router-link>
-                                <router-link :to="{name: 'cinema_detail', params: {id: item.id}}" href="javascript:;" class="link" @click.stop v-else>查看</router-link>
+                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('状态')!=-1" :title="item.status_name" :class="item.status_name=='正常'?'text-green':'text-red'">{{item.status_name}}</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 120px;">
+                                <router-link :to="{name: 'cinema_detail', params: {id: item.id}}" href="javascript:;" class="link" @click.stop>查看</router-link>
+                                <router-link :to="{name: 'cinema_edit',params: {id: item.id}}" href="javascript:;" class="link" @click.stop>编辑</router-link>
+                                <a href="javascript:;" class="link" @click.stop="statusChange(item)" :class="{'hiden': item.status_name=='待审核'}">{{item.status_name=='正常' ? '禁用' : '启用'}}</a>
                             </li>
                         </ul>
                         <ul class="table-tbody clear" v-if="data.items.length===0">
@@ -100,24 +103,24 @@
                 items: []
             },
             loading: false,
-            selectVal: ['序号', '影院编号', '影院名称', '所属区域', '城市', '代理商', '创建时间', '审核时间', '状态', '操作'],
-            showList: ['序号', '影院编号', '影院名称', '所属区域', '城市', '代理商', '创建时间', '审核时间', '状态', '操作'],
+            selectVal: ['序号', '影院编号', '影院名称', '所属区域', '城市', '代理商', '影厅数量', '影院设备', '创建时间', '状态', '操作'],
+            showList: ['序号', '影院编号', '影院名称', '所属区域', '城市', '代理商', '影厅数量', '影院设备', '创建时间', '状态', '操作'],
             options: [10, 25, 50],   //条数数目
             searchShow: false,   //搜索开关
             limit: 10,
             page: 1,
             subNavList: {
                 parentNode: {
-                    name: '影院管理',
+                    name: '财务管理',
                     router: {
-                        name: 'cinema_list'
+                        name: 'financial_statistics'
                     }
                 },
                 childNode: {
-                    name: '影院审核列表',
-                    desc: '主要用应用的审核管理',
+                    name: '代理商分账管理',
+                    desc: '主要用于代理商分账的查看及管理',
                     router: {
-                        name: 'cinema_check'
+                        name: 'financial_agentRouting'
                     }
                 }
             },
@@ -156,19 +159,19 @@
                     value: '',
                     options: [
                         {
-                            value: 1,
+                            value:'1',
                             label:'正常'
                         },
                         {
-                            value: 2,
+                            value:'2',
                             label:'待审核'
                         },
                         {
-                            value: 3,
+                            value:'3',
                             label:'未通过'
                         },
                         {
-                            value: 4,
+                            value:'4',
                             label:'已禁用'
                         },
 
@@ -195,8 +198,8 @@
                     start_time: this.searchOptions[2].value,
                     end_time: this.searchOptions[3].value,
                     region_id: this.searchOptions[4].value,
-                    status: this.searchOptions[5].value,
-                    type: 2,
+                    states: this.searchOptions[5].value,
+                    type: 1,
                     page: this.page,
                     limit: this.limit
                 }).then(res => {
@@ -222,10 +225,7 @@
                     }
                 })
             },
-            //刷新
-            refresh () {
-                this.getList()    //列表刷新
-            },
+            //获取区域
             getCity(){
                 this.$http.post(api.common.getCity, {
                     status: 1
@@ -255,6 +255,10 @@
                     }
                 })
             },
+            //刷新
+            refresh () {
+                this.getList()    //列表刷新
+            },
             // 搜索
             doSearch (data) {
                 this.page = 1
@@ -276,16 +280,12 @@
         },
         watch: {
             page (val) {
-                this.$router.replace({name: 'cinema_check', query: {page: val}})
+                this.$router.replace({name: 'financial_agentRouting', query: {page: val}})
                 this.getList()
             },
             limit (val) {
                 this.getList()
             },
-            searchShow (searchShow){
-                this.getCity()
-                this.getAllAgent()
-            }
         }
     }
 </script>

@@ -22,34 +22,30 @@
                     <div class="lk-table m-t-sm">
                         <ul class="table-thead clear">
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">序号</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('代理商编号')!=-1">代理商编号</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('代理商名称')!=-1">代理商名称</li>
-                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('所属区域')!=-1">所属区域</li>
-                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('城市')!=-1">城市</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('上级代理')!=-1">上级代理</li>
-                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('影院数量')!=-1">影院数量</li>
-                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('影厅数量')!=-1">影厅数量</li>
-                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('影院设备')!=-1">影院设备</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('创建时间')!=-1">创建时间</li>
-                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('状态')!=-1">状态</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 120px;">操作</li>
+                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('结算编号')!=-1">结算编号</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('结算对象')!=-1">结算对象</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('申请结算月份')!=-1">申请结算月份</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('结算金额')!=-1">结算金额</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('状态')!=-1">状态</li>
+                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('申请时间')!=-1">申请时间</li>
+                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('银行信息')!=-1">银行信息</li>
+                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('结算时间')!=-1">结算时间</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 130px;">操作</li>
                         </ul>
                         <ul class="table-tbody clear" v-for="(item, index) in data.items">
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">{{offset + index + 1}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('代理商编号')!=-1" :title="item.code">{{item.code}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('代理商名称')!=-1" :title="item.name">{{item.name}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('所属区域')!=-1" :title="item.region_name">{{item.region_name}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('城市')!=-1" :title="item.city_name">{{item.city_name}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('上级代理')!=-1" :title="item.upper_agent">{{item.upper_agent}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('影院数量')!=-1":title="item.cinema_num">{{item.cinema_num}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('影厅数量')!=-1":title="item.hall_num">{{item.hall_num}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('影院设备')!=-1":title="item.device_num">{{item.device_num}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('创建时间')!=-1":title="item.create_time">{{item.create_time}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('状态')!=-1" :title="item.status_name" :class="item.status_name=='正常'?'text-green':(item.status_name=='已禁用'?'text-red':'text-orange')">{{item.status_name}}</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 120px;">
-                                <router-link :to="{name: 'agent_detail', params: {id: item.id}}" href="javascript:;" class="link" @click.stop>查看</router-link>
-                                <router-link :to="{name: 'agent_edit',params: {id: item.id}}" href="javascript:;" class="link" @click.stop>编辑</router-link>
-                                <a href="javascript:;" class="link" @click.stop="statusChange(item)" :class="{'hiden': item.status_name=='待审核'}">{{item.status_name=='正常' ? '禁用' : '启用'}}</a>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('结算编号')!=-1" :title="item.code">{{item.code}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('结算对象')!=-1" :title="item.name">{{item.name}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('申请结算月份')!=-1" :title="item.region_name">{{item.region_name}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('结算金额')!=-1" :title="item.city_name">{{item.city_name}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('状态')!=-1" :title="item.upper_agent">{{item.upper_agent}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('申请时间')!=-1":title="item.cinema_num">{{item.cinema_num}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('银行信息')!=-1":title="item.hall_num">{{item.hall_num}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('结算时间')!=-1":title="item.device_num">{{item.device_num}}</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 130px;">
+                                <a href="javascript:;" class="link">结算</a>
+                                <router-link :to="{name: 'clearingDetail', params: {id: item.id}}" href="javascript:;" class="link">详情</router-link>
+                                <a href="javascript:;" class="link">上传凭证</a>
                             </li>
                         </ul>
                         <ul class="table-tbody clear" v-if="data.items.length===0">
@@ -105,8 +101,8 @@
                 items: []
             },
             loading: false,
-            selectVal: ['序号', '代理商编号', '代理商名称', '所属区域', '城市', '上级代理', '影院数量', '影厅数量', '影院设备', '创建时间', '状态', '操作'],
-            showList: ['序号', '代理商编号', '代理商名称', '所属区域', '城市', '上级代理', '影院数量', '影厅数量', '影院设备', '创建时间', '状态', '操作'],
+            selectVal: ['序号', '结算编号', '结算对象', '申请结算月份', '结算金额', '状态', '申请时间', '银行信息', '结算时间', '操作'],
+            showList: ['序号', '结算编号', '结算对象', '申请结算月份', '结算金额', '状态', '申请时间', '银行信息', '结算时间', '操作'],
             options: [10, 25, 50],   //条数数目
             searchShow: false,   //搜索开关
             limit: 10,
@@ -130,17 +126,17 @@
             searchOptions: [
                 {
                     type: 'text',
-                    name: '代理商名称',
+                    name: '结算编号',
                     value: ''
                 },
                 {
                     type: 'text',
-                    name: '上级代理',
+                    name: '结算对象',
                     value: ''
                 },
                 {
                     type: 'time',
-                    name: '创始起始时间',
+                    name: '开始时间',
                     value: ''
                 },
                 {
@@ -149,8 +145,8 @@
                     value: ''
                 },
                 {
-                    type: 'searchSelect',
-                    name: '所属区域',
+                    type: 'select',
+                    name: '状态',
                     value: '',
                     options: []
                 },
@@ -201,37 +197,6 @@
                     }
                 })
             },
-            statusChange (item) {
-                this.$confirm(item.status_name === '已禁用' ? '此操作将启用该代理商, 是否继续?' : '此操作将禁用该代理商, 是否继续?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(() => {
-                    this.$http.get(api.agent.disable, {
-                        params: {
-                            id: item.id,
-                            status: item.status_name === '已禁用' ? 1 : 2
-                        }
-                    }).then(res => {
-                        if(res.data.code === 1) {
-                            this.$message({
-                                type: 'success',
-                                message: '操作成功'
-                            })
-                            if (item.status_name === '已禁用') {
-                                item.status_name = '正常'
-                            } else {
-                                item.status_name = '已禁用'
-                            }
-                        } else {
-                            this.$message({
-                                type: 'error',
-                                message: res.data.msg
-                            })
-                        }
-                    })
-                })
-            },
             //刷新
             refresh () {
                 this.getList()    //列表刷新
@@ -262,24 +227,6 @@
             },
             limit (val) {
                 this.getList()
-            },
-            searchShow (searchShow){
-                this.$http.post(api.common.getCity, {
-                    status: 1
-                }).then(res => {
-                    if (res.data.code === 1) {
-                        this.searchOptions[4].options = res.data.data.map(val => {
-                            return {
-                                label: val.name,
-                                value: val.id
-                            }
-                        })
-        //                        this.region_id = this.regionList[0].value
-                    }
-        //                    else {
-        //                        this.regionList = []
-        //                    }
-                })
             }
         }
     }

@@ -1141,6 +1141,17 @@ a:hover .fa-edit {
     color: #72afd2;
 }
 
+a.link.disabled, fieldset[disabled] a.link {
+    pointer-events: none;
+}
+.link.disabled, .link[disabled], fieldset[disabled] .link {
+    cursor: not-allowed;
+    filter: alpha(opacity=65);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    opacity: .65;
+}
+
 .chart-container {
     height: 300px;
 }

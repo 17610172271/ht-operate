@@ -1,5 +1,4 @@
 <template>
-    <!--代理商列表-->
     <div v-loading="loading">
         <div class="p-lg appli-container">
             <sub-header :list="subNavList"></sub-header>
@@ -7,7 +6,6 @@
                 <div class="page-toolbar clear m-t-sm">
                     <search-ipts :options="searchOptions" @submit="doSearch" v-show="searchShow"></search-ipts>
                     <div class="pull-left toolbar-candle clear">
-                        <router-link :to="{name: 'agent_add'}" href="javascript:;" title="添加" class="app-add btn bg-blue1 text-white"><i class="fa fa-plus-square"></i>添加</router-link>
                         <div class="app-refresh btn bg-gray1" title="刷新" @click="refresh"><i
                             class="fa fa-refresh"></i></div>
                     </div>
@@ -22,36 +20,22 @@
                 <div class="page-contaoner">
                     <div class="lk-table m-t-sm">
                         <ul class="table-thead clear">
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">序号</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('代理商编号')!=-1">代理商编号</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('代理商名称')!=-1">代理商名称</li>
-                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('所属区域')!=-1">所属区域</li>
-                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('城市')!=-1">城市</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('上级代理')!=-1">上级代理</li>
-                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('影院数量')!=-1">影院数量</li>
-                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('影厅数量')!=-1">影厅数量</li>
-                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('影院设备')!=-1">影院设备</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('创建时间')!=-1">创建时间</li>
-                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('状态')!=-1">状态</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 120px;">操作</li>
+                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">序号</li>
+                            <li class="col-xs-3 p-n" v-show="selectVal.indexOf('流水号')!=-1">流水号</li>
+                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('影院名称')!=-1">影院名称</li>
+                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('订单编号')!=-1">订单编号</li>
+                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('收入金额')!=-1">收入金额</li>
+                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('收入类型')!=-1">收入类型</li>
+                            <li class="col-xs-4 p-n" v-show="selectVal.indexOf('时间')!=-1">时间</li>
                         </ul>
                         <ul class="table-tbody clear" v-for="(item, index) in data.items">
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">{{offset + index + 1}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('代理商编号')!=-1" :title="item.code">{{item.code}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('代理商名称')!=-1" :title="item.name">{{item.name}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('所属区域')!=-1" :title="item.region_name">{{item.region_name}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('城市')!=-1" :title="item.city_name">{{item.city_name}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('上级代理')!=-1" :title="item.upper_agent">{{item.upper_agent}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('影院数量')!=-1":title="item.cinema_num">{{item.cinema_num}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('影厅数量')!=-1":title="item.hall_num">{{item.hall_num}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('影院设备')!=-1":title="item.device_num">{{item.device_num}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('创建时间')!=-1":title="item.create_time">{{item.create_time}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('状态')!=-1" :title="item.status_name" :class="item.status_name=='正常'?'text-green':(item.status_name=='已禁用'?'text-red':'text-orange')">{{item.status_name}}</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 120px;">
-                                <router-link :to="{name: 'agent_detail', params: {id: item.id}}" href="javascript:;" class="link" @click.stop>查看</router-link>
-                                <router-link :to="{name: 'agent_edit',params: {id: item.id}}" href="javascript:;" class="link" @click.stop>编辑</router-link>
-                                <a href="javascript:;" class="link" @click.stop="statusChange(item)" :class="{'hiden': item.status_name=='待审核'}">{{item.status_name=='正常' ? '禁用' : '启用'}}</a>
-                            </li>
+                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">{{offset + index + 1}}</li>
+                            <li class="col-xs-3 p-n over-omit" v-show="selectVal.indexOf('流水号')!=-1" :title="item.code">{{item.code}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('影院名称')!=-1" :title="item.name">{{item.name}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('订单编号')!=-1" :title="item.region_name">{{item.region_name}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('收入金额')!=-1" :title="item.city_name">{{item.city_name}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('收入类型')!=-1" :title="item.agent_name">{{item.agent_name}}</li>
+                            <li class="col-xs-4 p-n over-omit" v-show="selectVal.indexOf('时间')!=-1":title="item.hall_num">{{item.hall_num}}</li>
                         </ul>
                         <ul class="table-tbody clear" v-if="data.items.length===0">
                             <li class="p-n over-omit">暂无更多数据</li>
@@ -106,8 +90,8 @@
                 items: []
             },
             loading: false,
-            selectVal: ['序号', '代理商编号', '代理商名称', '所属区域', '城市', '上级代理', '影院数量', '影厅数量', '影院设备', '创建时间', '状态', '操作'],
-            showList: ['序号', '代理商编号', '代理商名称', '所属区域', '城市', '上级代理', '影院数量', '影厅数量', '影院设备', '创建时间', '状态', '操作'],
+            selectVal: ['序号', '流水号', '影院名称', '订单编号', '收入金额', '收入类型', '时间'],
+            showList: ['序号', '流水号', '影院名称', '订单编号', '收入金额', '收入类型', '时间'],
             options: [10, 25, 50],   //条数数目
             searchShow: false,   //搜索开关
             limit: 10,
@@ -120,8 +104,8 @@
                     }
                 },
                 childNode: {
-                    name: '收益管理',
-                    desc: '主要用于代理商收益的查看及管理',
+                    name: '收入明细',
+                    desc: '主要用于收入类型收入明细的查看及管理',
                     router: {
                         name: 'financial_income'
                     }
@@ -131,30 +115,25 @@
             searchOptions: [
                 {
                     type: 'text',
-                    name: '代理商名称',
+                    name: '流水号',
                     value: ''
                 },
                 {
-                    type: 'text',
-                    name: '上级代理',
-                    value: ''
+                    type: 'searchSelect',
+                    name: '影院名称',
+                    value: '',
+                    options: []
                 },
                 {
                     type: 'time',
-                    name: '创始起始时间',
+                    name: '开始时间',
                     value: ''
                 },
                 {
                     type: 'time',
                     name: '截止时间',
                     value: ''
-                },
-                {
-                    type: 'searchSelect',
-                    name: '所属区域',
-                    value: '',
-                    options: []
-                },
+                }
             ],
         }),
         computed: {
@@ -170,13 +149,11 @@
             //列表页获取
             getList () {
                 this.loading = true
-                this.$http.post(api.agent.list, {
+                this.$http.post(api.cinema.list, {
                     name: this.searchOptions[0].value,
-                    pid: this.searchOptions[1].value,
+                    cinema_id: this.searchOptions[1].value,
                     start_time: this.searchOptions[2].value,
                     end_time: this.searchOptions[3].value,
-                    region_id: this.searchOptions[4].value,
-                    type: 1,
                     page: this.page,
                     limit: this.limit
                 }).then(res => {
@@ -202,35 +179,17 @@
                     }
                 })
             },
-            statusChange (item) {
-                this.$confirm(item.status_name === '已禁用' ? '此操作将启用该代理商, 是否继续?' : '此操作将禁用该代理商, 是否继续?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(() => {
-                    this.$http.get(api.agent.disable, {
-                        params: {
-                            id: item.id,
-                            status: item.status_name === '已禁用' ? 1 : 2
-                        }
-                    }).then(res => {
-                        if(res.data.code === 1) {
-                            this.$message({
-                                type: 'success',
-                                message: '操作成功'
-                            })
-                            if (item.status_name === '已禁用') {
-                                item.status_name = '正常'
-                            } else {
-                                item.status_name = '已禁用'
+            //获取全部收入类型接口
+            getcinemaList(){
+                this.$http.post(api.agent.getAllAgent).then(res => {
+                    if (res.data.code === 1) {
+                        this.searchOptions[1].options = res.data.data.map(val => {
+                            return {
+                                label: val.name,
+                                value: val.id
                             }
-                        } else {
-                            this.$message({
-                                type: 'error',
-                                message: res.data.msg
-                            })
-                        }
-                    })
+                        })
+                    }
                 })
             },
             //刷新
@@ -264,23 +223,8 @@
             limit (val) {
                 this.getList()
             },
-            searchShow (searchShow){
-                this.$http.post(api.common.getCity, {
-                    status: 1
-                }).then(res => {
-                    if (res.data.code === 1) {
-                        this.searchOptions[4].options = res.data.data.map(val => {
-                            return {
-                                label: val.name,
-                                value: val.id
-                            }
-                        })
-        //                        this.region_id = this.regionList[0].value
-                    }
-        //                    else {
-        //                        this.regionList = []
-        //                    }
-                })
+            searchShow (val) {
+                if (val) this.getcinemaList()
             }
         }
     }

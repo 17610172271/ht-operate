@@ -71,7 +71,7 @@
                     </div>
                     <div class="p-o-sm p-v-xs clear flex">
                         <div class="col-xs-12 col-md-12 clear p-v-sm">
-                            <div class="col-xs-2 max-width-105 p-n text-right p-right-6">备注:</div>
+                            <div class="col-xs-2 max-width-105 p-n text-right p-right-6">审核备注:</div>
                             <div class="col-xs-10">{{data.check_remark}}</div>
                         </div>
                     </div>

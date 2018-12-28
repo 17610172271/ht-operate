@@ -41,7 +41,8 @@
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('上级代理')!=-1":title="item.upper_agent">{{item.upper_agent}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('创建时间')!=-1":title="item.create_time">{{item.create_time}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('审核时间')!=-1":title="item.check_time">{{item.check_time}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('状态')!=-1" :title="item.status_name" :class="item.status==1?'text-green':'text-red'">{{item.status_name}}</li>
+                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('状态')!=-1" :title="item.status_name"
+                                :class="{'text-green':item.status==1, 'text-red':item.status==3||item.status==4, 'text-orange': item.status==2}">{{item.status_name}}</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 120px;">
                                 <router-link :to="{name: 'agent_check_detail',params: {id: item.id}}" href="javascript:;" class="link" @click.stop v-if="item.status_name=='待审核'">审核</router-link>
                                 <router-link :to="{name: 'agent_detail', params: {id: item.id}}" href="javascript:;" class="link" @click.stop v-else>查看</router-link>
@@ -129,12 +130,12 @@
                     value: ''
                 },
                 {
-                    type: 'text',
+                    type: 'time',
                     name: '创建起始时间',
                     value: ''
                 },
                 {
-                    type: 'text',
+                    type: 'time',
                     name: '截止时间',
                     value: ''
                 },
@@ -143,6 +144,30 @@
                     name: '所属区域',
                     value: '',
                     options:[]
+                },
+                {
+                    type: 'select',
+                    name: '状态',
+                    value: '',
+                    options: [
+                        {
+                            value:'1',
+                            label:'正常'
+                        },
+                        {
+                            value:'2',
+                            label:'待审核'
+                        },
+                        {
+                            value:'3',
+                            label:'未通过'
+                        },
+                        {
+                            value:'4',
+                            label:'已禁用'
+                        },
+
+                    ]
                 },
             ],
         }),
@@ -164,6 +189,7 @@
                     start_time: this.searchOptions[1].value,
                     end_time: this.searchOptions[2].value,
                     region_id: this.searchOptions[3].value,
+                    status: this.searchOptions[4].value,
                     type: 3,
                     page: this.page,
                     limit: this.limit

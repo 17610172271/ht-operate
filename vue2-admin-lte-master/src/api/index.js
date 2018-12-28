@@ -91,6 +91,11 @@ export const log = {
     detail:'/api/v1/log/detail', //详情
 }
 
+export const financial = {
+    statistics: '/api/v1/finance/index', // 默认统计
+    detail:'/api/v1/log/detail', //详情
+}
+
 export default {
     BASE_URL,
     common,
@@ -100,5 +105,6 @@ export default {
     statistics,
     account,
     authrule,
-    log
+    log,
+    financial
 }

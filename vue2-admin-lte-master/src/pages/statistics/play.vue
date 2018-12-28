@@ -106,8 +106,8 @@
                             column1.push(val.cinema_name)
                         })
                         // 画图
-                        this.drawChart('agentNum-chart', '各区域影院统计', data, column)
-                        this.drawChart('agentCinema-chart', '各区域影院播放影片统计', data1, column1)
+                        this.drawChart('agentNum-chart', '各区域影院统计', data, column, '个')
+                        this.drawChart('agentCinema-chart', '各区域影院播放影片统计', data1, column1, '场')
                     } else {
                         this.$message.error(res.data.msg)
                     }
@@ -130,7 +130,7 @@
                     }
                 })
             },
-            drawChart (container, title, data, column) {
+            drawChart (container, title, data, column, unit) {
                 // 基于准备好的dom，初始化echarts实例
                 let myChart = this.$echarts.init(document.getElementById(container))
                 // 绘制图表
@@ -139,7 +139,10 @@
                         text: title,
                         left: 'center'
                     },
-                    tooltip: {trigger: 'axis'},
+                    tooltip: {
+                        trigger: 'axis',
+                        formatter: '{b} <br/>{a} : {c} ' + unit
+                    },
                     grid: {
                         left: '2%', // 图表距边框的距离
                         top: '20%',

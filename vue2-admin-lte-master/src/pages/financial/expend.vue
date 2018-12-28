@@ -20,32 +20,22 @@
                 <div class="page-contaoner">
                     <div class="lk-table m-t-sm">
                         <ul class="table-thead clear">
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">序号</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('影院编号')!=-1">影院编号</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('影院名称')!=-1">影院名称</li>
-                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('所属区域')!=-1">所属区域</li>
-                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('城市')!=-1">城市</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('代理商')!=-1">代理商</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('创建时间')!=-1">创建时间</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('审核时间')!=-1">审核时间</li>
-                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('状态')!=-1">状态</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1">操作</li>
+                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">序号</li>
+                            <li class="col-xs-3 p-n" v-show="selectVal.indexOf('流水号')!=-1">流水号</li>
+                            <li class="col-xs-3 p-n" v-show="selectVal.indexOf('结算编号')!=-1">结算编号</li>
+                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('支出金额')!=-1">支出金额</li>
+                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('支出类型')!=-1">支出类型</li>
+                            <li class="col-xs-4 p-n" v-show="selectVal.indexOf('时间')!=-1">时间</li>
+                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('经办人')!=-1">经办人</li>
                         </ul>
                         <ul class="table-tbody clear" v-for="(item, index) in data.items">
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">{{offset + index + 1}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('影院编号')!=-1" :title="item.code">{{item.code}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('影院名称')!=-1" :title="item.name">{{item.name}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('所属区域')!=-1" :title="item.region_name">{{item.region_name}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('城市')!=-1" :title="item.city_name">{{item.city_name}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('代理商')!=-1" :title="item.agent_name">{{item.agent_name}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('创建时间')!=-1":title="item.create_time">{{item.create_time}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('审核时间')!=-1":title="item.check_time">{{item.check_time}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('状态')!=-1" :title="item.status_name"
-                                :class="{'text-green':item.status==1, 'text-red':item.status==3||item.status==4, 'text-orange': item.status==2}">{{item.status_name}}</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1">
-                                <router-link :to="{name: 'cinema_check_detail',params: {id: item.id}}" href="javascript:;" class="link" @click.stop v-if="item.status_name=='待审核'">审核</router-link>
-                                <router-link :to="{name: 'cinema_detail', params: {id: item.id}}" href="javascript:;" class="link" @click.stop v-else>查看</router-link>
-                            </li>
+                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">{{offset + index + 1}}</li>
+                            <li class="col-xs-3 p-n over-omit" v-show="selectVal.indexOf('流水号')!=-1" :title="item.code">{{item.code}}</li>
+                            <li class="col-xs-3 p-n over-omit" v-show="selectVal.indexOf('结算编号')!=-1" :title="item.name">{{item.name}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('支出金额')!=-1" :title="item.region_name">{{item.region_name}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('支出类型')!=-1" :title="item.city_name">{{item.city_name}}</li>
+                            <li class="col-xs-4 p-n over-omit" v-show="selectVal.indexOf('时间')!=-1" :title="item.agent_name">{{item.agent_name}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('经办人')!=-1":title="item.hall_num">{{item.hall_num}}</li>
                         </ul>
                         <ul class="table-tbody clear" v-if="data.items.length===0">
                             <li class="p-n over-omit">暂无更多数据</li>
@@ -100,24 +90,24 @@
                 items: []
             },
             loading: false,
-            selectVal: ['序号', '影院编号', '影院名称', '所属区域', '城市', '代理商', '创建时间', '审核时间', '状态', '操作'],
-            showList: ['序号', '影院编号', '影院名称', '所属区域', '城市', '代理商', '创建时间', '审核时间', '状态', '操作'],
+            selectVal: ['序号', '流水号', '结算编号', '支出金额', '支出类型', '时间', '经办人'],
+            showList: ['序号', '流水号', '结算编号', '支出金额', '支出类型', '时间', '经办人'],
             options: [10, 25, 50],   //条数数目
             searchShow: false,   //搜索开关
             limit: 10,
             page: 1,
             subNavList: {
                 parentNode: {
-                    name: '影院管理',
+                    name: '财务管理',
                     router: {
-                        name: 'cinema_list'
+                        name: 'financial_statistics'
                     }
                 },
                 childNode: {
-                    name: '影院审核列表',
-                    desc: '主要用应用的审核管理',
+                    name: '支出明细',
+                    desc: '主要用于时间支出明细的查看及管理',
                     router: {
-                        name: 'cinema_check'
+                        name: 'financial_expend'
                     }
                 }
             },
@@ -125,55 +115,24 @@
             searchOptions: [
                 {
                     type: 'text',
-                    name: '影院名称',
+                    name: '流水号',
                     value: ''
                 },
                 {
-                    type: 'searchSelect',
+                    type: 'text',
                     name: '代理商',
-                    value: '',
-                    options: []
+                    value: ''
                 },
                 {
                     type: 'time',
-                    name: '创建起始时间',
+                    name: '开始时间',
                     value: ''
                 },
                 {
                     type: 'time',
                     name: '截止时间',
                     value: ''
-                },
-                {
-                    type: 'searchSelect',
-                    name: '所属区域',
-                    value: '',
-                    options: []
-                },
-                {
-                    type: 'select',
-                    name: '状态',
-                    value: '',
-                    options: [
-                        {
-                            value: 1,
-                            label:'正常'
-                        },
-                        {
-                            value: 2,
-                            label:'待审核'
-                        },
-                        {
-                            value: 3,
-                            label:'未通过'
-                        },
-                        {
-                            value: 4,
-                            label:'已禁用'
-                        },
-
-                    ]
-                },
+                }
             ],
         }),
         computed: {
@@ -191,12 +150,9 @@
                 this.loading = true
                 this.$http.post(api.cinema.list, {
                     name: this.searchOptions[0].value,
-                    agent_id: this.searchOptions[1].value,
+                    agent_name: this.searchOptions[1].value,
                     start_time: this.searchOptions[2].value,
                     end_time: this.searchOptions[3].value,
-                    region_id: this.searchOptions[4].value,
-                    status: this.searchOptions[5].value,
-                    type: 2,
                     page: this.page,
                     limit: this.limit
                 }).then(res => {
@@ -226,35 +182,6 @@
             refresh () {
                 this.getList()    //列表刷新
             },
-            getCity(){
-                this.$http.post(api.common.getCity, {
-                    status: 1
-                }).then(res => {
-                    if (res.data.code === 1) {
-                        this.searchOptions[4].options = res.data.data.map(val => {
-                            return {
-                                label: val.name,
-                                value: val.id
-                            }
-                        })
-                    }
-                })
-            },
-            //获取全部代理商接口
-            getAllAgent(){
-                this.$http.post(api.agent.getAllAgent, {
-//                        status: 1
-                }).then(res => {
-                    if (res.data.code === 1) {
-                        this.searchOptions[1].options = res.data.data.map(val => {
-                            return {
-                                label: val.name,
-                                value: val.id
-                            }
-                        })
-                    }
-                })
-            },
             // 搜索
             doSearch (data) {
                 this.page = 1
@@ -276,15 +203,11 @@
         },
         watch: {
             page (val) {
-                this.$router.replace({name: 'cinema_check', query: {page: val}})
+                this.$router.replace({name: 'financial_expend', query: {page: val}})
                 this.getList()
             },
             limit (val) {
                 this.getList()
-            },
-            searchShow (searchShow){
-                this.getCity()
-                this.getAllAgent()
             }
         }
     }

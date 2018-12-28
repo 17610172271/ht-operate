@@ -6,52 +6,45 @@
             <div class="page-container">
                 <div class="page-toolbar clear m-t-sm">
                     <search-ipts :options="searchOptions" @submit="doSearch" v-show="searchShow"></search-ipts>
-                    <div class="pull-left toolbar-candle clear">
-                        <router-link :to="{name: 'agent_add'}" href="javascript:;" title="添加" class="app-add btn bg-blue1 text-white"><i class="fa fa-plus-square"></i>添加</router-link>
-                        <div class="app-refresh btn bg-gray1" title="刷新" @click="refresh"><i
-                            class="fa fa-refresh"></i></div>
-                    </div>
-                    <div class="pull-right clear">
-                        <div class="pull-left m-r-sm opacity-8" title="列">
-                            <select-checkbox :list="showList" v-model="selectVal" style="width: 60px;"></select-checkbox>
-                        </div>
-                        <div class="pull-left btn opacity-8 search-btn" @click="searchShow = !searchShow"><i
-                            class="fa fa-search" title="搜索"></i></div>
-                    </div>
+                    <h5 class="text-center text-bold text-xxlg">{{searchOptions[0].value}}年{{searchOptions[1].value}}月报表</h5>
                 </div>
                 <div class="page-contaoner">
                     <div class="lk-table m-t-sm">
                         <ul class="table-thead clear">
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">序号</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('代理商编号')!=-1">代理商编号</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('代理商名称')!=-1">代理商名称</li>
-                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('所属区域')!=-1">所属区域</li>
-                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('城市')!=-1">城市</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('上级代理')!=-1">上级代理</li>
-                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('影院数量')!=-1">影院数量</li>
-                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('影厅数量')!=-1">影厅数量</li>
-                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('影院设备')!=-1">影院设备</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('创建时间')!=-1">创建时间</li>
-                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('状态')!=-1">状态</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 120px;">操作</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('日期')!=-1">日期</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('收入')!=-1">收入</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('航天收益')!=-1">航天收益</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('新光')!=-1">新光</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('代理商')!=-1">代理商</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('影院')!=-1">影院</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('版权')!=-1">版权</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('5%专项资金')!=-1">5%专项资金</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('3.3%营业税')!=-1">3.3%营业税</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('小计')!=-1">小计</li>
+                        </ul>
+                        <ul class="table-tbody clear">
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('日期')!=-1">总计</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('收入')!=-1" :title="data.code">{{data.code}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('航天收益')!=-1" :title="data.name">{{data.name}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('新光')!=-1" :title="data.region_name">{{data.region_name}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('代理商')!=-1" :title="data.city_name">{{data.city_name}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('影院')!=-1" :title="data.upper_agent">{{data.upper_agent}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('版权')!=-1":title="data.cinema_num">{{data.cinema_num}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('5%专项资金')!=-1":title="data.hall_num">{{data.hall_num}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('3.3%营业税')!=-1":title="data.device_num">{{data.device_num}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('小计')!=-1":title="data.create_time">{{data.create_time}}</li>
                         </ul>
                         <ul class="table-tbody clear" v-for="(item, index) in data.items">
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">{{offset + index + 1}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('代理商编号')!=-1" :title="item.code">{{item.code}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('代理商名称')!=-1" :title="item.name">{{item.name}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('所属区域')!=-1" :title="item.region_name">{{item.region_name}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('城市')!=-1" :title="item.city_name">{{item.city_name}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('上级代理')!=-1" :title="item.upper_agent">{{item.upper_agent}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('影院数量')!=-1":title="item.cinema_num">{{item.cinema_num}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('影厅数量')!=-1":title="item.hall_num">{{item.hall_num}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('影院设备')!=-1":title="item.device_num">{{item.device_num}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('创建时间')!=-1":title="item.create_time">{{item.create_time}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('状态')!=-1" :title="item.status_name" :class="item.status_name=='正常'?'text-green':(item.status_name=='已禁用'?'text-red':'text-orange')">{{item.status_name}}</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 120px;">
-                                <router-link :to="{name: 'agent_detail', params: {id: item.id}}" href="javascript:;" class="link" @click.stop>查看</router-link>
-                                <router-link :to="{name: 'agent_edit',params: {id: item.id}}" href="javascript:;" class="link" @click.stop>编辑</router-link>
-                                <a href="javascript:;" class="link" @click.stop="statusChange(item)" :class="{'hiden': item.status_name=='待审核'}">{{item.status_name=='正常' ? '禁用' : '启用'}}</a>
-                            </li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('日期')!=-1" :title="item.id">{{item.id}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('收入')!=-1" :title="item.code">{{item.code}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('航天收益')!=-1" :title="item.name">{{item.name}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('新光')!=-1" :title="item.region_name">{{item.region_name}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('代理商')!=-1" :title="item.city_name">{{item.city_name}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('影院')!=-1" :title="item.upper_agent">{{item.upper_agent}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('版权')!=-1":title="item.cinema_num">{{item.cinema_num}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('5%专项资金')!=-1":title="item.hall_num">{{item.hall_num}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('3.3%营业税')!=-1":title="item.device_num">{{item.device_num}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('小计')!=-1":title="item.create_time">{{item.create_time}}</li>
                         </ul>
                         <ul class="table-tbody clear" v-if="data.items.length===0">
                             <li class="p-n over-omit">暂无更多数据</li>
@@ -105,11 +98,13 @@
                 total: 1,
                 items: []
             },
+            yearList: [],
+            monthList: [],
             loading: false,
-            selectVal: ['序号', '代理商编号', '代理商名称', '所属区域', '城市', '上级代理', '影院数量', '影厅数量', '影院设备', '创建时间', '状态', '操作'],
-            showList: ['序号', '代理商编号', '代理商名称', '所属区域', '城市', '上级代理', '影院数量', '影厅数量', '影院设备', '创建时间', '状态', '操作'],
+            selectVal: ['日期', '收入', '航天收益', '新光', '代理商', '影院', '版权', '5%专项资金', '3.3%营业税', '小计'],
+            showList: ['日期', '收入', '航天收益', '新光', '代理商', '影院', '版权', '5%专项资金', '3.3%营业税', '小计'],
             options: [10, 25, 50],   //条数数目
-            searchShow: false,   //搜索开关
+            searchShow: true,   //搜索开关
             limit: 10,
             page: 1,
             subNavList: {
@@ -130,31 +125,17 @@
             //搜索
             searchOptions: [
                 {
-                    type: 'text',
-                    name: '代理商名称',
-                    value: ''
-                },
-                {
-                    type: 'text',
-                    name: '上级代理',
-                    value: ''
-                },
-                {
-                    type: 'time',
-                    name: '创始起始时间',
-                    value: ''
-                },
-                {
-                    type: 'time',
-                    name: '截止时间',
-                    value: ''
-                },
-                {
-                    type: 'searchSelect',
-                    name: '所属区域',
+                    type: 'select',
+                    name: '选择年份',
                     value: '',
                     options: []
                 },
+                {
+                    type: 'select',
+                    name: '选择月份',
+                    value: '',
+                    options: []
+                }
             ],
         }),
         computed: {
@@ -173,10 +154,6 @@
                 this.$http.post(api.agent.list, {
                     name: this.searchOptions[0].value,
                     pid: this.searchOptions[1].value,
-                    start_time: this.searchOptions[2].value,
-                    end_time: this.searchOptions[3].value,
-                    region_id: this.searchOptions[4].value,
-                    type: 1,
                     page: this.page,
                     limit: this.limit
                 }).then(res => {
@@ -202,36 +179,23 @@
                     }
                 })
             },
-            statusChange (item) {
-                this.$confirm(item.status_name === '已禁用' ? '此操作将启用该代理商, 是否继续?' : '此操作将禁用该代理商, 是否继续?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(() => {
-                    this.$http.get(api.agent.disable, {
-                        params: {
-                            id: item.id,
-                            status: item.status_name === '已禁用' ? 1 : 2
-                        }
-                    }).then(res => {
-                        if(res.data.code === 1) {
-                            this.$message({
-                                type: 'success',
-                                message: '操作成功'
-                            })
-                            if (item.status_name === '已禁用') {
-                                item.status_name = '正常'
-                            } else {
-                                item.status_name = '已禁用'
-                            }
-                        } else {
-                            this.$message({
-                                type: 'error',
-                                message: res.data.msg
-                            })
-                        }
+            getOptions () {
+                let year = new Date().getFullYear()
+                let month = new Date().getMonth() + 1
+                for (let i = 2000; i <= year; i++) {
+                    this.searchOptions[0].options.push({
+                        label: i + '年',
+                        value: i
                     })
-                })
+                }
+                for (let i = 1; i < 13; i ++) {
+                    this.searchOptions[1].options.push({
+                        label: i + '月',
+                        value: i
+                    })
+                }
+                this.searchOptions[0].value = year
+                this.searchOptions[1].value = month
             },
             //刷新
             refresh () {
@@ -253,6 +217,7 @@
             }
         },
         created () {
+            this.getOptions()
             this.page = this.$route.query.page ? parseInt(this.$route.query.page) : 1
             this.getList()
         },
@@ -263,24 +228,6 @@
             },
             limit (val) {
                 this.getList()
-            },
-            searchShow (searchShow){
-                this.$http.post(api.common.getCity, {
-                    status: 1
-                }).then(res => {
-                    if (res.data.code === 1) {
-                        this.searchOptions[4].options = res.data.data.map(val => {
-                            return {
-                                label: val.name,
-                                value: val.id
-                            }
-                        })
-        //                        this.region_id = this.regionList[0].value
-                    }
-        //                    else {
-        //                        this.regionList = []
-        //                    }
-                })
             }
         }
     }

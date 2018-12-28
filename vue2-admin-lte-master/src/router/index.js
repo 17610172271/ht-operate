@@ -124,9 +124,14 @@ const router = new Router({
                             component: rs('financial/statistics')
                         },
                         {
-                            path: 'watercourse',
-                            name: 'financial_watercourse',
-                            component: rs('financial/watercourse')
+                            path: 'income',
+                            name: 'financial_income',
+                            component: rs('financial/income')
+                        },
+                        {
+                            path: 'expend',
+                            name: 'financial_expend',
+                            component: rs('financial/expend')
                         },
                         {
                             path: 'order',
@@ -139,6 +144,11 @@ const router = new Router({
                             component: rs('financial/clearing')
                         },
                         {
+                            path: 'clearingDetail/:id',
+                            name: 'clearingDetail',
+                            component: rs('financial/clearingDetail')
+                        },
+                        {
                             path: 'report',
                             name: 'financial_report',
                             component: rs('financial/report')
@@ -149,9 +159,14 @@ const router = new Router({
                             component: rs('financial/routing')
                         },
                         {
-                            path: 'income',
-                            name: 'financial_income',
-                            component: rs('financial/income')
+                            path: 'agentRouting',
+                            name: 'financial_agentRouting',
+                            component: rs('financial/agentRouting')
+                        },
+                        {
+                            path: 'incomes',
+                            name: 'financial_incomes',
+                            component: rs('financial/incomes')
                         }
                     ]
                 },

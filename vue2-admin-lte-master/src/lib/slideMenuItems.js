@@ -110,9 +110,18 @@ module.exports = [
             {
                 type: 'item',
                 icon: 'fa fa-circle-o',
-                name: '资金流水',
+                name: '收入明细',
                 router: {
-                    name: 'financial_watercourse'
+                    name: 'financial_income'
+                },
+                root: [1,2,3,4,5,6,7,8]
+            },
+            {
+                type: 'item',
+                icon: 'fa fa-circle-o',
+                name: '支出明细',
+                router: {
+                    name: 'financial_expend'
                 },
                 root: [1,2,3,4,5,6,7,8]
             },
@@ -155,9 +164,18 @@ module.exports = [
             {
                 type: 'item',
                 icon: 'fa fa-circle-o',
+                name: '代理商分账管理',
+                router: {
+                    name: 'financial_agentRouting'
+                },
+                root: [1,2,3,4,5,6,7,8]
+            },
+            {
+                type: 'item',
+                icon: 'fa fa-circle-o',
                 name: '收益管理',
                 router: {
-                    name: 'financial_income'
+                    name: 'financial_incomes'
                 },
                 root: [1,2,3,4,5,6,7,8]
             }

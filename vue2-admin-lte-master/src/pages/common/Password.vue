@@ -1,7 +1,7 @@
 <template>
     <div class="register-container relative">
         <!--<i class="fa fa-window-close register-close" @click="goBack"></i>-->
-        <div class="logo-img"><img src="../../../static/img/login/logo_03.png" alt=""></div>
+        <!--<div class="logo-img"><img src="../../../static/img/login/logo_03.png" alt=""></div>-->
         <div class="login-title relative">找回密码</div>
         <div class="register-line"></div>
 
