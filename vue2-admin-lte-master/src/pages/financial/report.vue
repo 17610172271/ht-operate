@@ -22,56 +22,33 @@
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('3.3%营业税')!=-1">3.3%营业税</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('小计')!=-1">小计</li>
                         </ul>
-                        <ul class="table-tbody clear">
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('日期')!=-1">总计</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('收入')!=-1" :title="data.code">{{data.code}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('航天收益')!=-1" :title="data.name">{{data.name}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('新光')!=-1" :title="data.region_name">{{data.region_name}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('代理商')!=-1" :title="data.city_name">{{data.city_name}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('影院')!=-1" :title="data.upper_agent">{{data.upper_agent}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('版权')!=-1":title="data.cinema_num">{{data.cinema_num}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('5%专项资金')!=-1":title="data.hall_num">{{data.hall_num}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('3.3%营业税')!=-1":title="data.device_num">{{data.device_num}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('小计')!=-1":title="data.create_time">{{data.create_time}}</li>
+                        <!--<ul class="table-tbody clear">-->
+                            <!--<li class="col-xs-1 p-n" v-show="selectVal.indexOf('日期')!=-1">总计</li>-->
+                            <!--<li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('收入')!=-1" :title="data.code">{{data.code}}</li>-->
+                            <!--<li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('航天收益')!=-1" :title="data.name">{{data.name}}</li>-->
+                            <!--<li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('新光')!=-1" :title="data.region_name">{{data.region_name}}</li>-->
+                            <!--<li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('代理商')!=-1" :title="data.city_name">{{data.city_name}}</li>-->
+                            <!--<li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('影院')!=-1" :title="data.upper_agent">{{data.upper_agent}}</li>-->
+                            <!--<li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('版权')!=-1":title="data.cinema_num">{{data.cinema_num}}</li>-->
+                            <!--<li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('5%专项资金')!=-1":title="data.hall_num">{{data.hall_num}}</li>-->
+                            <!--<li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('3.3%营业税')!=-1":title="data.device_num">{{data.device_num}}</li>-->
+                            <!--<li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('小计')!=-1":title="data.create_time">{{data.create_time}}</li>-->
+                        <!--</ul>-->
+                        <ul class="table-tbody clear" v-for="(item, index) in data">
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('日期')!=-1" :title="item.date">{{item.date}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('收入')!=-1" :title="item.income">{{item.income}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('航天收益')!=-1" :title="item.ht_profit">{{item.ht_profit}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('新光')!=-1" :title="item.xg">{{item.xg}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('代理商')!=-1" :title="item.agent">{{item.agent}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('影院')!=-1" :title="item.cinema">{{item.cinema}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('版权')!=-1":title="item.copyright">{{item.copyright}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('5%专项资金')!=-1":title="item.special_funds">{{item.special_funds}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('3.3%营业税')!=-1":title="item.sales_tax">{{item.sales_tax}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('小计')!=-1":title="item.subtotal">{{item.subtotal}}</li>
                         </ul>
-                        <ul class="table-tbody clear" v-for="(item, index) in data.items">
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('日期')!=-1" :title="item.id">{{item.id}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('收入')!=-1" :title="item.code">{{item.code}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('航天收益')!=-1" :title="item.name">{{item.name}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('新光')!=-1" :title="item.region_name">{{item.region_name}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('代理商')!=-1" :title="item.city_name">{{item.city_name}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('影院')!=-1" :title="item.upper_agent">{{item.upper_agent}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('版权')!=-1":title="item.cinema_num">{{item.cinema_num}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('5%专项资金')!=-1":title="item.hall_num">{{item.hall_num}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('3.3%营业税')!=-1":title="item.device_num">{{item.device_num}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('小计')!=-1":title="item.create_time">{{item.create_time}}</li>
-                        </ul>
-                        <ul class="table-tbody clear" v-if="data.items.length===0">
+                        <ul class="table-tbody clear" v-if="data.length===0">
                             <li class="p-n over-omit">暂无更多数据</li>
                         </ul>
-                    </div>
-                    <div class="footer clear m-t-md">
-                        <div class="pull-left news-record text-lg">
-                            <span v-show="data.items.length>0">显示{{offset + 1}}到{{offset + data.items.length}}条记录，</span>共<span
-                            class="text-blue">{{data.total}}</span>条记录 每页显示
-                            <el-select v-model="limit" placeholder="请选择" style="width: 66px;">
-                                <el-option
-                                    v-for="(item,index) in options"
-                                    :key="index"
-                                    :label="item"
-                                    :value="item">
-                                </el-option>
-                            </el-select>
-                            条记录
-                        </div>
-                        <div class="pull-right">
-                            <el-pagination
-                                background
-                                layout="prev, pager, next"
-                                :current-page.sync="page"
-                                :page-count="pages">
-                            </el-pagination>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -91,13 +68,7 @@
             SubHeader
         },
         data: () => ({
-            data: {
-                limit: 10,
-                page: 1,
-                pageSize: 1,
-                total: 1,
-                items: []
-            },
+            data: [],
             yearList: [],
             monthList: [],
             loading: false,
@@ -138,26 +109,16 @@
                 }
             ],
         }),
-        computed: {
-            //页数和总条数
-            pages () {
-                return this.data.pageSize || 1
-            },
-            offset () {
-                return (this.page - 1) * this.limit
-            }
-        },
         methods: {
             //列表页获取
             getList () {
                 this.loading = true
-                this.$http.post(api.agent.list, {
-                    name: this.searchOptions[0].value,
-                    pid: this.searchOptions[1].value,
+                this.$http.post(api.financial.report, {
+                    year: this.searchOptions[0].value,
+                    month: this.searchOptions[1].value,
                     page: this.page,
                     limit: this.limit
                 }).then(res => {
-                    this.selectedGroup = []
                     let that = this
                     setTimeout(function () {
                         that.loading = false
@@ -165,13 +126,7 @@
                     if (res.data.code === 1) {
                         this.data = res.data.data
                     } else {
-                        this.data = {
-                            limit: 10,
-                            page: 1,
-                            pageSize: 1,
-                            total: 1,
-                            items: []
-                        }
+                        this.data = []
                         this.$message({
                             type: 'warning',
                             message: res.data.msg

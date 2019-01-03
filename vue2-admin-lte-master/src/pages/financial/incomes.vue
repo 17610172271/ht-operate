@@ -7,7 +7,6 @@
                 <div class="page-toolbar clear m-t-sm">
                     <search-ipts :options="searchOptions" @submit="doSearch" v-show="searchShow"></search-ipts>
                     <div class="pull-left toolbar-candle clear">
-                        <router-link :to="{name: 'agent_add'}" href="javascript:;" title="添加" class="app-add btn bg-blue1 text-white"><i class="fa fa-plus-square"></i>添加</router-link>
                         <div class="app-refresh btn bg-gray1" title="刷新" @click="refresh"><i
                             class="fa fa-refresh"></i></div>
                     </div>
@@ -40,21 +39,22 @@
                         </ul>
                         <ul class="table-tbody clear" v-for="(item, index) in data.items">
                             <li class="col-xs-2 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">{{offset + index + 1}}</li>
-                            <li class="col-xs-3 p-n over-omit" v-show="selectVal.indexOf('影院名称')!=-1" :title="item.code">{{item.code}}</li>
+                            <li class="col-xs-3 p-n over-omit" v-show="selectVal.indexOf('影院名称')!=-1" :title="item.cinema_name">{{item.cinema_name}}</li>
                             <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('所属区域')!=-1" :title="item.region_name">{{item.region_name}}</li>
                             <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('城市')!=-1" :title="item.city_name">{{item.city_name}}</li>
-                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('订单数')!=-1" :title="item.upper_agent">{{item.upper_agent}}</li>
-                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('实付总数')!=-1":title="item.cinema_num">{{item.cinema_num}}</li>
-                            <li class="col-xs-3 p-n over-omit" v-show="selectVal.indexOf('时间')!=-1":title="item.hall_num">{{item.hall_num}}</li>
-                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('新光')!=-1":title="item.device_num">{{item.device_num}}</li>
-                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('航天')!=-1":title="item.create_time">{{item.create_time}}</li>
-                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('版权')!=-1" :title="item.status_name">{{item.status_name}}</li>
-                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('影院')!=-1" :title="item.status_name">{{item.status_name}}</li>
-                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('代理商')!=-1" :title="item.status_name">{{item.status_name}}</li>
-                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('营业税')!=-1" :title="item.status_name">{{item.status_name}}</li>
-                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('专项资金')!=-1" :title="item.status_name">{{item.status_name}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('订单数')!=-1" :title="item.trade_num">{{item.trade_num}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('实付总数')!=-1":title="item.total_pay_money">{{item.total_pay_money}}</li>
+                            <li class="col-xs-3 p-n over-omit" v-show="selectVal.indexOf('时间')!=-1":title="item.time">{{item.time}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('新光')!=-1":title="item.xg">{{item.xg}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('航天')!=-1":title="item.ht">{{item.ht}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('版权')!=-1" :title="item.copyright">{{item.copyright}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('影院')!=-1" :title="item.cinema">{{item.cinema}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('代理商')!=-1" :title="item.agent">{{item.agent}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('营业税')!=-1" :title="item.sales_tax">{{item.sales_tax}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('专项资金')!=-1" :title="item.special_funds">{{item.special_funds}}</li>
                             <li class="col-xs-2 p-n" v-show="selectVal.indexOf('操作')!=-1">
-                                <router-link :to="{name: 'agent_detail', params: {id: item.id}}" href="javascript:;" class="link" @click.stop>查看</router-link>
+                                <router-link :to="{name: 'financial_incomes_detail', params: {id: item.cinema_id}, query: {cinema_name: item.cinema_name, start_time: searchOptions[2].value, end_time: searchOptions[3].value}}"
+                                             href="javascript:;" class="link" @click.stop>查看</router-link>
                             </li>
                         </ul>
                         <ul class="table-tbody clear" v-if="data.items.length===0">
@@ -169,7 +169,7 @@
             //列表页获取
             getList () {
                 this.loading = true
-                this.$http.post(api.agent.list, {
+                this.$http.post(api.financial.incomes, {
                     cinema_name: this.searchOptions[0].value,
                     region_id: this.searchOptions[1].value,
                     start_time: this.searchOptions[2].value,
@@ -197,37 +197,6 @@
                             message: res.data.msg
                         })
                     }
-                })
-            },
-            statusChange (item) {
-                this.$confirm(item.status_name === '已禁用' ? '此操作将启用该代理商, 是否继续?' : '此操作将禁用该代理商, 是否继续?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(() => {
-                    this.$http.get(api.agent.disable, {
-                        params: {
-                            id: item.id,
-                            status: item.status_name === '已禁用' ? 1 : 2
-                        }
-                    }).then(res => {
-                        if(res.data.code === 1) {
-                            this.$message({
-                                type: 'success',
-                                message: '操作成功'
-                            })
-                            if (item.status_name === '已禁用') {
-                                item.status_name = '正常'
-                            } else {
-                                item.status_name = '已禁用'
-                            }
-                        } else {
-                            this.$message({
-                                type: 'error',
-                                message: res.data.msg
-                            })
-                        }
-                    })
                 })
             },
             //刷新

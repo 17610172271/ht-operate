@@ -167,6 +167,11 @@ const router = new Router({
                             path: 'incomes',
                             name: 'financial_incomes',
                             component: rs('financial/incomes')
+                        },
+                        {
+                            path: 'incomesDetail/:id',
+                            name: 'financial_incomes_detail',
+                            component: rs('financial/incomesDetail')
                         }
                     ]
                 },
