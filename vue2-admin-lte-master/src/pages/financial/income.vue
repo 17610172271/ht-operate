@@ -30,12 +30,12 @@
                         </ul>
                         <ul class="table-tbody clear" v-for="(item, index) in data.items">
                             <li class="col-xs-2 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">{{offset + index + 1}}</li>
-                            <li class="col-xs-3 p-n over-omit" v-show="selectVal.indexOf('流水号')!=-1" :title="item.code">{{item.code}}</li>
-                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('影院名称')!=-1" :title="item.name">{{item.name}}</li>
-                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('订单编号')!=-1" :title="item.region_name">{{item.region_name}}</li>
-                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('收入金额')!=-1" :title="item.city_name">{{item.city_name}}</li>
-                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('收入类型')!=-1" :title="item.agent_name">{{item.agent_name}}</li>
-                            <li class="col-xs-4 p-n over-omit" v-show="selectVal.indexOf('时间')!=-1":title="item.hall_num">{{item.hall_num}}</li>
+                            <li class="col-xs-3 p-n over-omit" v-show="selectVal.indexOf('流水号')!=-1" :title="item.serial_number">{{item.serial_number}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('影院名称')!=-1" :title="item.cinema_name">{{item.cinema_name}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('订单编号')!=-1" :title="item.trade_id">{{item.trade_id}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('收入金额')!=-1" :title="item.income">{{item.income}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('收入类型')!=-1" :title="item.income_type">{{item.income_type}}</li>
+                            <li class="col-xs-4 p-n over-omit" v-show="selectVal.indexOf('时间')!=-1":title="item.time">{{item.time}}</li>
                         </ul>
                         <ul class="table-tbody clear" v-if="data.items.length===0">
                             <li class="p-n over-omit">暂无更多数据</li>
@@ -105,7 +105,7 @@
                 },
                 childNode: {
                     name: '收入明细',
-                    desc: '主要用于收入类型收入明细的查看及管理',
+                    desc: '主要用于收入明细的查看及管理',
                     router: {
                         name: 'financial_income'
                     }
@@ -149,8 +149,8 @@
             //列表页获取
             getList () {
                 this.loading = true
-                this.$http.post(api.cinema.list, {
-                    name: this.searchOptions[0].value,
+                this.$http.post(api.financial.income, {
+                    serial_number: this.searchOptions[0].value,
                     cinema_id: this.searchOptions[1].value,
                     start_time: this.searchOptions[2].value,
                     end_time: this.searchOptions[3].value,
@@ -179,9 +179,11 @@
                     }
                 })
             },
-            //获取全部收入类型接口
+            //获取全部影院接口
             getcinemaList(){
-                this.$http.post(api.agent.getAllAgent).then(res => {
+                this.$http.post(api.cinema.getAllList, {
+                    type_id: 2
+                }).then(res => {
                     if (res.data.code === 1) {
                         this.searchOptions[1].options = res.data.data.map(val => {
                             return {

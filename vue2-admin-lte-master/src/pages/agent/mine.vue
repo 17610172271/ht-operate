@@ -32,7 +32,7 @@
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('创建时间')!=-1">创建时间</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('合同截止日期')!=-1">合同截止日期</li>
                             <li class="col-xs-24 p-n" v-show="selectVal.indexOf('状态')!=-1">状态</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 120px;">操作</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 130px;">操作</li>
                         </ul>
                         <ul class="table-tbody clear" v-for="(item, index) in data.items">
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">{{offset + index + 1}}</li>
@@ -46,9 +46,10 @@
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('合同截止日期')!=-1":title="item.contract_after_time">{{item.contract_after_time}}</li>
                             <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('状态')!=-1" :title="item.status_name"
                                 :class="{'text-green':item.status==1, 'text-red':item.status==4, 'text-orange': item.status==2}">{{item.status_name}}</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 120px;">
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 130px;">
                                 <router-link :to="{name: 'agent_detail', params: {id: item.id}}" href="javascript:;" class="link" @click.stop>查看</router-link>
                                 <router-link :to="{name: 'agent_edit',params: {id: item.id}}" href="javascript:;" class="link" @click.stop>编辑</router-link>
+                                <a href="javascript:;" :class="{'disabled': item.status!=1}" class="link" @click.stop="openAccount(item)">分账设置</a>
                             </li>
                         </ul>
                         <ul class="table-tbody clear" v-if="data.items.length===0">
@@ -78,6 +79,27 @@
                             </el-pagination>
                         </div>
                     </div>
+                    <el-dialog
+                        title="代理商分账比例设置"
+                        :visible.sync="accountModal"
+                        custom-class="dialog-modal2"
+                        :close-on-click-modal="false">
+                        <div class="text-center m-t-lg clear">
+                            <div class="clear m-b-sm">
+                                <div class="col-xs-12 col-md-2 p-v-sm p-r-n text-right min-width-105">分账比例:</div>
+                                <div class="col-xs-11 col-md-6">
+                                    <el-input placeholder="请输入分账比例" v-model="accountNum"></el-input>
+                                </div>
+                                <div class="col-xs-1 col-md-1 p-n text-left line-height-40">
+                                    %
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-9 m-t-lg">
+                                <el-button type="primary" @click="setAccount">确 定</el-button>
+                                <el-button @click="accountModal = false">取 消</el-button>
+                            </div>
+                        </div>
+                    </el-dialog>
                 </div>
             </div>
         </div>
@@ -103,6 +125,9 @@
                 total: 1,
                 items: []
             },
+            accountModal: false,
+            accountNum: '',
+            accountItem: {},
             loading: false,
             selectVal: ['序号', '代理商编号', '代理商名称', '所属区域', '影院数量', '影厅数量', '影院设备', '创建时间', '合同截止日期', '状态', '操作'],
             showList: ['序号', '代理商编号', '代理商名称', '所属区域', '影院数量', '影厅数量', '影院设备', '创建时间', '合同截止日期', '状态', '操作'],
@@ -214,6 +239,45 @@
                         })
                     }
                 })
+            },
+            openAccount (item) {
+                this.accountNum = item.proportion || 0
+                this.accountItem = item
+                this.accountModal = true
+            },
+            setAccount () {
+                if (this.accountNum) {
+                    if (!/^100$|^(\d|[1-9]\d)(\.\d{1,2})*$/.test(this.accountNum)) {
+                        this.$message({
+                            type: 'warning',
+                            message: '分账比例为100以内正数,且最多保留两位小数'
+                        })
+                        return
+                    }
+                    this.$http.post(api.agent.setAccount, {
+                        proportion: this.accountNum,
+                        agent_id: this.accountItem.id
+                    }).then(res => {
+                        if (res.data.code === 1) {
+                            this.$message({
+                                type: 'success',
+                                message: '代理商分账设置成功'
+                            })
+                            this.getList()
+                            this.accountModal = false
+                        } else {
+                            this.$message({
+                                type: 'error',
+                                message: res.data.msg
+                            })
+                        }
+                    })
+                }  else {
+                    this.$message({
+                        type: 'warning',
+                        message: '请输入分账比例'
+                    })
+                }
             },
             //刷新
             refresh () {

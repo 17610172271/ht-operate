@@ -30,12 +30,12 @@
                         </ul>
                         <ul class="table-tbody clear" v-for="(item, index) in data.items">
                             <li class="col-xs-2 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">{{offset + index + 1}}</li>
-                            <li class="col-xs-3 p-n over-omit" v-show="selectVal.indexOf('流水号')!=-1" :title="item.code">{{item.code}}</li>
-                            <li class="col-xs-3 p-n over-omit" v-show="selectVal.indexOf('结算编号')!=-1" :title="item.name">{{item.name}}</li>
-                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('支出金额')!=-1" :title="item.region_name">{{item.region_name}}</li>
-                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('支出类型')!=-1" :title="item.city_name">{{item.city_name}}</li>
-                            <li class="col-xs-4 p-n over-omit" v-show="selectVal.indexOf('时间')!=-1" :title="item.agent_name">{{item.agent_name}}</li>
-                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('经办人')!=-1":title="item.hall_num">{{item.hall_num}}</li>
+                            <li class="col-xs-3 p-n over-omit" v-show="selectVal.indexOf('流水号')!=-1" :title="item.serial_number">{{item.serial_number}}</li>
+                            <li class="col-xs-3 p-n over-omit" v-show="selectVal.indexOf('结算编号')!=-1" :title="item.settlement_code">{{item.settlement_code}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('支出金额')!=-1" :title="item.defray_money">{{item.defray_money}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('支出类型')!=-1" :title="item.defray_type">{{item.defray_type}}</li>
+                            <li class="col-xs-4 p-n over-omit" v-show="selectVal.indexOf('时间')!=-1" :title="item.time">{{item.time}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('经办人')!=-1":title="item.operator">{{item.operator}}</li>
                         </ul>
                         <ul class="table-tbody clear" v-if="data.items.length===0">
                             <li class="p-n over-omit">暂无更多数据</li>
@@ -105,7 +105,7 @@
                 },
                 childNode: {
                     name: '支出明细',
-                    desc: '主要用于时间支出明细的查看及管理',
+                    desc: '主要用于支出明细的查看及管理',
                     router: {
                         name: 'financial_expend'
                     }
@@ -148,8 +148,8 @@
             //列表页获取
             getList () {
                 this.loading = true
-                this.$http.post(api.cinema.list, {
-                    name: this.searchOptions[0].value,
+                this.$http.post(api.financial.expend, {
+                    serial_number: this.searchOptions[0].value,
                     agent_name: this.searchOptions[1].value,
                     start_time: this.searchOptions[2].value,
                     end_time: this.searchOptions[3].value,

@@ -19,38 +19,56 @@
                     </div>
                 </div>
                 <div class="page-contaoner">
-                    <div class="lk-table m-t-sm">
-                        <ul class="table-thead clear">
+                    <div class="m-t-sm">
+                        <ul class="clear flex p-v-sm border-bottom">
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">序号</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('影院编号')!=-1">影院编号</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('影院名称')!=-1">影院名称</li>
-                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('所属区域')!=-1">所属区域</li>
-                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('城市')!=-1">城市</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('代理商')!=-1">代理商</li>
-                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('影厅数量')!=-1">影厅数量</li>
-                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('影院设备')!=-1">影院设备</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('创建时间')!=-1">创建时间</li>
-                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('状态')!=-1">状态</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 120px;">操作</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('代理商编号')!=-1">代理商编号</li>
+                            <li class="col-xs-3 p-n text-left" v-show="selectVal.indexOf('代理商名称')!=-1">代理商名称</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('所属区域')!=-1">所属区域</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('城市')!=-1">城市</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('一级分账比例')!=-1">一级分账比例</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('二级分账比例')!=-1">二级分账比例</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('三级分账比例')!=-1">三级分账比例</li>
                         </ul>
-                        <ul class="table-tbody clear" v-for="(item, index) in data.items">
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">{{offset + index + 1}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('影院编号')!=-1" :title="item.code">{{item.code}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('影院名称')!=-1" :title="item.name">{{item.name}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('所属区域')!=-1" :title="item.region_name">{{item.region_name}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('城市')!=-1" :title="item.city_name">{{item.city_name}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('代理商')!=-1" :title="item.agent_name">{{item.agent_name}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('影厅数量')!=-1":title="item.hall_num">{{item.hall_num}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('影院设备')!=-1":title="item.device_num">{{item.device_num}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('创建时间')!=-1":title="item.create_time">{{item.create_time}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('状态')!=-1" :title="item.status_name" :class="item.status_name=='正常'?'text-green':'text-red'">{{item.status_name}}</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 120px;">
-                                <router-link :to="{name: 'cinema_detail', params: {id: item.id}}" href="javascript:;" class="link" @click.stop>查看</router-link>
-                                <router-link :to="{name: 'cinema_edit',params: {id: item.id}}" href="javascript:;" class="link" @click.stop>编辑</router-link>
-                                <a href="javascript:;" class="link" @click.stop="statusChange(item)" :class="{'hiden': item.status_name=='待审核'}">{{item.status_name=='正常' ? '禁用' : '启用'}}</a>
-                            </li>
-                        </ul>
-                        <ul class="table-tbody clear" v-if="data.items.length===0">
+                        <div class="p-v-sm" v-for="(item, index) in data.items">
+                            <ul class="table-tbody clear flex p-v-xs hover-999">
+                                <li class="col-xs-1 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">{{offset + index + 1}}</li>
+                                <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('代理商编号')!=-1" :title="item.agent_code">{{item.agent_code}}</li>
+                                <li class="col-xs-3 p-n over-omit text-left" style="padding-left: 10px;" v-show="selectVal.indexOf('代理商名称')!=-1" :title="item.agent_name" @click="item.is_show=!item.is_show">
+                                    <i class="fa m-r-sm text-999 cursor-p" :class="item.is_show?'fa-minus-square-o':'fa-plus-square-o'"></i>{{item.agent_name}}
+                                </li>
+                                <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('所属区域')!=-1" :title="item.region_name">{{item.region_name}}</li>
+                                <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('城市')!=-1" :title="item.city_name">{{item.city_name}}</li>
+                                <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('一级分账比例')!=-1" :title="item.first_proportion">{{item.first_proportion}}</li>
+                                <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('二级分账比例')!=-1"></li>
+                                <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('三级分账比例')!=-1"></li>
+                            </ul>
+                            <div class="" v-for="first in item.child" v-show="item.is_show">
+                                <ul class="clear flex p-v-xs hover-999">
+                                    <li class="col-xs-1 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;"></li>
+                                    <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('代理商编号')!=-1"></li>
+                                    <li class="col-xs-3 p-n over-omit text-left" style="padding-left: 30px;" v-show="selectVal.indexOf('代理商名称')!=-1" :title="first.agent_name" @click="first.is_show=!first.is_show">
+                                        <i class="fa m-r-sm text-999 cursor-p" :class="first.is_show?'fa-minus-square-o':'fa-plus-square-o'"></i>{{first.agent_name}}
+                                    </li>
+                                    <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('所属区域')!=-1" :title="first.region_name">{{first.region_name}}</li>
+                                    <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('城市')!=-1" :title="first.city_name">{{first.city_name}}</li>
+                                    <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('一级分账比例')!=-1" :title="first.first_proportion">{{first.first_proportion}}</li>
+                                    <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('二级分账比例')!=-1" :title="first.second_proportion">{{first.second_proportion}}</li>
+                                    <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('三级分账比例')!=-1" :title="first.third_proportion">{{first.third_proportion}}</li>
+                                </ul>
+                                <ul class="clear flex p-v-xs hover-999" v-for="second in first.child" v-show="first.is_show">
+                                    <li class="col-xs-1 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;"></li>
+                                    <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('代理商编号')!=-1"></li>
+                                    <li class="col-xs-3 p-n over-omit text-left" style="padding-left: 70px;" v-show="selectVal.indexOf('代理商名称')!=-1" :title="second.agent_name">{{second.agent_name}}</li>
+                                    <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('所属区域')!=-1" :title="second.region_name">{{second.region_name}}</li>
+                                    <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('城市')!=-1" :title="second.city_name">{{second.city_name}}</li>
+                                    <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('一级分账比例')!=-1" :title="second.first_proportion">{{second.first_proportion}}</li>
+                                    <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('二级分账比例')!=-1" :title="second.second_proportion">{{second.second_proportion}}</li>
+                                    <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('三级分账比例')!=-1" :title="second.third_proportion">{{second.third_proportion}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <ul class="clear text-center p-v-sm" v-if="data.items.length===0">
                             <li class="p-n over-omit">暂无更多数据</li>
                         </ul>
                     </div>
@@ -103,8 +121,8 @@
                 items: []
             },
             loading: false,
-            selectVal: ['序号', '影院编号', '影院名称', '所属区域', '城市', '代理商', '影厅数量', '影院设备', '创建时间', '状态', '操作'],
-            showList: ['序号', '影院编号', '影院名称', '所属区域', '城市', '代理商', '影厅数量', '影院设备', '创建时间', '状态', '操作'],
+            selectVal: ['序号', '代理商编号', '代理商名称', '所属区域', '城市', '一级分账比例', '二级分账比例', '三级分账比例'],
+            showList: ['序号', '代理商编号', '代理商名称', '所属区域', '城市', '一级分账比例', '二级分账比例', '三级分账比例'],
             options: [10, 25, 50],   //条数数目
             searchShow: false,   //搜索开关
             limit: 10,
@@ -127,56 +145,23 @@
             //搜索
             searchOptions: [
                 {
-                    type: 'text',
-                    name: '影院名称',
-                    value: ''
-                },
-                {
                     type: 'searchSelect',
                     name: '代理商',
                     value: '',
                     options: []
                 },
                 {
-                    type: 'time',
-                    name: '创建起始时间',
-                    value: ''
-                },
-                {
-                    type: 'time',
-                    name: '截止时间',
-                    value: ''
+                    type: 'searchSelect',
+                    name: '城市',
+                    value: '',
+                    options: []
                 },
                 {
                     type: 'searchSelect',
                     name: '所属区域',
                     value: '',
                     options: []
-                },
-                {
-                    type: 'select',
-                    name: '状态',
-                    value: '',
-                    options: [
-                        {
-                            value:'1',
-                            label:'正常'
-                        },
-                        {
-                            value:'2',
-                            label:'待审核'
-                        },
-                        {
-                            value:'3',
-                            label:'未通过'
-                        },
-                        {
-                            value:'4',
-                            label:'已禁用'
-                        },
-
-                    ]
-                },
+                }
             ],
         }),
         computed: {
@@ -192,18 +177,13 @@
             //列表页获取
             getList () {
                 this.loading = true
-                this.$http.post(api.cinema.list, {
-                    name: this.searchOptions[0].value,
-                    agent_id: this.searchOptions[1].value,
-                    start_time: this.searchOptions[2].value,
-                    end_time: this.searchOptions[3].value,
-                    region_id: this.searchOptions[4].value,
-                    states: this.searchOptions[5].value,
-                    type: 1,
+                this.$http.post(api.financial.agentRouting, {
+                    agent_name: this.searchOptions[0].value,
+                    city_id: this.searchOptions[1].value,
+                    region_id: this.searchOptions[2].value,
                     page: this.page,
                     limit: this.limit
                 }).then(res => {
-                    this.selectedGroup = []
                     let that = this
                     setTimeout(function () {
                         that.loading = false
@@ -290,4 +270,8 @@
     }
 </script>
 <style scoped>
+    .hover-999:hover {
+        background-color: #f5f5f5;
+        cursor: pointer;
+    }
 </style>
