@@ -1127,7 +1127,7 @@ a:hover .fa-edit {
 .flex > li,
 .flex > ul {
     flex-grow: 1;
-    text-align: center;
+    /*text-align: center;*/
 }
 .flex .text-left {
     text-align: left;
