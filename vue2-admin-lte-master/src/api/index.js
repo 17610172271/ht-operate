@@ -25,6 +25,7 @@ export  const agent = {
     disable: '/api/v1/agent/stop', // 代理商启用禁用
     check: '/api/v1/agent/audit', // 代理商审核
     getAllAgent:'/api/v1/agent/getAllAgent',  //获取全部代理商
+    setAccount: '/api/v1/agent/proportion', // 代理商分账比例设置
 }
 
 // 影院
@@ -37,11 +38,12 @@ export  const cinema = {
     editDetail: '/api/v1/cinema/cinemaDetail', // 编辑影院-详情
     disable: '/api/v1/cinema/stop', //启用禁用
     check: '/api/v1/cinema/audit', // 影院审核
-    agent:'/api/v1/cinema/get_region_agent',   //获取院线列表
-    getAllList: '/api/v1/cinema/get_cinema', // 获取全部影院列表
+    //agent:'/api/v1/cinema/get_region_agent',   //获取院线列表
+    //getAllList: '/api/v1/cinema/get_cinema', // 获取全部影院列表
     status: '/api/v1/cinema/device', // 影院设备状态
     map: '/api/v1/statistics/cinemaMap', // 影院地图列表
     mapDetail: '/api/v1/statistics/cinemaMapDetail', // 影院地图详情
+    getAllList: '/api/v1/hall/device', // 获取所有代理商,影院,影厅列表
 }
 
 // 统计
@@ -93,7 +95,22 @@ export const log = {
 
 export const financial = {
     statistics: '/api/v1/finance/index', // 默认统计
-    detail:'/api/v1/log/detail', //详情
+    income:'/api/v1/finance/cinemaIncome', //收入明细
+    expend: '/api/v1/finance/defrayDetail', // 支出明细
+    orderList: '/api/v1/finance/tradeList', // 用户订单
+    orderDetail: '/api/v1/finance/tradeDetail', // 订单详情
+    clearing: '/api/v1/finance/settlementList', // 结算列表
+    clearingDetail: '/api/v1/finance/settlementDetail', // 结算详情
+    clearingDates: '/api/v1/finance/settlementDetailDay', // 结算-每日
+    clearingComplete: '/api/v1/finance/settlement', // 结算
+    uploadCertificate: '/api/v1/finance/uploadVoucher', // 上传凭证
+    report: '/api/v1/financeReport/month', // 月报表
+    routing: '/api/v1/finance/proportionSetList', // 分账设置列表
+    setAccount: '/api/v1/finance/proportionSet', // 分账设置
+    routingDel: '/api/v1/finance/delProportion', // 分账删除
+    incomes: '/api/v1/financeReport/profitList', // 收益管理
+    incomesDetail: '/api/v1/financeReport/profitDetail', // 收益详情
+    agentRouting: '/api/v1/financeReport/proportionList', // 代理商分账列表
 }
 
 export default {

@@ -1,10 +1,17 @@
 <template>
     <div v-loading="loading">
-        <div class="p-lg appli-container">
-            <sub-header :list="subNavList"></sub-header>
-            <div class="page-container">
+        <div class="appli-container bg-white">
+            <div class="p-md border-bottom relative clear">
+                <el-breadcrumb separator="/">
+                    <el-breadcrumb-item :to="{name: 'home'}">首页</el-breadcrumb-item>
+                    <el-breadcrumb-item :to="{name: 'financial_incomes'}">收益管理</el-breadcrumb-item>
+                    <el-breadcrumb-item>收益详情</el-breadcrumb-item>
+                    <el-breadcrumb-item></el-breadcrumb-item>
+                </el-breadcrumb>
+                <a href="javascript:;" class="btn bg-blue1 text-white btn-back" style="right: 40px;" @click="goBack">返回</a>
+            </div>
+            <div class="page-container" style="margin-top: 0;">
                 <div class="page-toolbar clear m-t-sm">
-                    <search-ipts :options="searchOptions" @submit="doSearch" v-show="searchShow"></search-ipts>
                     <div class="pull-left toolbar-candle clear">
                         <div class="app-refresh btn bg-gray1" title="刷新" @click="refresh"><i
                             class="fa fa-refresh"></i></div>
@@ -13,29 +20,41 @@
                         <div class="pull-left m-r-sm opacity-8" title="列">
                             <select-checkbox :list="showList" v-model="selectVal" style="width: 60px;"></select-checkbox>
                         </div>
-                        <div class="pull-left btn opacity-8 search-btn" @click="searchShow = !searchShow"><i
-                            class="fa fa-search" title="搜索"></i></div>
                     </div>
                 </div>
-                <div class="page-contaoner">
+                <div class="page-contaoner" style="margin-top: 0;">
                     <div class="lk-table m-t-sm">
                         <ul class="table-thead clear">
-                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">序号</li>
-                            <li class="col-xs-3 p-n" v-show="selectVal.indexOf('流水号')!=-1">流水号</li>
-                            <li class="col-xs-3 p-n" v-show="selectVal.indexOf('结算编号')!=-1">结算编号</li>
-                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('支出金额')!=-1">支出金额</li>
-                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('支出类型')!=-1">支出类型</li>
+                            <li class="col-xs-3 p-n" v-show="selectVal.indexOf('订单编号')!=-1">订单编号</li>
+                            <li class="col-xs-3 p-n" v-show="selectVal.indexOf('影片名称')!=-1">影片名称</li>
+                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('原价')!=-1">原价</li>
+                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('实付')!=-1">实付</li>
                             <li class="col-xs-4 p-n" v-show="selectVal.indexOf('时间')!=-1">时间</li>
-                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('经办人')!=-1">经办人</li>
+                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('营业税')!=-1">营业税</li>
+                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('专项资金')!=-1">专项资金</li>
+                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('新光')!=-1">新光</li>
+                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('航天')!=-1">航天</li>
+                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('版权')!=-1">版权</li>
+                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('影院')!=-1">影院</li>
+                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('一级代理')!=-1">一级代理</li>
+                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('二级代理')!=-1">二级代理</li>
+                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('三级代理')!=-1">专项资金</li>
                         </ul>
                         <ul class="table-tbody clear" v-for="(item, index) in data.items">
-                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">{{offset + index + 1}}</li>
-                            <li class="col-xs-3 p-n over-omit" v-show="selectVal.indexOf('流水号')!=-1" :title="item.serial_number">{{item.serial_number}}</li>
-                            <li class="col-xs-3 p-n over-omit" v-show="selectVal.indexOf('结算编号')!=-1" :title="item.settlement_code">{{item.settlement_code}}</li>
-                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('支出金额')!=-1" :title="item.defray_money">{{item.defray_money}}</li>
-                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('支出类型')!=-1" :title="item.defray_type">{{item.defray_type}}</li>
+                            <li class="col-xs-3 p-n" v-show="selectVal.indexOf('订单编号')!=-1" :title="item.trade_id">{{item.trade_id}}</li>
+                            <li class="col-xs-3 p-n over-omit" v-show="selectVal.indexOf('影片名称')!=-1" :title="item.film_name">{{item.film_name}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('原价')!=-1" :title="item.price">{{item.price}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('实付')!=-1" :title="item.pay_money">{{item.pay_money}}</li>
                             <li class="col-xs-4 p-n over-omit" v-show="selectVal.indexOf('时间')!=-1" :title="item.time">{{item.time}}</li>
-                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('经办人')!=-1":title="item.operator">{{item.operator}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('营业税')!=-1":title="item.sales_tax">{{item.sales_tax}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('专项资金')!=-1":title="item.special_funds">{{item.special_funds}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('新光')!=-1":title="item.xg">{{item.xg}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('航天')!=-1":title="item.ht">{{item.ht}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('版权')!=-1" :title="item.copyright">{{item.copyright}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('影院')!=-1" :title="item.cinema">{{item.cinema}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('一级代理')!=-1" :title="item.agent_first">{{item.agent_first}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('二级代理')!=-1" :title="item.agent_second">{{item.agent_second}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('三级代理')!=-1" :title="item.agent_third">{{item.agent_third}}</li>
                         </ul>
                         <ul class="table-tbody clear" v-if="data.items.length===0">
                             <li class="p-n over-omit">暂无更多数据</li>
@@ -90,50 +109,12 @@
                 items: []
             },
             loading: false,
-            selectVal: ['序号', '流水号', '结算编号', '支出金额', '支出类型', '时间', '经办人'],
-            showList: ['序号', '流水号', '结算编号', '支出金额', '支出类型', '时间', '经办人'],
+            selectVal: ['订单编号', '影片名称', '原价', '实付', '时间', '营业税', '专项资金', '新光', '航天', '版权', '影院', '一级代理', '二级代理', '三级代理'],
+            showList: ['订单编号', '影片名称', '原价', '实付', '时间', '营业税', '专项资金', '新光', '航天', '版权', '影院', '一级代理', '二级代理', '三级代理'],
             options: [10, 25, 50],   //条数数目
             searchShow: false,   //搜索开关
             limit: 10,
             page: 1,
-            subNavList: {
-                parentNode: {
-                    name: '财务管理',
-                    router: {
-                        name: 'financial_statistics'
-                    }
-                },
-                childNode: {
-                    name: '支出明细',
-                    desc: '主要用于支出明细的查看及管理',
-                    router: {
-                        name: 'financial_expend'
-                    }
-                }
-            },
-            //搜索
-            searchOptions: [
-                {
-                    type: 'text',
-                    name: '流水号',
-                    value: ''
-                },
-                {
-                    type: 'text',
-                    name: '代理商',
-                    value: ''
-                },
-                {
-                    type: 'time',
-                    name: '开始时间',
-                    value: ''
-                },
-                {
-                    type: 'time',
-                    name: '截止时间',
-                    value: ''
-                }
-            ],
         }),
         computed: {
             //页数和总条数
@@ -148,15 +129,15 @@
             //列表页获取
             getList () {
                 this.loading = true
-                this.$http.post(api.financial.expend, {
-                    serial_number: this.searchOptions[0].value,
-                    agent_name: this.searchOptions[1].value,
-                    start_time: this.searchOptions[2].value,
-                    end_time: this.searchOptions[3].value,
-                    page: this.page,
-                    limit: this.limit
+                this.$http.get(api.financial.incomesDetail, {
+                    params: {
+                        cinema_id: this.$route.params.id,
+                        start_time: this.$route.query.start_time,
+                        end_time: this.$route.query.end_time,
+                        page: this.page,
+                        limit: this.limit
+                    }
                 }).then(res => {
-                    this.selectedGroup = []
                     let that = this
                     setTimeout(function () {
                         that.loading = false
@@ -182,12 +163,6 @@
             refresh () {
                 this.getList()    //列表刷新
             },
-            // 搜索
-            doSearch (data) {
-                this.page = 1
-                this.searchOptions = data
-                this.getList()
-            },
             // 下一页
             addPage () {
                 if (this.page < this.pages) this.page += 1
@@ -195,6 +170,9 @@
             // 上一页
             delPage () {
                 if (this.page > 1) this.page -= 1
+            },
+            goBack () {
+                this.$router.go(-1)
             }
         },
         created () {
@@ -203,7 +181,7 @@
         },
         watch: {
             page (val) {
-                this.$router.replace({name: 'financial_expend', query: {page: val}})
+                this.$router.replace({name: 'financial_income_detail', query: {page: val}})
                 this.getList()
             },
             limit (val) {

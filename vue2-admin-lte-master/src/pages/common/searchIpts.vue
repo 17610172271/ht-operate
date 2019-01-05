@@ -128,7 +128,7 @@
         -ms-flex-align: center;
         align-items: center;
         -ms-flex-pack: end;
-        justify-content: center;
+        justify-content: flex-end;
     }
 
     .search-btns {

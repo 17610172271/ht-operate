@@ -28,24 +28,39 @@
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('结算金额')!=-1">结算金额</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('状态')!=-1">状态</li>
                             <li class="col-xs-2 p-n" v-show="selectVal.indexOf('申请时间')!=-1">申请时间</li>
-                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('银行信息')!=-1">银行信息</li>
+                            <li class="col-xs-4 p-n" v-show="selectVal.indexOf('银行信息')!=-1">银行信息</li>
                             <li class="col-xs-2 p-n" v-show="selectVal.indexOf('结算时间')!=-1">结算时间</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 130px;">操作</li>
                         </ul>
                         <ul class="table-tbody clear" v-for="(item, index) in data.items">
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">{{offset + index + 1}}</li>
-                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('结算编号')!=-1" :title="item.code">{{item.code}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('结算对象')!=-1" :title="item.name">{{item.name}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('申请结算月份')!=-1" :title="item.region_name">{{item.region_name}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('结算金额')!=-1" :title="item.city_name">{{item.city_name}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('状态')!=-1" :title="item.upper_agent">{{item.upper_agent}}</li>
-                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('申请时间')!=-1":title="item.cinema_num">{{item.cinema_num}}</li>
-                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('银行信息')!=-1":title="item.hall_num">{{item.hall_num}}</li>
-                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('结算时间')!=-1":title="item.device_num">{{item.device_num}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('结算编号')!=-1" :title="item.settlement_code">{{item.settlement_code}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('结算对象')!=-1" :title="item.agent_name">{{item.agent_name}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('申请结算月份')!=-1" :title="item.apply_month">{{item.apply_month}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('结算金额')!=-1" :title="item.settlement_money">{{item.settlement_money}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('状态')!=-1" :title="item.status_name"
+                                :class="{'text-999': item.status_name=='已结算'}">{{item.status_name}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('申请时间')!=-1":title="item.apply_time">{{item.apply_time}}</li>
+                            <li class="col-xs-4 p-n over-omit text-left" v-show="selectVal.indexOf('银行信息')!=-1" style="padding:2px 5px;"
+                                :title="item.account_name + ',' + item.bank_name + ',' + item.bank_account + ',' + item.open_bank">
+                                <div class="over-omit" style="line-height: 18px;font-size: 12px;">{{item.account_name}}, {{item.bank_name}}</div>
+                                <div class="over-omit" style="line-height: 18px;font-size: 12px;">{{item.bank_account}}, {{item.open_bank}}</div>
+                            </li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('结算时间')!=-1":title="item.settlement_time">{{item.settlement_time}}</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 130px;">
-                                <a href="javascript:;" class="link">结算</a>
-                                <router-link :to="{name: 'clearingDetail', params: {id: item.id}}" href="javascript:;" class="link">详情</router-link>
-                                <a href="javascript:;" class="link">上传凭证</a>
+                                <a href="javascript:;" class="link" :class="{'disabled': !(item.status_name=='未结算'&&item.certificate)}" @click.stop="doClearing(item)">结算</a>
+                                <router-link :to="{name: 'clearingDetail', params: {id: item.settlement_code}, query: {apply_month: item.apply_month}}" href="javascript:;" class="link">详情</router-link>
+                                <a :href="item.certificate" class="link" @click.stop target="_blank" v-if="item.certificate">查看凭证</a>
+                                <el-upload
+                                    v-else
+                                    class="inline-block"
+                                    :action="uploadUrl"
+                                    accept="image/*"
+                                    :show-file-list="false"
+                                    :headers="header"
+                                    :on-success="uploadCertificate">
+                                    <a href="javascript:;" title="上传凭证" class="link">上传凭证</a>
+                                </el-upload>
                             </li>
                         </ul>
                         <ul class="table-tbody clear" v-if="data.items.length===0">
@@ -107,6 +122,7 @@
             searchShow: false,   //搜索开关
             limit: 10,
             page: 1,
+            header: {ContentType: 'application/x-www-form-urlencoded'},
             subNavList: {
                 parentNode: {
                     name: '财务管理',
@@ -148,9 +164,18 @@
                     type: 'select',
                     name: '状态',
                     value: '',
-                    options: []
-                },
-            ],
+                    options: [
+                        {
+                            label: '已结算',
+                            value: 1
+                        },
+                        {
+                            label: '未结算',
+                            value: 2
+                        }
+                    ]
+                }
+            ]
         }),
         computed: {
             //页数和总条数
@@ -159,19 +184,21 @@
             },
             offset () {
                 return (this.page - 1) * this.limit
+            },
+            uploadUrl () {
+                return api.financial.uploadCertificate
             }
         },
         methods: {
             //列表页获取
             getList () {
                 this.loading = true
-                this.$http.post(api.agent.list, {
-                    name: this.searchOptions[0].value,
-                    pid: this.searchOptions[1].value,
+                this.$http.post(api.financial.clearing, {
+                    settlement_code: this.searchOptions[0].value,
+                    agent_name: this.searchOptions[1].value,
                     start_time: this.searchOptions[2].value,
                     end_time: this.searchOptions[3].value,
-                    region_id: this.searchOptions[4].value,
-                    type: 1,
+                    status: this.searchOptions[4].value,
                     page: this.page,
                     limit: this.limit
                 }).then(res => {
@@ -196,6 +223,46 @@
                         })
                     }
                 })
+            },
+            doClearing (item) {
+                this.$confirm('此操作将将对该代理商进行结算, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.$http.get(api.financial.clearingComplete, {
+                        params: {
+                            id: item.id
+                        }
+                    }).then(res => {
+                        if (res.data.code === 1) {
+                            this.$message({
+                                type: 'success',
+                                message: '结算成功!'
+                            })
+                            this.getList()
+                        } else {
+                            this.$message({
+                                type: 'warning',
+                                message: res.data.msg
+                            })
+                        }
+                    })
+                })
+            },
+            uploadCertificate () {
+                if (res.code === 1) {
+                    this.$message({
+                        type: 'success',
+                        message: '上传成功'
+                    })
+                    this.getList()
+                } else {
+                    this.$message({
+                        type: 'error',
+                        message: res.msg
+                    })
+                }
             },
             //刷新
             refresh () {

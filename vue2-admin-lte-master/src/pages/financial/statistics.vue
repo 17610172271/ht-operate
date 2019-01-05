@@ -6,15 +6,15 @@
                 <div class="clear p-v-md">
                     <div class="statistics-datas-item pull-left m-r-lg">
                         <h5 class="p-o-md">总收入:</h5>
-                        <div class="p-v-sm text-30 text-center">¥ {{data.total_play || 0}}</div>
+                        <div class="p-v-sm text-xxlg text-center">¥ {{format(data.total_income || 0)}}</div>
                     </div>
                     <div class="statistics-datas-item pull-left m-r-lg">
                         <h5 class="p-o-md">航天总收益:</h5>
-                        <div class="p-v-sm text-30 text-center">¥ {{data.week_play || 0}}</div>
+                        <div class="p-v-sm text-xxlg text-center">¥ {{format(data.ht_total_profit || 0)}}</div>
                     </div>
                     <div class="statistics-datas-item pull-left">
                         <h5 class="p-o-md">待结算金额:</h5>
-                        <div class="p-v-sm text-30 text-center">¥ {{data.month_play || 0}}</div>
+                        <div class="p-v-sm text-xxlg text-center">¥ {{format(data.wait_settlement || 0)}}</div>
                     </div>
                 </div>
                 <div class="m-t-md">
@@ -35,6 +35,7 @@
     import api from '@/api'
     import SelectCheckbox from '@/components/SelectCheckbox'
     import SearchIpts from '../common/searchIpts'
+    import format from '@/tools/formatMoney'
     export default {
         //组件
         components: {
@@ -44,13 +45,14 @@
         },
         data: () => ({
             loading: false,
-            data: {
-
-            },
+            data: {},
             tabVal: 'first',
+            month: [],
+            income: [],
+            profit: [],
             subNavList: {
                 parentNode: {
-                    name: '财务管理管理',
+                    name: '财务管理',
                     router: {
                         name: 'financial_statistics'
                     }
@@ -69,7 +71,20 @@
                 this.$http.post(api.financial.statistics).then(res => {
                     if (res.data.code === 1) {
                         this.data = res.data.data
-                        this.drawChart('defaultChart', '总收益统计图表', [100, 500, 888, 398, 688], ['一月', '二月', '三月', '四月', '五月'])
+                        this.month = []
+                        this.income = []
+                        this.profit = []
+                        this.data.items.map(val => {
+                            this.month.push(val.month)
+                            this.income.push(val.income)
+                            this.profit.push(val.profit)
+                        })
+
+                        if (this.tabVal === 'first') {
+                            this.drawChart('defaultChart', '总收入统计图表', this.income, this.month)
+                        } else {
+                            this.drawChart('defaultChart', '航天收益统计图表', this.profit, this.month)
+                        }
                     } else {
                         this.$message.error(res.data.msg)
                     }
@@ -84,7 +99,10 @@
                         text: title,
                         left: 'center'
                     },
-                    tooltip: {trigger: 'axis'},
+                    tooltip: {
+                        trigger: 'axis',
+                        formatter: '月份: {b} <br/>{a} : {c} 元'
+                    },
                     grid: {
                         left: '2%', // 图表距边框的距离
                         top: '20%',
@@ -104,7 +122,7 @@
                     ],
                     series: [
                         {
-                            name: '金额(元)',
+                            name: '金额',
                             color: ['#7cb5ec'],
                             barMaxWidth: '40',
                             type: 'bar',
@@ -113,12 +131,20 @@
                     ]
                 })
                 myChart.resize()
-            }
+            },
+            format: format
         },
         mounted () {
             this.getData()
         },
         watch: {
+            tabVal (val) {
+                if (val === 'first') {
+                    this.drawChart('defaultChart', '总收入统计图表', this.income, this.month)
+                } else {
+                    this.drawChart('defaultChart', '航天收益统计图表', this.profit, this.month)
+                }
+            }
         }
     }
 </script>

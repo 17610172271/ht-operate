@@ -980,6 +980,9 @@ a:hover .fa-edit {
 .dialog-modal1 {
     max-width: 700px;
 }
+.dialog-modal2 {
+    max-width: 500px;
+}
 .pic-container {
     width: 115px;
     min-height: 50px;
@@ -1120,8 +1123,18 @@ a:hover .fa-edit {
 .flex {
     display: flex;
 }
-.flex > div {
+.flex > div,
+.flex > li,
+.flex > ul {
     flex-grow: 1;
+    /*text-align: center;*/
+}
+.flex .text-left {
+    text-align: left;
+}
+.p-v-xs {
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 .btn-back {
     position: absolute;
@@ -1151,7 +1164,15 @@ a.link.disabled, fieldset[disabled] a.link {
     box-shadow: none;
     opacity: .65;
 }
-
+.lk-table .agent-routing > ul:nth-child(2n) {
+    background-color: #f9f9f9;
+}
+.lk-table .agent-routing {
+    border-bottom: 1px solid #eaeaea;
+}
+.lk-table .agent-routing:last-child {
+    border-bottom: none;
+}
 .chart-container {
     height: 300px;
 }
