@@ -12,7 +12,6 @@
                     <div class="lk-table m-t-sm">
                         <ul class="table-thead clear">
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('日期')!=-1">日期</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('收入')!=-1">收入</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('航天收益')!=-1">航天收益</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('新光')!=-1">新光</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('代理商')!=-1">代理商</li>
@@ -22,21 +21,8 @@
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('3.3%营业税')!=-1">3.3%营业税</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('小计')!=-1">小计</li>
                         </ul>
-                        <!--<ul class="table-tbody clear">-->
-                            <!--<li class="col-xs-1 p-n" v-show="selectVal.indexOf('日期')!=-1">总计</li>-->
-                            <!--<li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('收入')!=-1" :title="data.code">{{data.code}}</li>-->
-                            <!--<li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('航天收益')!=-1" :title="data.name">{{data.name}}</li>-->
-                            <!--<li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('新光')!=-1" :title="data.region_name">{{data.region_name}}</li>-->
-                            <!--<li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('代理商')!=-1" :title="data.city_name">{{data.city_name}}</li>-->
-                            <!--<li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('影院')!=-1" :title="data.upper_agent">{{data.upper_agent}}</li>-->
-                            <!--<li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('版权')!=-1":title="data.cinema_num">{{data.cinema_num}}</li>-->
-                            <!--<li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('5%专项资金')!=-1":title="data.hall_num">{{data.hall_num}}</li>-->
-                            <!--<li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('3.3%营业税')!=-1":title="data.device_num">{{data.device_num}}</li>-->
-                            <!--<li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('小计')!=-1":title="data.create_time">{{data.create_time}}</li>-->
-                        <!--</ul>-->
                         <ul class="table-tbody clear" v-for="(item, index) in data">
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('日期')!=-1" :title="item.date">{{item.date}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('收入')!=-1" :title="item.income">{{item.income}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('航天收益')!=-1" :title="item.ht_profit">{{item.ht_profit}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('新光')!=-1" :title="item.xg">{{item.xg}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('代理商')!=-1" :title="item.agent">{{item.agent}}</li>
@@ -72,8 +58,8 @@
             yearList: [],
             monthList: [],
             loading: false,
-            selectVal: ['日期', '收入', '航天收益', '新光', '代理商', '影院', '版权', '5%专项资金', '3.3%营业税', '小计'],
-            showList: ['日期', '收入', '航天收益', '新光', '代理商', '影院', '版权', '5%专项资金', '3.3%营业税', '小计'],
+            selectVal: ['日期', '航天收益', '新光', '代理商', '影院', '版权', '5%专项资金', '3.3%营业税', '小计'],
+            showList: ['日期', '航天收益', '新光', '代理商', '影院', '版权', '5%专项资金', '3.3%营业税', '小计'],
             options: [10, 25, 50],   //条数数目
             searchShow: true,   //搜索开关
             limit: 10,

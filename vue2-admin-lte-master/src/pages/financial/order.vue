@@ -149,7 +149,7 @@
                             </div>
                             <div class="clear">
                                 <div class="col-xs-2 line-height-40 text-right min-width-105">订单状态:</div>
-                                <div class="col-xs-8 line-height-40">{{detailVal.status_name}}</div>
+                                <div class="col-xs-8 line-height-40">{{detailVal.status}}</div>
                             </div>
                         </div>
                     </el-dialog>
@@ -345,18 +345,16 @@
             },
             getDetailData (id) {
                 this.modalLoading = true
-                this.$http.get(api.financial.orderDetail, {
-                    params: {
-                        trade_id: id
-                    }
+                this.$http.post(api.financial.orderDetail, {
+                    trade_id: id
                 }).then(res => {
-                    this.modalLoading = false
-                    if (res.data.code === 1) {
-                        let that = this
-                        setTimeout(function () {
+                    let that = this
+                    setTimeout(function () {
+                        if (res.data.code === 1) {
+                            that.modalLoading = false
                             that.detailVal = res.data.data
-                        }, 500)
-                    }
+                        }
+                    }, 500)
                 })
             },
             lookDetail (item) {

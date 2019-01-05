@@ -35,7 +35,7 @@
                                 <li class="col-xs-1 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">{{offset + index + 1}}</li>
                                 <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('代理商编号')!=-1" :title="item.agent_code">{{item.agent_code}}</li>
                                 <li class="col-xs-3 p-n over-omit text-left" style="padding-left: 10px;" v-show="selectVal.indexOf('代理商名称')!=-1" :title="item.agent_name" @click="item.is_show=!item.is_show">
-                                    <i class="fa m-r-sm text-999 cursor-p" :class="item.is_show?'fa-minus-square-o':'fa-plus-square-o'"></i>{{item.agent_name}}
+                                    <i class="fa m-r-sm text-999 cursor-p" :class="item.is_show?'fa-minus-square-o':'fa-plus-square-o'" v-show="item.child"></i>{{item.agent_name}}
                                 </li>
                                 <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('所属区域')!=-1" :title="item.region_name">{{item.region_name}}</li>
                                 <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('城市')!=-1" :title="item.city_name">{{item.city_name}}</li>
@@ -48,7 +48,7 @@
                                     <li class="col-xs-1 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;"></li>
                                     <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('代理商编号')!=-1"></li>
                                     <li class="col-xs-3 p-n over-omit text-left" style="padding-left: 30px;" v-show="selectVal.indexOf('代理商名称')!=-1" :title="first.agent_name" @click="first.is_show=!first.is_show">
-                                        <i class="fa m-r-sm text-999 cursor-p" :class="first.is_show?'fa-minus-square-o':'fa-plus-square-o'"></i>{{first.agent_name}}
+                                        <i class="fa m-r-sm text-999 cursor-p" :class="first.is_show?'fa-minus-square-o':'fa-plus-square-o'" v-show="first.child"></i>{{first.agent_name}}
                                     </li>
                                     <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('所属区域')!=-1" :title="first.region_name">{{first.region_name}}</li>
                                     <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('城市')!=-1" :title="first.city_name">{{first.city_name}}</li>

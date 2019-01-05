@@ -4,16 +4,15 @@
             <div class="p-md border-bottom relative clear">
                 <el-breadcrumb separator="/">
                     <el-breadcrumb-item :to="{name: 'home'}">首页</el-breadcrumb-item>
-                    <el-breadcrumb-item :to="{name: 'financial_income'}">收益管理</el-breadcrumb-item>
+                    <el-breadcrumb-item :to="{name: 'financial_incomes'}">收益管理</el-breadcrumb-item>
                     <el-breadcrumb-item>收益详情</el-breadcrumb-item>
-                    <el-breadcrumb-item>{{$route.query.cinema_name}}</el-breadcrumb-item>
+                    <el-breadcrumb-item></el-breadcrumb-item>
                 </el-breadcrumb>
                 <a href="javascript:;" class="btn bg-blue1 text-white btn-back" style="right: 40px;" @click="goBack">返回</a>
             </div>
             <div class="page-container" style="margin-top: 0;">
                 <div class="page-toolbar clear m-t-sm">
                     <div class="pull-left toolbar-candle clear">
-                        <router-link :to="{name: 'agent_add'}" href="javascript:;" title="添加" class="app-add btn bg-blue1 text-white"><i class="fa fa-plus-square"></i>添加</router-link>
                         <div class="app-refresh btn bg-gray1" title="刷新" @click="refresh"><i
                             class="fa fa-refresh"></i></div>
                     </div>

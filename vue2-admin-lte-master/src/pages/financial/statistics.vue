@@ -6,15 +6,15 @@
                 <div class="clear p-v-md">
                     <div class="statistics-datas-item pull-left m-r-lg">
                         <h5 class="p-o-md">总收入:</h5>
-                        <div class="p-v-sm text-30 text-center">¥ {{data.total_income || 0}}</div>
+                        <div class="p-v-sm text-xxlg text-center">¥ {{format(data.total_income || 0)}}</div>
                     </div>
                     <div class="statistics-datas-item pull-left m-r-lg">
                         <h5 class="p-o-md">航天总收益:</h5>
-                        <div class="p-v-sm text-30 text-center">¥ {{data.ht_total_profit || 0}}</div>
+                        <div class="p-v-sm text-xxlg text-center">¥ {{format(data.ht_total_profit || 0)}}</div>
                     </div>
                     <div class="statistics-datas-item pull-left">
                         <h5 class="p-o-md">待结算金额:</h5>
-                        <div class="p-v-sm text-30 text-center">¥ {{data.wait_settlement || 0}}</div>
+                        <div class="p-v-sm text-xxlg text-center">¥ {{format(data.wait_settlement || 0)}}</div>
                     </div>
                 </div>
                 <div class="m-t-md">
@@ -35,6 +35,7 @@
     import api from '@/api'
     import SelectCheckbox from '@/components/SelectCheckbox'
     import SearchIpts from '../common/searchIpts'
+    import format from '@/tools/formatMoney'
     export default {
         //组件
         components: {
@@ -130,7 +131,8 @@
                     ]
                 })
                 myChart.resize()
-            }
+            },
+            format: format
         },
         mounted () {
             this.getData()

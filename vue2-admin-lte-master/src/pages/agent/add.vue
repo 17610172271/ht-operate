@@ -335,6 +335,7 @@
             },
             getRegionList () {
                 this.$http.post(api.common.getCity, {
+                    agent_id: this.$route.params.id,
                     status: 1
                 }).then(res => {
                     if (res.data.code === 1) {

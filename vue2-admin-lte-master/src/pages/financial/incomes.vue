@@ -53,7 +53,7 @@
                             <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('营业税')!=-1" :title="item.sales_tax">{{item.sales_tax}}</li>
                             <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('专项资金')!=-1" :title="item.special_funds">{{item.special_funds}}</li>
                             <li class="col-xs-2 p-n" v-show="selectVal.indexOf('操作')!=-1">
-                                <router-link :to="{name: 'financial_incomes_detail', params: {id: item.cinema_id}, query: {cinema_name: item.cinema_name, start_time: searchOptions[2].value, end_time: searchOptions[3].value}}"
+                                <router-link :to="{name: 'financial_incomes_detail', params: {id: item.cinema_id}, query: {start_time: searchOptions[2].value, end_time: searchOptions[3].value}}"
                                              href="javascript:;" class="link" @click.stop>查看</router-link>
                             </li>
                         </ul>

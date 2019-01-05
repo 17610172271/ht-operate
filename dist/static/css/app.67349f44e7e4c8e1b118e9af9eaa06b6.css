@@ -1200,6 +1200,9 @@ a:hover .fa-edit {
 .dialog-modal1 {
     max-width: 700px;
 }
+.dialog-modal2 {
+    max-width: 500px;
+}
 .pic-container {
     width: 115px;
     min-height: 50px;
@@ -1340,8 +1343,18 @@ a:hover .fa-edit {
 .flex {
     display: flex;
 }
-.flex > div {
+.flex > div,
+.flex > li,
+.flex > ul {
     flex-grow: 1;
+    /*text-align: center;*/
+}
+.flex .text-left {
+    text-align: left;
+}
+.p-v-xs {
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 .btn-back {
     position: absolute;
@@ -1371,7 +1384,15 @@ a.link.disabled, fieldset[disabled] a.link {
     box-shadow: none;
     opacity: .65;
 }
-
+.lk-table .agent-routing > ul:nth-child(2n) {
+    background-color: #f9f9f9;
+}
+.lk-table .agent-routing {
+    border-bottom: 1px solid #eaeaea;
+}
+.lk-table .agent-routing:last-child {
+    border-bottom: none;
+}
 .chart-container {
     height: 300px;
 }
@@ -1470,4 +1491,4 @@ a.link.disabled, fieldset[disabled] a.link {
         padding: 15px 0 0;
     }
 }
-/*# sourceMappingURL=app.ff59c5e6b10122198295b900cf5fd482.css.map*/
+/*# sourceMappingURL=app.67349f44e7e4c8e1b118e9af9eaa06b6.css.map*/

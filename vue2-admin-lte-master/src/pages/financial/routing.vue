@@ -5,19 +5,19 @@
             <div class="page-container">
                 <div class="lk-table m-t-sm">
                     <ul class="table-thead clear">
-                        <li class="col-xs-1 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">序号</li>
+                        <li class="col-xs-1 p-n" v-show="selectVal.indexOf('序号')!=-1">序号</li>
                         <li class="col-xs-2 p-n" v-show="selectVal.indexOf('合作方')!=-1">合作方</li>
-                        <li class="col-xs-1 p-n" v-show="selectVal.indexOf('分账比例')!=-1">分账比例</li>
-                        <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 130px;">操作</li>
+                        <li class="col-xs-2 p-n" v-show="selectVal.indexOf('分账比例')!=-1">分账比例</li>
+                        <!--<li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 130px;">操作</li>-->
                     </ul>
                     <ul class="table-tbody clear" v-for="(item, index) in data">
-                        <li class="col-xs-1 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">{{index + 1}}</li>
+                        <li class="col-xs-1 p-n" v-show="selectVal.indexOf('序号')!=-1">{{index + 1}}</li>
                         <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('合作方')!=-1" :title="item.name">{{item.name}}</li>
-                        <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('分账比例')!=-1" :title="item.proportion">{{item.proportion}}%</li>
-                        <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 130px;">
-                            <a href="javascript:;" class="link" @click.stop="openAccount(item)">编辑</a>
-                            <a href="javascript:;" class="link" @click.stop="delItem(item.id)">删除</a>
-                        </li>
+                        <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('分账比例')!=-1" :title="item.proportion">{{item.proportion}}%</li>
+                        <!--<li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 130px;">-->
+                            <!--<a href="javascript:;" class="link" @click.stop="openAccount(item)">编辑</a>-->
+                            <!--<a href="javascript:;" class="link" @click.stop="delItem(item.id)">删除</a>-->
+                        <!--</li>-->
                     </ul>
                 </div>
                 <el-dialog
@@ -63,8 +63,8 @@
             accountNum: '',
             accountItem: {},
             loading: false,
-            selectVal: ['序号', '合作方', '分账比例', '操作'],
-            showList: ['序号', '合作方', '分账比例', '操作'],
+            selectVal: ['序号', '合作方', '分账比例'],
+            showList: ['序号', '合作方', '分账比例'],
             subNavList: {
                 parentNode: {
                     name: '财务管理',
