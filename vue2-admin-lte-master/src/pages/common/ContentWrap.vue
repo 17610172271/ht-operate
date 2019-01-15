@@ -35,6 +35,7 @@
     #content-wrap {
         padding-top: 50px;
         overflow: auto;
+        /*min-height: inherit !important;*/
     }
     .page-enter-active, .page-leave-active {
         transition: opacity 0.5s, transform 0.5s;
