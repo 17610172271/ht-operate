@@ -92,17 +92,17 @@ textarea {
     padding: 0;
 }
 /*皮肤*/
-.main-sidebar {
-    overflow: hidden;
-}
+/*.main-sidebar {*/
+    /*overflow-y: hidden;*/
+/*}*/
 .sidebar::-webkit-scrollbar,
 .sidebar-menu::-webkit-scrollbar {
     display: none;
 }
-.sidebar {
-    height: 100% !important;
-    overflow-y: scroll;
-}
+/*.sidebar {*/
+    /*height: 100% !important;*/
+    /*overflow-y: scroll;*/
+/*}*/
 .skin-blue .main-header .navbar {
     background-color: #18bc9c;
 }
