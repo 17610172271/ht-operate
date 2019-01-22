@@ -68,7 +68,7 @@
                                     :value="item">
                                 </el-option>
                             </el-select>
-                            条记录
+                            条记录{{page}}
                         </div>
                         <div class="pull-right">
                             <el-pagination
@@ -272,8 +272,11 @@
                 if (this.page > 1) this.page -= 1
             }
         },
-        created () {
+        mounted () {
             this.page = this.$route.query.page ? parseInt(this.$route.query.page) : 1
+            console.log(this.page)
+        },
+        created () {
             this.getList()
         },
         watch: {

@@ -5,7 +5,7 @@
         element-loading-text="登陆中..."
         element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.5)">
-        <div class="login-title">代理商运营平台</div>
+        <div class="login-title">航天运营管理平台</div>
         <div class="login-username relative">
             <input type="text" placeholder="请输入用户名" @keydown.13="submit" v-model="username">
             <i class="fa fa-user-o fa-2x skin-red login-fa-user"></i>

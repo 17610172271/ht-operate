@@ -52,11 +52,11 @@
                     <div class="p-o-sm p-v-xs clear flex">
                         <div class="col-xs-12 col-md-6 clear p-v-sm">
                             <div class="col-xs-4 max-width-105 p-n text-right">影厅数量:</div>
-                            <div class="col-xs-8">{{data.hall_num}}</div>
+                            <div class="col-xs-8">{{data.hall_num || 0}} 个</div>
                         </div>
                         <div class="col-xs-12 col-md-6 clear p-v-sm">
                             <div class="col-xs-4 max-width-105 p-n text-right">影院设备:</div>
-                            <div class="col-xs-8">{{data.device_num}}</div>
+                            <div class="col-xs-8">{{data.device_num || 0}} 套</div>
                         </div>
                     </div>
                     <div class="p-o-sm p-v-xs clear flex">
