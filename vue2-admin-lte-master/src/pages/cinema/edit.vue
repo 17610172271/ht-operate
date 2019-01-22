@@ -106,6 +106,7 @@
                 num: '',
                 apply_remark: ''
             },
+            address: '',
             loading: false,
             regionList: [],
             isSelect: false,
@@ -136,6 +137,7 @@
                     }, 500)
                     if (res.data.code === 1) {
                         this.addInfo = res.data.data
+                        this.address = this.addInfo.address
                         this.$set(this.addInfo, 'cityLink', this.addInfo.province_id + '/' + this.addInfo.city_id + '/' + this.addInfo.county_id)
                         this.position = [this.addInfo.longitude, this.addInfo.latitude]
                     } else {
@@ -176,7 +178,7 @@
                 this.$http.post(api.cinema.edit, {
                     id: this.$route.params.id || '',
                     name: this.addInfo.name,
-                    address: this.addInfo.address,
+                    address: this.address,
                     introduce: this.addInfo.introduce,
                     region_id: this.addInfo.region_id,
                     province_id: this.addInfo.cityLink.split('/')[0],
@@ -202,6 +204,7 @@
                     this.addInfo.longitude = item.location.lng
                     this.addInfo.latitude = item.location.lat
                 }
+                this.address = item.address + item.name
                 this.addInfo.address = item.district + item.address + item.name
                 this.addressSearchShow = false
             },

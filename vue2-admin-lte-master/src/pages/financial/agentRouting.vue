@@ -206,12 +206,12 @@
                 })
             },
             //获取区域
-            getCity(){
+            getArea(){
                 this.$http.post(api.common.getCity, {
                     status: 1
                 }).then(res => {
                     if (res.data.code === 1) {
-                        this.searchOptions[4].options = res.data.data.map(val => {
+                        this.searchOptions[2].options = res.data.data.map(val => {
                             return {
                                 label: val.name,
                                 value: val.id
@@ -224,6 +224,21 @@
             getAllAgent(){
                 this.$http.post(api.agent.getAllAgent, {
 //                        status: 1
+                }).then(res => {
+                    if (res.data.code === 1) {
+                        this.searchOptions[0].options = res.data.data.map(val => {
+                            return {
+                                label: val.name,
+                                value: val.id
+                            }
+                        })
+                    }
+                })
+            },
+            //获取城市
+            getCity(){
+                this.$http.post(api.common.getCity, {
+                    status: 3
                 }).then(res => {
                     if (res.data.code === 1) {
                         this.searchOptions[1].options = res.data.data.map(val => {
@@ -266,6 +281,13 @@
             limit (val) {
                 this.getList()
             },
+            searchShow (val) {
+                if (val) {
+                    this.getAllAgent()
+                    this.getCity()
+                    this.getArea()
+                }
+            }
         }
     }
 </script>
