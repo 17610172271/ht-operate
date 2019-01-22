@@ -244,6 +244,7 @@
                             } else {
                                 item.status_name = '正常'
                             }
+                            this.getList()
                         } else {
                             this.$message({
                                 type: 'error',
@@ -307,6 +308,7 @@
             this.getList()
         },
         watch: {
+
             page (val) {
                 this.$router.replace({name: 'cinema_list', query: {page: val}})
                 this.getList()
