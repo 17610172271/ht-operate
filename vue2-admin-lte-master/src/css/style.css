@@ -92,9 +92,11 @@ textarea {
     padding: 0;
 }
 /*皮肤*/
-/*.main-sidebar {*/
-    /*overflow-y: hidden;*/
-/*}*/
+.main-sidebar {
+    height: 100%;
+    max-height: 100px;
+    overflow-y: scroll;
+}
 .sidebar::-webkit-scrollbar,
 .sidebar-menu::-webkit-scrollbar {
     display: none;
