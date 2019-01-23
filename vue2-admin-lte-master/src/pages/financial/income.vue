@@ -182,7 +182,7 @@
             //获取全部影院接口
             getcinemaList(){
                 this.$http.post(api.cinema.getAllList, {
-                    type_id: 2
+                    type_id: 1
                 }).then(res => {
                     if (res.data.code === 1) {
                         this.searchOptions[1].options = res.data.data.map(val => {
