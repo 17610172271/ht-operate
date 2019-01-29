@@ -146,7 +146,7 @@
             searchOptions: [
                 {
                     type: 'searchSelect',
-                    name: '代理商',
+                    name: '代理商名称',
                     value: '',
                     options: []
                 },
