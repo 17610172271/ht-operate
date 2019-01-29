@@ -38,7 +38,7 @@
                             <li class="col-xs-2 p-n" v-show="selectVal.indexOf('影院')!=-1">影院</li>
                             <li class="col-xs-2 p-n" v-show="selectVal.indexOf('一级代理')!=-1">一级代理</li>
                             <li class="col-xs-2 p-n" v-show="selectVal.indexOf('二级代理')!=-1">二级代理</li>
-                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('三级代理')!=-1">专项资金</li>
+                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('三级代理')!=-1">三级代理</li>
                         </ul>
                         <ul class="table-tbody clear" v-for="(item, index) in data.items">
                             <li class="col-xs-3 p-n" v-show="selectVal.indexOf('订单编号')!=-1" :title="item.trade_id">{{item.trade_id}}</li>
