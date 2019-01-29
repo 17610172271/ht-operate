@@ -34,7 +34,7 @@
                             <li class="col-xs-2 p-n" v-show="selectVal.indexOf('影院')!=-1">影院</li>
                             <li class="col-xs-2 p-n" v-show="selectVal.indexOf('代理商')!=-1">代理商</li>
                             <li class="col-xs-2 p-n" v-show="selectVal.indexOf('营业税')!=-1">营业税</li>
-                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('专项资金')!=-1">专项资金</li>
+                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('三级代理')!=-1">三级代理</li>
                             <li class="col-xs-2 p-n" v-show="selectVal.indexOf('操作')!=-1">操作</li>
                         </ul>
                         <ul class="table-tbody clear" v-for="(item, index) in data.items">
@@ -51,7 +51,7 @@
                             <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('影院')!=-1" :title="item.cinema">{{item.cinema}}</li>
                             <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('代理商')!=-1" :title="item.agent">{{item.agent}}</li>
                             <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('营业税')!=-1" :title="item.sales_tax">{{item.sales_tax}}</li>
-                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('专项资金')!=-1" :title="item.special_funds">{{item.special_funds}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('三级代理')!=-1" :title="item.special_funds">{{item.special_funds}}</li>
                             <li class="col-xs-2 p-n" v-show="selectVal.indexOf('操作')!=-1">
                                 <router-link :to="{name: 'financial_incomes_detail', params: {id: item.cinema_id}, query: {start_time: searchOptions[2].value, end_time: searchOptions[3].value}}"
                                              href="javascript:;" class="link" @click.stop>查看</router-link>
@@ -110,8 +110,8 @@
                 items: []
             },
             loading: false,
-            selectVal: ['序号', '影院名称', '所属区域', '城市', '订单数', '实付总数', '时间', '新光', '航天', '版权', '影院', '代理商', '营业税', '专项资金', '操作'],
-            showList: ['序号', '影院名称', '所属区域', '城市', '订单数', '实付总数', '时间', '新光', '航天', '版权', '影院', '代理商', '营业税', '专项资金', '操作'],
+            selectVal: ['序号', '影院名称', '所属区域', '城市', '订单数', '实付总数', '时间', '新光', '航天', '版权', '影院', '代理商', '营业税', '三级代理', '操作'],
+            showList: ['序号', '影院名称', '所属区域', '城市', '订单数', '实付总数', '时间', '新光', '航天', '版权', '影院', '代理商', '营业税', '三级代理', '操作'],
             options: [10, 25, 50],   //条数数目
             searchShow: false,   //搜索开关
             limit: 10,

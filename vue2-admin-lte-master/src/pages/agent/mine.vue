@@ -32,6 +32,7 @@
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('创建时间')!=-1">创建时间</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('合同截止日期')!=-1">合同截止日期</li>
                             <li class="col-xs-24 p-n" v-show="selectVal.indexOf('状态')!=-1">状态</li>
+                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('分账百分比')!=-1">分账百分比</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 130px;">操作</li>
                         </ul>
                         <ul class="table-tbody clear" v-for="(item, index) in data.items">
@@ -41,11 +42,11 @@
                             <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('所属区域')!=-1" :title="item.region_name">{{item.region_name}}</li>
                             <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('影院数量')!=-1":title="item.cinema_num">{{item.cinema_num}}</li>
                             <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('影厅数量')!=-1":title="item.hall_num">{{item.hall_num}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('影院设备')!=-1":title="item.device_num">{{item.device_num}}</li>
+                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('影院设备')!=-1":title="item.device_num">{{item.device_num}}  套</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('创建时间')!=-1":title="item.create_time">{{item.create_time}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('合同截止日期')!=-1":title="item.contract_after_time">{{item.contract_after_time}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('状态')!=-1" :title="item.status_name"
-                                :class="{'text-green':item.status==1, 'text-red':item.status==4, 'text-orange': item.status==2}">{{item.status_name}}</li>
+                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('状态')!=-1" :title="item.status_name" :class="{'text-green':item.status==1, 'text-red':item.status==4, 'text-orange': item.status==2}">{{item.status_name}}</li>
+                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('分账百分比')!=-1" :title="item.proportion">{{item.proportion}} %</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 130px;">
                                 <router-link :to="{name: 'agent_detail', params: {id: item.id}}" href="javascript:;" class="link" @click.stop>查看</router-link>
                                 <router-link :to="{name: 'agent_edit',params: {id: item.id}}" href="javascript:;" class="link" @click.stop>编辑</router-link>
@@ -129,8 +130,8 @@
             accountNum: '',
             accountItem: {},
             loading: false,
-            selectVal: ['序号', '代理商编号', '代理商名称', '所属区域', '影院数量', '影厅数量', '影院设备', '创建时间', '合同截止日期', '状态', '操作'],
-            showList: ['序号', '代理商编号', '代理商名称', '所属区域', '影院数量', '影厅数量', '影院设备', '创建时间', '合同截止日期', '状态', '操作'],
+            selectVal: ['序号', '代理商编号', '代理商名称', '所属区域', '影院数量', '影厅数量', '影院设备', '创建时间', '合同截止日期', '状态','分账百分比', '操作'],
+            showList: ['序号', '代理商编号', '代理商名称', '所属区域', '影院数量', '影厅数量', '影院设备', '创建时间', '合同截止日期', '状态','分账百分比', '操作'],
             options: [10, 25, 50],   //条数数目
             searchShow: false,   //搜索开关
             limit: 10,
