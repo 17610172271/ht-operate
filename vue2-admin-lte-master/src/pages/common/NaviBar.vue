@@ -93,6 +93,7 @@
 
 <script type="text/ecmascript-6">
     import { mapGetters, mapActions } from 'vuex'
+    import validate from '@/tools/validate.js'
     import api from '@/api'
     export default {
         name: 'va-navibar',
