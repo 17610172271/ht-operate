@@ -73,6 +73,7 @@
                         </div>
                         <div class="pull-right">
                             <el-pagination
+                                v-if="data.items.length>0"
                                 background
                                 layout="prev, pager, next"
                                 :current-page.sync="page"
