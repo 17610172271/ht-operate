@@ -13,6 +13,7 @@ export const common = {
     getRight: '/api/v1/admin/getMenu', // 获取菜单权限
     login: '/api/v1/user/login', // 用户登录
     logout: '/api/v1/user/loginout', // 退出登录
+    editPassword: '/api/v1/admin/editPwd', // 修改密码
 }
 
 // 代理商管理

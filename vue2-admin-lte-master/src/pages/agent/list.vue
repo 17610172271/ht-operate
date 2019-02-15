@@ -72,6 +72,7 @@
                         </div>
                         <div class="pull-right">
                             <el-pagination
+                                v-if="data.items.length>0"
                                 background
                                 layout="prev, pager, next"
                                 :current-page.sync="page"
@@ -274,7 +275,6 @@
         },
         mounted () {
             this.page = this.$route.query.page ? parseInt(this.$route.query.page) : 1
-            console.log(this.page)
         },
         created () {
             this.getList()

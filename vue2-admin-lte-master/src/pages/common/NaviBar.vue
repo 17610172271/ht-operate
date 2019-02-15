@@ -49,9 +49,9 @@
                                 </p>
                             </li>
                             <li class="user-footer">
-                                <!--<div class="pull-left">-->
-                                    <!--<router-link :to="{name: 'account_personal'}" class="btn btn-default btn-flat">个人配置</router-link>-->
-                                <!--</div>-->
+                                <div class="pull-left">
+                                    <a href="javascript:;" class="btn btn-default btn-flat" @click="psdModal=true">修改密码</a>
+                                </div>
                                 <div class="pull-right">
                                     <a href="#" class="btn bg-red1 text-white" style="color: #fff;" @click="signOut"><i class="fa fa-sign-out"></i>退出</a>
                                 </div>
@@ -61,16 +61,50 @@
                 </ul>
             </div>
         </nav>
+        <el-dialog
+            title="修改密码"
+            :visible.sync="psdModal"
+            custom-class="dialog-modal2"
+            :modal="isModal"
+            :close-on-click-modal="false">
+            <div>
+                <div class="clear m-b-sm">
+                    <div class="col-xs-2 p-n text-right p-v-sm">密码:</div>
+                    <div class="col-xs-9">
+                        <el-input v-model="newpassword" type="password" :class="{'border-red': passwordError}" @blur="validatePsw" style="max-width: 300px;" placeholder="请输入密码"></el-input>
+                        <p v-if="passwordError" class="text-red"><span class="fa fa-close m-r-xs"></span>请输入6-20位由英文数字及字符组成的密码</p>
+                    </div>
+                </div>
+                <div class="clear m-b-sm">
+                    <div class="col-xs-2 p-n text-right p-v-sm">确认密码:</div>
+                    <div class="col-xs-9">
+                        <el-input v-model="againpassword" type="password" :class="{'border-red': againPasswordError}" @blur="validateAgainPsw" style="max-width: 300px;" placeholder="请确认密码"></el-input>
+                        <p v-if="againPasswordError" class="text-red"><span class="fa fa-close m-r-xs"></span>密码与确认密码不一致</p>
+                    </div>
+                </div>
+                <div class="text-center m-t-lg clear">
+                    <el-button type="primary" @click="dailogSubmit">确 定</el-button>
+                    <el-button @click="psdModal = false">取 消</el-button>
+                </div>
+            </div>
+        </el-dialog>
     </header>
 </template>
 
 <script type="text/ecmascript-6">
     import { mapGetters, mapActions } from 'vuex'
+    import validate from '@/tools/validate.js'
     import api from '@/api'
     export default {
         name: 'va-navibar',
         data: () => ({
-            newsNum: 0
+            newsNum: 0,
+            psdModal: false,
+            isModal: false,
+            newpassword: '',
+            againpassword: '',
+            passwordError: false,
+            againPasswordError: false
         }),
         computed: {
             ...mapGetters([
@@ -95,6 +129,36 @@
 //                        this.saveNewsNum(0)
 //                    }
 //                })
+            },
+            validateAgainPsw () {
+                this.againPasswordError = !(this.againpassword === this.newpassword)
+            },
+            validatePsw () {
+                this.passwordError = validate.password(this.newpassword)
+            },
+            dailogSubmit () {
+                this.validateAgainPsw()
+                this.validatePsw()
+                if (this.againPasswordError || this.passwordError) {
+                    this.$message.error('请输入正确的密码')
+                } else {
+                    this.$http.post(api.common.editPassword, {
+                        newpassword: this.newpassword,
+                        againpassword: this.againpassword
+                    }).then(res => {
+                        if (res.data.code === 1) {
+                            this.$message.success('密码修改成功')
+                            this.psdModal = false
+                            this.newpassword = ''
+                            this.againpassword = ''
+                        } else {
+                            this.$message({
+                                type: 'error',
+                                message: res.data.msg
+                            })
+                        }
+                    })
+                }
             },
             ...mapActions([
                 'saveNewsNum'
