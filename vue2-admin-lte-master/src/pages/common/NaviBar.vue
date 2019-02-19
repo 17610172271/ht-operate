@@ -151,6 +151,7 @@
                             this.psdModal = false
                             this.newpassword = ''
                             this.againpassword = ''
+                            this.signOut()
                         } else {
                             this.$message({
                                 type: 'error',
