@@ -12,7 +12,7 @@ export const common = {
     getCity: '/api/v1/support/getCity', // 获取区域及省市区
     getRight: '/api/v1/admin/getMenu', // 获取菜单权限
     login: '/api/v1/user/login', // 用户登录
-    logout: '/api/v1/user/loginout', // 退出登录
+    logout: '/api/v1/user/logout', // 退出登录
     editPassword: '/api/v1/admin/editPwd', // 修改密码
 }
 

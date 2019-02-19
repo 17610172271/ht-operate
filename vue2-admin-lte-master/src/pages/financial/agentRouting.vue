@@ -21,7 +21,7 @@
                 <div class="page-contaoner">
                     <div class="m-t-sm">
                         <ul class="clear flex p-v-sm border-bottom">
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">序号</li>
+                            <li class="col-xs-1 p-n text-center" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">序号</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('代理商编号')!=-1">代理商编号</li>
                             <li class="col-xs-3 p-n text-left" v-show="selectVal.indexOf('代理商名称')!=-1">代理商名称</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('所属区域')!=-1">所属区域</li>
@@ -32,16 +32,16 @@
                         </ul>
                         <div class="p-v-sm" v-for="(item, index) in data.items">
                             <ul class="table-tbody clear flex p-v-xs hover-999">
-                                <li class="col-xs-1 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">{{offset + index + 1}}</li>
+                                <li class="col-xs-1 p-n text-center" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">{{offset + index + 1}}</li>
                                 <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('代理商编号')!=-1" :title="item.agent_code">{{item.agent_code}}</li>
                                 <li class="col-xs-3 p-n over-omit text-left" style="padding-left: 10px;" v-show="selectVal.indexOf('代理商名称')!=-1" :title="item.agent_name" @click="item.is_show=!item.is_show">
                                     <i class="fa m-r-sm text-999 cursor-p" :class="item.is_show?'fa-minus-square-o':'fa-plus-square-o'" v-show="item.child"></i>{{item.agent_name}}
                                 </li>
                                 <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('所属区域')!=-1" :title="item.region_name">{{item.region_name}}</li>
                                 <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('城市')!=-1" :title="item.city_name">{{item.city_name}}</li>
-                                <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('一级分账比例')!=-1" :title="item.first_proportion">{{item.first_proportion}}</li>
-                                <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('二级分账比例')!=-1"></li>
-                                <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('三级分账比例')!=-1"></li>
+                                <li class="col-xs-1 p-n over-omit text-center" v-show="selectVal.indexOf('一级分账比例')!=-1" :title="item.first_proportion">{{item.first_proportion || 0}}%</li>
+                                <li class="col-xs-1 p-n over-omit text-center" v-show="selectVal.indexOf('二级分账比例')!=-1"></li>
+                                <li class="col-xs-1 p-n over-omit text-center" v-show="selectVal.indexOf('三级分账比例')!=-1"></li>
                             </ul>
                             <div class="" v-for="first in item.child" v-show="item.is_show">
                                 <ul class="clear flex p-v-xs hover-999">
@@ -52,9 +52,9 @@
                                     </li>
                                     <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('所属区域')!=-1" :title="first.region_name">{{first.region_name}}</li>
                                     <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('城市')!=-1" :title="first.city_name">{{first.city_name}}</li>
-                                    <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('一级分账比例')!=-1" :title="first.first_proportion">{{first.first_proportion}}</li>
-                                    <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('二级分账比例')!=-1" :title="first.second_proportion">{{first.second_proportion}}</li>
-                                    <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('三级分账比例')!=-1" :title="first.third_proportion">{{first.third_proportion}}</li>
+                                    <li class="col-xs-1 p-n over-omit text-center" v-show="selectVal.indexOf('一级分账比例')!=-1" :title="first.first_proportion">{{first.first_proportion || 0}}%</li>
+                                    <li class="col-xs-1 p-n over-omit text-center" v-show="selectVal.indexOf('二级分账比例')!=-1" :title="first.second_proportion">{{first.second_proportion || 0}}%</li>
+                                    <li class="col-xs-1 p-n over-omit text-center" v-show="selectVal.indexOf('三级分账比例')!=-1" :title="first.third_proportion"></li>
                                 </ul>
                                 <ul class="clear flex p-v-xs hover-999" v-for="second in first.child" v-show="first.is_show">
                                     <li class="col-xs-1 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;"></li>
@@ -62,9 +62,9 @@
                                     <li class="col-xs-3 p-n over-omit text-left" style="padding-left: 70px;" v-show="selectVal.indexOf('代理商名称')!=-1" :title="second.agent_name">{{second.agent_name}}</li>
                                     <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('所属区域')!=-1" :title="second.region_name">{{second.region_name}}</li>
                                     <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('城市')!=-1" :title="second.city_name">{{second.city_name}}</li>
-                                    <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('一级分账比例')!=-1" :title="second.first_proportion">{{second.first_proportion}}</li>
-                                    <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('二级分账比例')!=-1" :title="second.second_proportion">{{second.second_proportion}}</li>
-                                    <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('三级分账比例')!=-1" :title="second.third_proportion">{{second.third_proportion}}</li>
+                                    <li class="col-xs-1 p-n over-omit text-center" v-show="selectVal.indexOf('一级分账比例')!=-1" :title="second.first_proportion">{{second.first_proportion || 0}}%</li>
+                                    <li class="col-xs-1 p-n over-omit text-center" v-show="selectVal.indexOf('二级分账比例')!=-1" :title="second.second_proportion">{{second.second_proportion || 0}}%</li>
+                                    <li class="col-xs-1 p-n over-omit text-center" v-show="selectVal.indexOf('三级分账比例')!=-1" :title="second.third_proportion">{{second.third_proportion || 0}}%</li>
                                 </ul>
                             </div>
                         </div>
@@ -224,7 +224,7 @@
             //获取全部代理商接口
             getAllAgent(){
                 this.$http.post(api.agent.getAllAgent, {
-//                        status: 1
+                    level: 1
                 }).then(res => {
                     if (res.data.code === 1) {
                         this.searchOptions[0].options = res.data.data.map(val => {

@@ -10,7 +10,7 @@
                 <div class="pull-left text-blue p-v-sm">目前已有{{data.cinema_num || 0}}个影院正常使用，涉及{{data.province_num || 0}}个省，{{data.city_num || 0}}个市。</div>
                 <div class="pull-right clear flex" style="width: 300px;">
                     <div class="col-xs-1" style="min-width: 70px;padding: 10px 0;">影院搜索:</div>
-                    <el-input v-model="searchVal" class="col-xs-11 p-n" placeholder="请输入" @keyup.enter.native="getList"></el-input>
+                    <el-input v-model="searchVal" class="col-xs-11 p-n" placeholder="请输入影院名称" clearable @keyup.enter.native="getList"></el-input>
                     <div class="col-xs-1 p-n" style="min-width: 60px;padding: 3px 5px;">
                         <a href="javascript:;" type="primary" class="btn border"  @click="getList">搜索</a>
                     </div>
