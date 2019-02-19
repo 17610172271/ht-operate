@@ -232,15 +232,15 @@ module.exports = [
                 },
                 root: [1,2,3,4,5,6,7,8]
             },
-            {
-                type: 'item',
-                icon: 'fa fa-circle-o',
-                name: '影片统计',
-                router: {
-                    name: 'statistics_film'
-                },
-                root: [1,2,3,4,5,6,7,8]
-            }
+            // {
+            //     type: 'item',
+            //     icon: 'fa fa-circle-o',
+            //     name: '影片统计',
+            //     router: {
+            //         name: 'statistics_film'
+            //     },
+            //     root: [1,2,3,4,5,6,7,8]
+            // }
         ]
     },
     {
