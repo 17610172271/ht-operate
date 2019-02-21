@@ -61,6 +61,7 @@
         data: () => ({
             data: '',
             region_id: '',
+            region_name: '',
             regionList: [],
             rankList: [],
             subNavList: {
@@ -84,6 +85,7 @@
         },
         methods: {
             getData () {
+                let that = this
                 this.$http.post(api.statistics.play, {
                     region_id: this.region_id
                 }).then(res => {
@@ -107,7 +109,7 @@
                         })
                         // 画图
                         this.drawChart('agentNum-chart', '各区域影院统计', data, column, '个')
-                        this.drawChart('agentCinema-chart', '各区域影院播放影片统计', data1, column1, '场')
+                        this.drawChart('agentCinema-chart', that.region_name + '区域影院播放影片统计', data1, column1, '场')
                     } else {
                         this.$message.error(res.data.msg)
                     }
@@ -125,6 +127,7 @@
                             }
                         })
                         this.region_id = this.regionList[0].value
+                        this.region_name = this.regionList[0].label
                     } else {
                         this.regionList = []
                     }
@@ -179,6 +182,11 @@
         },
         watch: {
             region_id (val) {
+                this.regionList.map(item => {
+                    if (val === item.value) {
+                        this.region_name = item.label
+                    }
+                })
                 this.getData()
             }
         }

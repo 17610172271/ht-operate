@@ -181,7 +181,7 @@
         },
         watch: {
             page (val) {
-                this.$router.replace({name: 'financial_income_detail', query: {page: val}})
+                this.$router.replace({name: 'financial_incomes_detail', query: {page: val}})
                 this.getList()
             },
             limit (val) {

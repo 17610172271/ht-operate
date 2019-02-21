@@ -68,7 +68,7 @@
                                     :value="item">
                                 </el-option>
                             </el-select>
-                            条记录{{page}}
+                            条记录
                         </div>
                         <div class="pull-right">
                             <el-pagination
