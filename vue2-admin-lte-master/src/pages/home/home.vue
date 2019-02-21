@@ -2,39 +2,38 @@
     <div class="animated fadeIn  bg-white home-container">
         <div class="p-md"  v-loading="loading">
             <div class="today-data border-bottom p-b-lg">
-                <h3>平台概述</h3>
+                <div class="texxxxt-lg">平台概述</div>
                 <div class="container-fluid m-t-md">
                     <div class="row align-bottom flex  p-o-lg">
-                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2 p-r-sm p-n">
-                            <div class="home-data-item bg-white p-smone bg-blue1">
-                                <h5 class="m-n text-white text-left"><b>代理商总数</b> <span class="fa fa-info-circle pull-right"></span></h5>
-                                <div class="text-xxxlg text-bold p-v-sm">{{data.agent_num || 0}} <span style="margin-left: 15px;"></span>个</div>
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2 p-r-sm p-n" >
+                            <div class="home-data-item bg-white p-smone " style="background-image: url('../../../static/img/home/yellow.png')">
+                                <h5 class="m-n text-white text-left"><span class="text-font-16 m-l-10">代理商总数</span> <span class="fa fa-info-circle pull-right m-r-10"></span></h5>
+                                <div class="text-bold p-v-sm1" style="margin: 0 auto"><span class="text-xxxlg">{{data.agent_num || 0}}</span> <span class="text-w-20">个</span></div>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2 p-r-sm p-n">
-                            <div class="home-data-item bg-white p-smone bg-green1">
-                                <h5 class="m-n text-white text-left">影院总数 <span class="fa fa-info-circle pull-right"></span></h5>
-                                <div class="text-xxxlg text-bold p-v-sm">{{data.cinema_num || 0}} <span style="margin-left: 15px;"></span>个</div>
+                            <div class="home-data-item bg-white p-smone" style="background-image: url('../../../static/img/home/blue.png')">
+                                <h5 class="m-n text-white text-left"><span class="text-font-16 m-l-10">影院总数</span> <span class="fa fa-info-circle pull-right m-r-10"></span></h5>
+                                <div class="text-bold p-v-sm1"><span class="text-xxxlg">{{data.cinema_num || 0}} </span><span class="text-w-20">个</span></div>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2 p-r-sm p-n">
-                            <div class="home-data-item bg-white p-smone bg-red">
-                                <h5 class="m-n text-white text-left">本月播放次数 <span class="fa fa-info-circle pull-right"></span></h5>
-                                <div class="text-xxxlg text-bold p-v-sm">{{data.month_play_num || 0}} <span style="margin-left: 15px;"></span>次</div>
+                            <div class="home-data-item bg-white p-smone" style="background-image: url('../../../static/img/home/green.png')">
+                                <h5 class="m-n text-white text-left"><span class="text-font-16 m-l-10">本月播放次数</span> <span class="fa fa-info-circle pull-right m-r-10"></span></h5>
+                                <div class="text-bold p-v-sm1"><span class="text-xxxlg">{{data.month_play_num || 0}}</span> <span class="text-w-20">次</span></div>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2 p-r-sm p-n">
-                            <div class="home-data-item bg-white p-smone bg-yellow">
-                                <h5 class="m-n text-white text-left">待审核 <span class="fa fa-info-circle pull-right"></span></h5>
-                                <div class="text-xxxlg text-bold p-v-sm">{{data.wait_check_num || 0}} <span style="margin-left: 15px;"></span>个</div>
+                            <div class="home-data-item bg-white p-smone" style="background-image: url('../../../static/img/home/red.png')">
+                                <h5 class="m-n text-white text-left"><span class="text-font-16 m-l-10">待审核</span> <span class="fa fa-info-circle pull-right m-r-10"></span></h5>
+                                <div class="text-bold p-v-sm1"><span class="text-xxxlg">{{data.wait_check_num || 0}}</span> <span class="text-w-20">个</span></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!--<div class="p-t-lg border-bottom relative p-o-md" v-if="data.agent_num!==0">-->
-            <div class="p-t-lg border-bottom relative p-o-md m-t-lg">
+            <div class="texxxxt-lg">播放统计</div>
+            <div class="border-bottom relative p-o-md">
                 <el-radio-group v-model="incomeDays" size="large" class="days-select-container">
                     <el-radio-button :label="1">本月</el-radio-button>
                     <el-radio-button :label="2">上月</el-radio-button>
@@ -98,7 +97,7 @@
                             column.push(val.day)
                             datas.push(val.num)
                         })
-                        this.drawLine('incomeChart', '播放统计', '播放次数', datas, column)
+                        this.drawLine('incomeChart', '', '播放次数', datas, column)
                     } else {
                         this.loading = false
                         this.$message({
@@ -113,7 +112,7 @@
                 // 绘制图表
                 myChart.setOption({
                     title:{
-                        text: title,//主标题文本，支持\n换行
+                        text: '',//主标题文本，支持\n换行
                         left:'left',//离容器左侧的距离
                         top:'top'//距离容器上测的距离
                     },
@@ -208,7 +207,7 @@
     }
     .home-data-item {
         height: 130px;
-        padding: 16px 10px 0px 10px;
+        padding: 4px 10px 0px 10px;
         width: 100%;
         display: inline-block;
         box-shadow: 1px 0px 1px rgba(187, 187, 187, 0.75);
@@ -238,10 +237,28 @@
     }
     .text-xxxlg{
         color: whitesmoke;
-        font-size: 25px;
+        font-size: 36px;
     }
     .picker_one{
         width: 100px;
         height: 20px;
+    }
+    .text-w-20{
+        color: whitesmoke;
+        font-size: 20px;
+    }
+    .text-font-16{
+        font-size: 16px;
+    }
+    .texxxxt-lg{
+        font-size: 23px;
+        font-weight: 400;
+        margin-top: 10px;
+    }
+    .m-r-10{
+        margin-right: 10px;
+    }
+    .m-l-10{
+        margin-left: 7px;
     }
 </style>
