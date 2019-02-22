@@ -7,12 +7,12 @@
                 <div class="page-toolbar clear m-t-sm">
                     <search-ipts :options="searchOptions" @submit="doSearch" v-show="searchShow"></search-ipts>
                     <div class="pull-left toolbar-candle clear">
-                        <a href="javascript:;" title="添加" @click="addItem"
-                           class="app-add btn bg-blue1 text-white"><i class="fa fa-plus-square"></i>添加
-                        </a>
-                        <a href="javascript:;" title="删除" class="app-add btn bg-red1 text-white"
-                           @click="delItem(selectedGroup)"><i
-                            class="fa fa-trash"></i>删除</a>
+                        <!--<a href="javascript:;" title="添加" @click="addItem"-->
+                           <!--class="app-add btn bg-blue1 text-white"><i class="fa fa-plus-square"></i>添加-->
+                        <!--</a>-->
+                        <!--<a href="javascript:;" title="删除" class="app-add btn bg-red1 text-white"-->
+                           <!--@click="delItem(selectedGroup)"><i-->
+                            <!--class="fa fa-trash"></i>删除</a>-->
                         <!-- <div class="app-del btn bg-red1 text-white"><i class="fa fa-minus-square"></i>删除</div> -->
                         <div class="app-refresh btn bg-gray1" title="刷新" @click="refresh"><i
                             class="fa fa-refresh"></i></div>
@@ -45,7 +45,7 @@
                             <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('状态')!=-1" :class="{'text-green': item.status==1, 'text-red': item.status==2}" :title="item.status_name">{{item.status_name}}</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1">
                                 <a href="javascript:;" title="编辑" :class="{'disabled': item.name == '超级管理员'}" class="link" @click.stop="editItem(item)">编辑</a>
-                                <a href="javascript:;" title="删除" class="link" @click.stop="delItem([item.id])">删除</a>
+                                <!--<a href="javascript:;" title="删除" class="link" @click.stop="delItem([item.id])">删除</a>-->
                             </li>
                         </ul>
                         <ul class="table-tbody clear" v-if="data.items.length===0">
