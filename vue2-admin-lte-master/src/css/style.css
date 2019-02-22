@@ -984,6 +984,12 @@ a:hover .fa-edit {
 }
 .dialog-modal2 {
     max-width: 500px;
+    position: absolute;
+    left: 50%;
+    top:30%;
+    margin-left: 115px !important;
+    transform: translate(-50%,-50%);
+    margin: 0;
 }
 .pic-container {
     width: 115px;
@@ -1236,6 +1242,9 @@ a.link.disabled, fieldset[disabled] a.link {
 }
 
 @media (min-width: 1500px) {
+    .dialog-modal2{
+        margin-left: 125px !important;
+    }
     .main-sidebar {
         width: 250px;
     }
