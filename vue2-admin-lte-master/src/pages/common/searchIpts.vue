@@ -20,7 +20,8 @@
                         value-format="yyyy-MM-dd"
                         style="width: 100%;"
                         clearable
-                        placeholder="选择日期">
+                        placeholder="选择日期"
+                        :picker-options="pickerOptions1">
                     </el-date-picker>
                 </div>
             </div>
@@ -97,6 +98,11 @@
         props: ['options', 'value'],
         data: () => ({
             searchOptions: [],
+            pickerOptions1: {
+                disabledDate(time) {
+                    return time.getTime() > Date.now();
+                },
+            },
         }),
         components: {
             CitySelect

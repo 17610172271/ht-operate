@@ -21,8 +21,8 @@
                         <div class="pull-left m-r-sm opacity-8" title="列">
                             <select-checkbox :list="showList" v-model="selectVal" style="width: 60px;"></select-checkbox>
                         </div>
-                        <div class="pull-left btn opacity-8 search-btn" @click="searchShow = !searchShow"><i
-                            class="fa fa-search" title="搜索"></i></div>
+                        <!--<div class="pull-left btn opacity-8 search-btn" @click="searchShow = !searchShow"><i-->
+                            <!--class="fa fa-search" title="搜索"></i></div>-->
                     </div>
                 </div>
                 <div class="page-contaoner">

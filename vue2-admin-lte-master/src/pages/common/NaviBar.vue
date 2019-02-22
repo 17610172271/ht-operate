@@ -50,7 +50,7 @@
                             </li>
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="javascript:;" class="btn btn-default btn-flat" @click="psdModal=true">修改密码</a>
+                                    <a href="javascript:;" class="btn btn-default btn-flat" @click="goEditPass">修改密码</a>
                                 </div>
                                 <div class="pull-right">
                                     <a href="#" class="btn bg-red1 text-white" style="color: #fff;" @click="signOut"><i class="fa fa-sign-out"></i>退出</a>
@@ -104,7 +104,7 @@
             newpassword: '',
             againpassword: '',
             passwordError: false,
-            againPasswordError: false
+            againPasswordError: false,
         }),
         computed: {
             ...mapGetters([
@@ -136,6 +136,13 @@
             validatePsw () {
                 this.passwordError = validate.password(this.newpassword)
             },
+            goEditPass(){
+                this.psdModal = true ,
+                this.againPasswordError = false,
+                this.passwordError = false
+                this.newpassword =  '',
+                this.againpassword =  ''
+            },
             dailogSubmit () {
                 this.validateAgainPsw()
                 this.validatePsw()
@@ -163,7 +170,8 @@
             },
             ...mapActions([
                 'saveNewsNum'
-            ])
+            ]),
+
         },
         created () {
             this.getNewsData()
