@@ -6,7 +6,7 @@
             <div class="page-container">
                 <div class="page-toolbar clear m-t-sm">
                     <search-ipts :options="searchOptions" @submit="doSearch" v-show="searchShow"></search-ipts>
-                    <h5 class="text-center text-bold text-xxlg">{{searchOptions[0].value}}年{{searchOptions[1].value}}月报表</h5>
+                    <h5 class="text-center text-bold text-xxlg">{{searchOptions[0].value.split('-')[0]}}年{{searchOptions[0].value.split('-')[0]}}月报表</h5>
                 </div>
                 <div class="page-contaoner">
                     <div class="lk-table m-t-sm">
@@ -21,7 +21,7 @@
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('3.3%营业税')!=-1">3.3%营业税</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('小计')!=-1">小计</li>
                         </ul>
-                        <ul class="table-tbody clear" v-for="(item, index) in data">
+                        <ul class="table-tbody clear" v-for="(item, index) in data" v-if="data.length>0 && item.isShow"">
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('日期')!=-1" :title="item.date">{{item.date}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('航天收益')!=-1" :title="item.ht_profit">{{item.ht_profit}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('新光')!=-1" :title="item.xg">{{item.xg}}</li>
@@ -82,13 +82,7 @@
             //搜索
             searchOptions: [
                 {
-                    type: 'select',
-                    name: '选择年份',
-                    value: '',
-                    options: []
-                },
-                {
-                    type: 'select',
+                    type: 'time2',
                     name: '选择月份',
                     value: '',
                     options: []
@@ -100,17 +94,20 @@
             getList () {
                 this.loading = true
                 this.$http.post(api.financial.report, {
-                    year: this.searchOptions[0].value,
-                    month: this.searchOptions[1].value,
-                    page: this.page,
-                    limit: this.limit
+                    year: this.searchOptions[0].value.split('-')[0],
+                    month: this.searchOptions[0].value.split('-')[1]
                 }).then(res => {
                     let that = this
                     setTimeout(function () {
                         that.loading = false
                     }, 500)
                     if (res.data.code === 1) {
-                        this.data = res.data.data
+                        this.data = res.data.data.map((val, index) => {
+                            return {
+                                ...val,
+                                isShow: index === 0 ? true : (new Date(val.date).getTime() > new Date().getTime() ? false : true)
+                            }
+                        })
                     } else {
                         this.data = []
                         this.$message({
@@ -119,24 +116,6 @@
                         })
                     }
                 })
-            },
-            getOptions () {
-                let year = new Date().getFullYear()
-                let month = new Date().getMonth() + 1
-                for (let i = 2000; i <= year; i++) {
-                    this.searchOptions[0].options.push({
-                        label: i + '年',
-                        value: i
-                    })
-                }
-                for (let i = 1; i < 13; i ++) {
-                    this.searchOptions[1].options.push({
-                        label: i + '月',
-                        value: i
-                    })
-                }
-                this.searchOptions[0].value = year
-                this.searchOptions[1].value = month
             },
             //刷新
             refresh () {
@@ -158,7 +137,9 @@
             }
         },
         created () {
-            this.getOptions()
+            let year = new Date().getFullYear()
+            let month = new Date().getMonth() + 1
+            this.searchOptions[0].value = year + '-' + month
             this.page = this.$route.query.page ? parseInt(this.$route.query.page) : 1
             this.getList()
         },
