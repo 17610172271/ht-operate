@@ -33,7 +33,6 @@
                             v-for="option in item.options"
                             :key="option.value"
                             :label="option.label"
-
                             :value="option.value">
                         </el-option>
                     </el-select>
@@ -71,9 +70,10 @@
                     <el-date-picker
                         v-model="item.value"
                         type="month"
-                        clearable
-                        value-format="yyyyMM"
+                        :clearable="false"
+                        value-format="yyyy-M"
                         style="width: 100%;"
+                        :picker-options="pickerOptions1"
                         placeholder="选择月份">
                     </el-date-picker>
                 </div>
