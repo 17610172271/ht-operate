@@ -141,7 +141,7 @@
                                     </el-select>
                                     <p v-if="groupError" class="text-red"><span class="fa fa-close m-r-xs"></span>请选择所属组别</p>
                                 </div>
-                                
+
                             </div>
                             <div class="clear m-b-sm">
                                 <div class="col-xs-12 col-md-2 line-height-40 text-right min-width-105"><span class="text-red">*</span>用户名:</div>
