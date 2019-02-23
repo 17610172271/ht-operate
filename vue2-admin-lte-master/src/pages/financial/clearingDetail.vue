@@ -28,7 +28,7 @@
                                 <li class="col-xs-2 p-n over-omit" :title="item.agent_name">{{item.agent_name}}</li>
                                 <li class="col-xs-2 p-n over-omit" :title="item.proportion">{{item.proportion}}</li>
                                 <li class="col-xs-2 p-n over-omit" :title="item.money">{{item.money}}</li>
-                                <li class="col-xs-2 p-n over-omit"><a href="javascript:;" class="link" @click="openDetail(item.agent_id)">详情</a></li>
+                                <li class="col-xs-2 p-n over-omit"><a href="javascript:;" class="link" @click="openDetail(item.agent_id, 1)">详情</a></li>
                             </ul>
                             <p class="p-v-sm" v-if="data.agent_list.length<=0">暂无代理商收益信息</p>
                         </div>
@@ -42,7 +42,6 @@
                                 <li class="col-xs-2 p-n">影院编号</li>
                                 <li class="col-xs-2 p-n">影院名称</li>
                                 <li class="col-xs-2 p-n">分账比</li>
-                                <li class="col-xs-2 p-n">影片</li>
                                 <li class="col-xs-2 p-n">金额</li>
                                 <li class="col-xs-2 p-n">操作</li>
                             </ul>
@@ -51,9 +50,8 @@
                                 <li class="col-xs-2 p-n over-omit" :title="item.cinema_code">{{item.cinema_code}}</li>
                                 <li class="col-xs-2 p-n over-omit" :title="item.cinema_name">{{item.cinema_name}}</li>
                                 <li class="col-xs-2 p-n over-omit" :title="item.proportion">{{item.proportion}}</li>
-                                <li class="col-xs-2 p-n over-omit" :title="item.film_name">{{item.film_name}}</li>
                                 <li class="col-xs-2 p-n over-omit" :title="item.money">{{item.money}}</li>
-                                <li class="col-xs-2 p-n over-omit"><a href="javascript:;" class="link" @click="openDetail(item.cinema_id)">详情</a></li>
+                                <li class="col-xs-2 p-n over-omit"><a href="javascript:;" class="link" @click="openDetail(item.cinema_id, 2)">详情</a></li>
                             </ul>
                             <p class="p-v-sm" v-if="data.cinema_list.length<=0">暂无影院收益信息</p>
                         </div>
@@ -116,14 +114,15 @@
                     }, 500)
                 })
             },
-            openDetail (id) {
+            openDetail (id, type) {
                 this.detailVal = []
                 this.detailModal = true
                 this.modalLoading = true
                 this.$http.get(api.financial.clearingDates, {
                     params: {
                         id: id,
-                        month: this.$route.query.apply_month
+                        month: this.$route.query.apply_month,
+                        type: type
                     }
                 }).then(res => {
                     let that = this
