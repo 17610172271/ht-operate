@@ -132,8 +132,8 @@
                 this.$http.get(api.financial.incomesDetail, {
                     params: {
                         cinema_id: this.$route.params.id,
-                        start_time: this.$route.query.start_time,
-                        end_time: this.$route.query.end_time,
+                        start_time: this.$route.query.time,
+                        end_time: this.$route.query.time,
                         page: this.page,
                         limit: this.limit
                     }

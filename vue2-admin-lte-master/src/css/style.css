@@ -204,11 +204,11 @@ textarea {
 }
 
 .lk-table > ul:nth-child(2n) {
-    background-color: #f9f9f9;
+    background-color: #eff4ff;
 }
 
 .lk-table > .table-tbody:hover {
-    background-color: #f1f1f1;
+    background-color: #f0efff;
 }
 
 .word-wrap {
