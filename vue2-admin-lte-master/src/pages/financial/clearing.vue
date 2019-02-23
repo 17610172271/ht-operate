@@ -59,7 +59,7 @@
                                     :show-file-list="false"
                                     :headers="header"
                                     :on-success="uploadCertificate">
-                                    <a href="javascript:;" title="上传凭证" class="link">上传凭证</a>
+                                    <a href="javascript:;" title="上传凭证" class="link" @click="id=item.id">上传凭证</a>
                                 </el-upload>
                             </li>
                         </ul>
@@ -124,6 +124,7 @@
             limit: 10,
             page: 1,
             header: {ContentType: 'application/x-www-form-urlencoded'},
+            id: '',
             subNavList: {
                 parentNode: {
                     name: '财务管理',
@@ -187,7 +188,7 @@
                 return (this.page - 1) * this.limit
             },
             uploadUrl () {
-                return api.financial.uploadCertificate
+                return api.common.upload
             }
         },
         methods: {
@@ -251,13 +252,25 @@
                     })
                 })
             },
-            uploadCertificate () {
+            uploadCertificate (res) {
                 if (res.code === 1) {
-                    this.$message({
-                        type: 'success',
-                        message: '上传成功'
+                    this.$http.post(api.financial.uploadCertificate, {
+                        id: this.id,
+                        url: res.data.image
+                    }).then(res => {
+                        if (res.data.code === 1) {
+                            this.$message({
+                                type: 'success',
+                                message: '上传成功'
+                            })
+                            this.getList()
+                        } else {
+                            this.$message({
+                                type: 'error',
+                                message: res.msg
+                            })
+                        }
                     })
-                    this.getList()
                 } else {
                     this.$message({
                         type: 'error',
