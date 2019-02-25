@@ -2,8 +2,7 @@
     <div class="bg-white">
         <div class="p-md border-bottom relative">
             <el-breadcrumb separator="/">
-                <el-breadcrumb-item :to="{name: 'home'}">首页</el-breadcrumb-item>
-                <el-breadcrumb-item :to="{name: 'cinema_list'}">影院管理</el-breadcrumb-item>
+                <el-breadcrumb-item :to="{name: 'cinema_list'}">影院列表</el-breadcrumb-item>
                 <el-breadcrumb-item>编辑影院</el-breadcrumb-item>
             </el-breadcrumb>
             <a href="javascript:;" class="btn bg-blue1 text-white btn-back" @click="goBack">返回</a>
@@ -189,7 +188,7 @@
                 }).then(res => {
                     if (res.data.code === 1) {
                         this.$message.success('保存成功')
-                        this.$router.push({name: 'cinema_list'})
+                        this.$router.go(-1)
                     } else {
                         this.$message.error(res.data.msg)
                     }

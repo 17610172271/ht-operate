@@ -1184,6 +1184,9 @@ a.link.disabled, fieldset[disabled] a.link {
 .chart-container {
     height: 300px;
 }
+.mine-agent .el-dialog__body {
+    overflow-y: initial;
+}
 /*操作图标颜色*/
 @media (max-width: 768px) {
     .dialog-modal1 {

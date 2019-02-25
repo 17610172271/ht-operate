@@ -2,8 +2,7 @@
     <div class="bg-white">
         <div class="p-md border-bottom relative">
             <el-breadcrumb separator="/">
-                <el-breadcrumb-item :to="{name: 'home'}">首页</el-breadcrumb-item>
-                <el-breadcrumb-item :to="{name: 'agent_check'}">代理商审核列表</el-breadcrumb-item>
+                <el-breadcrumb-item :to="{name: 'agent_check'}">代理商审核</el-breadcrumb-item>
                 <el-breadcrumb-item>审核代理商</el-breadcrumb-item>
             </el-breadcrumb>
             <a href="javascript:;" class="btn bg-blue1 text-white btn-back" @click="goBack">返回</a>
@@ -374,7 +373,7 @@
                             type: 'success',
                             message: '审核成功'
                         })
-                        this.$router.push({name: 'agent_check'})
+                        this.$router.go(-1)
                     } else {
                         this.$message({
                             type: 'error',

@@ -2,8 +2,8 @@
     <div class="bg-white">
         <div class="p-md border-bottom relative">
             <el-breadcrumb separator="/">
-                <el-breadcrumb-item :to="{name: 'home'}">首页</el-breadcrumb-item>
-                <el-breadcrumb-item :to="{name: 'cinema_list'}">代理商管理</el-breadcrumb-item>
+                <el-breadcrumb-item :to="{name: 'agent_list'}" v-if="fromRouter==='agent_list'">代理商列表</el-breadcrumb-item>
+                <el-breadcrumb-item :to="{name: 'agent_mine'}" v-else>我的代理商</el-breadcrumb-item>
                 <el-breadcrumb-item>{{$route.name.indexOf('edit')>0?'编辑代理商':'添加代理商'}}</el-breadcrumb-item>
             </el-breadcrumb>
             <a href="javascript:;" class="btn bg-blue1 text-white btn-back" @click="goBack">返回</a>
@@ -269,6 +269,7 @@
                     value: 3
                 }
             ],
+            fromRouter: '',
             dialogVisible: false,
             previewImage: '',
             loading: false,
@@ -429,7 +430,7 @@
                     }).then(res => {
                         if (res.data.code === 1) {
                             this.$message.success('保存成功')
-                            this.$router.push({name: 'agent_list'})
+                            this.$router.go(-1)
                         } else {
                             this.$message.error(res.data.msg)
                         }
@@ -445,7 +446,7 @@
                     }).then(res => {
                         if (res.data.code === 1) {
                             this.$message.success('代理商添加成功')
-                            this.$router.push({name: 'agent_list'})
+                            this.$router.go(-1)
                         } else {
                             this.$message.error(res.data.msg)
                         }
@@ -512,9 +513,13 @@
                 this.$router.go(-1)
             }
         },
+        beforeRouteEnter (to, from, next) {
+            next(vm => {
+                vm.fromRouter = from.name
+            })
+        },
         created () {
             this.getRegionList()
-
             if (this.$route.name.indexOf('edit') > 0) {
                 this.getData()
             }

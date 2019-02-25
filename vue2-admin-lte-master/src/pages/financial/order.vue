@@ -46,7 +46,7 @@
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('实付')!=-1":title="item.pay_money">{{item.pay_money}}</li>
                             <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('创建时间')!=-1":title="item.create_time">{{item.create_time}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('状态')!=-1" :title="item.status_name"
-                                :class="{'text-green': item.status_name=='已付款','text-orange': item.status_name=='待付款','text-red': item.status_name=='已关闭'||item.status_name=='已退款'}">{{item.status_name}}</li>
+                                :class="{'text-green': item.status_name=='已付款' || item.status_name=='准备播放' || item.status_name=='播放中' || item.status_name=='播放完成','text-orange': item.status_name=='待付款','text-red': item.status_name=='已关闭'||item.status_name=='已退款'||item.status_name=='已锁定'}">{{item.status_name}}</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1">
                                 <a href="javascript:;" class="link" @click.stop="lookDetail(item)">查看</a>
                             </li>
@@ -242,6 +242,22 @@
                         {
                             label: '已退款',
                             value: 3
+                        },
+                        {
+                            label: '已锁定',
+                            value: 9
+                        },
+                        {
+                            label: '准备播放',
+                            value: 10
+                        },
+                        {
+                            label: '播放中',
+                            value: 11
+                        },
+                        {
+                            label: '播放完成',
+                            value: 13
                         }
                     ]
                 },

@@ -1,7 +1,7 @@
 <template>
     <!--代理商列表-->
     <div v-loading="loading">
-        <div class="p-lg appli-container">
+        <div class="p-lg appli-container mine-agent">
             <sub-header :list="subNavList"></sub-header>
             <div class="page-container">
                 <div class="page-toolbar clear m-t-sm">
@@ -96,7 +96,7 @@
                                     %
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-md-9 m-t-lg">
+                            <div class="m-t-lg text-center">
                                 <el-button type="primary" @click="setAccount">确 定</el-button>
                                 <el-button @click="accountModal = false">取 消</el-button>
                             </div>

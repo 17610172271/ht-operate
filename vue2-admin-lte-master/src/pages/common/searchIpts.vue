@@ -113,7 +113,13 @@
             },
             reset () {
                 for (let i = 0; i < this.searchOptions.length; i++) {
-                    this.searchOptions[i].value = ''
+                    if (this.searchOptions[i].type === 'time2') {
+                        let year = new Date().getFullYear()
+                        let month = new Date().getMonth() + 1
+                        this.searchOptions[i].value = year + '-' + month
+                    } else {
+                        this.searchOptions[i].value = ''
+                    }
                 }
                 this.$emit('submit', this.searchOptions)
             }

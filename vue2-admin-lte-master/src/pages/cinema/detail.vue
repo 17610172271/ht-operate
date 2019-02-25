@@ -2,8 +2,8 @@
     <div class="bg-white">
         <div class="p-md border-bottom relative">
             <el-breadcrumb separator="/">
-                <el-breadcrumb-item :to="{name: 'home'}">首页</el-breadcrumb-item>
-                <el-breadcrumb-item :to="{name: 'cinema_list'}">我的影院</el-breadcrumb-item>
+                <el-breadcrumb-item :to="{name: 'cinema_list'}" v-if="fromRouter==='cinema_list'">影院列表</el-breadcrumb-item>
+                <el-breadcrumb-item :to="{name: 'cinema_check'}" v-else>影院审核</el-breadcrumb-item>
                 <el-breadcrumb-item>影院详情</el-breadcrumb-item>
             </el-breadcrumb>
             <a href="javascript:;" class="btn bg-blue1 text-white btn-back" @click="goBack">返回</a>
@@ -152,7 +152,8 @@
                 apply_list: []
             },
             loading: false,
-            activeName: 'first'
+            activeName: 'first',
+            fromRouter: ''
         }),
         methods: {
             getData () {
@@ -186,6 +187,11 @@
             goBack () {
                 this.$router.go(-1)
             }
+        },
+        beforeRouteEnter (to, from, next) {
+            next(vm => {
+                vm.fromRouter = from.name
+            })
         },
         created () {
             this.getData()
