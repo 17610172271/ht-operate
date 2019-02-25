@@ -189,7 +189,7 @@
                 }).then(res => {
                     if (res.data.code === 1) {
                         this.$message.success('保存成功')
-                        this.$router.push({name: 'cinema_list'})
+                        this.$router.go(-1)
                     } else {
                         this.$message.error(res.data.msg)
                     }

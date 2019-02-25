@@ -429,7 +429,7 @@
                     }).then(res => {
                         if (res.data.code === 1) {
                             this.$message.success('保存成功')
-                            this.$router.push({name: 'agent_list'})
+                            this.$router.go(-1)
                         } else {
                             this.$message.error(res.data.msg)
                         }
@@ -445,7 +445,7 @@
                     }).then(res => {
                         if (res.data.code === 1) {
                             this.$message.success('代理商添加成功')
-                            this.$router.push({name: 'agent_list'})
+                            this.$router.go(-1)
                         } else {
                             this.$message.error(res.data.msg)
                         }

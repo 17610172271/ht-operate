@@ -188,7 +188,7 @@
                             type: 'success',
                             message: '审核成功'
                         })
-                        this.$router.push({name: 'cinema_check'})
+                        this.$router.go(-1)
                     } else {
                         this.$message({
                             type: 'error',
