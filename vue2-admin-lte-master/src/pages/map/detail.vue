@@ -1,11 +1,10 @@
 <template>
     <div class="bg-white">
         <div class="p-md border-bottom relative">
-            <el-breadcrumb separator="/">
-                <el-breadcrumb-item :to="{name: 'home'}">首页</el-breadcrumb-item>
-                <el-breadcrumb-item :to="{name: 'map_list'}">影院地图分布</el-breadcrumb-item>
-                <el-breadcrumb-item>影院详情</el-breadcrumb-item>
-            </el-breadcrumb>
+            <div>
+                <span style="font-size: 22px;color: #000000;margin-right: 8px;">影院地图分布</span>
+                <span class="content-muted-xs">影院详情</span>
+            </div>
             <a href="javascript:;" class="btn bg-blue1 text-white btn-back" @click="goBack">返回</a>
         </div>
         <div class="p-o-lg p-v-sm" style="padding-bottom: 50px;" v-loading="loading">

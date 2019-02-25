@@ -1,9 +1,9 @@
 <template>
     <div class="p-lg">
-        <el-breadcrumb separator="/">
-            <el-breadcrumb-item :to="{name: 'home'}">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>影院地图分布</el-breadcrumb-item>
-        </el-breadcrumb>
+        <div >
+            <span style="font-size: 22px;color: #000000;margin-right: 8px;">影院地图</span>
+            <span class="content-muted-xs">影院地图分布</span>
+        </div>
         <div class="page-container">
             <div class="clear p-b-sm">
                 <div class="pull-left app-refresh btn bg-gray1 m-r-md" title="刷新" @click="refresh"><i class="fa fa-refresh text-white"></i></div>
