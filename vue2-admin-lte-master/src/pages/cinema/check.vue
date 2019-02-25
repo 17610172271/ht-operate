@@ -116,7 +116,7 @@
                 },
                 childNode: {
                     name: '影院审核列表',
-                    desc: '主要用应用的审核管理',
+                    desc: '主要用于影院的审核管理',
                     router: {
                         name: 'cinema_check'
                     }

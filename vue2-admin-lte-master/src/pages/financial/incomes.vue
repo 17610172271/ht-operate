@@ -126,7 +126,7 @@
                 },
                 childNode: {
                     name: '收益管理',
-                    desc: '主要用于代理商收益的查看及管理',
+                    desc: '主要用于收益的查看及管理',
                     router: {
                         name: 'financial_income'
                     }

@@ -95,7 +95,7 @@ textarea {
 .main-sidebar {
     height: 100%;
     max-height: 100px;
-    overflow-y: scroll;
+    overflow: auto;
 }
 .sidebar::-webkit-scrollbar,
 .sidebar-menu::-webkit-scrollbar {
