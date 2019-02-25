@@ -58,8 +58,8 @@
                     }
                 },
                 childNode: {
-                    name: '默认统计',
-                    desc: '主要用于财务默认统计的查看及管理',
+                    name: '财务统计',
+                    desc: '主要用于财务数据统计',
                     router: {
                         name: 'financial_statistics'
                     }

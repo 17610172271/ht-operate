@@ -134,7 +134,7 @@
                 },
                 childNode: {
                     name: '结算管理',
-                    desc: '主要用代理商结算信息的查看及管理',
+                    desc: '主要用于代理商结算信息的查看及管理',
                     router: {
                         name: 'financial_clearing'
                     }

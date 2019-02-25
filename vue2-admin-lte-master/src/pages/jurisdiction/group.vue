@@ -197,6 +197,7 @@
                 },
                 childNode: {
                     name: '用户组管理',
+                    desc: '主要用于账号分组的查看及管理',
                     router: {
                         name: 'account_group'
                     }

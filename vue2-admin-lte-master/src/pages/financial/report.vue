@@ -73,7 +73,7 @@
                 },
                 childNode: {
                     name: '月报表',
-                    desc: '主要用于代理商报表的查看及管理',
+                    desc: '主要用于月报表的查看及管理',
                     router: {
                         name: 'financial_report'
                     }
