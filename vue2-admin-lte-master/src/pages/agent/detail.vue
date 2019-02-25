@@ -2,8 +2,9 @@
     <div class="bg-white">
         <div class="p-md border-bottom relative">
             <el-breadcrumb separator="/">
-                <el-breadcrumb-item :to="{name: 'home'}">首页</el-breadcrumb-item>
-                <el-breadcrumb-item :to="{name: 'agent_list'}">代理商管理</el-breadcrumb-item>
+                <el-breadcrumb-item :to="{name: 'agent_list'}" v-if="fromRouter==='agent_list'">代理商列表</el-breadcrumb-item>
+                <el-breadcrumb-item :to="{name: 'agent_mine'}" v-else-if="fromRouter==='agent_mine'">我的代理商</el-breadcrumb-item>
+                <el-breadcrumb-item :to="{name: 'agent_check'}" v-else>代理商审核</el-breadcrumb-item>
                 <el-breadcrumb-item>代理商详情</el-breadcrumb-item>
             </el-breadcrumb>
             <a href="javascript:;" class="btn bg-blue1 text-white btn-back" @click="goBack">返回</a>
@@ -196,6 +197,7 @@
                 agent_list: []
             },
             loading: false,
+            fromRouter: ''
         }),
         methods: {
             getData () {
@@ -223,6 +225,11 @@
             goBack () {
                 this.$router.go(-1)
             }
+        },
+        beforeRouteEnter (to, from, next) {
+            next(vm => {
+                vm.fromRouter = from.name
+            })
         },
         created () {
             this.getData()

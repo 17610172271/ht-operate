@@ -3,7 +3,6 @@
         <div class="appli-container bg-white">
             <div class="p-md border-bottom relative clear">
                 <el-breadcrumb separator="/">
-                    <el-breadcrumb-item :to="{name: 'home'}">首页</el-breadcrumb-item>
                     <el-breadcrumb-item :to="{name: 'financial_incomes'}">收益管理</el-breadcrumb-item>
                     <el-breadcrumb-item>收益详情</el-breadcrumb-item>
                     <el-breadcrumb-item></el-breadcrumb-item>

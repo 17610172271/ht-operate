@@ -2,7 +2,6 @@
     <div class="bg-white">
         <div class="p-md border-bottom relative">
             <el-breadcrumb separator="/">
-                <el-breadcrumb-item :to="{name: 'home'}">首页</el-breadcrumb-item>
                 <el-breadcrumb-item :to="{name: 'financial_clearing'}">结算管理</el-breadcrumb-item>
                 <el-breadcrumb-item>结算详情</el-breadcrumb-item>
             </el-breadcrumb>

@@ -130,9 +130,13 @@
                     xAxis: {
                         type: 'category',
                         boundaryGap: false,
-                        data: column
+                        data: column,
+                        name: '日期'
                     },
-                    yAxis: {},
+                    yAxis: {
+                        name: '播放次数',
+                        minInterval: 1
+                    },
                     series: [
                         {
                             name: unit,
