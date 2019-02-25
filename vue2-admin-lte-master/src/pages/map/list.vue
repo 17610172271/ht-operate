@@ -2,7 +2,7 @@
     <div class="p-lg">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{name: 'home'}">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>影院地图统计</el-breadcrumb-item>
+            <el-breadcrumb-item>影院地图分布</el-breadcrumb-item>
         </el-breadcrumb>
         <div class="page-container">
             <div class="clear p-b-sm">

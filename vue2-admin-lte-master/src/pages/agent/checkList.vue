@@ -117,7 +117,7 @@
                 },
                 childNode: {
                     name: '代理商审核列表',
-                    desc: '主要用代理商的审核管理',
+                    desc: '主要用于代理商的审核管理',
                     router: {
                         name: 'agent_check'
                     }

@@ -17,7 +17,7 @@ module.exports = [
     {
         type: 'tree',
         icon: 'fa fa-globe',
-        name: '影院地图统计',
+        name: '影院地图分布',
         root: [1,2,3,4,5,6,7,8],
         items: [
             {
@@ -101,7 +101,7 @@ module.exports = [
             {
                 type: 'item',
                 icon: 'fa fa-circle-o',
-                name: '默认统计',
+                name: '财务统计',
                 router: {
                     name: 'financial_statistics'
                 },
@@ -246,7 +246,7 @@ module.exports = [
     {
         type: 'tree',
         icon: 'fa fa-file-text-o',
-        name: '日志管理',
+        name: '操作日志',
         root: [1,2,3,4,5,6,7,8],
         items: [
             {

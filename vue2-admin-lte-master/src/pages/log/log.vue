@@ -125,7 +125,7 @@
             page: 1,
             subNavList: {
                 parentNode: {
-                    name: '日志管理',
+                    name: '操作日志',
                     router: {
                         name: 'log_list'
                     }

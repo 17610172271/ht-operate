@@ -120,7 +120,7 @@
                 },
                 childNode: {
                     name: '影院列表',
-                    desc: '主要用影院的查看及管理',
+                    desc: '主要用于影院的查看及管理',
                     router: {
                         name: 'cinema_list'
                     }

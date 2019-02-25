@@ -121,7 +121,7 @@
                 },
                 childNode: {
                     name: '代理商列表',
-                    desc: '主要用代理商的查看及管理',
+                    desc: '主要用于代理商的查看及管理',
                     router: {
                         name: 'agent_list'
                     }
