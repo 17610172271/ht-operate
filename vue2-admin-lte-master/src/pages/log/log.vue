@@ -132,7 +132,7 @@
                 },
                 childNode: {
                     name: '日志列表',
-                    desc: '主要用日志的查看及管理',
+                    desc: '主要用于日志的查看及管理',
                     router: {
                         name: 'log_list'
                     }
