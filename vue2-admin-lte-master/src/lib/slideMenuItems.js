@@ -269,30 +269,30 @@ module.exports = [
             }
         ]
     },
-    {
-        type: 'tree',
-        icon: 'fa fa-registered',
-        name: '权限管理',
-        root: [1],
-        items: [
-            //{
-            //    type: 'item',
-            //    icon: 'fa fa-circle-o',
-            //    name: '规则列表',
-            //    router: {
-            //        name: 'jurisdiction_list'
-            //    },
-            //    root: [1]
-            //},
-            {
-                type: 'item',
-                icon: 'fa fa-circle-o',
-                name: '用户组管理',
-                router: {
-                    name: 'account_group'
-                },
-                root: [1]
-            }
-        ]
-    }
+    //{
+    //    type: 'tree',
+    //    icon: 'fa fa-registered',
+    //    name: '权限管理',
+    //    root: [1],
+    //    items: [
+    //        //{
+    //        //    type: 'item',
+    //        //    icon: 'fa fa-circle-o',
+    //        //    name: '规则列表',
+    //        //    router: {
+    //        //        name: 'jurisdiction_list'
+    //        //    },
+    //        //    root: [1]
+    //        //},
+    //        {
+    //            type: 'item',
+    //            icon: 'fa fa-circle-o',
+    //            name: '用户组管理',
+    //            router: {
+    //                name: 'account_group'
+    //            },
+    //            root: [1]
+    //        }
+    //    ]
+    //}
 ]
