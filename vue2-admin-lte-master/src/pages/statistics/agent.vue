@@ -102,8 +102,8 @@
                             column1.push(val.agent_name)
                         })
                         // 画图
-                        this.drawChart('agentNum-chart', '各区域代理商统计', data, column) // 代理商统计图
-                        this.drawChart('agentCinema-chart', '代理商影院统计', data1, column1) // 代理商影院统计图
+                        this.drawChart('agentNum-chart', '各区域代理商统计', data, column, '区域名称') // 代理商统计图
+                        this.drawChart('agentCinema-chart', '代理商影院统计', data1, column1, '代理商名称') // 代理商影院统计图
                     } else {
                         this.$message.error(res.data.msg)
                     }
@@ -126,7 +126,7 @@
                     }
                 })
             },
-            drawChart (container, title, data, column) {
+            drawChart (container, title, data, column, xName) {
                 // 基于准备好的dom，初始化echarts实例
                 let myChart = this.$echarts.init(document.getElementById(container))
                 // 绘制图表
@@ -149,11 +149,18 @@
                     xAxis: {
                         type: 'category',
 //                        boundaryGap: false,
-                        data: column
+                        data: column,
+                        name: xName
                     },
                     yAxis : [
                         {
-                            type : 'value'
+                            type : 'value',
+                            name: '数量',
+                            // axisLine: {
+                            //     symbol: ['none', 'arrow'],
+                            //     symbolOffset: 12,
+                            //     symbolSize: [8, 15]
+                            // }
                         }
                     ],
                     series: [
