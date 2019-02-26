@@ -3,13 +3,13 @@
         <div class="p-md border-bottom relative">
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item :to="{name: 'cinema_check'}">影院审核</el-breadcrumb-item>
-                <el-breadcrumb-item>审核影院</el-breadcrumb-item>
+                <el-breadcrumb-item>影院审核详情</el-breadcrumb-item>
             </el-breadcrumb>
             <a href="javascript:;" class="btn bg-blue1 text-white btn-back" @click="goBack">返回</a>
         </div>
         <div class="p-o-lg p-v-sm" style="padding-bottom: 50px;" v-loading="loading">
             <div>
-                <h5 class="border-bottom text-xxlg text-bold p-b-sm">编辑影院</h5>
+                <h5 class="border-bottom text-xxlg text-bold p-b-sm">影院审核详情</h5>
                 <div class="p-v-md">
                     <div class="clear m-b-sm flex">
                         <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;">所属代理商:</div>
