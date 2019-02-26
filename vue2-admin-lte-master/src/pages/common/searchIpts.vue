@@ -1,6 +1,6 @@
 <template>
     <div class="search-ipts-container clear">
-        <div class="search-item col-md-4 col-lg-3 m-b-sm p-l-n" :class="{'col-md-6 col-lg-6': item.type=='city'}" v-for="item in searchOptions">
+        <div class="search-item col-xs-4 col-md-4 col-lg-3 m-b-sm p-l-n" :class="{'col-md-6 col-lg-6': item.type=='city'}" v-for="item in searchOptions">
             <div v-if="item.type=='text'">
                 <div class="col-xs-5 p-n search-name">{{item.name}}</div>
                 <div class="col-xs-7 p-n">
