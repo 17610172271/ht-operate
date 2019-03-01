@@ -2,7 +2,7 @@
     <div
         class="login-modal-container"
         v-loading="loading"
-        element-loading-text="登陆中..."
+        element-loading-text="登录中..."
         element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.5)">
         <div class="login-title">航天运营管理平台</div>
