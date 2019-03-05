@@ -232,20 +232,20 @@
                             label: '未付款'
                         },
                         {
-                            value: 4,
-                            label: '未使用'
+                            value: 1,
+                            label: '已付款'
                         },
                         {
-                            value: 5,
-                            label: '已使用'
+                            value: 3,
+                            label: '已退款'
                         },
                         {
                             value: 2,
                             label: '已取消'
                         },
                         {
-                            value: 3,
-                            label: '已过期'
+                            value: 13,
+                            label: '已完成'
                         },
                     ]
                 },
