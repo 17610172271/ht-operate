@@ -204,7 +204,7 @@
                     this.addInfo.latitude = item.location.lat
                 }
                 this.address = item.address + item.name
-                this.addInfo.address = item.district + item.address + item.name
+                this.addInfo.address = item.address + item.name
                 this.addressSearchShow = false
             },
             getPosition (val) {
@@ -257,6 +257,9 @@
             },
             'addInfo.cityLink' (val) {
                 this.validateCity()
+            },
+            'addInfo.address' (val) {
+                this.address = val
             }
         }
     }

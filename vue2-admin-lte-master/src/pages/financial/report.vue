@@ -6,7 +6,7 @@
             <div class="page-container">
                 <div class="page-toolbar clear m-t-sm">
                     <search-ipts :options="searchOptions" @submit="doSearch" v-show="searchShow"></search-ipts>
-                    <h5 class="text-center text-bold text-xxlg">{{searchOptions[0].value.split('-')[0]}}年{{searchOptions[0].value.split('-')[0]}}月报表</h5>
+                    <h5 class="text-center text-bold text-xxlg">{{searchOptions[0].value.split('-')[0]}}年{{searchOptions[0].value.split('-')[1]}}月报表</h5>
                 </div>
                 <div class="page-contaoner">
                     <div class="lk-table m-t-sm">

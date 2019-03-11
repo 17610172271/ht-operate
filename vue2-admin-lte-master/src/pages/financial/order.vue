@@ -228,37 +228,25 @@
                     value: '',
                     options: [
                         {
-                            label: '待付款',
-                            value: 0
+                            value: 0,
+                            label: '未付款'
                         },
                         {
-                            label: '已付款',
-                            value: 1
+                            value: 1,
+                            label: '已付款'
                         },
                         {
-                            label: '已关闭',
-                            value: 2
+                            value: 3,
+                            label: '已退款'
                         },
                         {
-                            label: '已退款',
-                            value: 3
+                            value: 2,
+                            label: '已取消'
                         },
                         {
-                            label: '已锁定',
-                            value: 9
+                            value: 13,
+                            label: '已完成'
                         },
-                        {
-                            label: '准备播放',
-                            value: 10
-                        },
-                        {
-                            label: '播放中',
-                            value: 11
-                        },
-                        {
-                            label: '播放完成',
-                            value: 13
-                        }
                     ]
                 },
                 {
