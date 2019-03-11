@@ -462,6 +462,11 @@
             validateCity () {
                 this.cityError = this.addInfo.cityLink && this.addInfo.cityLink.split('/')[2] ? false : true
             },
+            validateCity1 () {
+                if (this.addInfo.cityLink && this.addInfo.cityLink.split('/')[2]) {
+                    this.cityError = false
+                }
+            },
             validateAddress () {
                 this.addressError = this.addInfo.address ? false : true
             },
@@ -532,7 +537,7 @@
                 }
             },
             'addInfo.cityLink' (val) {
-                this.validateCity()
+                this.validateCity1()
             }
         }
     }
