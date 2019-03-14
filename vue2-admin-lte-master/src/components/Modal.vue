@@ -23,20 +23,20 @@
 // const ModalTypes = ['modal-primary', 'modal-success', 'modal-info', 'modal-warning', 'modal-danger']
 export default {
   mounted () {
-    this.$bus.$on('modal-open', (args) => {
-      // TODO: args가 올바른지 확인해야함
-      this.type = args.type
-      this.title = args.title
-      this.description = args.description
-      this.confirmText = args.confirmText || '저장 후 닫기'
-      this.cancelText = args.cancelText || '닫기'
-      this.confirmBeforeHook = args.confirmBefore
-      this.confirmAfterHook = args.confirmAfter
-      this.cancelBeforeHook = args.cancelBefore
-      this.cancelAfterHook = args.cancelAfter
+    // this.$bus.$on('modal-open', (args) => {
+    //   // TODO: args가 올바른지 확인해야함
+    //   this.type = args.type
+    //   this.title = args.title
+    //   this.description = args.description
+    //   this.confirmText = args.confirmText || '저장 후 닫기'
+    //   this.cancelText = args.cancelText || '닫기'
+    //   this.confirmBeforeHook = args.confirmBefore
+    //   this.confirmAfterHook = args.confirmAfter
+    //   this.cancelBeforeHook = args.cancelBefore
+    //   this.cancelAfterHook = args.cancelAfter
 
-      $('#bsModal').modal('show')
-    })
+    //   $('#bsModal').modal('show')
+    // })
     $('#bsModal').on('show.bs.modal', (e) => {
     })
 

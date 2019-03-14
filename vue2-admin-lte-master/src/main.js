@@ -11,7 +11,6 @@ import Vuex from 'vuex'
 import store from '@/store/index.js'
 import ElementUI from 'element-ui'
 import router from './router'
-import EventBus from './lib/eventBus.js'
 import axios from 'axios'
 import echarts from 'echarts'
 import api from '@/api'
@@ -75,7 +74,6 @@ axios.interceptors.response.use(
 )
 
 Vue.prototype.$echarts = echarts
-Vue.prototype.$bus = EventBus
 Vue.prototype.$http = axios
 /* eslint-disable no-new */
 new Vue({

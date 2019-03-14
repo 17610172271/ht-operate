@@ -164,13 +164,13 @@
                             value:'1',
                             label:'正常'
                         },
-                        {
-                            value:'2',
-                            label:'待审核'
-                        },
+                        // {
+                        //     value:'2',
+                        //     label:'待审核'
+                        // },
                         {
                             value:'4',
-                            label:'已禁用'
+                            label:'禁用'
                         },
 
                     ]
@@ -224,35 +224,63 @@
                 })
             },
             statusChange (item) {
-                this.$confirm(item.status_name === '已禁用' ? '此操作将启用该代理商, 是否继续?' : '此操作将禁用该代理商, 是否继续?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(() => {
-                    this.$http.get(api.agent.disable, {
-                        params: {
-                            id: item.id,
-                            status: item.status_name === '已禁用' ? 1 : 2
-                        }
-                    }).then(res => {
-                        if(res.data.code === 1) {
-                            this.$message({
-                                type: 'success',
-                                message: '操作成功'
-                            })
-                            if (item.status_name === '已禁用') {
+                if (item.status_name === '正常') {
+                    this.$prompt('备注:', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        inputPattern: /[\w\u4e00-\u9fa5,."'!@#$%^&*\(_+\[\]\)\{\}]+/,
+                        inputErrorMessage: '请输入禁用备注'
+                    }).then(({ value }) => {
+                        this.$http.get(api.agent.disable, {
+                            params: {
+                                id: item.id,
+                                status: 2,
+                                remark: value
+                            }
+                        }).then(res => {
+                            if(res.data.code === 1) {
+                                this.$message({
+                                    type: 'success',
+                                    message: '禁用成功'
+                                })
+                                item.status_name = '已禁用'
+                            } else {
+                                this.$message({
+                                    type: 'error',
+                                    message: res.data.msg
+                                })
+                            }
+                        })
+                    }).catch(() => {
+                        console.log('error')
+                    })
+                } else {
+                    this.$confirm('此操作将启用该代理商, 是否继续?', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(() => {
+                        this.$http.get(api.agent.disable, {
+                            params: {
+                                id: item.id,
+                                status: 1
+                            }
+                        }).then(res => {
+                            if(res.data.code === 1) {
+                                this.$message({
+                                    type: 'success',
+                                    message: '启用成功'
+                                })
                                 item.status_name = '正常'
                             } else {
-                                item.status_name = '已禁用'
+                                this.$message({
+                                    type: 'error',
+                                    message: res.data.msg
+                                })
                             }
-                        } else {
-                            this.$message({
-                                type: 'error',
-                                message: res.data.msg
-                            })
-                        }
+                        })
                     })
-                })
+                }
             },
             //刷新
             refresh () {

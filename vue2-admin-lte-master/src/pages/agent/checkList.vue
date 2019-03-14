@@ -151,10 +151,10 @@
                     name: '状态',
                     value: '',
                     options: [
-                        {
-                            value:'1',
-                            label:'正常'
-                        },
+                        // {
+                        //     value:'1',
+                        //     label:'正常'
+                        // },
                         {
                             value:'2',
                             label:'待审核'
@@ -163,10 +163,10 @@
                             value:'3',
                             label:'未通过'
                         },
-                        {
-                            value:'4',
-                            label:'已禁用'
-                        },
+                        // {
+                        //     value:'4',
+                        //     label:'禁用'
+                        // },
 
                     ]
                 },
