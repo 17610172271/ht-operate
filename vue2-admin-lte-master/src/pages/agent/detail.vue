@@ -67,7 +67,7 @@
                     <div class="p-o-sm p-v-sm clear agent-detail-row">
                         <div class="col-xs-2 text-bold"></div>
                         <div class="col-xs-2">分账比例:</div>
-                        <div class="col-xs-4">{{data.proportion}}(字段待加)</div>
+                        <div class="col-xs-4">{{data.proportion}}</div>
                     </div>
                     <div class="p-o-sm p-v-sm clear agent-detail-row">
                         <div class="col-xs-2 text-bold"></div>
@@ -79,11 +79,11 @@
                         <div class="col-xs-2">状态:</div>
                         <div class="col-xs-4">{{data.status_name}}</div>
                     </div>
-                    <div class="p-o-sm p-v-sm clear agent-detail-row">
-                        <div class="col-xs-2 text-bold"></div>
-                        <div class="col-xs-2">备注:</div>
-                        <div class="col-xs-4">{{data.remark}}(字段待加)</div>
-                    </div>
+                    <!--<div class="p-o-sm p-v-sm clear agent-detail-row">-->
+                        <!--<div class="col-xs-2 text-bold"></div>-->
+                        <!--<div class="col-xs-2">备注:</div>-->
+                        <!--<div class="col-xs-4">{{data.remark}}(字段待加)</div>-->
+                    <!--</div>-->
 
 
                     <!-- 公司信息 -->
@@ -132,7 +132,7 @@
                     <div class="p-o-sm p-v-sm clear agent-detail-row">
                         <div class="col-xs-2 text-bold"></div>
                         <div class="col-xs-2">到账日期:</div>
-                        <div class="col-xs-4">(字段待加)</div>
+                        <div class="col-xs-4">({{data.arrival_account_time}})</div>
                     </div>
                     <div class="p-o-sm p-v-sm clear agent-detail-row">
                         <div class="col-xs-2 text-bold"></div>
@@ -144,22 +144,22 @@
                     <div class="p-o-sm p-v-sm clear agent-detail-row m-t-lg">
                         <div class="col-xs-2 text-bold">结算信息</div>
                         <div class="col-xs-2">户名:</div>
-                        <div class="col-xs-4">(字段待加)</div>
+                        <div class="col-xs-4">{{data.account_name}}</div>
                     </div>
                     <div class="p-o-sm p-v-sm clear agent-detail-row">
                         <div class="col-xs-2 text-bold"></div>
                         <div class="col-xs-2">银行:</div>
-                        <div class="col-xs-4">(字段待加)</div>
+                        <div class="col-xs-4">{{data.bank_name}}</div>
                     </div>
                     <div class="p-o-sm p-v-sm clear agent-detail-row">
                         <div class="col-xs-2 text-bold"></div>
                         <div class="col-xs-2">卡号:</div>
-                        <div class="col-xs-4">(字段待加)</div>
+                        <div class="col-xs-4">{{data.bank_account}}</div>
                     </div>
                     <div class="p-o-sm p-v-sm clear agent-detail-row">
                         <div class="col-xs-2 text-bold"></div>
                         <div class="col-xs-2">开户行:</div>
-                        <div class="col-xs-4">(字段待加)</div>
+                        <div class="col-xs-4">{{data.open_bank}}</div>
                     </div>
                 </div>
                 <el-tabs v-model="activeName" style="min-height: 300px;margin-top: 30px;">
@@ -213,26 +213,26 @@
                             </ul>
                         </div>
                     </el-tab-pane>
-                    <el-tab-pane label="审核记录(待加)" name="third">
+                    <el-tab-pane label="审核记录" name="third">
                         <div class="lk-table">
                             <ul class="table-thead clear">
                                 <li class="col-xs-1 p-n" style="max-width: 60px;">序号</li>
                                 <li class="col-xs-2 p-n">类型</li>
-                                <li class="col-xs-3 p-n">修改前</li>
-                                <li class="col-xs-3 p-n">修改后</li>
+                                <li class="col-xs-3 p-n">修改内容</li>
                                 <li class="col-xs-2 p-n">申请时间</li>
                                 <li class="col-xs-2 p-n">审核时间</li>
                                 <li class="col-xs-1 p-n">审核人</li>
+                                <li class="col-xs-1 p-n">审核备注</li>
                                 <li class="col-xs-1 p-n">状态</li>
                             </ul>
-                            <ul class="table-tbody clear" v-for="(item, index) in data.agent_list">
+                            <ul class="table-tbody clear" v-for="(item, index) in checkLog.items">
                                 <li class="col-xs-1 p-n" style="max-width: 60px;">{{index + 1}}</li>
-                                <li class="col-xs-2 p-n over-omit" :title="item.code">{{item.code}}</li>
-                                <li class="col-xs-3 p-n over-omit" :title="item.name">{{item.name}}</li>
-                                <li class="col-xs-3 p-n over-omit" :title="item.region_name">{{item.region_name}}</li>
-                                <li class="col-xs-2 p-n over-omit" :title="item.city_name">{{item.city_name}}</li>
-                                <li class="col-xs-2 p-n over-omit" :title="item.cinema_num">{{item.cinema_num}}</li>
-                                <li class="col-xs-1 p-n over-omit" :title="item.create_time">{{item.create_time}}</li>
+                                <li class="col-xs-2 p-n over-omit" :title="item.type">{{item.type}}</li>
+                                <li class="col-xs-3 p-n over-omit" :title="item.update_info">{{item.update_info}}</li>
+                                <li class="col-xs-2 p-n over-omit" :title="item.create_time">{{item.create_time}}</li>
+                                <li class="col-xs-2 p-n over-omit" :title="item.check_time">{{item.check_time}}</li>
+                                <li class="col-xs-1 p-n over-omit" :title="item.nickname">{{item.nickname}}</li>
+                                <li class="col-xs-1 p-n over-omit" :title="item.remark">{{item.remark}}</li>
                                 <li class="col-xs-1 p-n over-omit" :class="item.status==1?'text-green':'text-orange'">{{item.status_name}}</li>
                             </ul>
                         </div>
@@ -249,7 +249,8 @@
         data: () => ({
             data: {
                 cinema_list: [],
-                agent_list: []
+                agent_list: [],
+                items:[]
             },
             loading: false,
             fromRouter: '',
@@ -277,6 +278,21 @@
                         })
                     }
                 })
+                    this.$http.post(api.agent.checkLog, {
+                        id: this.$route.params.id,
+                        type:1,
+                        page: this.page,
+                        limit: this.limit
+                    }).then(res => {
+                        if(res.data.code === 1) {
+                            this.checkLog = res.data.data
+                        } else {
+                            this.$message({
+                                type: 'error',
+                                message: res.data.msg
+                            })
+                        }
+                    })
             },
             goBack () {
                 this.$router.go(-1)

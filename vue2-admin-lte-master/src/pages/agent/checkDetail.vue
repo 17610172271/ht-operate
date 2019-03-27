@@ -120,7 +120,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="p-v-md">
                 <h5 class="border-bottom text-xxlg text-bold p-b-sm">合同信息</h5>
                 <div class="clear m-b-sm flex m-t-lg">
@@ -193,7 +192,31 @@
                     </div>
                 </div>
             </div>
-
+            <div class="p-v-md">
+                <h5 class="border-bottom text-xxlg text-bold p-b-sm">审核记录</h5>
+                <div class="lk-table">
+                    <ul class="table-thead clear">
+                        <li class="col-xs-1 p-n" style="max-width: 60px;">序号</li>
+                        <li class="col-xs-2 p-n">类型</li>
+                        <li class="col-xs-3 p-n">修改内容</li>
+                        <li class="col-xs-2 p-n">申请时间</li>
+                        <li class="col-xs-2 p-n">审核时间</li>
+                        <li class="col-xs-1 p-n">审核人</li>
+                        <li class="col-xs-1 p-n">审核备注</li>
+                        <li class="col-xs-1 p-n">状态</li>
+                    </ul>
+                    <ul class="table-tbody clear" v-for="(item, index) in checkLog.items">
+                        <li class="col-xs-1 p-n" style="max-width: 60px;">{{index + 1}}</li>
+                        <li class="col-xs-2 p-n over-omit" :title="item.type">{{item.type}}</li>
+                        <li class="col-xs-3 p-n over-omit" :title="item.update_info">{{item.update_info}}</li>
+                        <li class="col-xs-2 p-n over-omit" :title="item.create_time">{{item.create_time}}</li>
+                        <li class="col-xs-2 p-n over-omit" :title="item.check_time">{{item.check_time}}</li>
+                        <li class="col-xs-1 p-n over-omit" :title="item.nickname">{{item.nickname}}</li>
+                        <li class="col-xs-1 p-n over-omit" :title="item.remark">{{item.remark}}</li>
+                        <li class="col-xs-1 p-n over-omit" :class="item.status==1?'text-green':'text-orange'">{{item.status_name}}</li>
+                    </ul>
+                </div>
+            </div>
             <div class="border-bottom p-v-lg">
                 <div class="clear m-b-sm flex">
                     <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;">审核备注:</div>
@@ -221,7 +244,8 @@
     export default {
         data: () => ({
             data: {
-                hall_list: []
+                hall_list: [],
+                items:[]
             },
             remark: '',
             fileList: [],
@@ -304,6 +328,21 @@
                                 url: val
                             }
                         })
+                    } else {
+                        this.$message({
+                            type: 'error',
+                            message: res.data.msg
+                        })
+                    }
+                })
+                this.$http.post(api.agent.checkLog, {
+                    id: this.$route.params.id,
+                    type:1,
+                    page: this.page,
+                    limit: this.limit
+                }).then(res => {
+                    if(res.data.code === 1) {
+                        this.checkLog = res.data.data
                     } else {
                         this.$message({
                             type: 'error',

@@ -18,6 +18,7 @@
                     </div>
                 </div>
                 <div class="page-contaoner">
+                    <h4>总计:{{data.totalMoney}}</h4>
                     <div class="lk-table m-t-sm">
                         <ul class="table-thead clear">
                             <li class="col-xs-2 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">序号</li>

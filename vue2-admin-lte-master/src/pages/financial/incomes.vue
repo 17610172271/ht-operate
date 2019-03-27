@@ -24,6 +24,7 @@
                             <li class="col-xs-2 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">序号</li>
                             <li class="col-xs-3 p-n" v-show="selectVal.indexOf('影院名称')!=-1">影院名称</li>
                             <li class="col-xs-2 p-n" v-show="selectVal.indexOf('所属区域')!=-1">所属区域</li>
+                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('所属代理商')!=-1" style="min-width: 80px">所属代理商</li>
                             <li class="col-xs-2 p-n" v-show="selectVal.indexOf('城市')!=-1">城市</li>
                             <li class="col-xs-2 p-n" v-show="selectVal.indexOf('订单数')!=-1">订单数</li>
                             <li class="col-xs-2 p-n" v-show="selectVal.indexOf('实付总数')!=-1">实付总数</li>
@@ -41,6 +42,7 @@
                             <li class="col-xs-2 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">{{offset + index + 1}}</li>
                             <li class="col-xs-3 p-n over-omit" v-show="selectVal.indexOf('影院名称')!=-1" :title="item.cinema_name">{{item.cinema_name}}</li>
                             <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('所属区域')!=-1" :title="item.region_name">{{item.region_name}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('所属代理商')!=-1" style="min-width: 80px" :title="item.belongs_agent_name">{{item.belongs_agent_name}}</li>
                             <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('城市')!=-1" :title="item.city_name">{{item.city_name}}</li>
                             <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('订单数')!=-1" :title="item.trade_num">{{item.trade_num}}</li>
                             <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('实付总数')!=-1":title="item.total_pay_money">{{item.total_pay_money}}</li>
@@ -111,8 +113,8 @@
                 items: []
             },
             loading: false,
-            selectVal: ['序号', '影院名称', '所属区域', '城市', '订单数', '实付总数', '时间', '新光', '航天', '版权', '影院', '代理商', '营业税', '专项资金', '操作'],
-            showList: ['序号', '影院名称', '所属区域', '城市', '订单数', '实付总数', '时间', '新光', '航天', '版权', '影院', '代理商', '营业税', '专项资金', '操作'],
+            selectVal: ['序号', '影院名称', '所属区域','所属代理商', '城市', '订单数', '实付总数', '时间', '新光', '航天', '版权', '影院', '代理商', '营业税', '专项资金', '操作'],
+            showList: ['序号', '影院名称', '所属区域','所属代理商', '城市', '订单数', '实付总数', '时间', '新光', '航天', '版权', '影院', '代理商', '营业税', '专项资金', '操作'],
             options: [10, 25, 50],   //条数数目
             searchShow: false,   //搜索开关
             limit: 10,
@@ -138,6 +140,37 @@
                     type: 'text',
                     name: '影院名称',
                     value: ''
+                },
+                {
+                    type: 'text',
+                    name: '代理商名称',
+                    value: ''
+                },
+                {
+                    type: 'searchSelect',
+                    name: '所属区域',
+                    value: '',
+                    options: []
+                },
+                {
+                    type: 'searchSelect',
+                    name: '代理商等级',
+                    value: '',
+                    options: [
+                        {
+                            value:'1',
+                            label:'一级代理商'
+                        },
+                        {
+                            value:'2',
+                            label:'二级代理商'
+                        },
+                        {
+                            value:'3',
+                            label:'三级代理商'
+                        },
+
+                    ]
                 },
                 {
                     type: 'searchSelect',
@@ -172,9 +205,10 @@
                 this.loading = true
                 this.$http.post(api.financial.incomes, {
                     cinema_name: this.searchOptions[0].value,
-                    region_id: this.searchOptions[1].value,
-                    start_time: this.searchOptions[2].value,
-                    end_time: this.searchOptions[3].value,
+                    agent_name: this.searchOptions[1].value,
+                    region_id: this.searchOptions[2].value,
+                    level: this.searchOptions[3].value,
+                    end_time: this.searchOptions[4].value,
                     page: this.page,
                     limit: this.limit
                 }).then(res => {
@@ -237,7 +271,7 @@
                         status: 1
                     }).then(res => {
                         if (res.data.code === 1) {
-                            this.searchOptions[1].options = res.data.data.map(val => {
+                            this.searchOptions[2].options = res.data.data.map(val => {
                                 return {
                                     label: val.name,
                                     value: val.id

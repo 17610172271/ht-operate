@@ -23,7 +23,7 @@
                         <ul class="table-thead clear">
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">序号</li>
                             <li class="col-xs-2 p-n" v-show="selectVal.indexOf('订单编号')!=-1">订单编号</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('用户昵称')!=-1">用户昵称</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('手机号')!=-1">手机号</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('城市')!=-1">城市</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('影片名称')!=-1">影片名称</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('影院')!=-1">影院</li>
@@ -37,7 +37,7 @@
                         <ul class="table-tbody clear" v-for="(item, index) in data.items">
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">{{offset + index + 1}}</li>
                             <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('订单编号')!=-1" :title="item.trade_id">{{item.trade_id}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('用户昵称')!=-1" :title="item.buyer">{{item.buyer}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('手机号')!=-1" :title="item.buyer_mobile">{{item.buyer_mobile}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('城市')!=-1" :title="item.city_name">{{item.city_name}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('影片名称')!=-1" :title="item.film_name">{{item.film_name}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('影院')!=-1" :title="item.cinema_name">{{item.cinema_name}}</li>
@@ -84,71 +84,79 @@
                         :visible.sync="detailModal"
                         custom-class="dialog-modal1">
                         <div v-loading="modalLoading">
-                            <div class="clear">
+                            <div class="clear bg-f9">
                                 <div class="col-xs-2 line-height-40 text-right text-bold min-width-105">标题</div>
                                 <div class="col-xs-8 line-height-40 text-bold">内容</div>
                             </div>
-                            <div class="clear bg-f9">
+                            <div class="clear">
                                 <div class="col-xs-2 line-height-40 text-right min-width-105">订单编号:</div>
                                 <div class="col-xs-8 line-height-40">{{detailVal.trade_id}}</div>
                             </div>
-                            <div class="clear">
+                            <div class="clear bg-f9">
                                 <div class="col-xs-2 line-height-40 text-right min-width-105">城市:</div>
                                 <div class="col-xs-8 line-height-40">{{detailVal.city_name}}</div>
                             </div>
-                            <div class="clear bg-f9">
+                            <div class="clear">
                                 <div class="col-xs-2 line-height-40 text-right min-width-105">代理商:</div>
                                 <div class="col-xs-8 line-height-40">{{detailVal.agent_name}}</div>
                             </div>
-                            <div class="clear">
+                            <div class="clear bg-f9">
                                 <div class="col-xs-2 line-height-40 text-right min-width-105">代理商编码:</div>
                                 <div class="col-xs-8 line-height-40">{{detailVal.agent_code}}</div>
                             </div>
-                            <div class="clear bg-f9">
-                                <div class="col-xs-2 line-height-40 text-right min-width-105">用户:</div>
+                            <div class="clear">
+                                <div class="col-xs-2 line-height-40 text-right min-width-105">用户昵称:</div>
                                 <div class="col-xs-8 line-height-40">{{detailVal.buyer}}</div>
                             </div>
+                            <div class="clear bg-f9">
+                                <div class="col-xs-2 line-height-40 text-right min-width-105">用户ID:</div>
+                                <div class="col-xs-8 line-height-40">{{detailVal.trade_id}}</div>
+                            </div>
                             <div class="clear">
-                                <div class="col-xs-2 line-height-40 text-right min-width-105">影片:</div>
-                                <div class="col-xs-8 line-height-40">{{detailVal.film_name}}</div>
+                                <div class="col-xs-2 line-height-40 text-right min-width-105">手机号:</div>
+                                <div class="col-xs-8 line-height-40">{{detailVal.buyer_mobile}}</div>
                             </div>
                             <div class="clear bg-f9">
-                                <div class="col-xs-2 line-height-40 text-right min-width-105">影院:</div>
-                                <div class="col-xs-8 line-height-40">{{detailVal.cinema_name}}</div>
+                                <div class="col-xs-2 line-height-40 text-right min-width-105">影片名称:</div>
+                                <div class="col-xs-8 line-height-40">{{detailVal.film_name}}</div>
                             </div>
                             <div class="clear">
+                                <div class="col-xs-2 line-height-40 text-right min-width-105">影院名称:</div>
+                                <div class="col-xs-8 line-height-40">{{detailVal.cinema_name}}</div>
+                            </div>
+                            <div class="clear bg-f9">
                                 <div class="col-xs-2 line-height-40 text-right min-width-105">影院编码:</div>
                                 <div class="col-xs-8 line-height-40">{{detailVal.cinema_code}}</div>
                             </div>
-                            <div class="clear bg-f9">
+                            <div class="clear">
                                 <div class="col-xs-2 line-height-40 text-right min-width-105">原价:</div>
                                 <div class="col-xs-8 line-height-40">{{detailVal.original_price}}</div>
                             </div>
-                            <div class="clear">
+                            <div class="clear bg-f9">
                                 <div class="col-xs-2 line-height-40 text-right min-width-105">优惠:</div>
                                 <div class="col-xs-8 line-height-40">{{detailVal.discount_money}}</div>
                             </div>
-                            <div class="clear bg-f9">
+                            <div class="clear">
                                 <div class="col-xs-2 line-height-40 text-right min-width-105">实付:</div>
                                 <div class="col-xs-8 line-height-40">{{detailVal.pay_money}}</div>
                             </div>
-                            <div class="clear">
+                            <div class="clear bg-f9">
                                 <div class="col-xs-2 line-height-40 text-right min-width-105">支付方式:</div>
                                 <div class="col-xs-8 line-height-40">{{detailVal.pay_type}}</div>
                             </div>
-                            <div class="clear bg-f9">
+                            <div class="clear">
                                 <div class="col-xs-2 line-height-40 text-right min-width-105">创建时间:</div>
                                 <div class="col-xs-8 line-height-40">{{detailVal.create_time}}</div>
                             </div>
-                            <div class="clear">
-                                <div class="col-xs-2 line-height-40 text-right min-width-105">支付时间:</div>
+                            <div class="clear bg-f9">
+                                <div class="col-xs-2 line-height-40 text-right min-width-105">付款时间:</div>
                                 <div class="col-xs-8 line-height-40">{{detailVal.pay_time}}</div>
                             </div>
-                            <div class="clear bg-f9">
+                            <div class="clear">
                                 <div class="col-xs-2 line-height-40 text-right min-width-105">观看时间:</div>
                                 <div class="col-xs-8 line-height-40">{{detailVal.watch_time}}</div>
                             </div>
-                            <div class="clear">
+                            <div class="clear bg-f9">
                                 <div class="col-xs-2 line-height-40 text-right min-width-105">订单状态:</div>
                                 <div class="col-xs-8 line-height-40">{{detailVal.status}}</div>
                             </div>
@@ -183,8 +191,8 @@
             modalLoading: false,
             detailModal: false,
             detailVal: {},
-            selectVal: ['序号', '订单编号', '用户昵称', '城市', '影片名称', '影院', '支付方式', '原价', '实付', '创建时间', '状态', '操作'],
-            showList: ['序号', '订单编号', '用户昵称', '城市', '影片名称', '影院', '支付方式', '原价', '实付', '创建时间', '状态', '操作'],
+            selectVal: ['序号', '订单编号', '手机号', '城市', '影片名称', '影院', '支付方式', '原价', '实付', '创建时间','状态', '操作'],
+            showList: ['序号', '订单编号', '手机号', '城市', '影片名称', '影院', '支付方式', '原价', '实付', '创建时间','状态', '操作'],
             options: [10, 25, 50],   //条数数目
             searchShow: false,   //搜索开关
             limit: 10,

@@ -27,6 +27,8 @@ export  const agent = {
     check: '/api/v1/agent/audit', // 代理商审核
     getAllAgent:'/api/v1/agent/getAllAgent',  //获取全部代理商
     setAccount: '/api/v1/agent/proportion', // 代理商分账比例设置
+    stopLog:'/api/v1/agent/stopLog', //禁用记录
+    checkLog:'api/v1/agent/checkLog',
 }
 
 // 影院
