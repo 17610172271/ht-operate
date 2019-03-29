@@ -19,7 +19,7 @@
                         </div>
                         <div class="col-xs-12 col-md-6 clear p-v-sm">
                             <div class="col-xs-4 max-width-105 p-n text-right">公司名称:</div>
-                            <div class="col-xs-8">(字段待加)</div>
+                            <div class="col-xs-8">{{data.company}}</div>
                         </div>
                     </div>
                     <div class="p-o-sm p-v-xs clear flex">
@@ -29,7 +29,7 @@
                         </div>
                         <div class="col-xs-12 col-md-6 clear p-v-sm">
                             <div class="col-xs-4 max-width-105 p-n text-right">法人姓名:</div>
-                            <div class="col-xs-8">(字段待加)</div>
+                            <div class="col-xs-8">{{data.legal_person}}</div>
                         </div>
                     </div>
 
@@ -40,7 +40,7 @@
                         </div>
                         <div class="col-xs-12 col-md-6 clear p-v-sm">
                             <div class="col-xs-4 max-width-105 p-n text-right">法人手机号:</div>
-                            <div class="col-xs-8">(字段待加)</div>
+                            <div class="col-xs-8">{{data.legal_phone}}</div>
                         </div>
                     </div>
                     <div class="p-o-sm p-v-xs clear flex">
@@ -50,7 +50,7 @@
                         </div>
                         <div class="col-xs-12 col-md-6 clear p-v-sm">
                             <div class="col-xs-4 max-width-105 p-n text-right">法人身份证号:</div>
-                            <div class="col-xs-8">(字段待加)</div>
+                            <div class="col-xs-8">{{data.legal_person_id}}</div>
                         </div>
                     </div>
                     <div class="p-o-sm p-v-xs clear flex">
@@ -61,7 +61,7 @@
                         <div class="col-xs-12 col-md-6 clear p-v-sm">
                             <div class="col-xs-4 max-width-105 p-n text-right">营业执照:</div>
                             <div class="col-xs-8">
-                                <a :href="data.business_licence" target="_blank" class="link" v-if="data.business_licence">查看详情</a>(字段待加)
+                                <a :href="data.business_licence" target="_blank" class="link" v-if="data.business_licence">查看详情</a>
                             </div>
                         </div>
                     </div>
@@ -72,7 +72,7 @@
                         </div>
                         <div class="col-xs-12 col-md-6 clear p-v-sm">
                             <div class="col-xs-4 max-width-105 p-n text-right">邮箱:</div>
-                            <div class="col-xs-8">(字段待加)</div>
+                            <div class="col-xs-8">{{data.legal_email}}</div>
                         </div>
                     </div>
                     <div class="p-o-sm p-v-xs clear flex">
@@ -108,7 +108,7 @@
                     <div class="p-o-sm p-v-xs clear flex">
                         <div class="col-xs-12 col-md-12 clear p-v-sm">
                             <div class="col-xs-2 max-width-105 p-n text-right p-right-6">备注:</div>
-                            <div class="col-xs-10">{{data.remark}}(字段待加)</div>
+                            <div class="col-xs-10">{{data.remark}}</div>
                         </div>
                     </div>
                 </div>

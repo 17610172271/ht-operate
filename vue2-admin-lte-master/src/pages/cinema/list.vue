@@ -111,6 +111,25 @@
                             </el-tab-pane>
                         </el-tabs>
                     </el-dialog>
+                    <el-dialog
+                        title="启用"
+                        :visible.sync="detailModalone"
+                        custom-class="dialog-modal1">
+                                <div class="lk-table">
+                                    <ul class="table-thead clear">
+                                        <li class="col-xs-2 p-n">违规时间</li>
+                                        <li class="col-xs-3 p-n">违规内容</li>
+                                    </ul>
+                                    <ul class="table-tbody clear" v-for="(item,index) in stopLog.items">
+                                        <li class="col-xs-2 p-n over-omit">{{item.create_time}}</li>
+                                        <li class="col-xs-3 p-n over-omit">{{item.remark}}</li>
+                                    </ul>
+                                    <div class="p-o-sm p-v-sm clear center">
+                                        <el-button type="primary" @click="proSubmit">提交</el-button>
+                                        <el-button @click.stop="detailModalone = false">取 消</el-button>
+                                    </div>
+                                </div>
+                    </el-dialog>
                 </div>
             </div>
         </div>
@@ -148,6 +167,7 @@
             options: [10, 25, 50],   //条数数目
             searchShow: false,   //搜索开关
             detailModal:false,
+            detailModalone:false,
             openBankError:false,
             limit: 10,
             page: 1,
@@ -285,32 +305,45 @@
                         }
                     })
                 } else {
-                    this.$confirm('此操作将启用该代理商, 是否继续?', '提示', {
-                        confirmButtonText: '确定',
-                        cancelButtonText: '取消',
-                        type: 'warning'
-                    }).then(() => {
-                        this.$http.get(api.cinema.disable, {
-                            params: {
-                                id: item.id,
-                                status: 1
-                            }
-                        }).then(res => {
-                            if(res.data.code === 1) {
-                                this.$message({
-                                    type: 'success',
-                                    message: '启用成功'
-                                })
-                                this.getList()
-                            } else {
-                                this.$message({
-                                    type: 'error',
-                                    message: res.data.msg
-                                })
-                            }
-                        })
+                    this.detailModalone = true
+                    this.$http.post(api.agent.stopLog, {
+                        id: item.id,
+                        type:2,
+                        page: this.page,
+                        limit: this.limit
+                    }).then(res => {
+                        if(res.data.code === 1) {
+                            this.stopLog = res.data.data
+                        } else {
+                            this.$message({
+                                type: 'error',
+                                message: res.data.msg
+                            })
+                        }
                     })
                 }
+            },
+            proSubmit(){
+                this.$http.get(api.cinema.disable, {
+                    params: {
+                        id: item.id,
+                        status: 1
+                    }
+                }).then(res => {
+                    if(res.data.code === 1) {
+                        this.$message({
+                            type: 'success',
+                            message: '启用成功'
+                        })
+                        this.getList()
+                        this.detailModalone = false
+                    } else {
+                        this.$message({
+                            type: 'error',
+                            message: res.data.msg
+                        })
+                    }
+                })
             },
             checkSubmit(){
                 this.validateOpenBank()
