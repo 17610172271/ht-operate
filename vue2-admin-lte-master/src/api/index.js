@@ -27,6 +27,8 @@ export  const agent = {
     check: '/api/v1/agent/audit', // 代理商审核
     getAllAgent:'/api/v1/agent/getAllAgent',  //获取全部代理商
     setAccount: '/api/v1/agent/proportion', // 代理商分账比例设置
+    stopLog:'/api/v1/agent/stopLog', //禁用记录
+    checkLog:'/api/v1/agent/checkLog', //审核记录
 }
 
 // 影院
@@ -112,6 +114,7 @@ export const financial = {
     incomes: '/api/v1/financeReport/profitList', // 收益管理
     incomesDetail: '/api/v1/financeReport/profitDetail', // 收益详情
     agentRouting: '/api/v1/financeReport/proportionList', // 代理商分账列表
+    bankList: '/api/v1/bank/bankTypeList', // 银行列表
 }
 
 export default {

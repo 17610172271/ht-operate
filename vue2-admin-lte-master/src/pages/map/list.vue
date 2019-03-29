@@ -8,9 +8,18 @@
             <div class="clear p-b-sm">
                 <div class="pull-left app-refresh btn bg-gray1 m-r-md" title="刷新" @click="refresh"><i class="fa fa-refresh text-white"></i></div>
                 <div class="pull-left text-blue p-v-sm">目前已有{{data.cinema_num || 0}}个影院正常使用，涉及{{data.province_num || 0}}个省，{{data.city_num || 0}}个市。</div>
-                <div class="pull-right clear flex" style="width: 300px;">
-                    <div class="col-xs-1" style="min-width: 70px;padding: 10px 0;">影院搜索:</div>
-                    <el-input v-model="searchVal" class="col-xs-11 p-n" placeholder="请输入影院名称" clearable @keyup.enter.native="getList"></el-input>
+                <div class="pull-right clear flex" style="width: 550px;">
+                    <div class="col-xs-1" style="min-width: 80px;padding: 10px 0;">代理商级别:</div>
+                    <el-select  class="col-xs-5 p-l-n" clearable v-model="selectVal" placeholder="请选择">
+                        <el-option
+                            v-for="item in agentOptions"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                        </el-option>
+                    </el-select>
+                    <div class="col-xs-1" style="min-width: 80px;padding: 10px 0;">代理商名称:</div>
+                    <el-input v-model="searchVal" style="max-width: 180px;" class="col-xs-3 p-n" placeholder="请输入代理商名称" clearable @keyup.enter.native="getList"></el-input>
                     <div class="col-xs-1 p-n" style="min-width: 60px;padding: 3px 5px;">
                         <a href="javascript:;" type="primary" class="btn border"  @click="getList">搜索</a>
                     </div>
@@ -72,6 +81,7 @@
             return {
                 data: '',
                 searchVal: '',
+                selectVal: '',
                 zoom: 4,
                 loading: false,
                 center: [107.1386718750, 38.3416561928],
@@ -105,6 +115,24 @@
                         })
                     }
                 },
+                agentOptions: [
+                    {
+                        label: '请选择',
+                        value: ''
+                    },
+                    {
+                        label: '一级代理商',
+                        value: 1
+                    },
+                    {
+                        label: '二级代理商',
+                        value: 2
+                    },
+                    {
+                        label: '三级代理商',
+                        value: 3
+                    }
+                ],
                 markers: [],
             }
         },
@@ -112,7 +140,8 @@
             getList() {
                 this.loading = true
                 this.$http.post(api.cinema.map, {
-                    cinema_name: this.searchVal
+                    agent_name: this.searchVal,
+                    level: this.selectVal
                 }).then(res => {
                     let that = this
                     setTimeout(function () {

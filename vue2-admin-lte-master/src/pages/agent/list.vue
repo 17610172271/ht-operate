@@ -80,6 +80,38 @@
                             </el-pagination>
                         </div>
                     </div>
+                    <el-dialog
+                        title="禁用"
+                        :visible.sync="detailModal"
+                        custom-class="dialog-modal1">
+                        <el-tabs v-model="activeName">
+                            <el-tab-pane label="禁用原因" name="first">
+                                 <div class="clear m-t-sm flex ">
+                                    <div class="col-xs-2 text-right p-v-sm">备注:</div>
+                                    <div class="col-xs-10">
+                                        <el-input placeholder="请输入备注" style="max-width: 366px;"  v-model="addInfo.remark"  :class="{'border-red': openBankError}"  @blur="validateOpenBank"></el-input>
+                                        <p v-if="openBankError" class="text-red"><span class="fa fa-close m-r-xs"></span>备注不能为空</p>
+                                    </div>
+                                </div>
+                                <div class="p-o-sm p-v-sm clear center">
+                                    <el-button type="primary" @click="checkSubmit">提交</el-button>
+                                    <el-button @click.stop="detailModal = false">取 消</el-button>
+                                </div>
+                            </el-tab-pane>
+                            <el-tab-pane label="禁用历史记录">
+                                <div class="lk-table">
+                                    <ul class="table-thead clear">
+                                        <li class="col-xs-2 p-n">违规时间</li>
+                                        <li class="col-xs-3 p-n">违规内容</li>
+                                    </ul>
+                                    <ul class="table-tbody clear" v-for="(item,index) in stopLog.items">
+                                        <li class="col-xs-2 p-n over-omit">{{item.create_time}}</li>
+                                        <li class="col-xs-3 p-n over-omit">{{item.remark}}</li>
+                                    </ul>
+                                </div>
+                            </el-tab-pane>
+                        </el-tabs>
+                    </el-dialog>
                 </div>
             </div>
         </div>
@@ -103,13 +135,21 @@
                 page: 1,
                 pageSize: 1,
                 total: 1,
-                items: []
+                items: [],
+                detaVail:[]
             },
+            addInfo :{
+                remark:""
+            },
+            stopLog:[],
+            activeName: 'first',
             loading: false,
             selectVal: ['序号', '代理商编号', '代理商名称', '所属区域', '城市', '上级代理', '影院数量', '影厅数量', '影院设备', '创建时间', '状态', '操作'],
             showList: ['序号', '代理商编号', '代理商名称', '所属区域', '城市', '上级代理', '影院数量', '影厅数量', '影院设备', '创建时间', '状态', '操作'],
             options: [10, 25, 50],   //条数数目
             searchShow: false,   //搜索开关
+            detailModal:false,
+            openBankError:false,
             limit: 10,
             page: 1,
             subNavList: {
@@ -164,13 +204,13 @@
                             value:'1',
                             label:'正常'
                         },
-                        {
-                            value:'2',
-                            label:'待审核'
-                        },
+                        // {
+                        //     value:'2',
+                        //     label:'待审核'
+                        // },
                         {
                             value:'4',
-                            label:'已禁用'
+                            label:'禁用'
                         },
 
                     ]
@@ -224,35 +264,82 @@
                 })
             },
             statusChange (item) {
-                this.$confirm(item.status_name === '已禁用' ? '此操作将启用该代理商, 是否继续?' : '此操作将禁用该代理商, 是否继续?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(() => {
-                    this.$http.get(api.agent.disable, {
-                        params: {
+                this.detaVail= item
+                this.activeName = 'first'
+                if (item.status_name === '正常') {
+                    this.detailModal = true
+                    this.addInfo.remark = ''
+                        this.$http.post(api.agent.stopLog, {
                             id: item.id,
-                            status: item.status_name === '已禁用' ? 1 : 2
-                        }
-                    }).then(res => {
-                        if(res.data.code === 1) {
-                            this.$message({
-                                type: 'success',
-                                message: '操作成功'
-                            })
-                            if (item.status_name === '已禁用') {
-                                item.status_name = '正常'
+                            type:1,
+                            page: this.page,
+                            limit: this.limit
+                        }).then(res => {
+                            if(res.data.code === 1) {
+                                this.stopLog = res.data.data
                             } else {
-                                item.status_name = '已禁用'
+                                this.$message({
+                                    type: 'error',
+                                    message: res.data.msg
+                                })
                             }
-                        } else {
-                            this.$message({
-                                type: 'error',
-                                message: res.data.msg
-                            })
-                        }
+                        })
+                } else {
+                    this.$confirm('此操作将启用该代理商, 是否继续?', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(() => {
+                        this.$http.get(api.agent.disable, {
+                            params: {
+                                id: item.id,
+                                status: 1
+                            }
+                        }).then(res => {
+                            if(res.data.code === 1) {
+                                this.$message({
+                                    type: 'success',
+                                    message: '启用成功'
+                                })
+                                item.status_name = '正常'
+                                this.getList()
+                            } else {
+                                this.$message({
+                                    type: 'error',
+                                    message: res.data.msg
+                                })
+                            }
+                        })
                     })
+                }
+            },
+            checkSubmit(){
+                this.validateOpenBank()
+                this.$http.get(api.agent.disable, {
+                    params: {
+                        id: this.detaVail.id,
+                        status: 2,
+                        remark: this.addInfo.remark
+                    }
+                }).then(res => {
+                    if(res.data.code === 1) {
+                        this.$message({
+                            type: 'success',
+                            message: '禁用成功'
+                        })
+                        this.detailModal = false
+                        this.getList()
+//                        item.status_name = '已禁用'
+                    } else {
+                        this.$message({
+                            type: 'error',
+                            message: res.data.msg
+                        })
+                    }
                 })
+            },
+            validateOpenBank () {
+                this.openBankError = this.addInfo.remark ? false : true
             },
             //刷新
             refresh () {
@@ -280,6 +367,7 @@
             this.getList()
         },
         watch: {
+
             page (val) {
                 this.$router.replace({name: 'agent_list', query: {page: val}})
                 this.getList()
@@ -304,6 +392,11 @@
         //                        this.regionList = []
         //                    }
                 })
+            },
+            detailModal(val) {
+                if(val){
+                    this.openBankError = false
+                }
             }
         }
     }

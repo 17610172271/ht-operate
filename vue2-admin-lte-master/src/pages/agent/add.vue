@@ -211,6 +211,44 @@
                     </div>
                 </div>
             </div>
+            <div class="p-v-md">
+                <h5 class="border-bottom text-xxlg text-bold p-b-sm">结算信息</h5>
+                <div class="clear m-b-sm flex">
+                    <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;"><span class="text-red">*</span>户名:</div>
+                    <div class="col-xs-9">
+                        <el-input v-model="addInfo.account_name" :class="{'border-red': accountNameError}" @blur="validateAccountName" placeholder="请输入银行账户户名" style="max-width: 366px;"></el-input>
+                        <p v-if="accountNameError" class="text-red"><span class="fa fa-close m-r-xs"></span>请输入正确的银行账户户名</p>
+                    </div>
+                </div>
+                <div class="clear m-b-sm flex">
+                    <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;"><span class="text-red">*</span>银行:</div>
+                    <div class="col-xs-9">
+                        <el-select v-model="addInfo.bank_type_id" :class="{'border-red': bankTypeIdError}" placeholder="请选择银行" style="width: 100%;max-width: 366px;">
+                            <el-option
+                                v-for="item in bankList"
+                                :key="item.id"
+                                :label="item.name"
+                                :value="item.id">
+                            </el-option>
+                        </el-select>
+                        <p v-if="bankTypeIdError" class="text-red"><span class="fa fa-close m-r-xs"></span>请选择银行</p>
+                    </div>
+                </div>
+                <div class="clear m-b-sm flex">
+                    <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;"><span class="text-red">*</span>卡号:</div>
+                    <div class="col-xs-9">
+                        <el-input v-model="addInfo.bank_account" :class="{'border-red': bankAccountError}" @blur="validateBankAccount" placeholder="请输入银行卡号" style="max-width: 366px;"></el-input>
+                        <p v-if="bankAccountError" class="text-red"><span class="fa fa-close m-r-xs"></span>请输入正确的银行卡号</p>
+                    </div>
+                </div>
+                <div class="clear m-b-sm flex">
+                    <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;"><span class="text-red">*</span>开户行:</div>
+                    <div class="col-xs-9">
+                        <el-input v-model="addInfo.open_bank" :class="{'border-red': openBankError}" @blur="validateOpenBank" placeholder="请输入开户行" style="max-width: 366px;"></el-input>
+                        <p v-if="openBankError" class="text-red"><span class="fa fa-close m-r-xs"></span>请输入正确的开户行</p>
+                    </div>
+                </div>
+            </div>
             <div class="p-v-lg clear">
                 <div class="col-xs-3" style="max-width: 200px;"></div>
                 <div class="col-xs-9">
@@ -231,6 +269,7 @@
                 hall_list: []
             },
             fileList: [],
+            bankList: [],
             addInfo: {
                 cityLink: '',
                 name: '',
@@ -253,7 +292,11 @@
                 contract_before_time: '',
                 contract_after_time: '',
                 arrival_account_time: '',
-                pay_id: ''
+                pay_id: '',
+                bank_type_id: '',
+                open_bank: '',
+                bank_account: '',
+                account_name: ''
             },
             contractOptions: [
                 {
@@ -290,6 +333,10 @@
             legalPersonIdError: false,
             legalEmailError: false,
             licenceError: false,
+            accountNameError: false,
+            bankAccountError: false,
+            openBankError: false,
+            bankTypeIdError: false,
             header: {ContentType: 'application/x-www-form-urlencoded'},
         }),
         computed: {
@@ -341,6 +388,18 @@
                 }).then(res => {
                     if (res.data.code === 1) {
                         this.regionList = res.data.data
+                    } else {
+                        this.$message({
+                            type: 'error',
+                            message: res.data.msg
+                        })
+                    }
+                })
+            },
+            getBankList () {
+                this.$http.get(api.financial.bankList).then(res => {
+                    if (res.data.code === 1) {
+                        this.bankList = res.data.data
                     } else {
                         this.$message({
                             type: 'error',
@@ -414,8 +473,12 @@
                 this.validateLegalPersonId()
                 this.validateLegalEmail()
                 this.validateLicence()
-                if (this.regionError || this.nameError || this.cityError || this.addressError || this.numError || this.leaderPhoneError || this.usernameError || this.leaderError
-                    || this.companyError || this.legalPersonError || this.legalPhoneError || this.legalPersonIdError || this.legalEmailError || this.licenceError || this.introduceError) {
+                this.validateAccountName()
+                this.validateBankAccount()
+                this.validateOpenBank()
+                this.validateBankTypeId()
+
+                if (this.regionError || this.nameError || this.cityError || this.addressError || this.numError || this.leaderPhoneError || this.usernameError || this.leaderError || this.companyError || this.legalPersonError || this.legalPhoneError || this.legalPersonIdError || this.legalEmailError || this.licenceError || this.introduceError || this.accountNameError || this.bankAccountError || this.openBankError || this.bankTypeIdError) {
                     this.$message.warning('填写的信息格式不正确')
                     return
                 }
@@ -462,6 +525,11 @@
             validateCity () {
                 this.cityError = this.addInfo.cityLink && this.addInfo.cityLink.split('/')[2] ? false : true
             },
+            validateCity1 () {
+                if (this.addInfo.cityLink && this.addInfo.cityLink.split('/')[2]) {
+                    this.cityError = false
+                }
+            },
             validateAddress () {
                 this.addressError = this.addInfo.address ? false : true
             },
@@ -506,6 +574,18 @@
             validateLicence () {
                 this.licenceError = this.addInfo.business_licence ? false : true
             },
+            validateAccountName () {
+                this.accountNameError = this.addInfo.account_name ? false : true
+            },
+            validateBankAccount () {
+                this.bankAccountError = this.addInfo.bank_account ? false : true
+            },
+            validateOpenBank () {
+                this.openBankError = this.addInfo.open_bank ? false : true
+            },
+            validateBankTypeId () {
+                this.bankTypeIdError = this.addInfo.bank_type_id ? false : true
+            },
             statusChange () {
                 this.isSelect = true
             },
@@ -520,6 +600,7 @@
         },
         created () {
             this.getRegionList()
+            this.getBankList()
             if (this.$route.name.indexOf('edit') > 0) {
                 this.getData()
             }
@@ -531,8 +612,11 @@
                     this.addInfo.cityLink = ''
                 }
             },
+            'addInfo.bank_type_id' (val) {
+                this.validateBankTypeId()
+            },
             'addInfo.cityLink' (val) {
-                this.validateCity()
+                this.validateCity1()
             }
         }
     }
