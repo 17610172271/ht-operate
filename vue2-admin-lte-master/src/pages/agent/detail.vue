@@ -280,7 +280,6 @@
                 })
                     this.$http.post(api.agent.checkLog, {
                         id: this.$route.params.id,
-                        type:1,
                         page: this.page,
                         limit: this.limit
                     }).then(res => {
