@@ -80,7 +80,7 @@
                         </div>
                     </div>
                     <el-dialog
-                        title="详情"
+                        title="查看"
                         :visible.sync="detailModal"
                         custom-class="dialog-modal1">
                         <div v-loading="modalLoading">
