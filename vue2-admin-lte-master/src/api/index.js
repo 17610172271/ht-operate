@@ -96,6 +96,17 @@ export const log = {
     detail:'/api/v1/log/detail', //详情
 }
 
+export const contract = {
+    list: '/api/v1/contract/list', // 列表
+    detail:'/api/v1/contract/detail', //详情
+    add:'/api/v1/contract/add', //添加
+    edit:'/api/v1/contract/edit' , //编辑
+    getType:'/api/v1/contract/getType' , // 获取类型
+    typelist:'/api/v1/contract/typeList' , // 合同类型列表
+    addtype:'/api/v1/contract/addType', //新增合同类型
+    edittype:'/api/v1/contract/editType' ,//编辑合同类型
+}
+
 export const financial = {
     statistics: '/api/v1/finance/index', // 默认统计
     income:'/api/v1/finance/cinemaIncome', //收入明细
@@ -127,5 +138,6 @@ export default {
     account,
     authrule,
     log,
-    financial
+    financial,
+    contract
 }

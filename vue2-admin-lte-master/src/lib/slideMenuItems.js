@@ -269,6 +269,32 @@ module.exports = [
             }
         ]
     },
+    {
+        type: 'tree',
+        icon: 'fa fa-registered',
+        name: '合同管理',
+        root: [1,2,3,4,5,6,7,8],
+        items: [
+            {
+                type: 'item',
+                icon: 'fa fa-circle-o',
+                name: '合同列表',
+                router: {
+                    name: 'contract_list'
+                },
+                root: [1,2,3,4,5,6,7,8]
+            },
+            {
+                type: 'item',
+                icon: 'fa fa-circle-o',
+                name: '合同类型',
+                router: {
+                    name: 'contract_type'
+                },
+                root: [1,2,3,4,5,6,7,8]
+            }
+        ]
+    },
     //{
     //    type: 'tree',
     //    icon: 'fa fa-registered',
