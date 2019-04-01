@@ -60,10 +60,7 @@
                     if (res.data.code === 1) {
                         this.provinceList = res.data.data
                     } else {
-                        this.$message({
-                            type: 'error',
-                            message: res.data.msg
-                        })
+                        this.provinceList = []
                     }
                 })
             },
@@ -75,10 +72,7 @@
                     if (res.data.code === 1) {
                         this.cityList = res.data.data
                     } else {
-                        this.$message({
-                            type: 'error',
-                            message: res.data.msg
-                        })
+                        this.cityList = []
                     }
                 })
             },
@@ -90,10 +84,7 @@
                     if (res.data.code === 1) {
                         this.areaList = res.data.data
                     } else {
-                        this.$message({
-                            type: 'error',
-                            message: res.data.msg
-                        })
+                        this.areaList = []
                     }
                 })
             },

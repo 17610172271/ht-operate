@@ -20,8 +20,7 @@
                         value-format="yyyy-MM-dd"
                         style="width: 100%;"
                         clearable
-                        placeholder="选择日期"
-                        :picker-options="pickerOptions1">
+                        placeholder="选择日期">
                     </el-date-picker>
                 </div>
             </div>

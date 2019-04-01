@@ -126,6 +126,7 @@ export const financial = {
     incomesDetail: '/api/v1/financeReport/profitDetail', // 收益详情
     agentRouting: '/api/v1/financeReport/proportionList', // 代理商分账列表
     bankList: '/api/v1/bank/bankTypeList', // 银行列表
+    contractDetail: '/api/v1/financeReport/viewContract', // 代理商分账管理合同详情
 }
 
 export default {

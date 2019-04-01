@@ -93,7 +93,7 @@
                                     </div>
                                 </div>
                                 <div class="p-o-sm p-v-sm clear center">
-                                    <el-button type="primary" @click="checkSubmit">提交</el-button>
+                                    <el-button type="primary" @click="checkSubmit">禁用</el-button>
                                     <el-button @click.stop="detailModal = false">取 消</el-button>
                                 </div>
                             </el-tab-pane>
@@ -125,7 +125,7 @@
                                         <li class="col-xs-3 p-n over-omit">{{item.remark}}</li>
                                     </ul>
                                     <div class="p-o-sm p-v-sm clear center">
-                                        <el-button type="primary" @click="proSubmit">提交</el-button>
+                                        <el-button type="primary" @click="proSubmit">启用</el-button>
                                         <el-button @click.stop="detailModalone = false">取 消</el-button>
                                     </div>
                                 </div>

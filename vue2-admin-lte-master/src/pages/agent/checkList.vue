@@ -46,9 +46,7 @@
                             <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('状态')!=-1" :title="item.status_name"
                                 :class="{'text-green':item.status==1, 'text-red':item.status==3||item.status==4, 'text-orange': item.status==2}">{{item.status_name}}</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 120px;">
-                                <router-link :to="{name: 'agent_check_detail',params: {id: item.id}}" href="javascript:;" class="link" @click.stop v-if="item.status_name=='待审核'">审核</router-link>
-                                <router-link :to="{name: 'agent_detail', params: {id: item.id}}" href="javascript:;" class="link" @click.stop v-else>查看</router-link>
-                                <router-link :to="{name: 'agent_edit', params: {id: item.id}}" href="javascript:;" class="link" @click.stop v-if="item.status==3||item.status==4">再次申请</router-link>
+                                <router-link :to="{name: 'agent_check_detail',params: {id: item.id}}" href="javascript:;" class="link" @click.stop>审核</router-link>
                             </li>
                         </ul>
                         <ul class="table-tbody clear" v-if="data.items.length===0">

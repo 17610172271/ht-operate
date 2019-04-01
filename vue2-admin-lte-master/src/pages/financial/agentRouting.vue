@@ -29,7 +29,7 @@
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('一级分账比例')!=-1">一级分账比例</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('二级分账比例')!=-1">二级分账比例</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('三级分账比例')!=-1">三级分账比例</li>
-                            <!--<li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1">操作</li>-->
+                            <li class="col-xs-1 p-n text-center" v-show="selectVal.indexOf('操作')!=-1">操作</li>
                         </ul>
                         <div class="p-v-sm" v-for="(item, index) in data.items">
                             <ul class="table-tbody clear flex p-v-xs hover-999">
@@ -43,9 +43,9 @@
                                 <li class="col-xs-1 p-n over-omit text-center" v-show="selectVal.indexOf('一级分账比例')!=-1" :title="item.first_proportion">{{item.first_proportion || 0}}%</li>
                                 <li class="col-xs-1 p-n over-omit text-center" v-show="selectVal.indexOf('二级分账比例')!=-1"></li>
                                 <li class="col-xs-1 p-n over-omit text-center" v-show="selectVal.indexOf('三级分账比例')!=-1"></li>
-                                <!--<li class="col-xs-1 p-n over-omit text-center" v-show="selectVal.indexOf('操作')!=-1">-->
-                                    <!--1111-->
-                                <!--</li>-->
+                                <li class="col-xs-1 p-n over-omit text-center" v-show="selectVal.indexOf('操作')!=-1">
+                                    <a href="javascript:;" class="link" @click.stop="lookcontract(item.id)">查看合同</a>
+                                </li>
                             </ul>
                             <div class="" v-for="first in item.child" v-show="item.is_show">
                                 <ul class="clear flex p-v-xs hover-999">
@@ -105,6 +105,16 @@
                 </div>
             </div>
         </div>
+        <el-dialog
+            title="查看合同"
+            :visible.sync="detailModal"
+            custom-class="dialog-modal1">
+            <div v-loading="modalLoading" style="min-height: 300px;">
+                <div class="p-sm" v-for="(item, index) in contractList">
+                    <a target="_blank" :href="item"><img :src="item" :alt="'合同图片'+ (index + 1)" width="100%"></a>
+                </div>
+            </div>
+        </el-dialog>
     </div>
 </template>
 <script type="text/ecmascript-6">
@@ -127,6 +137,9 @@
                 total: 1,
                 items: []
             },
+            detailModal: false,
+            modalLoading: false,
+            contractList: [],
             loading: false,
             selectVal: ['序号', '代理商编号', '代理商名称', '所属区域', '城市', '一级分账比例', '二级分账比例', '三级分账比例','操作'],
             showList: ['序号', '代理商编号', '代理商名称', '所属区域', '城市', '一级分账比例', '二级分账比例', '三级分账比例','操作'],
@@ -253,6 +266,27 @@
                                 label: val.name,
                                 value: val.id
                             }
+                        })
+                    }
+                })
+            },
+            lookcontract (id) {
+                this.detailModal = true
+                this.modalLoading = true
+                this.$http.post(api.financial.contractDetail, {
+                    id: id
+                }).then(res => {
+                    let that = this
+                    setTimeout(function () {
+                        that.modalLoading = false
+                    }, 500)
+                    if (res.data.code === 1) {
+                        this.contractList = res.data.data
+                    } else {
+                        this.contractList = []
+                        this.$message({
+                            type: 'warning',
+                            message: res.data.msg
                         })
                     }
                 })

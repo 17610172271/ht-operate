@@ -193,6 +193,40 @@
                 </div>
             </div>
             <div class="p-v-md">
+                <h5 class="border-bottom text-xxlg text-bold p-b-sm">结算信息</h5>
+                <div class="clear m-b-sm flex">
+                    <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;"><span class="text-red">*</span>户名:</div>
+                    <div class="col-xs-9">
+                        <el-input v-model="addInfo.account_name" disabled placeholder="请输入银行账户户名" style="max-width: 366px;"></el-input>
+                    </div>
+                </div>
+                <div class="clear m-b-sm flex">
+                    <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;"><span class="text-red">*</span>银行:</div>
+                    <div class="col-xs-9">
+                        <el-select v-model="addInfo.bank_type_id" disabled placeholder="请选择银行" style="width: 100%;max-width: 366px;">
+                            <el-option
+                                v-for="item in bankList"
+                                :key="item.id"
+                                :label="item.name"
+                                :value="item.id">
+                            </el-option>
+                        </el-select>
+                    </div>
+                </div>
+                <div class="clear m-b-sm flex">
+                    <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;"><span class="text-red">*</span>卡号:</div>
+                    <div class="col-xs-9">
+                        <el-input v-model="addInfo.bank_account" disabled placeholder="请输入银行卡号" style="max-width: 366px;"></el-input>
+                    </div>
+                </div>
+                <div class="clear m-b-sm flex">
+                    <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;"><span class="text-red">*</span>开户行:</div>
+                    <div class="col-xs-9">
+                        <el-input v-model="addInfo.open_bank" disabled placeholder="请输入开户行" style="max-width: 366px;"></el-input>
+                    </div>
+                </div>
+            </div>
+            <div class="p-v-md">
                 <h5 class="border-bottom text-xxlg text-bold p-b-sm">审核记录</h5>
                 <div class="lk-table">
                     <ul class="table-thead clear">
@@ -249,6 +283,7 @@
             },
             remark: '',
             fileList: [],
+            bankList: [],
             addInfo: {
                 cityLink: '',
                 name: '',
@@ -273,6 +308,7 @@
                 arrival_account_time: '',
                 pay_id: ''
             },
+            checkLog: '',
             contractOptions: [
                 {
                     label: '转账',
@@ -358,6 +394,15 @@
                     if (res.data.code === 1) {
                         this.regionList = res.data.data
                     } else {
+                        this.regionList = []
+                    }
+                })
+            },
+            getBankList () {
+                this.$http.get(api.financial.bankList).then(res => {
+                    if (res.data.code === 1) {
+                        this.bankList = res.data.data
+                    } else {
                         this.$message({
                             type: 'error',
                             message: res.data.msg
@@ -428,6 +473,7 @@
         created () {
             this.getRegionList()
             this.getData()
+            this.getBankList()
         },
         watch: {
         }

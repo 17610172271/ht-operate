@@ -88,148 +88,150 @@
                         :title="type=='edit'?'编辑':'添加'"
                         :visible.sync="detailModal"
                         custom-class="dialog-modal1">
-                        <div class="clear m-b-sm">
-                            <div class="col-xs-12 col-md-3 line-height-40 text-right min-width-105"><span class="text-red">*</span>合同编号:</div>
-                            <div class="col-xs-12 col-md-7">
-                                <el-input placeholder="请输入合同编号" :class="{'border-red': serial_numberError}" v-model="detailVal.serial_number" @blur="validateSerial_number(detailVal.serial_number)"></el-input>
-                                <p v-if="serial_numberError" class="text-red"><span class="fa fa-close m-r-xs"></span>请输入合同编号</p>
+                        <div v-loading="modalLoading">
+                            <div class="clear m-b-sm">
+                                <div class="col-xs-12 col-md-3 line-height-40 text-right min-width-105"><span class="text-red">*</span>合同编号:</div>
+                                <div class="col-xs-12 col-md-7">
+                                    <el-input placeholder="请输入合同编号" :class="{'border-red': serial_numberError}" v-model="detailVal.serial_number" @blur="validateSerial_number(detailVal.serial_number)"></el-input>
+                                    <p v-if="serial_numberError" class="text-red"><span class="fa fa-close m-r-xs"></span>请输入合同编号</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="clear m-b-sm">
-                            <div class="col-xs-12 col-md-3 line-height-40 text-right min-width-105"><span class="text-red">*</span>合同名称:</div>
-                            <div class="col-xs-12 col-md-7">
-                                <el-input placeholder="请输入合同名称" :class="{'border-red': contract_nameError}" v-model="detailVal.contract_name" @blur="validateContract_name(detailVal.contract_name)"></el-input>
-                                <p v-if="contract_nameError" class="text-red"><span class="fa fa-close m-r-xs"></span>请输入合同名称</p>
+                            <div class="clear m-b-sm">
+                                <div class="col-xs-12 col-md-3 line-height-40 text-right min-width-105"><span class="text-red">*</span>合同名称:</div>
+                                <div class="col-xs-12 col-md-7">
+                                    <el-input placeholder="请输入合同名称" :class="{'border-red': contract_nameError}" v-model="detailVal.contract_name" @blur="validateContract_name(detailVal.contract_name)"></el-input>
+                                    <p v-if="contract_nameError" class="text-red"><span class="fa fa-close m-r-xs"></span>请输入合同名称</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="clear m-b-sm">
-                            <div class="col-xs-12 col-md-3 line-height-40 text-right min-width-105"><span class="text-red">*</span>甲方:</div>
-                            <div class="col-xs-12 col-md-7">
-                                <el-input placeholder="请输入甲方" :class="{'border-red': party_aError}" v-model="detailVal.party_a" @blur="validateParty_a(detailVal.party_a)"></el-input>
-                                <p v-if="party_aError" class="text-red"><span class="fa fa-close m-r-xs"></span>请输入甲方</p>
+                            <div class="clear m-b-sm">
+                                <div class="col-xs-12 col-md-3 line-height-40 text-right min-width-105"><span class="text-red">*</span>甲方:</div>
+                                <div class="col-xs-12 col-md-7">
+                                    <el-input placeholder="请输入甲方" :class="{'border-red': party_aError}" v-model="detailVal.party_a" @blur="validateParty_a(detailVal.party_a)"></el-input>
+                                    <p v-if="party_aError" class="text-red"><span class="fa fa-close m-r-xs"></span>请输入甲方</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="clear m-b-sm">
-                            <div class="col-xs-12 col-md-3 line-height-40 text-right min-width-105"><span class="text-red">*</span>乙方:</div>
-                            <div class="col-xs-12 col-md-7">
-                                <el-input placeholder="请输入乙方" :class="{'border-red': party_bError}" v-model="detailVal.party_b" @blur="validateParty_b(detailVal.party_b)"></el-input>
-                                <p v-if="party_bError" class="text-red"><span class="fa fa-close m-r-xs"></span>请输入乙方</p>
+                            <div class="clear m-b-sm">
+                                <div class="col-xs-12 col-md-3 line-height-40 text-right min-width-105"><span class="text-red">*</span>乙方:</div>
+                                <div class="col-xs-12 col-md-7">
+                                    <el-input placeholder="请输入乙方" :class="{'border-red': party_bError}" v-model="detailVal.party_b" @blur="validateParty_b(detailVal.party_b)"></el-input>
+                                    <p v-if="party_bError" class="text-red"><span class="fa fa-close m-r-xs"></span>请输入乙方</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="clear m-b-sm">
-                            <div class="col-xs-12 col-md-3 line-height-40 text-right min-width-105"><span class="text-red">*</span>丙方:</div>
-                            <div class="col-xs-12 col-md-7">
-                                <el-input placeholder="请输入丙方" :class="{'border-red': party_cError}" v-model="detailVal.party_c" @blur="validateParty_c(detailVal.party_c)"></el-input>
-                                <p v-if="party_cError" class="text-red"><span class="fa fa-close m-r-xs"></span>请输入丙方</p>
+                            <div class="clear m-b-sm">
+                                <div class="col-xs-12 col-md-3 line-height-40 text-right min-width-105"><span class="text-red">*</span>丙方:</div>
+                                <div class="col-xs-12 col-md-7">
+                                    <el-input placeholder="请输入丙方" :class="{'border-red': party_cError}" v-model="detailVal.party_c" @blur="validateParty_c(detailVal.party_c)"></el-input>
+                                    <p v-if="party_cError" class="text-red"><span class="fa fa-close m-r-xs"></span>请输入丙方</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="clear m-b-sm">
-                            <div class="col-xs-12 col-md-3 line-height-40 text-right min-width-105"><span class="text-red">*</span>合同类型:</div>
-                            <div class="col-xs-12 col-md-7">
-                                <el-select :class="{'border-red': typeError}" @change="groupChange" v-model="detailVal.type" placeholder="请选择合同类型" popper-class="select-team">
-                                    <el-option
-                                        v-for="(item, index) in teamOptions"
-                                        :key="index"
-                                        :label="item.type_name"
-                                        :value="item.id">
-                                    </el-option>
-                                </el-select>
-                                <p v-if="typeError" class="text-red"><span class="fa fa-close m-r-xs"></span>请输入合同类型</p>
+                            <div class="clear m-b-sm">
+                                <div class="col-xs-12 col-md-3 line-height-40 text-right min-width-105"><span class="text-red">*</span>合同类型:</div>
+                                <div class="col-xs-12 col-md-7">
+                                    <el-select :class="{'border-red': typeError}" @change="groupChange" v-model="detailVal.type" placeholder="请选择合同类型" popper-class="select-team">
+                                        <el-option
+                                            v-for="(item, index) in teamOptions"
+                                            :key="index"
+                                            :label="item.type_name"
+                                            :value="item.id">
+                                        </el-option>
+                                    </el-select>
+                                    <p v-if="typeError" class="text-red"><span class="fa fa-close m-r-xs"></span>请输入合同类型</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="clear m-b-sm">
-                            <div class="col-xs-12 col-md-3 line-height-40 text-right min-width-105"><span class="text-red">*</span>签约日期:</div>
-                            <div class="col-xs-12 col-md-7">
-                                <el-date-picker
-                                    @change="group11Change"
-                                    v-model="detailVal.signing_date"
-                                    :class="{'border-red': signing_dateError}"
-                                    type="date"
-                                    placeholder="请选择签约日期"
-                                >
-                                </el-date-picker>
-                                <!--<el-input placeholder="请输入签约日期" :class="{'border-red': signing_dateError}" v-model="detailVal.signing_date" @blur="validateSigning_date(detailVal.signing_date)"></el-input>-->
-                                <p v-if="signing_dateError" class="text-red"><span class="fa fa-close m-r-xs"></span>请选择签约日期</p>
+                            <div class="clear m-b-sm">
+                                <div class="col-xs-12 col-md-3 line-height-40 text-right min-width-105"><span class="text-red">*</span>签约日期:</div>
+                                <div class="col-xs-12 col-md-7">
+                                    <el-date-picker
+                                        @change="group11Change"
+                                        v-model="detailVal.signing_date"
+                                        :class="{'border-red': signing_dateError}"
+                                        type="date"
+                                        placeholder="请选择签约日期"
+                                    >
+                                    </el-date-picker>
+                                    <!--<el-input placeholder="请输入签约日期" :class="{'border-red': signing_dateError}" v-model="detailVal.signing_date" @blur="validateSigning_date(detailVal.signing_date)"></el-input>-->
+                                    <p v-if="signing_dateError" class="text-red"><span class="fa fa-close m-r-xs"></span>请选择签约日期</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="clear m-b-sm">
-                            <div class="col-xs-12 col-md-3 line-height-40 text-right min-width-105"><span class="text-red">*</span>合同开始时间:</div>
-                            <div class="col-xs-12 col-md-7">
-                                <el-date-picker
-                                    @change="startChange"
-                                    v-model="detailVal.start_time"
-                                    :class="{'border-red': start_timeError}"
-                                    type="date"
-                                    placeholder="请选择合同开始时间"
-                                    :picker-options="pickerOptions0">
-                                </el-date-picker>
-                                <!--<el-input placeholder="请选择合同开始时间" :class="{'border-red': start_timeError}" v-model="detailVal.start_time" @blur="validateStart_time(detailVal.start_time)"></el-input>-->
-                                <p v-if="start_timeError" class="text-red"><span class="fa fa-close m-r-xs"></span>请选择合同开始时间</p>
+                            <div class="clear m-b-sm">
+                                <div class="col-xs-12 col-md-3 line-height-40 text-right min-width-105"><span class="text-red">*</span>合同开始时间:</div>
+                                <div class="col-xs-12 col-md-7">
+                                    <el-date-picker
+                                        @change="startChange"
+                                        v-model="detailVal.start_time"
+                                        :class="{'border-red': start_timeError}"
+                                        type="date"
+                                        placeholder="请选择合同开始时间"
+                                        :picker-options="pickerOptions0">
+                                    </el-date-picker>
+                                    <!--<el-input placeholder="请选择合同开始时间" :class="{'border-red': start_timeError}" v-model="detailVal.start_time" @blur="validateStart_time(detailVal.start_time)"></el-input>-->
+                                    <p v-if="start_timeError" class="text-red"><span class="fa fa-close m-r-xs"></span>请选择合同开始时间</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="clear m-b-sm">
-                            <div class="col-xs-12 col-md-3 line-height-40 text-right min-width-105"><span class="text-red">*</span>合同结束时间:</div>
-                            <div class="col-xs-12 col-md-7">
-                                <el-date-picker
-                                    @change="endChange"
-                                    v-model="detailVal.end_time"
-                                    :class="{'border-red': end_timeError}"
-                                    type="date"
-                                    placeholder="请选择合同结束时间"
-                                    :picker-options="pickerOptions0">
-                                </el-date-picker>
-                                <!--<el-input placeholder="请选择合同结束时间" :class="{'border-red': end_timeError}" v-model="detailVal.end_time" @blur="validateEnd_time(detailVal.end_time)"></el-input>-->
-                                <p v-if="end_timeError" class="text-red"><span class="fa fa-close m-r-xs"></span>请选择合同结束时间</p>
+                            <div class="clear m-b-sm">
+                                <div class="col-xs-12 col-md-3 line-height-40 text-right min-width-105"><span class="text-red">*</span>合同结束时间:</div>
+                                <div class="col-xs-12 col-md-7">
+                                    <el-date-picker
+                                        @change="endChange"
+                                        v-model="detailVal.end_time"
+                                        :class="{'border-red': end_timeError}"
+                                        type="date"
+                                        placeholder="请选择合同结束时间"
+                                        :picker-options="pickerOptions0">
+                                    </el-date-picker>
+                                    <!--<el-input placeholder="请选择合同结束时间" :class="{'border-red': end_timeError}" v-model="detailVal.end_time" @blur="validateEnd_time(detailVal.end_time)"></el-input>-->
+                                    <p v-if="end_timeError" class="text-red"><span class="fa fa-close m-r-xs"></span>请选择合同结束时间</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="clear m-b-sm">
-                            <div class="col-xs-12 col-md-3 line-height-40 text-right min-width-105"><span class="text-red">*</span>已续约至:</div>
-                            <div class="col-xs-12 col-md-7">
-                                <el-date-picker
-                                    @change="contractChange"
-                                    v-model="detailVal.contract_time"
-                                    :class="{'border-red': contract_timeError}"
-                                    type="date"
-                                    placeholder="请输入已续约至"
-                                >
-                                </el-date-picker>
-                                <!--<el-input placeholder="请输入已续约至" :class="{'border-red': contract_timeError}" v-model="detailVal.contract_time" @blur="validateContract_time(detailVal.contract_time)"></el-input>-->
-                                <p v-if="contract_timeError" class="text-red"><span class="fa fa-close m-r-xs"></span>请输入已续约至</p>
+                            <div class="clear m-b-sm">
+                                <div class="col-xs-12 col-md-3 line-height-40 text-right min-width-105"><span class="text-red">*</span>已续约至:</div>
+                                <div class="col-xs-12 col-md-7">
+                                    <el-date-picker
+                                        @change="contractChange"
+                                        v-model="detailVal.contract_time"
+                                        :class="{'border-red': contract_timeError}"
+                                        type="date"
+                                        placeholder="请输入已续约至"
+                                    >
+                                    </el-date-picker>
+                                    <!--<el-input placeholder="请输入已续约至" :class="{'border-red': contract_timeError}" v-model="detailVal.contract_time" @blur="validateContract_time(detailVal.contract_time)"></el-input>-->
+                                    <p v-if="contract_timeError" class="text-red"><span class="fa fa-close m-r-xs"></span>请输入已续约至</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="clear m-b-sm">
-                            <div class="col-xs-12 col-md-3 line-height-40 text-right min-width-105"><span class="text-red">*</span>上传合同:</div>
-                            <div class="col-xs-12 col-md-7">
-                                <el-upload
-                                    @change="validateAttachment"
-                                    :class="{'border-red': attachmentError}"
-                                    :action="uploadUrl"
-                                    list-type="picture-card"
-                                    :file-list="fileList"
-                                    :on-preview="handlePictureCardPreview"
-                                    :headers="header"
-                                    :before-upload="beforeUpload"
-                                    accept="image/jpeg,jpg,png"
-                                    :on-remove="handleRemove"
-                                    :on-success="contractUpload">
-                                    <i class="el-icon-plus"></i>
-                                </el-upload>
-                                <p class="text-999">(请上传2M以内jpg格式图片)</p>
-                                <el-dialog :visible.sync="dialogVisible" title="查看图片">
-                                    <img width="100%" :src="previewImage" alt="">
-                                </el-dialog>
+                            <div class="clear m-b-sm">
+                                <div class="col-xs-12 col-md-3 line-height-40 text-right min-width-105"><span class="text-red">*</span>上传合同:</div>
+                                <div class="col-xs-12 col-md-7">
+                                    <el-upload
+                                        @change="validateAttachment"
+                                        :class="{'border-red': attachmentError}"
+                                        :action="uploadUrl"
+                                        list-type="picture-card"
+                                        :file-list="fileList"
+                                        :on-preview="handlePictureCardPreview"
+                                        :headers="header"
+                                        :before-upload="beforeUpload"
+                                        accept="image/jpeg,jpg,png"
+                                        :on-remove="handleRemove"
+                                        :on-success="contractUpload">
+                                        <i class="el-icon-plus"></i>
+                                    </el-upload>
+                                    <p class="text-999">(请上传2M以内jpg格式图片)</p>
+                                    <el-dialog :visible.sync="dialogVisible" title="查看图片">
+                                        <img width="100%" :src="previewImage" alt="">
+                                    </el-dialog>
+                                </div>
                             </div>
-                        </div>
                             <div class="p-o-sm p-v-sm clear center">
                                 <el-button type="primary" @click="dailogSubmit">提交</el-button>
                                 <el-button @click.stop="detailModal = false">取 消</el-button>
                             </div>
+                        </div>
                     </el-dialog>
                     <el-dialog
                         title="查看"
                         :visible.sync="detailModalone"
                         custom-class="dialog-modal1">
-                        <div>
+                        <div v-loading="modalLoading">
                             <div class="clear">
                                 <div class="col-xs-3 line-height-40 text-right text-bold min-width-105">标题</div>
                                 <div class="col-xs-7 line-height-40 text-bold text-left">内容</div>
@@ -280,7 +282,7 @@
                             <!--</div>-->
                             <div class="clear">
                                 <div class="col-xs-3 line-height-40 text-right min-width-105">合同:</div>
-                                <div class="col-xs-7 text-left line-height-40"><a v-for="(item, index) in detailVal.attachment" :href="item" target="_blank" class="link" v-if="detailVal.attachment" style="margin-right: 15px;">图片{{index + 1}}</a></div>
+                                <div class="col-xs-7 text-left line-height-40"><a v-for="(item, index) in detailVal.attachment" :href="item.url" target="_blank" class="link" v-if="detailVal.attachment.length>0" style="margin-right: 15px;">图片{{index + 1}}</a></div>
                             </div>
                         </div>
                     </el-dialog>
@@ -309,6 +311,7 @@
                 total: 1,
                 items: [],
             },
+            modalLoading: false,
             pickerOptionsStart: {
                 disabledDate: time => {
                     let endDateVal = this.detailVal.end_time;
@@ -330,7 +333,7 @@
             },
             pickerOptions0: {
                 disabledDate(time) {
-                    return time.getTime() < Date.now() - 8.64e6
+                    return time.getTime() < new Date().setHours(0, 0, 0, 0)
                 }
             },
             loading: false,
@@ -468,6 +471,7 @@
                     contract_time:'',
                     attachment:[]
                 },
+                this.fileList = []
                 this.detailModal = true
                 this.getGroupList()
             },
@@ -518,8 +522,9 @@
                 })
             },
             handlePictureCardPreview(file) {
-                this.previewImage = file.url
-                this.dialogVisible = true
+                // this.previewImage = file.url
+                // this.dialogVisible = true
+                window.open(file.url)
             },
             contractUpload (res, file, fileList) {
                 this.detailVal.attachment = []
@@ -560,7 +565,10 @@
                     return
                 }
                 if (this.type === 'edit') {
-                    this.$http.post(api.contract.edit, this.detailVal).then(res => {
+                    this.$http.post(api.contract.edit, {
+                        ...this.detailVal,
+                        attachment: this.detailVal.attachment.join(',')
+                    }).then(res => {
                         if (res.data.code === 1) {
                             this.$message({
                                 type: 'success',
@@ -587,7 +595,7 @@
                         start_time:this.detailVal.start_time,
                         end_time:this.detailVal.end_time,
                         contract_time:this.detailVal.contract_time,
-                        attachment:this.detailVal.attachment.join(',')
+                        attachment: this.detailVal.attachment.join(',')
                     }).then(res => {
                         if (res.data.code === 1) {
                             this.$message({
@@ -623,9 +631,9 @@
                             that.modalLoading = false
                         }, 500)
                         this.detailVal = res.data.data
-                        this.fileList = this.datailVal.attachment.map(val => {
-                            console.log(fileList);
+                        this.fileList = this.detailVal.attachment = this.detailVal.attachment.split(',').map((val, index) => {
                             return {
+                                name: 'pic' + index,
                                 isOld: true,
                                 url: val
                             }
@@ -734,8 +742,15 @@
                     this.end_timeError = false
                     this.contract_timeError = false
                     this.attachmentError = false
+                } else {
+                    document.getElementsByClassName('el-dialog__body')[0].scrollTo(0, 0)
                 }
             },
+            detailModalone (val) {
+                if (!val) {
+                    document.getElementsByClassName('el-dialog__body')[0].scrollTo(0, 0)
+                }
+            }
         }
     }
 </script>

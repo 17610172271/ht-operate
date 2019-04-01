@@ -50,7 +50,8 @@
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 130px;">
                                 <router-link :to="{name: 'agent_detail', params: {id: item.id}}" href="javascript:;" class="link" @click.stop>查看</router-link>
                                 <router-link :to="{name: 'agent_edit',params: {id: item.id}}" href="javascript:;" class="link" @click.stop>编辑</router-link>
-                                <a href="javascript:;" :class="{'disabled': item.status!=1}" class="link" @click.stop="openAccount(item)">分账设置</a>
+                                <router-link :to="{name: 'agent_edit',params: {id: item.id}}" href="javascript:;" v-if="item.status==3" class="link" @click.stop>再次申请</router-link>
+                                <a href="javascript:;" :class="{'disabled': item.status!=1}" class="link" v-else @click.stop="openAccount(item)">分账设置</a>
                             </li>
                         </ul>
                         <ul class="table-tbody clear" v-if="data.items.length===0">

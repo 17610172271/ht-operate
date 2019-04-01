@@ -32,7 +32,7 @@ VueAMap.initAMapApiLoader({
     v: '1.4.4'
 })
 // 拦截器
-axios.defaults.timeout = 7200; //响应时间
+axios.defaults.timeout = 15000; //响应时间
 axios.interceptors.request.use(
         config => {
             return config
