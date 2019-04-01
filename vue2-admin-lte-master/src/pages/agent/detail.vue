@@ -189,7 +189,7 @@
                             </ul>
                         </div>
                     </el-tab-pane>
-                    <el-tab-pane label="下级代理" name="second">
+                    <el-tab-pane label="下级代理" name="second" v-if="data.level != 3">
                         <div class="lk-table">
                             <ul class="table-thead clear">
                                 <li class="col-xs-2 p-n" style="max-width: 60px;">序号</li>

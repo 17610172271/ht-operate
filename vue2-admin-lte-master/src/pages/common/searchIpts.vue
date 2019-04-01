@@ -73,7 +73,7 @@
                         :clearable="false"
                         value-format="yyyy-M"
                         style="width: 100%;"
-                        :picker-options="pickerOptions1"
+                        :picker-options="pickerOptionstime2"
                         placeholder="选择月份">
                     </el-date-picker>
                 </div>
@@ -98,7 +98,7 @@
         props: ['options', 'value'],
         data: () => ({
             searchOptions: [],
-            pickerOptions1: {
+            pickerOptionstime2: {
                 disabledDate(time) {
                     return time.getTime() > Date.now();
                 },

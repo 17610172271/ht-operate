@@ -172,30 +172,30 @@
                         </div>
                     </div>
                 </el-tab-pane>
-                <el-tab-pane label="审核记录" name="third">
-                    <div class="lk-table">
-                        <ul class="table-thead clear">
-                            <li class="col-xs-1 p-n" style="max-width: 60px;">序号</li>
-                            <li class="col-xs-2 p-n">类型</li>
-                            <li class="col-xs-3 p-n">修改前</li>
-                            <li class="col-xs-3 p-n">修改后</li>
-                            <li class="col-xs-2 p-n">申请时间</li>
-                            <li class="col-xs-2 p-n">审核时间</li>
-                            <li class="col-xs-1 p-n">审核人</li>
-                            <li class="col-xs-1 p-n">状态</li>
-                        </ul>
-                        <ul class="table-tbody clear" v-for="(item, index) in data.apply_list" v-if="data.apply_list.length>0">
-                            <li class="col-xs-1 p-n" style="max-width: 60px;">{{index + 1}}</li>
-                            <li class="col-xs-2 p-n over-omit" :title="item.code">{{item.code}}</li>
-                            <li class="col-xs-3 p-n over-omit" :title="item.name">{{item.name}}</li>
-                            <li class="col-xs-3 p-n over-omit" :title="item.region_name">{{item.region_name}}</li>
-                            <li class="col-xs-2 p-n over-omit" :title="item.city_name">{{item.city_name}}</li>
-                            <li class="col-xs-2 p-n over-omit" :title="item.cinema_num">{{item.cinema_num}}</li>
-                            <li class="col-xs-1 p-n over-omit" :title="item.create_time">{{item.create_time}}</li>
-                            <li class="col-xs-1 p-n over-omit" :class="item.status==1?'text-green':'text-orange'">{{item.status_name}}</li>
-                        </ul>
-                    </div>
-                </el-tab-pane>
+                <!--<el-tab-pane label="审核记录" name="third">-->
+                    <!--<div class="lk-table">-->
+                        <!--<ul class="table-thead clear">-->
+                            <!--<li class="col-xs-1 p-n" style="max-width: 60px;">序号</li>-->
+                            <!--<li class="col-xs-2 p-n">类型</li>-->
+                            <!--<li class="col-xs-3 p-n">修改前</li>-->
+                            <!--<li class="col-xs-3 p-n">修改后</li>-->
+                            <!--<li class="col-xs-2 p-n">申请时间</li>-->
+                            <!--<li class="col-xs-2 p-n">审核时间</li>-->
+                            <!--<li class="col-xs-1 p-n">审核人</li>-->
+                            <!--<li class="col-xs-1 p-n">状态</li>-->
+                        <!--</ul>-->
+                        <!--<ul class="table-tbody clear" v-for="(item, index) in data.apply_list" v-if="data.apply_list.length>0">-->
+                            <!--<li class="col-xs-1 p-n" style="max-width: 60px;">{{index + 1}}</li>-->
+                            <!--<li class="col-xs-2 p-n over-omit" :title="item.code">{{item.code}}</li>-->
+                            <!--<li class="col-xs-3 p-n over-omit" :title="item.name">{{item.name}}</li>-->
+                            <!--<li class="col-xs-3 p-n over-omit" :title="item.region_name">{{item.region_name}}</li>-->
+                            <!--<li class="col-xs-2 p-n over-omit" :title="item.city_name">{{item.city_name}}</li>-->
+                            <!--<li class="col-xs-2 p-n over-omit" :title="item.cinema_num">{{item.cinema_num}}</li>-->
+                            <!--<li class="col-xs-1 p-n over-omit" :title="item.create_time">{{item.create_time}}</li>-->
+                            <!--<li class="col-xs-1 p-n over-omit" :class="item.status==1?'text-green':'text-orange'">{{item.status_name}}</li>-->
+                        <!--</ul>-->
+                    <!--</div>-->
+                <!--</el-tab-pane>-->
             </el-tabs>
         </div>
     </div>

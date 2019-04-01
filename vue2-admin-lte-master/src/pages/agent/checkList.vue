@@ -27,6 +27,7 @@
                             <li class="col-xs-24 p-n" v-show="selectVal.indexOf('所属区域')!=-1">所属区域</li>
                             <li class="col-xs-24 p-n" v-show="selectVal.indexOf('城市')!=-1">城市</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('上级代理')!=-1">上级代理</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('类型')!=-1">类型</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('创建时间')!=-1">创建时间</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('审核时间')!=-1">审核时间</li>
                             <li class="col-xs-24 p-n" v-show="selectVal.indexOf('状态')!=-1">状态</li>
@@ -39,6 +40,7 @@
                             <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('所属区域')!=-1" :title="item.region_name">{{item.region_name}}</li>
                             <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('城市')!=-1" :title="item.city_name">{{item.city_name}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('上级代理')!=-1":title="item.upper_agent">{{item.upper_agent}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('类型')!=-1":title="item.type">{{item.type}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('创建时间')!=-1":title="item.create_time">{{item.create_time}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('审核时间')!=-1":title="item.check_time">{{item.check_time}}</li>
                             <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('状态')!=-1" :title="item.status_name"
@@ -103,8 +105,8 @@
                 items: []
             },
             loading: false,
-            selectVal: ['序号', '代理商编号', '代理商名称', '所属区域', '城市', '上级代理', '创建时间', '审核时间', '状态', '操作'],
-            showList: ['序号', '代理商编号', '代理商名称', '所属区域', '城市', '上级代理', '创建时间', '审核时间', '状态', '操作'],
+            selectVal: ['序号', '代理商编号', '代理商名称', '所属区域', '城市', '上级代理','类型', '创建时间', '审核时间', '状态', '操作'],
+            showList: ['序号', '代理商编号', '代理商名称', '所属区域', '城市', '上级代理','类型' ,'创建时间', '审核时间', '状态', '操作'],
             options: [10, 25, 50],   //条数数目
             searchShow: false,   //搜索开关
             limit: 10,

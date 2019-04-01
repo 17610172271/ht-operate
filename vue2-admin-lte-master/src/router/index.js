@@ -248,6 +248,24 @@ const router = new Router({
                     ]
                 },
                 {
+                    path: '/contract',
+                    component: rs('contract/index'),
+                    meta: {requreAuth: true},
+                    redirect: '/contract/list',
+                    children: [
+                        {
+                            path: 'list',
+                            name: 'contract_list',
+                            component: rs('contract/list')
+                        },
+                        {
+                            path: 'type',
+                            name: 'contract_type',
+                            component: rs('contract/type')
+                        }
+                    ]
+                },
+                {
                     path: '/login',
                     name: 'login',
                     component: rs('common/login')
