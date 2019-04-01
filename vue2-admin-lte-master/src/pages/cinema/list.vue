@@ -160,6 +160,7 @@
                 remark:""
             },
             stopLog:[],
+            id:'',
             activeName: 'first',
             loading: false,
             selectVal: ['序号', '影院编号', '影院名称', '所属区域', '城市', '代理商', '影厅数量', '影院设备', '创建时间', '状态', '操作'],
@@ -326,7 +327,7 @@
             proSubmit(){
                 this.$http.get(api.cinema.disable, {
                     params: {
-                        id: item.id,
+                        id: this.detaVail.id,
                         status: 1
                     }
                 }).then(res => {

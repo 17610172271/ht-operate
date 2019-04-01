@@ -130,7 +130,7 @@
                                     <el-option
                                         v-for="(item, index) in teamOptions"
                                         :key="index"
-                                        :label="item.name"
+                                        :label="item.type_name"
                                         :value="item.id">
                                     </el-option>
                                 </el-select>
@@ -274,6 +274,10 @@
                                 <div class="col-xs-3 line-height-40 text-right min-width-105">已续约至:</div>
                                 <div class="col-xs-7 text-left line-height-40">{{detailVal.contract_time}}</div>
                             </div>
+                            <!--<div class="clear">-->
+                                <!--<div class="col-xs-3 line-height-40 text-right min-width-105">合同:</div>-->
+                                <!--<div class="col-xs-7 text-left line-height-40"><a v-for="(item, index) in detailVal.attachment" :href="item" target="_blank" class="link" v-if="detailVal.attachment" style="margin-right: 15px;">合同{{index+1}}</a></div>-->
+                            <!--</div>-->
                             <div class="clear">
                                 <div class="col-xs-3 line-height-40 text-right min-width-105">合同:</div>
                                 <div class="col-xs-7 text-left line-height-40"><a v-for="(item, index) in detailVal.attachment" :href="item" target="_blank" class="link" v-if="detailVal.attachment" style="margin-right: 15px;">图片{{index + 1}}</a></div>
@@ -326,7 +330,7 @@
             },
             pickerOptions0: {
                 disabledDate(time) {
-                    return time.getTime() > Date.now() - 8.64e6
+                    return time.getTime() < Date.now() - 8.64e6
                 }
             },
             loading: false,
@@ -343,7 +347,6 @@
             previewImage:'',
             teamOptions:[],
             detailVal : {
-
                 serial_number :'',
                 contract_name:'',
                 party_a:'',
@@ -354,7 +357,7 @@
                 start_time:'',
                 end_time:'',
                 contract_time:'',
-                attachment:''
+                attachment:[]
             },
             header: {ContentType: 'application/x-www-form-urlencoded'},
             page: 1,
@@ -463,7 +466,7 @@
                     start_time:'',
                     end_time:'',
                     contract_time:'',
-                    attachment:''
+                    attachment:[]
                 },
                 this.detailModal = true
                 this.getGroupList()
@@ -489,9 +492,22 @@
                     }
                 })
             },
+            agreementUpload (res, file) {
+                if (res.code === 1) {
+                    this.detailVal.attachment = res.data.image
+                    this.$message({
+                        type: 'success',
+                        message: '合同上传成功'
+                    })
+                } else {
+                    this.$message({
+                        type: 'error',
+                        message: res.msg
+                    })
+                }
+            },
             //上传合同
             handleRemove(file, fileList) {
-                console.log(fileList)
                 this.detailVal.attachment = []
                 fileList.map(val => {
                     if (val.response && val.response.code === 1) {
@@ -506,7 +522,6 @@
                 this.dialogVisible = true
             },
             contractUpload (res, file, fileList) {
-                console.log(fileList)
                 this.detailVal.attachment = []
                 fileList.map(val => {
                     if (val.response && val.response.code === 1) {
@@ -561,7 +576,19 @@
                         }
                     })
                 } else {
-                    this.$http.post(api.contract.add, this.detailVal).then(res => {
+                    this.$http.post(api.contract.add,{
+                        serial_number:this.detailVal.serial_number,
+                        contract_name:this.detailVal.contract_name,
+                        party_a:this.detailVal.party_a,
+                        party_b:this.detailVal.party_b,
+                        party_c:this.detailVal.party_c,
+                        type:this.detailVal.type,
+                        signing_date:this.detailVal.signing_date,
+                        start_time:this.detailVal.start_time,
+                        end_time:this.detailVal.end_time,
+                        contract_time:this.detailVal.contract_time,
+                        attachment:this.detailVal.attachment.join(',')
+                    }).then(res => {
                         if (res.data.code === 1) {
                             this.$message({
                                 type: 'success',
@@ -596,6 +623,13 @@
                             that.modalLoading = false
                         }, 500)
                         this.detailVal = res.data.data
+                        this.fileList = this.datailVal.attachment.map(val => {
+                            console.log(fileList);
+                            return {
+                                isOld: true,
+                                url: val
+                            }
+                        })
                         if (this.type === 'edit') {
                             this.getGroupList()
                         }

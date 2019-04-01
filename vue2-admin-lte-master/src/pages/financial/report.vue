@@ -6,7 +6,8 @@
             <div class="page-container">
                 <div class="page-toolbar clear m-t-sm">
                     <search-ipts :options="searchOptions" @submit="doSearch" v-show="searchShow"></search-ipts>
-                    <h5 class="text-center text-bold text-xxlg">{{searchOptions[0].value.split('-')[0]}}年{{searchOptions[0].value.split('-')[1]}}月报表</h5>
+                    <!--<h5 class="text-center text-bold text-xxlg">{{searchOptions[0].value.split('-')[0]}}年{{searchOptions[0].value.split('-')[1]}}月报表</h5>-->
+                    <h5 class="text-center text-bold text-xxlg">{{titleDate.split('-')[0]}}年{{titleDate.split('-')[1]}}月报表</h5>
                 </div>
                 <div class="page-contaoner">
                     <div class="lk-table m-t-sm">
@@ -21,7 +22,7 @@
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('3.3%营业税')!=-1">3.3%营业税</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('小计')!=-1">小计</li>
                         </ul>
-                        <ul class="table-tbody clear" v-for="(item, index) in data" v-if="data.length>0 && item.isShow"">
+                        <ul class="table-tbody clear" v-for="(item, index) in data" v-if="data.length>0 && item.isShow">
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('日期')!=-1" :title="item.date">{{item.date}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('航天收益')!=-1" :title="item.ht_profit">{{item.ht_profit}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('新光')!=-1" :title="item.xg">{{item.xg}}</li>
@@ -55,6 +56,7 @@
         },
         data: () => ({
             data: [],
+            titleDate:'',
             yearList: [],
             monthList: [],
             loading: false,
@@ -126,6 +128,7 @@
                 this.page = 1
                 this.searchOptions = data
                 this.getList()
+                this.titleDate = this.searchOptions[0].value
             },
             // 下一页
             addPage () {
@@ -140,6 +143,7 @@
             let year = new Date().getFullYear()
             let month = new Date().getMonth() + 1
             this.searchOptions[0].value = year + '-' + month
+            this.titleDate = year + '-' + month
             this.page = this.$route.query.page ? parseInt(this.$route.query.page) : 1
             this.getList()
         },

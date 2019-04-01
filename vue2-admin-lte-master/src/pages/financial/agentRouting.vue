@@ -29,6 +29,7 @@
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('一级分账比例')!=-1">一级分账比例</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('二级分账比例')!=-1">二级分账比例</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('三级分账比例')!=-1">三级分账比例</li>
+                            <!--<li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1">操作</li>-->
                         </ul>
                         <div class="p-v-sm" v-for="(item, index) in data.items">
                             <ul class="table-tbody clear flex p-v-xs hover-999">
@@ -42,6 +43,9 @@
                                 <li class="col-xs-1 p-n over-omit text-center" v-show="selectVal.indexOf('一级分账比例')!=-1" :title="item.first_proportion">{{item.first_proportion || 0}}%</li>
                                 <li class="col-xs-1 p-n over-omit text-center" v-show="selectVal.indexOf('二级分账比例')!=-1"></li>
                                 <li class="col-xs-1 p-n over-omit text-center" v-show="selectVal.indexOf('三级分账比例')!=-1"></li>
+                                <!--<li class="col-xs-1 p-n over-omit text-center" v-show="selectVal.indexOf('操作')!=-1">-->
+                                    <!--1111-->
+                                <!--</li>-->
                             </ul>
                             <div class="" v-for="first in item.child" v-show="item.is_show">
                                 <ul class="clear flex p-v-xs hover-999">
@@ -55,6 +59,7 @@
                                     <li class="col-xs-1 p-n over-omit text-center" v-show="selectVal.indexOf('一级分账比例')!=-1" :title="first.first_proportion">{{first.first_proportion || 0}}%</li>
                                     <li class="col-xs-1 p-n over-omit text-center" v-show="selectVal.indexOf('二级分账比例')!=-1" :title="first.second_proportion">{{first.second_proportion || 0}}%</li>
                                     <li class="col-xs-1 p-n over-omit text-center" v-show="selectVal.indexOf('三级分账比例')!=-1" :title="first.third_proportion"></li>
+                                    <!--<li class="col-xs-1 p-n over-omit text-center" v-show="selectVal.indexOf('操作')!=-1"></li>-->
                                 </ul>
                                 <ul class="clear flex p-v-xs hover-999" v-for="second in first.child" v-show="first.is_show">
                                     <li class="col-xs-1 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;"></li>
@@ -65,6 +70,7 @@
                                     <li class="col-xs-1 p-n over-omit text-center" v-show="selectVal.indexOf('一级分账比例')!=-1" :title="second.first_proportion">{{second.first_proportion || 0}}%</li>
                                     <li class="col-xs-1 p-n over-omit text-center" v-show="selectVal.indexOf('二级分账比例')!=-1" :title="second.second_proportion">{{second.second_proportion || 0}}%</li>
                                     <li class="col-xs-1 p-n over-omit text-center" v-show="selectVal.indexOf('三级分账比例')!=-1" :title="second.third_proportion">{{second.third_proportion || 0}}%</li>
+                                    <!--<li class="col-xs-1 p-n over-omit text-center" v-show="selectVal.indexOf('操作')!=-1">111</li>-->
                                 </ul>
                             </div>
                         </div>
@@ -122,8 +128,8 @@
                 items: []
             },
             loading: false,
-            selectVal: ['序号', '代理商编号', '代理商名称', '所属区域', '城市', '一级分账比例', '二级分账比例', '三级分账比例'],
-            showList: ['序号', '代理商编号', '代理商名称', '所属区域', '城市', '一级分账比例', '二级分账比例', '三级分账比例'],
+            selectVal: ['序号', '代理商编号', '代理商名称', '所属区域', '城市', '一级分账比例', '二级分账比例', '三级分账比例','操作'],
+            showList: ['序号', '代理商编号', '代理商名称', '所属区域', '城市', '一级分账比例', '二级分账比例', '三级分账比例','操作'],
             options: [10, 25, 50],   //条数数目
             searchShow: false,   //搜索开关
             limit: 10,

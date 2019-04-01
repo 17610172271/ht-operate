@@ -142,7 +142,7 @@
             <div class="p-v-md">
                 <h5 class="border-bottom text-xxlg text-bold p-b-sm">合同信息</h5>
                 <div class="clear m-b-sm flex m-t-lg">
-                    <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;">合同生效起止日期:</div>
+                    <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;"><span class="text-red">*</span>合同生效起止日期:</div>
                     <div class="col-xs-9">
                         <el-date-picker
                             style="width: 100%;max-width: 176px;"
@@ -150,6 +150,8 @@
                             type="date"
                             format="yyyy-MM-dd"
                             value-format="yyyy-MM-dd"
+                            :class="{'border-red': timeError}"
+                            @blur="validateTime"
                             placeholder="开始日期">
                         </el-date-picker>
                         -
@@ -159,14 +161,17 @@
                             type="date"
                             format="yyyy-MM-dd"
                             value-format="yyyy-MM-dd"
+                            :class="{'border-red': timeendError}"
+                            @blur="validateendTime"
                             placeholder="结束日期">
                         </el-date-picker>
+                        <p v-if="timeError || timeendError" class="text-red"><span class="fa fa-close m-r-xs"></span>请输入正确的合同起止日期</p>
                     </div>
                 </div>
                 <div class="clear m-b-sm flex">
-                    <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;">汇款方式:</div>
+                    <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;"><span class="text-red">*</span>汇款方式:</div>
                     <div class="col-xs-9">
-                        <el-select v-model="addInfo.pay_id" placeholder="请选择汇款方式" style="width: 100%;max-width: 366px;">
+                        <el-select v-model="addInfo.pay_id" placeholder="请选择汇款方式"  :class="{'border-red': payError}" style="width: 100%;max-width: 366px;">
                             <el-option
                                 v-for="item in contractOptions"
                                 :key="item.value"
@@ -174,25 +179,30 @@
                                 :value="item.value">
                             </el-option>
                         </el-select>
+                        <p v-if="payError" class="text-red"><span class="fa fa-close m-r-xs"></span>请选择汇款方式</p>
                     </div>
                 </div>
                 <div class="clear m-b-sm flex">
-                    <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;">到账日期:</div>
+                    <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;"><span class="text-red">*</span>到账日期:</div>
                     <div class="col-xs-9">
                         <el-date-picker
                             style="width: 100%;max-width: 366px;"
                             v-model="addInfo.arrival_account_time"
+                            :class="{'border-red': accountError}"
+                            @blur="validateendAccount"
                             type="date"
                             format="yyyy-MM-dd"
                             value-format="yyyy-MM-dd"
                             placeholder="到账日期">
                         </el-date-picker>
+                        <p v-if="accountError" class="text-red"><span class="fa fa-close m-r-xs"></span>请选择汇款方式</p>
                     </div>
                 </div>
                 <div class="clear m-b-sm flex">
-                    <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;">上传合同:</div>
+                    <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;"><span class="text-red">*</span>上传合同:</div>
                     <div class="col-xs-9">
                         <el-upload
+                            :class="{'border-red': contractError}"
                             :action="uploadUrl"
                             list-type="picture-card"
                             :file-list="fileList"
@@ -204,6 +214,7 @@
                             :on-success="contractUpload">
                             <i class="el-icon-plus"></i>
                         </el-upload>
+                        <p v-if="contractError" class="text-red"><span class="fa fa-close m-r-xs"></span>请上传合同(2M以内jpg格式图片)</p>
                         <p class="text-999">(请上传2M以内jpg格式图片)</p>
                         <el-dialog :visible.sync="dialogVisible" title="查看图片">
                             <img width="100%" :src="previewImage" alt="">
@@ -337,6 +348,11 @@
             bankAccountError: false,
             openBankError: false,
             bankTypeIdError: false,
+            timeError:false,
+            timeendError: false,
+            payError :false,
+            accountError : false,
+            contractError :false,
             header: {ContentType: 'application/x-www-form-urlencoded'},
         }),
         computed: {
@@ -452,6 +468,7 @@
                 fileList.map(val => {
                     if (val.response && val.response.code === 1) {
                         this.addInfo.contract.push(val.response.data.image)
+                        this.contractError = false
                     } else if (!val.response && val.isOld) {
                         this.addInfo.contract.push(val.url)
                     }
@@ -477,8 +494,19 @@
                 this.validateBankAccount()
                 this.validateOpenBank()
                 this.validateBankTypeId()
-
-                if (this.regionError || this.nameError || this.cityError || this.addressError || this.numError || this.leaderPhoneError || this.usernameError || this.leaderError || this.companyError || this.legalPersonError || this.legalPhoneError || this.legalPersonIdError || this.legalEmailError || this.licenceError || this.introduceError || this.accountNameError || this.bankAccountError || this.openBankError || this.bankTypeIdError) {
+                this.validateTime()
+                this.validateendTime()
+                this.validateendPay()
+                this.validateendPay()
+                this.validateendAccount()
+                this.validateContract()
+                if (this.regionError || this.nameError || this.cityError || this.addressError ||
+                    this.numError || this.leaderPhoneError || this.usernameError || this.leaderError ||
+                    this.companyError || this.legalPersonError || this.legalPhoneError || this.legalPersonIdError ||
+                    this.legalEmailError || this.licenceError || this.introduceError || this.accountNameError ||
+                    this.bankAccountError || this.openBankError || this.bankTypeIdError || this.timeError || this.timeendError
+                 || this.payError || this.accountError || this.contractError
+                ) {
                     this.$message.warning('填写的信息格式不正确')
                     return
                 }
@@ -578,7 +606,7 @@
                 this.accountNameError = this.addInfo.account_name ? false : true
             },
             validateBankAccount () {
-                this.bankAccountError = this.addInfo.bank_account ? false : true
+                this.bankAccountError =  /^([1-9]{1})(\d{14}|\d{18})$/.test(this.addInfo.bank_account) ? false : true
             },
             validateOpenBank () {
                 this.openBankError = this.addInfo.open_bank ? false : true
@@ -586,8 +614,23 @@
             validateBankTypeId () {
                 this.bankTypeIdError = this.addInfo.bank_type_id ? false : true
             },
+            validateTime () {
+                this.timeError = this.addInfo.contract_before_time  ? false : true
+            },
+            validateendTime(){
+                this.timeendError = this.addInfo.contract_after_time ? false : true
+            },
+            validateendPay () {
+                this.payError = this.addInfo.pay_id ? false :true
+            },
             statusChange () {
                 this.isSelect = true
+            },
+            validateendAccount () {
+                this.accountError = this.addInfo.arrival_account_time ? false : true
+            },
+            validateContract () {
+                this.contractError = this.addInfo.business_licence ? false : true
             },
             goBack () {
                 this.$router.go(-1)
@@ -614,6 +657,9 @@
             },
             'addInfo.bank_type_id' (val) {
                 this.validateBankTypeId()
+            },
+            'addInfo.pay_id' (val) {
+                this.validateendPay()
             },
             'addInfo.cityLink' (val) {
                 this.validateCity1()
