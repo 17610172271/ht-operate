@@ -184,18 +184,17 @@
                                 </div>
                             </div>
                             <div class="clear m-b-sm">
-                                <div class="col-xs-12 col-md-3 line-height-40 text-right min-width-105"><span class="text-red">*</span>已续约至:</div>
+                                <div class="col-xs-12 col-md-3 line-height-40 text-right min-width-105">已续约至:</div>
                                 <div class="col-xs-12 col-md-7">
                                     <el-date-picker
                                         @change="contractChange"
                                         v-model="detailVal.contract_time"
-                                        :class="{'border-red': contract_timeError}"
                                         type="date"
                                         placeholder="请输入已续约至"
                                     >
                                     </el-date-picker>
                                     <!--<el-input placeholder="请输入已续约至" :class="{'border-red': contract_timeError}" v-model="detailVal.contract_time" @blur="validateContract_time(detailVal.contract_time)"></el-input>-->
-                                    <p v-if="contract_timeError" class="text-red"><span class="fa fa-close m-r-xs"></span>请输入已续约至</p>
+                                    <!-- <p v-if="contract_timeError" class="text-red"><span class="fa fa-close m-r-xs"></span>请输入已续约至</p> -->
                                 </div>
                             </div>
                             <div class="clear m-b-sm">
@@ -550,14 +549,14 @@
                 if (!this.detailVal.signing_date) this.signing_dateError = true
                 if (!this.detailVal.start_time) this.start_timeError = true
                 if (!this.detailVal.end_time) this.end_timeError = true
-                if (!this.detailVal.contract_time) this.contract_timeError = true
+                // if (!this.detailVal.contract_time) this.contract_timeError = true
                 this.validateSerial_number(this.detailVal.serial_number)
                 this.validateContract_name(this.detailVal.contract_name)
                 this.validateParty_a(this.detailVal.party_a)
                 this.validateParty_b(this.detailVal.party_b)
                 this.validateParty_c(this.detailVal.party_c)
                 if (this.serial_numberError || this.contract_nameError || this.party_aError || this.party_bError || this.party_cError || this.typeError
-                || this.signing_dateError || this.start_timeError || this.end_timeError || this.contract_timeError) {
+                || this.signing_dateError || this.start_timeError || this.end_timeError) {
                     this.$message({
                         type: 'warning',
                         message: '请将信息正确填写'
@@ -655,10 +654,6 @@
                 this.getDetail(item)
             },
 
-
-
-
-
             //验证
             validateSerial_number (val) {
                 this.serial_numberError = val ? false : true
@@ -682,16 +677,16 @@
                 this.typeError = false
             },
             group11Change() {
-                this.signing_dateError =false
+                this.signing_dateError = false
             },
             startChange() {
-                this.start_timeError =false
+                this.start_timeError = false
             },
             endChange() {
-                this.end_timeError =false
+                this.end_timeError = false
             },
             contractChange() {
-                this.contract_timeError =false
+                this.contract_timeError = false
             },
             //刷新
             refresh () {
