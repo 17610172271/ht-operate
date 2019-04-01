@@ -2,7 +2,7 @@
     <div class="animated fadeIn  bg-white home-container">
         <div class="p-md"  v-loading="loading">
             <div class="today-data border-bottom p-b-lg">
-                <div class="texxxxt-lg">平台概述</div>
+                <div class="texxxxt-lg">平台概述</div> 
                 <div class="container-fluid m-t-md">
                     <div class="row align-bottom flex  p-o-lg">
                         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-2 p-r-sm p-n" >
