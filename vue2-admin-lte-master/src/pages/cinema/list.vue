@@ -292,9 +292,7 @@
                     this.addInfo.remark = ''
                     this.$http.post(api.agent.stopLog, {
                         id: item.id,
-                        type:2,
-                        page: this.page,
-                        limit: this.limit
+                        type:2
                     }).then(res => {
                         if(res.data.code === 1) {
                             this.stopLog = res.data.data
@@ -309,9 +307,7 @@
                     this.detailModalone = true
                     this.$http.post(api.agent.stopLog, {
                         id: item.id,
-                        type:2,
-                        page: this.page,
-                        limit: this.limit
+                        type:2
                     }).then(res => {
                         if(res.data.code === 1) {
                             this.stopLog = res.data.data
