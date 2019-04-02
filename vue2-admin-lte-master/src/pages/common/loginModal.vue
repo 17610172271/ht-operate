@@ -200,14 +200,14 @@
     }
 
     .login-title {
-        font-size: 34px;
-        height: 34px;
-        line-height: 34px;
+        font-size: 30px;
+        height: 30px;
+        line-height: 30px;
         font-family: MicrosoftYaHeiUI;
         color: #18bc9c;
         font-weight: 700;
         text-align: center;
-        margin-bottom: 32px;
+        margin-bottom: 30px;
     }
 
     .login-username {

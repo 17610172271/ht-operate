@@ -90,7 +90,7 @@
                         custom-class="dialog-modal1">
                         <div v-loading="modalLoading">
                             <div class="clear m-b-sm">
-                                <div class="col-xs-12 col-md-3 line-height-40 text-right min-width-105"><span class="text-red">*</span>合同编号:</div>
+                                <div class="col-xs-12 col-md-3 line-height-40 text-right min-width-105"><span class="text-red">*</span>合同编号:{{detailVal.id}}</div>
                                 <div class="col-xs-12 col-md-7">
                                     <el-input placeholder="请输入合同编号" :class="{'border-red': serial_numberError}" v-model="detailVal.serial_number" @blur="validateSerial_number(detailVal.serial_number)"></el-input>
                                     <p v-if="serial_numberError" class="text-red"><span class="fa fa-close m-r-xs"></span>请输入合同编号</p>
@@ -281,7 +281,7 @@
                             <!--</div>-->
                             <div class="clear">
                                 <div class="col-xs-3 line-height-40 text-right min-width-105">合同:</div>
-                                <div class="col-xs-7 text-left line-height-40"><a v-for="(item, index) in detailVal.attachment" :href="item.url" target="_blank" class="link" v-if="detailVal.attachment.length>0" style="margin-right: 15px;">图片{{index + 1}}</a></div>
+                                <div class="col-xs-7 text-left line-height-40"><a v-for="(item, index) in detailVal.attachment" :href="item" target="_blank" class="link" v-if="detailVal.attachment.length>0" style="margin-right: 15px;">图片{{index + 1}}</a></div>
                             </div>
                         </div>
                     </el-dialog>
@@ -479,13 +479,7 @@
                 this.$http.post(api.contract.getType).then(res => {
                     if (res.data.code === 1) {
                         this.teamOptions = res.data.data
-                        if (this.type === 'edit') {
-                            this.teamOptions.map(val => {
-                                if (val.name === this.detailVal.name) {
-                                    this.$set(this.detailVal, 'id', val.id)
-                                }
-                            })
-                        }
+                        
                     } else {
                         this.teamOptions = []
                         this.$message({
@@ -630,7 +624,8 @@
                             that.modalLoading = false
                         }, 500)
                         this.detailVal = res.data.data
-                        this.fileList = this.detailVal.attachment = this.detailVal.attachment.split(',').map((val, index) => {
+                        this.detailVal.attachment = this.detailVal.attachment.split(',')
+                        this.fileList = this.detailVal.attachment.map((val, index) => {
                             return {
                                 name: 'pic' + index,
                                 isOld: true,
