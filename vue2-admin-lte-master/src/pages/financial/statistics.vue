@@ -113,11 +113,13 @@
                     xAxis: {
                         type: 'category',
 //                        boundaryGap: false,
+                        name: '日期',
                         data: column
                     },
                     yAxis : [
                         {
-                            type : 'value'
+                            type : 'value',
+                            name: '收益/(元)'
                         }
                     ],
                     series: [

@@ -1189,6 +1189,9 @@ a.link.disabled, fieldset[disabled] a.link {
 .mine-agent .el-dialog__body {
     overflow-y: initial;
 }
+.daterange-container .el-date-editor--daterange.el-input__inner {
+    width: 250px;
+}
 /*操作图标颜色*/
 @media (max-width: 768px) {
     .dialog-modal1 {

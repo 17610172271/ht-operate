@@ -102,11 +102,13 @@
                     xAxis: {
                         type: 'category',
 //                        boundaryGap: false,
-                        data: column
+                        data: column,
+                        name: '区域'
                     },
                     yAxis : [
                         {
-                            type : 'value'
+                            type : 'value',
+                            name: '数量'
                         }
                     ],
                     series: [

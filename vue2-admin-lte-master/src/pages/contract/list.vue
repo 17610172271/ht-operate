@@ -398,14 +398,9 @@
                     value: ''
                 },
                 {
-                    type: 'time',
-                    name: '开始时间',
-                    value: ''
-                },
-                {
-                    type: 'time',
-                    name: '结束时间',
-                    value: ''
+                    type: 'timerange',
+                    name: '合同开始时间',
+                    value: []
                 }
             ],
         }),
@@ -427,8 +422,8 @@
                 this.loading = true
                 this.$http.post(api.contract.list, {
                     contract_name: this.searchOptions[0].value,
-                    start_time: this.searchOptions[1].value,
-                    end_time: this.searchOptions[2].value,
+                    start_time: this.searchOptions[1].value.length === 2 ? this.searchOptions[1].value[0] : '',
+                    end_time: this.searchOptions[1].value.length === 2 ? this.searchOptions[1].value[1] : '',
                     page: this.page,
                     limit: this.limit
                 }).then(res => {
@@ -714,10 +709,6 @@
             },
             limit (val) {
                 this.getList()
-            },
-            searchShow (searchShow){
-                this.getCity()
-                this.getAllAgent()
             },
             detailModal(val) {
                 if(val){
