@@ -252,6 +252,9 @@
                 agent_list: [],
                 items:[]
             },
+            checkLog: {
+                items: []
+            },
             loading: false,
             fromRouter: '',
             activeName: 'first'

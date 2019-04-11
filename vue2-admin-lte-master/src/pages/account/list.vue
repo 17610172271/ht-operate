@@ -261,7 +261,7 @@
                     }
                 },
                 childNode: {
-                    name: '管理账号列表',
+                    name: '账号列表',
                     desc: '主要用于管理员账号的查看及管理',
                     router: {
                         name: 'account_list'

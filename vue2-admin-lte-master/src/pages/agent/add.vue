@@ -606,7 +606,7 @@
                 this.accountNameError = this.addInfo.account_name ? false : true
             },
             validateBankAccount () {
-                this.bankAccountError =  /^([1-9]{1})(\d{14}|\d{18})$/.test(this.addInfo.bank_account) ? false : true
+                this.bankAccountError =  /^([0-9]+)$/.test(this.addInfo.bank_account) ? false : true
             },
             validateOpenBank () {
                 this.openBankError = this.addInfo.open_bank ? false : true

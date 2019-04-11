@@ -45,7 +45,7 @@
           :items="item.items"
           :router="item.router"
           :link="item.link"
-          :root="item.root"
+          :isShow="item.isShow"
         >
         </va-slide-item>
       </ul>

@@ -3,7 +3,7 @@ module.exports = [
         type: 'item',
         isHeader: true,
         name: '',
-        root: [1,2,3,4,5,6,7,8]
+        isShow: true
     },
     {
         type: 'item',
@@ -12,7 +12,8 @@ module.exports = [
         router: {
             name: 'home'
         },
-        root: [1,2,3,4,5,6,7,8]
+        id: 401,
+        isShow: true
     },
     {
         type: 'tree',
@@ -21,13 +22,15 @@ module.exports = [
         router: {
             name: 'map_list'
         },
-        root: [1,2,3,4,5,6,7,8],
+        id: 402,
+        isShow: false
     },
     {
         type: 'tree',
         icon: 'fa fa-users',
         name: '代理商管理',
-        root: [1,2,3,4,5,6,7,8],
+        isShow: false,
+        id: 403,
         items: [
             {
                 type: 'item',
@@ -36,7 +39,8 @@ module.exports = [
                 router: {
                     name: 'agent_list'
                 },
-                root: [1,2,3,4,5,6,7,8]
+                id: 40301,
+                isShow: false
             },
             {
                 type: 'item',
@@ -45,7 +49,8 @@ module.exports = [
                 router: {
                     name: 'agent_mine'
                 },
-                root: [1,2,3,4,5,6,7,8]
+                id: 40302,
+                isShow: false
             },
             {
                 type: 'item',
@@ -54,7 +59,8 @@ module.exports = [
                 router: {
                     name: 'agent_check'
                 },
-                root: [1,2,3,4,5,6,7,8]
+                id: 40303,
+                isShow: false
             },
         ]
     },
@@ -62,7 +68,8 @@ module.exports = [
         type: 'tree',
         icon: 'fa fa-support',
         name: '影院管理',
-        root: [1,2,3,4,5,6,7,8],
+        isShow: false,
+        id: 404,
         items: [
             {
                 type: 'item',
@@ -71,7 +78,8 @@ module.exports = [
                 router: {
                     name: 'cinema_list'
                 },
-                root: [1,2,3,4,5,6,7,8]
+                id: 40401,
+                isShow: false
             },
             {
                 type: 'item',
@@ -80,7 +88,8 @@ module.exports = [
                 router: {
                     name: 'cinema_check'
                 },
-                root: [1,2,3,4,5,6,7,8]
+                id: 40402,
+                isShow: false
             }
         ]
     },
@@ -88,7 +97,8 @@ module.exports = [
         type: 'tree',
         icon: 'fa fa-gg',
         name: '财务管理',
-        root: [1,2,3,4,5,6,7,8],
+        isShow: false,
+        id: 405,
         items: [
             {
                 type: 'item',
@@ -97,7 +107,8 @@ module.exports = [
                 router: {
                     name: 'financial_statistics'
                 },
-                root: [1,2,3,4,5,6,7,8]
+                id: 40501,
+                isShow: false
             },
             {
                 type: 'item',
@@ -106,7 +117,8 @@ module.exports = [
                 router: {
                     name: 'financial_income'
                 },
-                root: [1,2,3,4,5,6,7,8]
+                id: 40502,
+                isShow: false
             },
             {
                 type: 'item',
@@ -115,7 +127,8 @@ module.exports = [
                 router: {
                     name: 'financial_expend'
                 },
-                root: [1,2,3,4,5,6,7,8]
+                id: 40503,
+                isShow: false
             },
             {
                 type: 'item',
@@ -124,7 +137,8 @@ module.exports = [
                 router: {
                     name: 'financial_order'
                 },
-                root: [1,2,3,4,5,6,7,8]
+                id: 40504,
+                isShow: false
             },
             {
                 type: 'item',
@@ -133,7 +147,8 @@ module.exports = [
                 router: {
                     name: 'financial_clearing'
                 },
-                root: [1,2,3,4,5,6,7,8]
+                id: 40505,
+                isShow: false
             },
             {
                 type: 'item',
@@ -142,7 +157,8 @@ module.exports = [
                 router: {
                     name: 'financial_report'
                 },
-                root: [1,2,3,4,5,6,7,8]
+                id: 40506,
+                isShow: false
             },
             {
                 type: 'item',
@@ -151,7 +167,8 @@ module.exports = [
                 router: {
                     name: 'financial_routing'
                 },
-                root: [1,2,3,4,5,6,7,8]
+                id: 40507,
+                isShow: false
             },
             {
                 type: 'item',
@@ -160,7 +177,8 @@ module.exports = [
                 router: {
                     name: 'financial_agentRouting'
                 },
-                root: [1,2,3,4,5,6,7,8]
+                id: 40508,
+                isShow: false
             },
             {
                 type: 'item',
@@ -169,33 +187,17 @@ module.exports = [
                 router: {
                     name: 'financial_incomes'
                 },
-                root: [1,2,3,4,5,6,7,8]
+                id: 40509,
+                isShow: false
             }
         ]
     },
-    //{
-    //    type: 'item',
-    //    icon: 'fa fa-ravelry',
-    //    name: '区域管理',
-    //    router: {
-    //        name: 'region_list'
-    //    },
-    //    root: [1,2,3,4,5,6,7,8]
-    //},
-    //{
-    //    type: 'item',
-    //    icon: 'fa fa-hospital-o',
-    //    name: '城市管理',
-    //    router: {
-    //        name: 'city_list'
-    //    },
-    //    root: [1,2,3,4,5,6,7,8]
-    //},
     {
         type: 'tree',
         icon: 'fa fa-bar-chart',
         name: '数据统计',
-        root: [1,2,3,4,5,6,7,8],
+        isShow: false,
+        id: 406,
         items: [
             {
                 type: 'item',
@@ -204,7 +206,8 @@ module.exports = [
                 router: {
                     name: 'statistics_agent'
                 },
-                root: [1,2,3,4,5,6,7,8]
+                id: 40601,
+                isShow: false
             },
             {
                 type: 'item',
@@ -213,7 +216,8 @@ module.exports = [
                 router: {
                     name: 'statistics_cinema'
                 },
-                root: [1,2,3,4,5,6,7,8]
+                id: 40602,
+                isShow: false
             },
             {
                 type: 'item',
@@ -222,24 +226,18 @@ module.exports = [
                 router: {
                     name: 'statistics_play'
                 },
-                root: [1,2,3,4,5,6,7,8]
+                id: 40603,
+                isShow: false
             },
-            // {
-            //     type: 'item',
-            //     icon: 'fa fa-circle-o',
-            //     name: '影片统计',
-            //     router: {
-            //         name: 'statistics_film'
-            //     },
-            //     root: [1,2,3,4,5,6,7,8]
-            // }
         ]
     },
     {
         type: 'tree',
         icon: 'fa fa-file-text-o',
         name: '操作日志',
+        isShow: false,
         root: [1,2,3,4,5,6,7,8],
+        id: 407,
         items: [
             {
                 type: 'item',
@@ -248,24 +246,37 @@ module.exports = [
                 router: {
                     name: 'log_list'
                 },
-                root: [1,2,3,4,5,6,7,8]
+                id: 40701,
+                isShow: false
             }
         ]
     },
     {
         type: 'tree',
         icon: 'fa fa-user-circle-o',
-        name: '账号管理',
-        root: [1],
+        name: '系统设置',
+        isShow: false,
+        id: 408,
         items: [
             {
                 type: 'item',
                 icon: 'fa fa-circle-o',
-                name: '管理账号列表',
+                name: '账号列表',
                 router: {
                     name: 'account_list'
                 },
-                root: [1]
+                id: 40801,
+                isShow: false,
+            },
+            {
+                type: 'item',
+                icon: 'fa fa-circle-o',
+                name: '角色设置',
+                router: {
+                    name: 'account_right'
+                },
+                id: 40802,
+                isShow: false,
             }
         ]
     },
@@ -273,7 +284,8 @@ module.exports = [
         type: 'tree',
         icon: 'fa fa-registered',
         name: '合同管理',
-        root: [1,2,3,4,5,6,7,8],
+        isShow: false,
+        id: 409,
         items: [
             {
                 type: 'item',
@@ -282,7 +294,8 @@ module.exports = [
                 router: {
                     name: 'contract_list'
                 },
-                root: [1,2,3,4,5,6,7,8]
+                id: 40901,
+                isShow: false
             },
             {
                 type: 'item',
@@ -291,7 +304,8 @@ module.exports = [
                 router: {
                     name: 'contract_type'
                 },
-                root: [1,2,3,4,5,6,7,8]
+                id: 40902,
+                isShow: false
             }
         ]
     },

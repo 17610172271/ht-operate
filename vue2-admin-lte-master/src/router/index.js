@@ -38,6 +38,11 @@ const router = new Router({
                     ]
                 },
                 {
+                    path: '/demo',
+                    component: rs('demo/index'),
+                    name: 'demo_index',
+                },
+                {
                     path: '/agent',
                     component: rs('agent/index'),
                     meta: {requreAuth: true},
@@ -226,6 +231,21 @@ const router = new Router({
                             path: 'list',
                             name: 'account_list',
                             component: rs('account/list')
+                        },
+                        {
+                            path: 'right',
+                            name: 'account_right',
+                            component: rs('account/right')
+                        },
+                        {
+                            path: 'right_add',
+                            name: 'right_add',
+                            component: rs('account/rightAdd')
+                        },
+                        {
+                            path: 'right_edit/:id',
+                            name: 'right_edit',
+                            component: rs('account/rightAdd')
                         }
                     ]
                 },

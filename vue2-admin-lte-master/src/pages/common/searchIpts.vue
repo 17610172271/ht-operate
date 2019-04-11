@@ -96,7 +96,6 @@
                         start-placeholder="开始日期"
                         end-placeholder="结束日期"
                         align="left"
-                        :picker-options="pickerOptions2"
                     >
                     </el-date-picker>
                 </div>
@@ -118,12 +117,7 @@
                 disabledDate(time) {
                     return time.getTime() > Date.now();
                 },
-            },
-            pickerOptions2: {
-                disabledDate(time) {
-                    return time.getTime() > Date.now();
-                },
-            },
+            }
         }),
         components: {
             CitySelect

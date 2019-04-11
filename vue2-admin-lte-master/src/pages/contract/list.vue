@@ -544,6 +544,14 @@
                 this.validateParty_a(this.detailVal.party_a)
                 this.validateParty_b(this.detailVal.party_b)
                 this.validateParty_c(this.detailVal.party_c)
+                if (new Date(this.detailVal.end_time).getTime() < new Date(this.detailVal.start_time).getTime()) {
+                    this.$message.warning('合同结束时间应大于合同开始时间')
+                    return
+                }
+                if (this.detailVal.contract_time && new Date(this.detailVal.contract_time).getTime() < new Date(this.detailVal.start_time).getTime()) {
+                    this.$message.warning('已续约至时间应大于合同开始时间')
+                    return
+                }
                 if (this.serial_numberError || this.contract_nameError || this.party_aError || this.party_bError || this.party_cError || this.typeError
                 || this.signing_dateError || this.start_timeError || this.end_timeError) {
                     this.$message({

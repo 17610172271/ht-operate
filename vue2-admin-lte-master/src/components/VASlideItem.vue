@@ -4,7 +4,7 @@
             <i :class="icon"></i> <span>{{ name }}</span>
         </a>
     </router-link>
-    <li :class="getType" v-else-if="root.indexOf(getAuthInfo.group_id)!==-1">
+    <li :class="getType" v-else-if="isShow">
         {{ isHeader ? name : '' }}
         <a href="#" v-if="!isHeader">
             <i :class="icon"></i> <span>{{ name }}</span>
@@ -17,7 +17,7 @@
         </a>
         <ul class="treeview-menu" v-if="items.length > 0">
             <router-link class="subnav-item-container" tag="li" v-for="(item,index) in items" :data="item" :key="index"
-                         :to="item.router" v-if="(item.router && item.router.name)&&(item.root.indexOf(getAuthInfo.group_id)!=-1)">
+                         :to="item.router" v-if="(item.router && item.router.name)&&(item.isShow)">
                 <a>
                     <!-- <i :class="item.icon"></i> --> {{ item.name }}
                 </a>
@@ -25,7 +25,7 @@
                           <router-link tag="li" :key="index1" :to="sub.router" class="text-white" v-for="(sub, index1) in item.items">{{sub.name}}</router-link>
                         </ul> -->
             </router-link>
-            <li v-else-if="item.root.indexOf(getAuthInfo.group_id)!=-1" class="subnav-item-container">
+            <li v-else-if="item.isShow" class="subnav-item-container">
                 <a>
                     <!-- <i :class="item.icon"></i> --> {{ item.name }}
                 </a>
@@ -78,11 +78,9 @@
                 type: String,
                 default: ''
             },
-            root: {
-                type: Array,
-                default() {
-                    return []
-                }
+            isShow: {
+                type: Boolean,
+                default: false
             }
         },
         created () {
