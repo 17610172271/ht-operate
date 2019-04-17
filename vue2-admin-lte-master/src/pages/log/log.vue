@@ -28,7 +28,7 @@
                             <li class="col-xs-2 p-n" v-show="selectVal.indexOf('操作Url')!=-1">操作Url</li>
                         </ul>
                         <ul class="table-tbody clear" v-for="(item, index) in data.items">
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">{{item.id}}</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">{{index + offset + 1}}</li>
                             <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('操作内容')!=-1" :title="item.title">{{item.title}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('操作人')!=-1" :title="item.username">{{item.username}}</li>
                             <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('操作时间')!=-1" :title="item.create_time">{{item.create_time}}</li>
@@ -110,8 +110,18 @@
             //搜索
             searchOptions: [
                 {
+                    type: 'text',
+                    name: '操作人',
+                    value: ''
+                },
+                {
                     type: 'time',
-                    name: '操作时间',
+                    name: '开始时间',
+                    value: ''
+                },
+                {
+                    type: 'time',
+                    name: '结束时间',
                     value: ''
                 }
             ],
@@ -134,7 +144,9 @@
             getList () {
                 this.loading = true
                 this.$http.post(api.log.list, {
-                    create_time: this.searchOptions[0].value,
+                    username: this.searchOptions[0].value,
+                    start_time: this.searchOptions[1].value,
+                    end_time: this.searchOptions[2].value,
                     page: this.page,
                     limit: this.limit
                 }).then(res => {

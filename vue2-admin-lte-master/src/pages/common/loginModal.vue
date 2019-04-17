@@ -119,6 +119,128 @@
                                         $('.sidebar-menu .treeview').removeClass('menu-open')
                                         $('.sidebar-menu .treeview .treeview-menu').css('display', 'none')
                                         that.$router.push({name: 'home'})
+                                        // 登录成功后路由跳转
+                                        let rightList = res.data.data.menu_list
+                                        let pageVal = ''
+                                        let newList = {}
+                                        for (let key in rightList) {
+                                            if (String(key).length === 3) {
+                                                newList[(key + '99') * Math.pow(10, 7 - String(key).length)] = rightList[key]
+                                            } else {
+                                                newList[key * Math.pow(10, 9 - String(key).length)] = rightList[key]
+                                            }
+                                            
+                                        }
+                                        for (let key in newList) {
+                                            if (newList[key]) {
+                                                pageVal = key
+                                                break;
+                                            }
+                                        }
+                                        console.log(pageVal)
+                                        switch (pageVal)
+                                        {
+                                            case '401990000':
+                                               that.$router.push({name: 'home'})
+                                               break
+
+                                            case '402990000':
+                                                that.$router.push({name: 'map_list'})
+                                                break
+
+                                            case '403990000':
+                                               that.$router.push({name: 'agent_list'})
+                                               break
+                                            case '403010000':
+                                               that.$router.push({name: 'agent_list'})
+                                               break
+                                            case '403020000':
+                                               that.$router.push({name: 'agent_mine'})
+                                               break
+                                            case '403030000':
+                                               that.$router.push({name: 'agent_check'})
+                                               break
+
+                                            case '404990000':
+                                                that.$router.push({name: 'cinema_list'})
+                                                break
+                                            case '404010000':
+                                                that.$router.push({name: 'cinema_list'})
+                                                break
+                                            case '404020000':
+                                                that.$router.push({name: 'cinema_check'})
+                                                break
+
+                                            case '405990000':
+                                               that.$router.push({name: 'financial_statistics'})
+                                               break
+                                            case '405010000':
+                                               that.$router.push({name: 'financial_statistics'})
+                                               break
+                                            case '405020000':
+                                               that.$router.push({name: 'financial_income'})
+                                               break
+                                            case '405030000':
+                                               that.$router.push({name: 'financial_expend'})
+                                               break
+                                            case '405040000':
+                                               that.$router.push({name: 'financial_order'})
+                                               break
+                                            case '405050000':
+                                               that.$router.push({name: 'financial_clearing'})
+                                               break
+                                            case '405060000':
+                                               that.$router.push({name: 'financial_report'})
+                                               break
+                                            case '405070000':
+                                               that.$router.push({name: 'financial_routing'})
+                                               break
+                                            case '405080000':
+                                               that.$router.push({name: 'financial_agentRouting'})
+                                               break
+                                            case '405090000':
+                                               that.$router.push({name: 'financial_incomes'})
+                                               break
+
+                                            case '406990000':
+                                                that.$router.push({name: 'statistics_agent'})
+                                                break
+                                            case '406010000':
+                                                that.$router.push({name: 'statistics_agent'})
+                                                break
+                                            case '406020000':
+                                                that.$router.push({name: 'statistics_cinema'})
+                                                break
+                                            case '406030000':
+                                                that.$router.push({name: 'statistics_play'})
+                                                break
+
+                                            case '407990000':
+                                               that.$router.push({name: 'log_list'})
+                                               break
+
+                                            case '408990000':
+                                                that.$router.push({name: 'account_list'})
+                                                break
+                                            case '408010000':
+                                                that.$router.push({name: 'account_list'})
+                                                break
+                                            case '408020000':
+                                                that.$router.push({name: 'account_right'})
+                                                break
+
+                                            case '409990000':
+                                                that.$router.push({name: 'contract_list'})
+                                               break
+                                            case '409010000':
+                                                that.$router.push({name: 'contract_list'})
+                                               break
+                                            case '409020000':
+                                                that.$router.push({name: 'contract_type'})
+                                               break
+                                            default:
+                                                that.$router.push({name: 'home'})
+                                        }
                                     } else {
                                         that.updateId()
                                         that.validateCode = ''
