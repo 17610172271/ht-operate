@@ -21,19 +21,19 @@
                     <div class="lk-table m-t-sm">
                         <ul class="table-thead clear">
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">序号</li>
-                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('标题')!=-1">标题</li>
+                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('操作内容')!=-1">操作内容</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作人')!=-1">操作人</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作时间')!=-1">操作时间</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1">操作</li>
+                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('操作时间')!=-1">操作时间</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作IP')!=-1">操作IP</li>
+                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('操作Url')!=-1">操作Url</li>
                         </ul>
                         <ul class="table-tbody clear" v-for="(item, index) in data.items">
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">{{offset + index + 1}}</li>
-                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('标题')!=-1" :title="item.title">{{item.title}}</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">{{item.id}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('操作内容')!=-1" :title="item.title">{{item.title}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('操作人')!=-1" :title="item.username">{{item.username}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('操作时间')!=-1" :title="item.create_time">{{item.create_time}}</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1">
-                                <a href="javascript:;" class="link" @click.stop="lookDetail(item)">查看</a>
-                            </li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('操作时间')!=-1" :title="item.create_time">{{item.create_time}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('操作IP')!=-1" :title="item.ip">{{item.ip}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('操作Url')!=-1" :title="item.url">{{item.url}}</li>
                         </ul>
                         <ul class="table-tbody clear" v-if="data.items.length===0">
                             <li class="p-n over-omit">暂无更多数据</li>
@@ -64,37 +64,6 @@
                         </div>
                     </div>
                 </div>
-                <el-dialog
-                    title="详情"
-                    :visible.sync="detailModal"
-                    custom-class="dialog-modal1">
-                    <div v-loading="modalLoading">
-                        <div class="clear">
-                            <div class="col-xs-2 line-height-40 text-right text-bold min-width-105">标题</div>
-                            <div class="col-xs-8 line-height-40 text-bold">内容</div>
-                        </div>
-                        <div class="clear bg-f9">
-                            <div class="col-xs-2 line-height-40 text-right min-width-105">标题:</div>
-                            <div class="col-xs-8 line-height-40">{{detailVal.title}}</div>
-                        </div>
-                        <div class="clear">
-                            <div class="col-xs-2 line-height-40 text-right min-width-105">操作人:</div>
-                            <div class="col-xs-8 line-height-40">{{detailVal.username}}</div>
-                        </div>
-                        <div class="clear bg-f9">
-                            <div class="col-xs-2 line-height-40 text-right min-width-105">操作时间:</div>
-                            <div class="col-xs-8 line-height-40">{{detailVal.create_time}}</div>
-                        </div>
-                        <div class="clear">
-                            <div class="col-xs-2 line-height-40 text-right min-width-105">操作IP:</div>
-                            <div class="col-xs-8 line-height-40">{{detailVal.ip}}</div>
-                        </div>
-                        <div class="clear bg-f9">
-                            <div class="col-xs-2 line-height-40 text-right min-width-105">操作路由:</div>
-                            <div class="col-xs-8 line-height-40">{{detailVal.url}}</div>
-                        </div>
-                    </div>
-                </el-dialog>
             </div>
         </div>
     </div>
@@ -117,8 +86,8 @@
             modalLoading: false,
             detailModal: false,
             detailVal: {},
-            selectVal: ['序号', '标题', '操作人', '操作时间', '操作'],
-            showList: ['序号', '标题', '操作人', '操作时间', '操作'],
+            selectVal: ['序号', '操作内容', '操作人', '操作时间', '操作IP', '操作Url'],
+            showList: ['序号', '操作内容', '操作人', '操作时间', '操作IP', '操作Url'],
             options: [10, 25, 50],   //条数数目
             searchShow: false,   //搜索开关
             limit: 10,
@@ -183,32 +152,6 @@
                             total: 1,
                             items: []
                         }
-                        this.$message({
-                            type: 'warning',
-                            message: res.data.msg
-                        })
-                    }
-                })
-            },
-            lookDetail (item) {
-                this.detailModal = true
-                this.getDetail(item.id)
-            },
-            // 获取详情
-            getDetail (id) {
-                this.modalLoading = true
-                this.$http.get(api.log.detail, {
-                    params: {
-                        id: id
-                    }
-                }).then(res => {
-                    if (res.data.code === 1) {
-                        let that = this
-                        setTimeout(function () {
-                            that.modalLoading = false
-                            that.detailVal = res.data.data
-                        }, 500)
-                    } else {
                         this.$message({
                             type: 'warning',
                             message: res.data.msg

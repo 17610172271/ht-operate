@@ -8,7 +8,6 @@
             node-key="id"
             :check-strictly="true"
             @check="nodeChange"
-            @check-change="checkChange"
             ref="ruleTree">
         </el-tree>
     </div>
@@ -59,6 +58,7 @@
                         this.$refs.ruleTree.setCheckedKeys(this.nodeVal)
                     }
                 }
+                this.checkChange()
             },
             checkChange () {
                 this.$emit('input', this.$refs.ruleTree.getCheckedKeys())
@@ -117,6 +117,7 @@
                 } else {
                     this.$refs.ruleTree.setCheckedKeys([])
                 }
+                this.checkChange()
             }
         }
     }

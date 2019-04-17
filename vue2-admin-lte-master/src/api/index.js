@@ -129,6 +129,20 @@ export const financial = {
     contractDetail: '/api/v1/financeReport/viewContract', // 代理商分账管理合同详情
 }
 
+export const system = {
+    menu: '/api/v1/system/menuList', // 菜单列表
+    roleList: '/api/v1/system/roleList', // 角色列表: '',
+    roleAdd: '/api/v1/system/addRole', // 角色添加
+    roleEdit: '/api/v1/system/editRole', // 角色编辑
+    roleDetail: '/api/v1/system/roleDetail', // 角色详情
+    roleDel: '/api/v1/system/delRole', // 角色删除
+    userList: '/api/v1/system/userList', // 账号列表
+    userAdd: '/api/v1/system/addUser', // 账号添加
+    userDetail: '/api/v1/system/userDetail', // 账号详情
+    userEdit: '/api/v1/system/editUser', // 账号编辑
+    userDisabled: '/api/v1/system/prohibitUser', // 账号禁用
+    userDel: '/api/v1/system/delUser', // 账号删除
+}
 export default {
     BASE_URL,
     common,
@@ -140,5 +154,6 @@ export default {
     authrule,
     log,
     financial,
-    contract
+    contract,
+    system
 }

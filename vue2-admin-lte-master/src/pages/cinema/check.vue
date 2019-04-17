@@ -43,8 +43,9 @@
                             <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('状态')!=-1" :title="item.status_name"
                                 :class="{'text-green':item.status==1, 'text-red':item.status==3||item.status==4, 'text-orange': item.status==2}">{{item.status_name}}</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1">
-                                <router-link :to="{name: 'cinema_check_detail',params: {id: item.id}}" href="javascript:;" class="link" @click.stop v-if="item.status_name=='待审核'">审核</router-link>
-                                <router-link :to="{name: 'cinema_detail', params: {id: item.id}}" href="javascript:;" class="link" @click.stop v-else>查看</router-link>
+                                <router-link :to="{name: 'cinema_check_detail',params: {id: item.id}}" v-if="getNavList['4040202']&&item.status_name=='待审核'" href="javascript:;" class="link" @click.stop>审核</router-link>
+                                <router-link :to="{name: 'cinema_detail', params: {id: item.id}}" href="javascript:;" class="link" @click.stop v-else-if="getNavList['4040201']">查看</router-link>
+                                <span v-if="!getNavList['4040201']&&!(getNavList['4040202']&&item.status_name=='待审核')">---</span>
                             </li>
                         </ul>
                         <ul class="table-tbody clear" v-if="data.items.length===0">
@@ -85,6 +86,7 @@
     import api from '@/api'
     import SelectCheckbox from '@/components/SelectCheckbox'
     import SearchIpts from '../common/searchIpts'
+    import { mapGetters } from 'vuex'
     export default {
         //组件
         components: {
@@ -184,7 +186,10 @@
             },
             offset () {
                 return (this.page - 1) * this.limit
-            }
+            },
+            ...mapGetters([
+                'getNavList'
+            ])
         },
         methods: {
             //列表页获取

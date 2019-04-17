@@ -19,7 +19,7 @@
                                 <li class="col-xs-2 p-n">代理商</li>
                                 <li class="col-xs-2 p-n">分账比例</li>
                                 <li class="col-xs-2 p-n">金额</li>
-                                <li class="col-xs-2 p-n">操作</li>
+                                <li class="col-xs-2 p-n" v-if="getNavList['405050201']">操作</li>
                             </ul>
                             <ul class="table-tbody clear" v-for="(item, index) in data.agent_list">
                                 <li class="col-xs-1 p-n" style="max-width: 60px;">{{index + 1}}</li>
@@ -27,7 +27,7 @@
                                 <li class="col-xs-2 p-n over-omit" :title="item.agent_name">{{item.agent_name}}</li>
                                 <li class="col-xs-2 p-n over-omit" :title="item.proportion">{{item.proportion}}</li>
                                 <li class="col-xs-2 p-n over-omit" :title="item.money">{{item.money}}</li>
-                                <li class="col-xs-2 p-n over-omit"><a href="javascript:;" class="link" @click="openDetail(item.agent_id, 1)">详情</a></li>
+                                <li class="col-xs-2 p-n over-omit" v-if="getNavList['405050201']"><a href="javascript:;" class="link" @click="openDetail(item.agent_id, 1)">详情</a></li>
                             </ul>
                             <p class="p-v-sm" v-if="data.agent_list.length<=0">暂无代理商收益信息</p>
                         </div>
@@ -42,7 +42,7 @@
                                 <li class="col-xs-2 p-n">影院名称</li>
                                 <li class="col-xs-2 p-n">分账比</li>
                                 <li class="col-xs-2 p-n">金额</li>
-                                <li class="col-xs-2 p-n">操作</li>
+                                <li class="col-xs-2 p-n" v-if="getNavList['405050201']">操作</li>
                             </ul>
                             <ul class="table-tbody clear" v-for="(item, index) in data.cinema_list">
                                 <li class="col-xs-1 p-n" style="max-width: 60px;">{{index + 1}}</li>
@@ -50,7 +50,7 @@
                                 <li class="col-xs-2 p-n over-omit" :title="item.cinema_name">{{item.cinema_name}}</li>
                                 <li class="col-xs-2 p-n over-omit" :title="item.proportion">{{item.proportion}}</li>
                                 <li class="col-xs-2 p-n over-omit" :title="item.money">{{item.money}}</li>
-                                <li class="col-xs-2 p-n over-omit"><a href="javascript:;" class="link" @click="openDetail(item.cinema_id, 2)">详情</a></li>
+                                <li class="col-xs-2 p-n over-omit" v-if="getNavList['405050201']"><a href="javascript:;" class="link" @click="openDetail(item.cinema_id, 2)">详情</a></li>
                             </ul>
                             <p class="p-v-sm" v-if="data.cinema_list.length<=0">暂无影院收益信息</p>
                         </div>
@@ -79,6 +79,7 @@
 <script type="text/ecmascript-6">
     import api from '@/api'
     import validate from '@/tools/validate'
+    import { mapGetters } from 'vuex'
     export default {
         data: () => ({
             data: {
@@ -91,6 +92,11 @@
             tabVal: 'first',
             loading: false,
         }),
+        computed: {
+            ...mapGetters([
+                'getNavList'
+            ])
+        },
         methods: {
             getData () {
                 this.loading = true

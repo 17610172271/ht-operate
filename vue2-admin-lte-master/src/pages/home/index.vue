@@ -18,56 +18,10 @@
     export default {
         data () {
             return {
-                slideMenuItems: slideMenuItems,
-                rightList: {
-                    401: true,
-                    402: true,
-                    403: true,
-                    40301: true,
-                    4030101: true,
-                    4030102: true,
-                    4030103: true,
-                    40302: true,
-                    40303: true,
-                    404: true,
-                    40401: true,
-                    40402: true,
-                    405: true,
-                    40501: true,
-                    40502: true,
-                    40503: true,
-                    40504: true,
-                    40505: true,
-                    40506: true,
-                    40507: true,
-                    40508: true,
-                    40509: true,
-                    406: true,
-                    40601: true,
-                    40602: true,
-                    40603: true,
-                    407: true,
-                    40701: true,
-                    408: true,
-                    40801: true,
-                    40802: true,
-                    409: true,
-                    40901: true,
-                    40902: true,
-                }
+                slideMenuItems: slideMenuItems
             }
         },
         methods: {
-            getNav () {
-                // this.$http.get(api.account.getRight).then(res => {
-                //     if (res.data.code === 1) {
-                //         this.saveNavList(res.data.data)
-                //         window.localStorage.setItem('navList', JSON.stringify(res.data.data))
-                //     }
-                // })
-                this.saveNavList(this.rightList)
-                window.localStorage.setItem('navList', JSON.stringify(this.rightList))
-            },
             getRoot () {
                 for(let key in this.getNavList) {
                     this.slideMenuItems.map(item => {
@@ -83,27 +37,12 @@
                         }
                     })
                 }
-                // this.getNavList.map(nav => {
-                //     this.slideMenuItems.map(item => {
-                //         if (item.name === nav.name) {
-                //             item.root = nav.root
-                //         }
-                //         if (item.items) {
-                //             item.items.map(val => {
-                //                 if (val.name === nav.name) {
-                //                     val.root = nav.root
-                //                 }
-                //             })
-                //         }
-                //     })
-                // })
             },
             ...mapActions([
                 'saveNavList'
             ])
         },
         created () {
-            this.getNav()
             this.getRoot()
         },
         watch: {

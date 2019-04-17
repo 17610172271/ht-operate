@@ -7,7 +7,7 @@
                 <div class="page-toolbar clear m-t-sm">
                     <search-ipts :options="searchOptions" @submit="doSearch" v-show="searchShow"></search-ipts>
                     <div class="pull-left toolbar-candle clear">
-                        <router-link :to="{name: 'agent_add'}" href="javascript:;" title="添加" class="app-add btn bg-blue1 text-white"><i class="fa fa-plus-square"></i>添加</router-link>
+                        <router-link :to="{name: 'agent_add'}" v-if="getNavList['4030202']" href="javascript:;" title="添加" class="app-add btn bg-blue1 text-white"><i class="fa fa-plus-square"></i>添加</router-link>
                         <div class="app-refresh btn bg-gray1" title="刷新" @click="refresh"><i
                             class="fa fa-refresh"></i></div>
                     </div>
@@ -48,10 +48,10 @@
                             <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('状态')!=-1" :title="item.status_name" :class="{'text-green':item.status==1, 'text-red':item.status==3, 'text-orange': item.status==2}">{{item.status_name}}</li>
                             <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('分账百分比')!=-1" :title="item.proportion">{{item.proportion}} %</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 130px;">
-                                <router-link :to="{name: 'agent_detail', params: {id: item.id}}" href="javascript:;" class="link" @click.stop>查看</router-link>
-                                <!-- <router-link :to="{name: 'agent_edit',params: {id: item.id}}" href="javascript:;" class="link" @click.stop>编辑</router-link> -->
-                                <router-link :to="{name: 'agent_edit',params: {id: item.id}}" href="javascript:;" v-if="item.status==3" class="link" @click.stop>再次申请</router-link>
-                                <a href="javascript:;" :class="{'disabled': item.status!=1}" class="link" v-else @click.stop="openAccount(item)">分账设置</a>
+                                <router-link :to="{name: 'agent_detail', params: {id: item.id}}" v-if="getNavList['4030201']" href="javascript:;" class="link" @click.stop>查看</router-link>
+                                <router-link :to="{name: 'agent_edit',params: {id: item.id}}" href="javascript:;" v-if="item.status==3&&getNavList['4030203']" class="link" @click.stop>再次申请</router-link>
+                                <a href="javascript:;" :class="{'disabled': item.status!=1}" class="link" v-else-if="getNavList['4030204']" @click.stop="openAccount(item)">分账设置</a>
+                                <span v-if="!getNavList['4030201']&&!(item.status==3&&getNavList['4030203'])&&!getNavList['4030204']">---</span>
                             </li>
                         </ul>
                         <ul class="table-tbody clear" v-if="data.items.length===0">
@@ -113,6 +113,7 @@
     import api from '@/api'
     import SelectCheckbox from '@/components/SelectCheckbox'
     import SearchIpts from '../common/searchIpts'
+    import { mapGetters } from 'vuex'
     export default {
         //组件
         components: {
@@ -205,7 +206,10 @@
             },
             offset () {
                 return (this.page - 1) * this.limit
-            }
+            },
+            ...mapGetters([
+                'getNavList'
+            ])
         },
         methods: {
             //列表页获取

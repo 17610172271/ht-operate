@@ -48,7 +48,8 @@
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('状态')!=-1" :title="item.status_name"
                                 :class="{'text-green': item.status_name=='已付款' || item.status_name=='准备播放' || item.status_name=='播放中' || item.status_name=='播放完成','text-orange': item.status_name=='待付款','text-red': item.status_name=='已关闭'||item.status_name=='已退款'||item.status_name=='已锁定'}">{{item.status_name}}</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1">
-                                <a href="javascript:;" class="link" @click.stop="lookDetail(item)">查看</a>
+                                <a href="javascript:;" class="link" v-if="getNavList['4050401']" @click.stop="lookDetail(item)">查看</a>
+                                <span v-else>---</span>
                             </li>
                         </ul>
                         <ul class="table-tbody clear" v-if="data.items.length===0">
@@ -172,6 +173,7 @@
     import api from '@/api'
     import SelectCheckbox from '@/components/SelectCheckbox'
     import SearchIpts from '../common/searchIpts'
+    import { mapGetters } from 'vuex'
     export default {
         //组件
         components: {
@@ -287,7 +289,10 @@
             },
             offset () {
                 return (this.page - 1) * this.limit
-            }
+            },
+            ...mapGetters([
+                'getNavList'
+            ])
         },
         methods: {
             //列表页获取

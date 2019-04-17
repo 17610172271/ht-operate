@@ -7,7 +7,7 @@
                 <div class="page-toolbar clear m-t-sm">
                     <!--<search-ipts :options="searchOptions" @submit="doSearch" v-show="searchShow"></search-ipts>-->
                     <div class="pull-left toolbar-candle clear">
-                        <a href="javascript:;" title="添加" @click="addItem"
+                        <a href="javascript:;" v-if="getNavList['4090201']" title="添加" @click="addItem"
                            class="app-add btn bg-blue1 text-white"><i class="fa fa-plus-square"></i>添加
                         </a>
                         <div class="app-refresh btn bg-gray1" title="刷新" @click="refresh"><i
@@ -32,7 +32,8 @@
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">{{offset + index + 1}}</li>
                             <li class="col-xs-3 p-n over-omit" v-show="selectVal.indexOf('合同类型')!=-1" :title="item.type_name">{{item.type_name}}</li>
                             <li class="col-xs-24 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 120px;">
-                                <a href="javascript:;" class="link" @click.stop="editItem(item)">编辑</a>
+                                <a href="javascript:;" class="link" v-if="getNavList['4090202']" @click.stop="editItem(item)">编辑</a>
+                                <span v-else>---</span>
                             </li>
                         </ul>
                         <ul class="table-tbody clear" v-if="data.items.length===0">
@@ -65,6 +66,7 @@
     import api from '@/api'
     import SelectCheckbox from '@/components/SelectCheckbox'
     import SearchIpts from '../common/searchIpts'
+    import { mapGetters } from 'vuex'
     export default {
         //组件
         components: {
@@ -169,7 +171,10 @@
             },
             offset () {
                 return (this.page - 1) * this.limit
-            }
+            },
+            ...mapGetters([
+                'getNavList'
+            ])
         },
         methods: {
             //列表页获取

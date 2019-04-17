@@ -44,7 +44,8 @@
                                 <li class="col-xs-1 p-n over-omit text-center" v-show="selectVal.indexOf('二级分账比例')!=-1"></li>
                                 <li class="col-xs-1 p-n over-omit text-center" v-show="selectVal.indexOf('三级分账比例')!=-1"></li>
                                 <li class="col-xs-1 p-n over-omit text-center" v-show="selectVal.indexOf('操作')!=-1">
-                                    <a href="javascript:;" class="link" @click.stop="lookcontract(item.id)">查看合同</a>
+                                    <a href="javascript:;" v-if="getNavList['4050801']" class="link" @click.stop="lookcontract(item.id)">查看合同</a>
+                                    <span v-else>---</span>
                                 </li>
                             </ul>
                             <div class="" v-for="first in item.child" v-show="item.is_show">
@@ -59,7 +60,10 @@
                                     <li class="col-xs-1 p-n over-omit text-center" v-show="selectVal.indexOf('一级分账比例')!=-1" :title="first.first_proportion">{{first.first_proportion || 0}}%</li>
                                     <li class="col-xs-1 p-n over-omit text-center" v-show="selectVal.indexOf('二级分账比例')!=-1" :title="first.second_proportion">{{first.second_proportion || 0}}%</li>
                                     <li class="col-xs-1 p-n over-omit text-center" v-show="selectVal.indexOf('三级分账比例')!=-1" :title="first.third_proportion"></li>
-                                    <!--<li class="col-xs-1 p-n over-omit text-center" v-show="selectVal.indexOf('操作')!=-1"></li>-->
+                                    <li class="col-xs-1 p-n over-omit text-center" v-show="selectVal.indexOf('操作')!=-1">
+                                        <a href="javascript:;" v-if="getNavList['4050801']" class="link" @click.stop="lookcontract(first.id)">查看合同</a>
+                                        <span v-else>---</span>
+                                    </li>
                                 </ul>
                                 <ul class="clear flex p-v-xs hover-999" v-for="second in first.child" v-show="first.is_show">
                                     <li class="col-xs-1 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;"></li>
@@ -70,7 +74,10 @@
                                     <li class="col-xs-1 p-n over-omit text-center" v-show="selectVal.indexOf('一级分账比例')!=-1" :title="second.first_proportion">{{second.first_proportion || 0}}%</li>
                                     <li class="col-xs-1 p-n over-omit text-center" v-show="selectVal.indexOf('二级分账比例')!=-1" :title="second.second_proportion">{{second.second_proportion || 0}}%</li>
                                     <li class="col-xs-1 p-n over-omit text-center" v-show="selectVal.indexOf('三级分账比例')!=-1" :title="second.third_proportion">{{second.third_proportion || 0}}%</li>
-                                    <!--<li class="col-xs-1 p-n over-omit text-center" v-show="selectVal.indexOf('操作')!=-1">111</li>-->
+                                    <li class="col-xs-1 p-n over-omit text-center" v-show="selectVal.indexOf('操作')!=-1">
+                                        <a href="javascript:;" v-if="getNavList['4050801']" class="link" @click.stop="lookcontract(second.id)">查看合同</a>
+                                        <span v-else>---</span>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -122,6 +129,7 @@
     import api from '@/api'
     import SelectCheckbox from '@/components/SelectCheckbox'
     import SearchIpts from '../common/searchIpts'
+    import { mapGetters } from 'vuex'
     export default {
         //组件
         components: {
@@ -191,7 +199,10 @@
             },
             offset () {
                 return (this.page - 1) * this.limit
-            }
+            },
+            ...mapGetters([
+                'getNavList'
+            ])
         },
         methods: {
             //列表页获取

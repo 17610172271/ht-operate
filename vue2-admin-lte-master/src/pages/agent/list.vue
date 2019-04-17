@@ -142,7 +142,7 @@
     import api from '@/api'
     import SelectCheckbox from '@/components/SelectCheckbox'
     import SearchIpts from '../common/searchIpts'
-    import { mapGetters, mapActions } from 'vuex'
+    import { mapGetters } from 'vuex'
     export default {
         //组件
         components: {

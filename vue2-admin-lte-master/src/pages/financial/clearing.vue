@@ -48,11 +48,11 @@
                             </li>
                             <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('结算时间')!=-1":title="item.settlement_time">{{item.settlement_time}}</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 130px;">
-                                <a href="javascript:;" class="link" :class="{'disabled': !(item.status_name=='未结算'&&item.certificate)}" @click.stop="doClearing(item)">结算</a>
-                                <router-link :to="{name: 'clearingDetail', params: {id: item.id}, query: {apply_month: item.apply_month}}" href="javascript:;" class="link">详情</router-link>
-                                <a :href="item.certificate" class="link" @click.stop target="_blank" v-if="item.certificate">查看凭证</a>
+                                <a href="javascript:;" class="link" :class="{'disabled': !(item.status_name=='未结算'&&item.certificate)}" @click.stop="doClearing(item)" v-if="getNavList['4050501']">结算</a>
+                                <router-link :to="{name: 'clearingDetail', params: {id: item.id}, query: {apply_month: item.apply_month}}" href="javascript:;" class="link" v-if="getNavList['4050502']">详情</router-link>
+                                <a :href="item.certificate" class="link" @click.stop target="_blank" v-if="getNavList['4050504']&&item.certificate">查看凭证</a>
                                 <el-upload
-                                    v-else
+                                    v-else-if="getNavList['4050503']"
                                     class="inline-block"
                                     :action="uploadUrl"
                                     accept="image/*"
@@ -61,6 +61,7 @@
                                     :on-success="uploadCertificate">
                                     <a href="javascript:;" title="上传凭证" class="link" @click="id=item.id">上传凭证</a>
                                 </el-upload>
+                                <span v-if="!getNavList['4050501']&&!getNavList['4050502']&&!(getNavList['4050504']&&item.certificate)&&!getNavList['4050503']">---</span>
                             </li>
                         </ul>
                         <ul class="table-tbody clear" v-if="data.items.length===0">
@@ -101,6 +102,7 @@
     import api from '@/api'
     import SelectCheckbox from '@/components/SelectCheckbox'
     import SearchIpts from '../common/searchIpts'
+    import { mapGetters } from 'vuex'
     export default {
         //组件
         components: {
@@ -189,7 +191,10 @@
             },
             uploadUrl () {
                 return api.common.upload
-            }
+            },
+            ...mapGetters([
+                'getNavList'
+            ])
         },
         methods: {
             //列表页获取

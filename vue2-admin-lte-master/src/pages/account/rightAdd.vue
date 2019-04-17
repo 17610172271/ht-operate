@@ -11,19 +11,19 @@
             <div class="clear m-b-sm flex">
                 <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;"><span class="text-red">*</span>角色:</div>
                 <div class="col-xs-9">
-                    <el-input v-model="data.name" placeholder="请输入角色名称" style="max-width: 366px;"></el-input>
+                    <el-input v-model="data.role_name" placeholder="请输入角色名称" style="max-width: 366px;"></el-input>
                 </div>
             </div>
             <div class="clear m-b-sm flex">
                 <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;"><span class="text-red">*</span>角色描述:</div>
                 <div class="col-xs-9">
-                    <el-input v-model="data.describe" placeholder="请输入角色描述" style="max-width: 366px;"></el-input>
+                    <el-input v-model="data.role_des" placeholder="请输入角色描述" style="max-width: 366px;"></el-input>
                 </div>
             </div>
             <div class="clear m-b-sm flex">
-                <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;"><span class="text-red">*</span>角色:</div>
+                <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;"><span class="text-red">*</span>菜单:</div>
                 <div class="col-xs-9">
-                    <tree v-model="data.right" :data="ruleList"></tree>
+                    <tree v-model="data.menu_list" :data="ruleList"></tree>
                 </div>
             </div>
             <div class="p-v-lg clear">
@@ -43,112 +43,11 @@
     export default {
         data: () => ({
             data: {
-                name: '',
-                describe: '',
-                right: []
+                role_name: '',
+                role_des: '',
+                menu_list: []
             },
-            ruleList: [
-                {
-                    id: 1,
-                    label: '代理商管理',
-                    children: [
-                        {
-                            id: 11,
-                            label: '代理商列表',
-                            children: [
-                                {
-                                    id: 111,
-                                    label: '查看'
-                                },
-                                {
-                                    id: 112,
-                                    label: '编辑'
-                                },
-                                {
-                                    id: 113,
-                                    label: '删除'
-                                }
-                            ]
-                        },
-                        {
-                            id: 12,
-                            label: '我的代理商',
-                            children: [
-                                {
-                                    id: 121,
-                                    label: '查看'
-                                },
-                                {
-                                    id: 122,
-                                    label: '审核'
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    id: 2,
-                    label: '影院管理',
-                    children: [
-                        {
-                            id: 21,
-                            label: '影院列表',
-                            children: [
-                                {
-                                    id: 211,
-                                    label: '查看'
-                                },
-                                {
-                                    id: 212,
-                                    label: '编辑'
-                                },
-                                {
-                                    id: 213,
-                                    label: '删除'
-                                }
-                            ]
-                        },
-                        {
-                            id: 22,
-                            label: '我的影院',
-                            children: [
-                                {
-                                    id: 221,
-                                    label: '查看'
-                                },
-                                {
-                                    id: 222,
-                                    label: '审核'
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    id: 3,
-                    label: '账号管理',
-                    children: [
-                        {
-                            id: 31,
-                            label: '账号列表',
-                            children: [
-                                {
-                                    id: 311,
-                                    label: '添加'
-                                },
-                                {
-                                    id: 312,
-                                    label: '编辑'
-                                },
-                                {
-                                    id: 313,
-                                    label: '禁用'
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ],
+            ruleList: [],
             loading: false,
         }),
         components: {
@@ -157,11 +56,8 @@
         methods: {
             getData () {
                 this.loading = true
-                this.$http.get(api.agent.detail, {
-                    params: {
-                        id: this.$route.params.id,
-                        type: 1
-                    }
+                this.$http.post(api.system.roleDetail, {
+                    role_id: this.$route.params.id
                 }).then(res => {
                     let that = this
                     setTimeout(function () {
@@ -169,6 +65,7 @@
                     }, 500)
                     if (res.data.code === 1) {
                         this.data = res.data.data
+                        this.data.menu_list = this.data.menu_list.split(',')
                     } else {
                         this.$message({
                             type: 'error',
@@ -177,15 +74,80 @@
                     }
                 })
             },
-            submit () {},
+            getMenu () {
+                this.$http.post(api.system.menu).then(res => {
+                    if (res.data.code === 1) {
+                        this.ruleList = res.data.data.items
+                    } else {
+                        this.ruleList = []
+                    }
+                })
+            },
+            submit () {
+                if (!this.data.role_name) {
+                    this.$message.warning('请输入角色名称')
+                    return
+                }
+                if (!this.data.role_des) {
+                    this.$message.warning('请输入角色描述')
+                    return
+                }
+                if (this.data.menu_list.length === 0) {
+                    this.$message.warning('请选择角色菜单')
+                    return
+                }
+                if (this.$route.params.id) {
+                    this.$http.post(api.system.roleEdit, {
+                        role_id: this.$route.params.id,
+                        role_name: this.data.role_name,
+                        role_des: this.data.role_des,
+                        menu_list: this.data.menu_list.join(',')
+                    }).then(res => {
+                        if (res.data.code === 1) {
+                            this.$message({
+                                type: 'success',
+                                message: '保存成功'
+                            })
+                            this.goBack()
+                        } else {
+                            this.$message({
+                                type: 'warning',
+                                message: res.data.msg
+                            })
+                        }
+                    })
+                } else {
+                    this.$http.post(api.system.roleAdd, {
+                        role_name: this.data.role_name,
+                        role_des: this.data.role_des,
+                        menu_list: this.data.menu_list.join(',')
+                    }).then(res => {
+                        if (res.data.code === 1) {
+                            this.$message({
+                                type: 'success',
+                                message: '添加成功'
+                            })
+                            this.goBack()
+                        } else {
+                            this.$message({
+                                type: 'warning',
+                                message: res.data.msg
+                            })
+                        }
+                    })
+                }
+            },
             goBack () {
                 this.$router.go(-1)
             }
         },
         created () {
             if (this.$route.params.id) this.getData()
+            this.getMenu()
         },
         watch: {
+            'data.menu_list' (val) {
+            }
         }
     }
 </script>

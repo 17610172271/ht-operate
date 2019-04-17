@@ -56,7 +56,8 @@
                             <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('专项资金')!=-1" :title="item.special_funds">{{item.special_funds}}</li>
                             <li class="col-xs-2 p-n" v-show="selectVal.indexOf('操作')!=-1">
                                 <router-link :to="{name: 'financial_incomes_detail', params: {id: item.cinema_id}, query: {time: item.time}}"
-                                             href="javascript:;" class="link" @click.stop>查看</router-link>
+                                    v-if="getNavList['4050901']" href="javascript:;" class="link" @click.stop>查看</router-link>
+                                <span v-else>---</span>
                             </li>
                         </ul>
                         <ul class="table-tbody clear" v-if="data.items.length===0">
@@ -97,6 +98,7 @@
     import api from '@/api'
     import SelectCheckbox from '@/components/SelectCheckbox'
     import SearchIpts from '../common/searchIpts'
+    import { mapGetters } from 'vuex'
     export default {
         //组件
         components: {
@@ -191,7 +193,10 @@
             },
             offset () {
                 return (this.page - 1) * this.limit
-            }
+            },
+            ...mapGetters([
+                'getNavList'
+            ])
         },
         methods: {
             //列表页获取

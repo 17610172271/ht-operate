@@ -7,7 +7,7 @@
                 <div class="page-toolbar clear m-t-sm">
                     <search-ipts :options="searchOptions" @submit="doSearch" v-show="searchShow"></search-ipts>
                     <div class="pull-left toolbar-candle clear">
-                        <a href="javascript:;" title="添加" @click="addItem"
+                        <a href="javascript:;" title="添加" @click="addItem" v-if="getNavList['4090103']"
                            class="app-add btn bg-blue1 text-white"><i class="fa fa-plus-square"></i>添加
                         </a>
                         <div class="app-refresh btn bg-gray1" title="刷新" @click="refresh"><i
@@ -52,8 +52,9 @@
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('已续约至')!=-1":title="item.contract_time">{{item.contract_time}}</li>
                             <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('创建时间')!=-1" :title="item.create_time">{{item.create_time}}</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 120px;">
-                                <a href="javascript:;" class="link" @click.stop="openDetail(item)">查看</a>
-                                <a href="javascript:;" class="link" @click.stop="editItem(item)">编辑</a>
+                                <a href="javascript:;" v-if="getNavList['4090101']" class="link" @click.stop="openDetail(item)">查看</a>
+                                <a href="javascript:;" v-if="getNavList['4090102']" class="link" @click.stop="editItem(item)">编辑</a>
+                                <span v-if="!getNavList['4090101']&&!getNavList['4090102']">---</span>
                             </li>
                         </ul>
                         <ul class="table-tbody clear" v-if="data.items.length===0">
@@ -295,6 +296,7 @@
     import api from '@/api'
     import SelectCheckbox from '@/components/SelectCheckbox'
     import SearchIpts from '../common/searchIpts'
+    import { mapGetters } from 'vuex'
     export default {
         //组件
         components: {
@@ -414,7 +416,10 @@
             },
             uploadUrl () {
                 return api.common.upload
-            }
+            },
+            ...mapGetters([
+                'getNavList'
+            ])
         },
         methods: {
             //列表页获取

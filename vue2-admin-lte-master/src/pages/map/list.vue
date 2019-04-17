@@ -61,7 +61,7 @@
                             <div class="col-xs-1 text-bold map-title">异常影厅:</div>
                             <div class="col-xs-11 text-center">{{marker.error_hall_num || 0}}个</div>
                         </li>
-                        <li class="clear">
+                        <li class="clear" v-if="getNavList['4030103']">
                             <div class="col-xs-11"></div>
                             <div class="col-xs-1 p-n" style="min-width: 60px;" @click="goDetail(marker.cinema_id, marker.cinema_name)"><a href="javascript:;" class="pull-right">查看详情</a></div>
                         </li>
@@ -75,6 +75,7 @@
     import SubHeader from '../common/subheader'
     import SearchIpts from '../common/searchIpts'
     import api from '@/api'
+    import { mapGetters } from 'vuex'
     export default {
         data () {
             const self = this
@@ -135,6 +136,11 @@
                 ],
                 markers: [],
             }
+        },
+        computed: {
+            ...mapGetters([
+                'getNavList'
+            ])
         },
         methods: {
             getList() {

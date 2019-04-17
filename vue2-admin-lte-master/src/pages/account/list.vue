@@ -7,13 +7,9 @@
                 <div class="page-toolbar clear m-t-sm">
                     <search-ipts :options="searchOptions" @submit="doSearch" v-show="searchShow"></search-ipts>
                     <div class="pull-left toolbar-candle clear">
-                        <a href="javascript:;" title="添加" @click="addItem"
+                        <a href="javascript:;" title="添加" v-if="getNavList['4080104']" @click="addItem"
                            class="app-add btn bg-blue1 text-white"><i class="fa fa-plus-square"></i>添加
                         </a>
-                        <a href="javascript:;" title="删除" class="app-add btn bg-red1 text-white"
-                           @click="delItem(selectedGroup)"><i
-                            class="fa fa-trash"></i>删除</a>
-                        <!-- <div class="app-del btn bg-red1 text-white"><i class="fa fa-minus-square"></i>删除</div> -->
                         <div class="app-refresh btn bg-gray1" title="刷新" @click="refresh"><i
                             class="fa fa-refresh"></i></div>
                     </div>
@@ -28,35 +24,28 @@
                 <div class="page-contaoner">
                     <div class="lk-table m-t-sm">
                         <ul class="table-thead clear">
-                            <li class="col-xs-24 p-n select-box">
-                                <el-checkbox v-model="selectAll">全选</el-checkbox>
-                            </li>
-                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('ID')!=-1">ID</li>
+                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('序号')!=-1">序号</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('用户名')!=-1">用户名</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('昵称')!=-1">昵称</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('分组名称')!=-1">分组名称</li>
-                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('邮箱')!=-1">邮箱</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('真实姓名')!=-1">真实姓名</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('手机号')!=-1">手机号</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('邮箱')!=-1">邮箱</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('角色')!=-1">角色</li>
                             <li class="col-xs-24 p-n" v-show="selectVal.indexOf('状态')!=-1">状态</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1">操作</li>
                         </ul>
-                        <ul class="table-tbody clear" v-for="(item, index) in data.items" @click="selectItem(item.id)">
-                            <li class="col-xs-24 p-n select-box">
-                                <el-checkbox :label="item.id" v-model="selectedGroup"></el-checkbox>
-                            </li>
-                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('ID')!=-1" :title="item.id">{{item.id}}</li>
+                        <ul class="table-tbody clear" v-for="(item, index) in data.items">
+                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('序号')!=-1" :title="item.id">{{item.id}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('用户名')!=-1" :title="item.username">{{item.username}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('昵称')!=-1" :title="item.nickname">{{item.nickname}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('分组名称')!=-1" :title="item.name">{{item.name}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('邮箱')!=-1" :title="item.email">{{item.email}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('真实姓名')!=-1" :title="item.realname">{{item.realname}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('手机号')!=-1" :title="item.mobile">{{item.mobile}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('邮箱')!=-1" :title="item.email">{{item.email}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('角色')!=-1" :title="item.role_name">{{item.role_name}}</li>
                             <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('状态')!=-1" :title="item.status_name" :class="item.status==2?'text-red':'text-green'">{{item.status_name}}</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1">
-                                <!--<a href="javascript:;" title="详情" class="candle-btn btn" @click.stop="openDetail(item)"><i-->
-                                    <!--class="fa fa-search-plus"></i></a>-->
-                                <a href="javascript:;" title="编辑" :class="{'disabled': item.id==getAuthInfo.id}" class="link" @click.stop="editItem(item)">编辑</a>
-                                <a href="javascript:;" :title="item.status==2?'点击启用':'点击禁用'" class="link" :class="{'disabled': item.id==getAuthInfo.id}" @click.stop="statusChange(item)">{{item.status==2?'开启':'禁用'}}</a>
-                                <a href="javascript:;" title="删除" class="link" :class="{'disabled': item.id==getAuthInfo.id}" @click.stop="delItem([item.id])">删除</a>
+                                <a href="javascript:;" v-if="getNavList['4080102']" title="编辑" :class="{'disabled': item.id==getAuthInfo.id}" class="link" @click.stop="editItem(item)">编辑</a>
+                                <a href="javascript:;" v-if="getNavList['4080101']" :title="item.status==2?'点击启用':'点击禁用'" class="link" :class="{'disabled': item.id==getAuthInfo.id}" @click.stop="statusChange(item)">{{item.status==2?'开启':'禁用'}}</a>
+                                <a href="javascript:;" v-if="getNavList['4080103']" title="删除" class="link" :class="{'disabled': item.id==getAuthInfo.id}" @click.stop="delItem(item.id)">删除</a>
+                                <span v-if="!getNavList['4080102']&&!getNavList['4080101']&&!getNavList['4080103']">---</span>
                             </li>
                         </ul>
                         <ul class="table-tbody clear" v-if="data.items.length===0">
@@ -88,61 +77,11 @@
                         </div>
                     </div>
                     <el-dialog
-                        title="详情"
-                        :visible.sync="detailModal"
-                        custom-class="dialog-modal1">
-                        <div v-loading="modalLoading">
-                            <div class="clear">
-                                <div class="col-xs-2 line-height-40 text-right text-bold min-width-105">标题</div>
-                                <div class="col-xs-8 line-height-40 text-bold">内容</div>
-                            </div>
-                            <div class="clear bg-f9">
-                                <div class="col-xs-2 line-height-40 text-right min-width-105">用户名:</div>
-                                <div class="col-xs-8 line-height-40">{{detailVal.username}}</div>
-                            </div>
-                            <div class="clear">
-                                <div class="col-xs-2 line-height-40 text-right min-width-105">昵称:</div>
-                                <div class="col-xs-8 line-height-40">{{detailVal.nickname}}</div>
-                            </div>
-                            <div class="clear bg-f9">
-                                <div class="col-xs-2 line-height-40 text-right min-width-105">分组名称:</div>
-                                <div class="col-xs-8 line-height-40">{{detailVal.groupname}}</div>
-                            </div>
-                            <div class="clear">
-                                <div class="col-xs-2 line-height-40 text-right min-width-105">Email:</div>
-                                <div class="col-xs-8 line-height-40">{{detailVal.email}}</div>
-                            </div>
-                            <div class="clear bg-f9">
-                                <div class="col-xs-2 line-height-40 text-right min-width-105">手机号:</div>
-                                <div class="col-xs-8 line-height-40">{{detailVal.mobile}}</div>
-                            </div>
-                            <div class="clear">
-                                <div class="col-xs-2 line-height-40 text-right min-width-105">状态:</div>
-                                <div class="col-xs-8 line-height-40">{{detailVal.status}}</div>
-                            </div>
-                        </div>
-                    </el-dialog>
-                    <el-dialog
                         :title="type=='edit'?'编辑':'添加'"
                         :visible.sync="editModal"
                         custom-class="dialog-modal1"
                         :close-on-click-modal="false">
                         <div v-loading="modalLoading">
-                            <div class="clear m-b-sm">
-                                <div class="col-xs-12 col-sm-2 line-height-40 text-right min-width-105"><span class="text-red">*</span>所属组别:</div>
-                                <div class="col-xs-12 col-sm-8 team-select">
-                                    <el-select :class="{'border-red': groupError}" @change="groupChange" v-model="detailVal.group_id" placeholder="请选择组别" popper-class="select-team">
-                                        <el-option
-                                            v-for="(item, index) in teamOptions"
-                                            :key="index"
-                                            :label="item.name"
-                                            :value="item.id">
-                                        </el-option>
-                                    </el-select>
-                                    <p v-if="groupError" class="text-red"><span class="fa fa-close m-r-xs"></span>请选择所属组别</p>
-                                </div>
-
-                            </div>
                             <div class="clear m-b-sm">
                                 <div class="col-xs-12 col-md-2 line-height-40 text-right min-width-105"><span class="text-red">*</span>用户名:</div>
                                 <div class="col-xs-12 col-md-8">
@@ -151,10 +90,24 @@
                                 </div>
                             </div>
                             <div class="clear m-b-sm">
-                                <div class="col-xs-12 col-md-2 line-height-40 text-right min-width-105"><span class="text-red">*</span>昵称:</div>
+                                <div class="col-xs-12 col-md-2 line-height-40 text-right min-width-105"><span class="text-red">*</span>真实姓名:</div>
                                 <div class="col-xs-12 col-md-8">
-                                    <el-input placeholder="请输入昵称" :class="{'border-red': nicknameError}" v-model="detailVal.nickname" @blur="validateNickname(detailVal.nickname)"></el-input>
-                                    <p v-if="nicknameError" class="text-red"><span class="fa fa-close m-r-xs"></span>请输入昵称</p>
+                                    <el-input placeholder="请输入真实姓名" :class="{'border-red': realnameError}" v-model="detailVal.realname" @blur="validaterealname(detailVal.realname)"></el-input>
+                                    <p v-if="realnameError" class="text-red"><span class="fa fa-close m-r-xs"></span>请输入真实姓名</p>
+                                </div>
+                            </div>
+                            <div class="clear m-b-sm">
+                                <div class="col-xs-12 col-md-2 line-height-40 text-right min-width-105"><span class="text-red">*</span>密码:</div>
+                                <div class="col-xs-12 col-md-8">
+                                    <el-input placeholder="请输入密码" type="password" :class="{'border-red': passwordError}" v-model="detailVal.password" @blur="validatePsd(detailVal.password)"></el-input>
+                                    <p v-if="passwordError" class="text-red"><span class="fa fa-close m-r-xs"></span>密码由6-20位英文,数字及特殊符号组成</p>
+                                </div>
+                            </div>
+                            <div class="clear m-b-sm">
+                                <div class="col-xs-12 col-md-2 line-height-40 text-right min-width-105"><span class="text-red">*</span>确认密码:</div>
+                                <div class="col-xs-12 col-md-8">
+                                    <el-input placeholder="请确认密码" type="password" :class="{'border-red': repasswordError}" v-model="detailVal.repassword" @blur="validateRepsd(detailVal.repassword)"></el-input>
+                                    <p v-if="repasswordError" class="text-red"><span class="fa fa-close m-r-xs"></span>两次输入密码不一致</p>
                                 </div>
                             </div>
                             <div class="clear m-b-sm">
@@ -172,17 +125,17 @@
                                 </div>
                             </div>
                             <div class="clear m-b-sm">
-                                <div class="col-xs-12 col-md-2 line-height-40 text-right min-width-105"><span class="text-red">*</span>密码:</div>
-                                <div class="col-xs-12 col-md-8">
-                                    <el-input placeholder="请输入密码" type="password" :class="{'border-red': passwordError}" v-model="detailVal.password" @blur="validatePsd(detailVal.password)"></el-input>
-                                    <p v-if="passwordError" class="text-red"><span class="fa fa-close m-r-xs"></span>密码由6-20位英文,数字及特殊符号组成</p>
-                                </div>
-                            </div>
-                            <div class="clear m-b-sm" v-if="type=='add'">
-                                <div class="col-xs-12 col-md-2 line-height-40 text-right min-width-105"><span class="text-red">*</span>状态:</div>
-                                <div class="col-xs-12 col-md-8 line-height-40">
-                                    <el-radio :label="1" v-model="detailVal.status">启用</el-radio>
-                                    <el-radio :label="2" v-model="detailVal.status">禁用</el-radio>
+                                <div class="col-xs-12 col-sm-2 line-height-40 text-right min-width-105"><span class="text-red">*</span>角色:</div>
+                                <div class="col-xs-12 col-sm-8 team-select">
+                                    <el-select :class="{'border-red': groupError}" @change="groupChange" v-model="detailVal.role_id" placeholder="请选择角色" popper-class="select-team">
+                                        <el-option
+                                            v-for="(item, index) in teamOptions"
+                                            :key="index"
+                                            :label="item.role_name"
+                                            :value="item.role_id">
+                                        </el-option>
+                                    </el-select>
+                                    <p v-if="groupError" class="text-red"><span class="fa fa-close m-r-xs"></span>请选择角色</p>
                                 </div>
                             </div>
                             <div class="text-center m-t-lg clear">
@@ -224,8 +177,8 @@
             teamOptions: [],
             loading: false,
             modalLoading: false,
-            selectVal: ['ID', '用户名', '昵称', '分组名称', '邮箱', '手机号', '状态', '操作'],
-            showList: ['ID', '用户名', '昵称', '分组名称', '邮箱', '手机号', '状态', '操作'],
+            selectVal: ['序号', '用户名', '真实姓名', '手机号', '邮箱', '角色', '状态', '操作'],
+            showList: ['序号', '用户名', '真实姓名', '手机号', '邮箱', '角色', '状态', '操作'],
             options: [10, 25, 50],   //条数数目
             searchShow: false,   //搜索开关
             selectAll: false,    //多选框开关
@@ -234,20 +187,21 @@
             page: 1,
             //编辑
             detailVal:{
-                group_id: '',
+                role_id: '',
                 username:'',
-                nickname:'',
+                realname:'',
                 mobile: '',
                 email:'',
                 password: '',
-                status: 1
+                repassword: ''
             }, // 编辑详情弹出框值
             groupError: false,
             usernameError: false,
-            nicknameError: false,
+            realnameError: false,
             emailError: false,
             mobileError: false,
             passwordError: false,
+            repasswordError: false,
             id: '',
             type: '',
             detailModal: false, // 详情框
@@ -307,14 +261,15 @@
                 return (this.page - 1) * this.limit
             },
             ...mapGetters([
-                'getAuthInfo'
+                'getAuthInfo',
+                'getNavList'
             ])
         },
         methods: {
             //列表页获取
             getList () {
                 this.loading = true
-                this.$http.post(api.account.list, {
+                this.$http.post(api.system.userList, {
                     username: this.searchOptions[0].value,
                     email: this.searchOptions[1].value,
                     status: this.searchOptions[2].value,
@@ -345,71 +300,54 @@
             },
             // 角色分组列表
             getGroupList () {
-                this.$http.get(api.account.childGroup).then(res => {
+                this.$http.post(api.system.roleList, {
+                    page: 1,
+                    limit: 9999
+                }).then(res => {
                     if (res.data.code === 1) {
                         this.teamOptions = res.data.data.items
-                        if (this.type === 'edit') {
-                            this.teamOptions.map(val => {
-                                if (val.name === this.detailVal.name) {
-                                    this.$set(this.detailVal, 'group_id', val.id)
-                                }
-                            })
-                        }
                     } else {
                         this.teamOptions = []
-                        this.$message({
-                            type: 'warning',
-                            message: res.data.msg
-                        })
                     }
                 })
             },
             //删除
             delItem(id) {
-                if (id.length > 0) {
-                    this.$confirm(id.length > 1 ? '此操作将批量删除选中用户, 是否继续?' : '此操作将删除该用户, 是否继续?', '提示', {
-                        confirmButtonText: '确定',
-                        cancelButtonText: '取消',
-                        type: 'warning'
-                    }).then(() => {
-                        this.$http.get(api.account.delete, {
-                            params: {
-                                id: id.join(',')
-                            }
-                        }).then(res => {
-                            if (res.data.code === 1) {
-                                this.$message({
-                                    type: 'success',
-                                    message: '删除成功!'
-                                })
-                                this.getList()
-                            } else {
-                                this.$message({
-                                    type: 'warning',
-                                    message: res.data.msg
-                                })
-                            }
-                        })
-                    }).catch(() => {
+                this.$confirm('此操作将删除该用户, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.$http.post(api.system.userDel, {
+                        id: id
+                    }).then(res => {
+                        if (res.data.code === 1) {
+                            this.$message({
+                                type: 'success',
+                                message: '删除成功!'
+                            })
+                            this.getList()
+                        } else {
+                            this.$message({
+                                type: 'warning',
+                                message: res.data.msg
+                            })
+                        }
                     })
-                } else {
-                    this.$message({
-                        type: 'warning',
-                        message: '请选中需要操作的项'
-                    })
-                }
+                }).catch(() => {
+                })
             },
             // 添加
             addItem () {
                 this.type = 'add'
                 this.detailVal = {
                     username: '',
-                    nickname: '',
+                    realname: '',
                     mobile: '',
                     email: '',
-                    group_id: '',
+                    role_id: '',
                     password: '',
-                    status: 1
+                    repassword: ''
                 }
                 this.editModal = true
                 this.getGroupList()
@@ -417,10 +355,8 @@
             // 获取详情
             getDetail (item) {
                 this.modalLoading = true
-                this.$http.get(api.account.detail, {
-                    params: {
-                        id: item.id
-                    }
+                this.$http.post(api.system.userDetail, {
+                    id: item.id
                 }).then(res => {
                     if (res.data.code === 1) {
                         let that = this
@@ -456,24 +392,15 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    this.$http.get(api.account.disable, {
-                        params: {
-                            id: item.id,
-                            status: item.status === 2 ? 1 : 2
-                        }
+                    this.$http.post(api.system.userDisabled, {
+                        id: item.id
                     }).then(res => {
                         if(res.data.code === 1) {
                             this.$message({
                                 type: 'success',
                                 message: '操作成功'
                             })
-                            if (item.status === 2) {
-                                item.status_name = '启用'
-                                item.status = 1
-                            } else {
-                                item.status = 2
-                                item.status_name = '禁用'
-                            }
+                            this.getList()
                         } else {
                             this.$message({
                                 type: 'error',
@@ -485,13 +412,14 @@
             },
             //编辑确定按钮
             dailogSubmit () {
-                if (!this.detailVal.group_id) this.groupError = true
+                if (!this.detailVal.role_id) this.groupError = true
                 this.validateUsername(this.detailVal.username)
-                this.validateNickname(this.detailVal.nickname)
+                this.validaterealname(this.detailVal.realname)
                 this.validateEmail(this.detailVal.email)
                 this.validateMobile(this.detailVal.mobile)
                 this.validatePsd(this.detailVal.password)
-                if (this.groupError || this.usernameError || this.nicknameError || this.emailError || this.mobileError || this.passwordError) {
+                this.validateRepsd(this.detailVal.repassword)
+                if (this.groupError || this.usernameError || this.realnameError || this.emailError || this.mobileError || this.passwordError || this.repasswordError) {
                     this.$message({
                         type: 'warning',
                         message: '您填写的信息格式错误'
@@ -499,7 +427,7 @@
                     return
                 }
                 if (this.type === 'edit') {
-                    this.$http.post(api.account.edit, this.detailVal).then(res => {
+                    this.$http.post(api.system.userEdit, this.detailVal).then(res => {
                         if (res.data.code === 1) {
                             this.$message({
                                 type: 'success',
@@ -515,7 +443,7 @@
                         }
                     })
                 } else {
-                    this.$http.post(api.account.add, this.detailVal).then(res => {
+                    this.$http.post(api.system.userAdd, this.detailVal).then(res => {
                         if (res.data.code === 1) {
                             this.$message({
                                 type: 'success',
@@ -536,8 +464,8 @@
             validateUsername (val) {
                 this.usernameError = this.vUsername(val)
             },
-            validateNickname (val) {
-                this.nicknameError = val ? false : true
+            validaterealname (val) {
+                this.realnameError = val ? false : true
             },
             validateEmail (val) {
                 this.emailError = this.vEmail(val)
@@ -548,6 +476,9 @@
             validatePsd (val) {
                 if (this.type === 'add' || this.detailVal.password) this.passwordError = this.vPassword(val)
                 if (this.type === 'edit' && !this.detailVal.password) this.passwordError = false
+            },
+            validateRepsd (val) {
+                this.repasswordError = val === this.detailVal.password ? false : true
             },
             vUsername: validate.username,
             vEmail: validate.email,
@@ -566,14 +497,6 @@
                 this.searchOptions = data
                 this.getList()
             },
-            // 点击该行复选框选中
-            selectItem (id) {
-                if (this.selectedGroup.indexOf(id) !== -1) {
-                    this.selectedGroup.splice(this.selectedGroup.indexOf(id), 1)
-                } else {
-                    this.selectedGroup.push(id)
-                }
-            },
             // 下一页
             addPage () {
                 if (this.page < this.pages) this.page += 1
@@ -589,27 +512,6 @@
             this.getList()
         },
         watch: {
-            //监听checkbook
-            selectedGroup (val) {
-                if (val.length === this.data.items.length && val.length > 0) {    //全选全不选
-                    this.selectAll = true
-                } else {
-                    this.selectAll = false
-                }
-            },
-            //全选全不选
-            selectAll (val) {
-                if (val) {
-                    this.selectedGroup = []
-                    this.data.items.map(val => {
-                        this.selectedGroup.push(val.id)
-                    })
-                } else {
-                    if (this.selectedGroup.length !== this.data.items.length - 1) {
-                        this.selectedGroup = []
-                    }
-                }
-            },
             page (val) {
                 this.$router.replace({name: 'account_list', query: {page: val}})
                 this.getList()
@@ -621,10 +523,11 @@
                 if (val) {
                     this.groupError = false
                     this.usernameError = false
-                    this.nicknameError = false
+                    this.realnameError = false
                     this.emailError = false
                     this.mobileError = false
                     this.passwordError = false
+                    this.repasswordError = false
                 }
             }
         }

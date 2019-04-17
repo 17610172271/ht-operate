@@ -48,39 +48,7 @@
             validateCode: '',
             keepLogin: false,
             loading: false,
-            rightList: {
-                401: true,
-                402: true,
-                403: true,
-                40301: true,
-                40302: true,
-                40303: true,
-                404: true,
-                40401: true,
-                40402: true,
-                405: true,
-                40501: true,
-                40502: true,
-                40503: true,
-                40504: true,
-                40505: true,
-                40506: true,
-                40507: true,
-                40508: true,
-                40509: true,
-                406: true,
-                40601: true,
-                40602: true,
-                40603: true,
-                407: true,
-                40701: true,
-                408: true,
-                40801: true,
-                40802: true,
-                409: true,
-                40901: true,
-                40902: true,
-            }
+            rightList: {}
         }),
         computed: {
             codeApi () {
@@ -94,13 +62,8 @@
             updateId () {
                 this.id = Math.floor(Math.random() * 1000000)
             },
-            getNav () {
-                // this.$http.get(api.common.getRight).then(res => {
-                //     if (res.data.code === 1) {
-                //         this.saveNavList(res.data.data)
-                //         window.localStorage.setItem('navList', JSON.stringify(this.rightList))
-                //     }
-                // })
+            getNav (data) {
+                this.rightList = data
                 this.saveNavList(this.rightList)
                 window.localStorage.setItem('navList', JSON.stringify(this.rightList))
             },
@@ -141,6 +104,7 @@
                                 username: this.username,
                                 password: this.password,
                                 identity: 'admin',
+                                scene: 4,
                                 keeplogin: this.keepLogin ? 1 : 2
                             }).then(res => {
                                 let that = this
@@ -149,7 +113,7 @@
                                     if (res.data.code === 1) {
                                         window.localStorage.setItem('authInfo', JSON.stringify(res.data.data))
                                         that.setAuthInfo(res.data.data)
-                                        that.getNav()
+                                        that.getNav(res.data.data.menu_list)
                                         that.updateId()
                                         that.validateCode = ''
                                         $('.sidebar-menu .treeview').removeClass('menu-open')

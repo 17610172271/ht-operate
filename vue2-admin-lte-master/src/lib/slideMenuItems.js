@@ -238,18 +238,9 @@ module.exports = [
         isShow: false,
         root: [1,2,3,4,5,6,7,8],
         id: 407,
-        items: [
-            {
-                type: 'item',
-                icon: 'fa fa-circle-o',
-                name: '日志列表',
-                router: {
-                    name: 'log_list'
-                },
-                id: 40701,
-                isShow: false
-            }
-        ]
+        router: {
+            name: 'log_list'
+        },
     },
     {
         type: 'tree',
@@ -308,31 +299,5 @@ module.exports = [
                 isShow: false
             }
         ]
-    },
-    //{
-    //    type: 'tree',
-    //    icon: 'fa fa-registered',
-    //    name: '权限管理',
-    //    root: [1],
-    //    items: [
-    //        //{
-    //        //    type: 'item',
-    //        //    icon: 'fa fa-circle-o',
-    //        //    name: '规则列表',
-    //        //    router: {
-    //        //        name: 'jurisdiction_list'
-    //        //    },
-    //        //    root: [1]
-    //        //},
-    //        {
-    //            type: 'item',
-    //            icon: 'fa fa-circle-o',
-    //            name: '用户组管理',
-    //            router: {
-    //                name: 'account_group'
-    //            },
-    //            root: [1]
-    //        }
-    //    ]
-    //}
+    }
 ]

@@ -1,5 +1,5 @@
 <template>
-    <router-link tag="li" v-if="router && router.name" :to="router">
+    <router-link tag="li" v-if="router && router.name && isShow" :to="router">
         <a href="#">
             <i :class="icon"></i> <span>{{ name }}</span>
         </a>
