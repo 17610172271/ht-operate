@@ -34,7 +34,7 @@
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1">操作</li>
                         </ul>
                         <ul class="table-tbody clear" v-for="(item, index) in data.items">
-                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('序号')!=-1" :title="item.id">{{item.id}}</li>
+                            <li class="col-xs-24 p-n" v-show="selectVal.indexOf('序号')!=-1">{{offset + index + 1}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('用户名')!=-1" :title="item.username">{{item.username}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('真实姓名')!=-1" :title="item.realname">{{item.realname}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('手机号')!=-1" :title="item.mobile">{{item.mobile}}</li>

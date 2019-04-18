@@ -6,7 +6,7 @@ const rs = path => {
     return resolve => require(['@/pages/' + path], resolve)
 }
 const router = new Router({
-    // mode: 'history',
+    mode: 'history',
     routes: [
         {
             path: '/',

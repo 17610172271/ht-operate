@@ -10,7 +10,6 @@ export const common = {
     telCodeSend: '/api/v1/sms/sendCode', // 发送短信验证码
     setPassword: '/api/v1/common/lostPassword', // 找回密码
     getCity: '/api/v1/support/getCity', // 获取区域及省市区
-    getRight: '/api/v1/admin/getMenu', // 获取菜单权限
     login: '/api/v1/user/login', // 用户登录
     logout: '/api/v1/user/logout', // 退出登录
     editPassword: '/api/v1/admin/editPwd', // 修改密码
@@ -77,7 +76,6 @@ export  const account = {
     userdeldte:'/api/v1/group/del',  // 删除用户组
     getGroups: 'api/v1/group/getGroups', // 获取父分组
     getRule: 'api/v1/authRule/authRuleNode', // 获取规则
-    getRight: '/api/v1/admin/getMenu', // 获取菜单权限
     childGroup: '/api/v1/admin/childrenGroupsList', // 获取子用户组
 }
 

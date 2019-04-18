@@ -93,7 +93,8 @@
                 if (!this.telError && this.sendBtn === '获取验证码') {
                     this.$http.post(api.common.telCodeSend, {
                         mobile: this.tel,
-                        identity: 'admin'
+                        identity: 'admin',
+                        scene: 4
                     }).then(res => {
                         if (res.data.code === 1) {
                             this.$message({
@@ -137,7 +138,8 @@
                         captcha: this.validateCode,
                         mobile: this.tel,
                         password: this.password,
-                        identity: 'admin'
+                        identity: 'admin',
+                        scene: 4
                     }).then(res => {
                         if (res.data.code === 1) {
                             this.$router.push({name: 'login'})

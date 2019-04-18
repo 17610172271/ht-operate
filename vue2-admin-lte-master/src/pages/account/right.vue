@@ -26,7 +26,7 @@
                             <li class="col-xs-1 p-n">操作</li>
                         </ul>
                         <ul class="table-tbody clear" v-for="(item, index) in data.items">
-                            <li class="col-xs-24 p-n" :title="item.role_id">{{item.role_id}}</li>
+                            <li class="col-xs-24 p-n">{{offset + index + 1}}</li>
                             <li class="col-xs-2 p-n over-omit" :title="item.role_name">{{item.role_name}}</li>
                             <li class="col-xs-3 p-n over-omit" :title="item.role_des">{{item.role_des}}</li>
                             <li class="col-xs-1 p-n">
