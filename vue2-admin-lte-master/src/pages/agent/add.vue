@@ -263,7 +263,6 @@
             <div class="p-v-lg clear">
                 <div class="col-xs-3" style="max-width: 200px;"></div>
                 <div class="col-xs-9">
-                    <el-button type="primary" v-if="!$route.params.id" @click="saveInfo">保存草稿</el-button>
                     <el-button type="primary" @click="submit">{{$route.name.indexOf('edit') > 0 ? '保存' : '开通'}}</el-button>
                     <el-button @click="goBack">取 消</el-button>
                 </div>
@@ -475,7 +474,6 @@
                     }
                 })
             },
-            saveInfo () {},
             submit () {
                 this.validateRegion()
                 this.validateName()
@@ -641,18 +639,6 @@
         beforeRouteEnter (to, from, next) {
             next(vm => {
                 vm.fromRouter = from.name
-            })
-        },
-        beforeRouteLeave (to, from, next) {
-            next(false)
-            this.$confirm('是否保存草稿?', '提示', {
-                confirmButtonText: '确定',
-                cancelButtonText: '取消',
-                type: 'warning'
-            }).then(() => {
-                next()
-            }).catch(() => {
-                console.log('cancel')
             })
         },
         created () {

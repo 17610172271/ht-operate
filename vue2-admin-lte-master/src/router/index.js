@@ -11,7 +11,7 @@ const router = new Router({
         {
             path: '/',
             component: rs('home/index'),
-            redirect: {name: 'login'},
+            redirect: {name: 'home'},
             children: [
                 {
                     path: '/home',
@@ -301,6 +301,9 @@ const router = new Router({
                     component: rs('common/500')
                 }
             ]
+        },
+        {
+            path: '*', component: rs('common/404')
         }
     ],
     linkActiveClass: 'active'
