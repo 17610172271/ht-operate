@@ -118,7 +118,7 @@
                                         that.validateCode = ''
                                         $('.sidebar-menu .treeview').removeClass('menu-open')
                                         $('.sidebar-menu .treeview .treeview-menu').css('display', 'none')
-                                        that.$router.push({name: 'home'})
+                                        
                                         // 登录成功后路由跳转
                                         let rightList = res.data.data.menu_list
                                         let pageVal = ''
@@ -137,7 +137,6 @@
                                                 break;
                                             }
                                         }
-                                        console.log(pageVal)
                                         switch (pageVal)
                                         {
                                             case '401990000':
