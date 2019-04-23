@@ -6,7 +6,7 @@ export const common = {
     upload: '/api/v1/upload/uploadImage', // 上传文件
     codeGet: '/api/v1/user/getCode', // 图片验证码获取
     codeCheck: '/api/v1/user/checkCode', // 图片验证
-    news: 'v1/Setting/get_num', // 消息数量
+    news: '/v1/Setting/get_num', // 消息数量
     telCodeSend: '/api/v1/sms/sendCode', // 发送短信验证码
     setPassword: '/api/v1/common/lostPassword', // 找回密码
     getCity: '/api/v1/support/getCity', // 获取区域及省市区
@@ -28,6 +28,8 @@ export  const agent = {
     setAccount: '/api/v1/agent/proportion', // 代理商分账比例设置
     stopLog:'/api/v1/agent/stopLog', //禁用记录
     checkLog:'/api/v1/agent/checkLog', //审核记录
+    saveDraft: '/api/v1/agent/addDraft', // 保存草稿
+    delDraft: '/api/v1/agent/delDraft', // 删除草稿
 }
 
 // 影院
@@ -74,8 +76,8 @@ export  const account = {
     useradd:'/api/v1/group/add',   //添加用户组
     useredit:'/api/v1/group/edit',   //编辑用户组
     userdeldte:'/api/v1/group/del',  // 删除用户组
-    getGroups: 'api/v1/group/getGroups', // 获取父分组
-    getRule: 'api/v1/authRule/authRuleNode', // 获取规则
+    getGroups: '/api/v1/group/getGroups', // 获取父分组
+    getRule: '/api/v1/authRule/authRuleNode', // 获取规则
     childGroup: '/api/v1/admin/childrenGroupsList', // 获取子用户组
 }
 

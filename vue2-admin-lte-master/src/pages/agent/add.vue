@@ -61,7 +61,7 @@
                 <div class="clear m-b-sm flex m-t-lg">
                     <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;"><span class="text-red">*</span>管理账户(手机号):</div>
                     <div class="col-xs-9">
-                        <el-input v-model="addInfo.username" :disabled="$route.name.indexOf('edit')>0" :class="{'border-red': usernameError}" @blur="validateUsername" placeholder="请输入管理账户" style="max-width: 366px;"></el-input>
+                        <el-input v-model="addInfo.username" :disabled="$route.name.indexOf('edit')>0&&$route.query.isDraft!==1" :class="{'border-red': usernameError}" @blur="validateUsername" placeholder="请输入管理账户" style="max-width: 366px;"></el-input>
                         <p v-if="usernameError" class="text-red"><span class="fa fa-close m-r-xs"></span>请输入正确的手机号格式</p>
                     </div>
                 </div>
@@ -263,6 +263,7 @@
             <div class="p-v-lg clear">
                 <div class="col-xs-3" style="max-width: 200px;"></div>
                 <div class="col-xs-9">
+                    <el-button type="primary" @click="saveInfo" v-if="$route.query.isDraft===1 || !$route.params.id">保存草稿</el-button>
                     <el-button type="primary" @click="submit">{{$route.name.indexOf('edit') > 0 ? '保存' : '开通'}}</el-button>
                     <el-button @click="goBack">取 消</el-button>
                 </div>
@@ -354,6 +355,7 @@
             accountError : false,
             contractError :false,
             header: {ContentType: 'application/x-www-form-urlencoded'},
+            isDraft: false
         }),
         computed: {
             uploadUrl () {
@@ -369,7 +371,7 @@
                 this.$http.get(api.agent.detail, {
                     params: {
                         id: this.$route.params.id,
-                        type: 2
+                        type: this.$route.query.isDraft === 1 ? 3 : 2
                     }
                 }).then(res => {
                     let that = this
@@ -474,6 +476,24 @@
                     }
                 })
             },
+            saveInfo (next) {
+                this.$http.post(api.agent.saveDraft, {
+                    ...this.addInfo,
+                    id: this.$route.params.id ? this.$route.params.id : '',
+                    region_id: this.addInfo.region_id.join(','),
+                    province_id: this.addInfo.cityLink.split('/')[0] || '',
+                    city_id: this.addInfo.cityLink.split('/')[1] || '',
+                    county_id: this.addInfo.cityLink.split('/')[2] || '',
+                    contract: this.addInfo.contract.join(',')
+                }).then(res => {
+                    if (res.data.code === 1) {
+                        this.$message.success('草稿保存成功')
+                        this.isDraft = true
+                    } else {
+                        this.$message.error(res.data.msg)
+                    }
+                })
+            },
             submit () {
                 this.validateRegion()
                 this.validateName()
@@ -514,9 +534,9 @@
                     this.$http.post(api.agent.edit, {
                         ...this.addInfo,
                         region_id: this.addInfo.region_id.join(','),
-                        province_id: this.addInfo.cityLink.split('/')[0],
-                        city_id: this.addInfo.cityLink.split('/')[1],
-                        county_id: this.addInfo.cityLink.split('/')[2],
+                        province_id: this.addInfo.cityLink.split('/')[0] || '',
+                        city_id: this.addInfo.cityLink.split('/')[1] || '',
+                        county_id: this.addInfo.cityLink.split('/')[2] || '',
                         contract: this.addInfo.contract.join(',')
                     }).then(res => {
                         if (res.data.code === 1) {
@@ -530,9 +550,9 @@
                     this.$http.post(api.agent.add, {
                         ...this.addInfo,
                         region_id: this.addInfo.region_id.join(','),
-                        province_id: this.addInfo.cityLink.split('/')[0],
-                        city_id: this.addInfo.cityLink.split('/')[1],
-                        county_id: this.addInfo.cityLink.split('/')[2],
+                        province_id: this.addInfo.cityLink.split('/')[0] || '',
+                        city_id: this.addInfo.cityLink.split('/')[1] || '',
+                        county_id: this.addInfo.cityLink.split('/')[2] || '',
                         contract: this.addInfo.contract.join(',')
                     }).then(res => {
                         if (res.data.code === 1) {
@@ -640,6 +660,38 @@
             next(vm => {
                 vm.fromRouter = from.name
             })
+        },
+        beforeRouteLeave (to, from, next) {
+            if (!this.isDraft && (this.$route.query.isDraft === 1 || !this.$route.params.id)) {
+                next(false)
+                this.$confirm('您将离开本页面,是否保存为草稿?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.$http.post(api.agent.saveDraft, {
+                        ...this.addInfo,
+                        id: this.$route.params.id ? this.$route.params.id : '',
+                        region_id: this.addInfo.region_id.join(','),
+                        province_id: this.addInfo.cityLink.split('/')[0] || '',
+                        city_id: this.addInfo.cityLink.split('/')[1] || '',
+                        county_id: this.addInfo.cityLink.split('/')[2] || '',
+                        contract: this.addInfo.contract.join(',')
+                    }).then(res => {
+                        if (res.data.code === 1) {
+                            this.isDraft = true
+                            this.$message.success('草稿保存成功')
+                            next()
+                        } else {
+                            this.$message.error(res.data.msg)
+                        }
+                    })
+                }).catch(() => {
+                    next()
+                })
+            } else {
+                next()
+            }
         },
         created () {
             this.getRegionList()

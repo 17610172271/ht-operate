@@ -48,7 +48,8 @@
                             <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('状态')!=-1" :title="item.status_name" :class="{'text-green':item.status==1, 'text-red':item.status==3, 'text-orange': item.status==2}">{{item.status_name}}</li>
                             <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('分账百分比')!=-1" :title="item.proportion">{{item.proportion}} %</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 130px;">
-                                <router-link :to="{name: 'agent_detail', params: {id: item.id}}" v-if="getNavList['4030201']" href="javascript:;" class="link" @click.stop>查看</router-link>
+                                <router-link :to="{name: 'agent_detail', params: {id: item.id}}" v-if="getNavList['4030201']&&item.is_draft!==1" href="javascript:;" class="link" @click.stop>查看</router-link>
+                                <router-link :to="{name: 'agent_edit', params: {id: item.id, isDraft: 1}, query: {isDraft: 1}}" v-if="getNavList['4030201']&&item.is_draft===1" href="javascript:;" class="link" @click.stop>查看(草稿)</router-link>
                                 <router-link :to="{name: 'agent_edit',params: {id: item.id}}" href="javascript:;" v-if="item.status==3&&getNavList['4030203']" class="link" @click.stop>再次申请</router-link>
                                 <a href="javascript:;" :class="{'disabled': item.status!=1}" class="link" v-else-if="getNavList['4030204']" @click.stop="openAccount(item)">分账设置</a>
                                 <span v-if="!getNavList['4030201']&&!(item.status==3&&getNavList['4030203'])&&!getNavList['4030204']">---</span>
