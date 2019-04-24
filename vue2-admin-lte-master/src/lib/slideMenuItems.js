@@ -1,10 +1,10 @@
 module.exports = [
-    {
-        type: 'item',
-        isHeader: true,
-        name: '',
-        isShow: true
-    },
+    //{
+    //    type: 'item',
+    //    isHeader: true,
+    //    name: '',
+    //    isShow: true
+    //},
     {
         type: 'item',
         icon: 'fa fa-home',

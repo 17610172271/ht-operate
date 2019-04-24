@@ -264,7 +264,8 @@
                 <div class="col-xs-3" style="max-width: 200px;"></div>
                 <div class="col-xs-9">
                     <el-button type="primary" @click="saveInfo" v-if="$route.query.isDraft===1 || !$route.params.id">保存草稿</el-button>
-                    <el-button type="primary" @click="submit">{{$route.name.indexOf('edit') > 0 ? '保存' : '开通'}}</el-button>
+                    <span  v-if="$route.query.isDraft===1"></span>
+                    <span v-else><el-button type="primary" @click="submit">{{$route.name.indexOf('edit') > 0 ? '保存' : '开通'}}</el-button></span>
                     <el-button @click="goBack">取 消</el-button>
                 </div>
             </div>
@@ -434,7 +435,6 @@
                 return isLt2M
             },
             licenceUpload (res, file) {
-                console.log(res)
                 if (res.code === 1) {
                     this.addInfo.business_licence = res.data.image
                     this.$message({
@@ -450,7 +450,6 @@
                 }
             },
             handleRemove(file, fileList) {
-                console.log(fileList)
                 this.addInfo.contract = []
                 fileList.map(val => {
                     if (val.response && val.response.code === 1) {
@@ -465,7 +464,6 @@
                 this.dialogVisible = true
             },
             contractUpload (res, file, fileList) {
-                console.log(fileList)
                 this.addInfo.contract = []
                 fileList.map(val => {
                     if (val.response && val.response.code === 1) {
@@ -487,7 +485,6 @@
                     contract: this.addInfo.contract.join(',')
                 }).then(res => {
                     if (res.data.code === 1) {
-                        console.log(111);
                         this.$message.success('草稿保存成功')
                         this.isDraft = true
                         this.$router.go(-1)

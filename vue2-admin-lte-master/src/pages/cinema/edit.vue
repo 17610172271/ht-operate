@@ -127,7 +127,8 @@
                 this.loading = true
                 this.$http.get(api.cinema.editDetail, {
                     params: {
-                        id: this.$route.params.id
+                        id: this.$route.params.id,
+                        type:1
                     }
                 }).then(res => {
                     let that = this

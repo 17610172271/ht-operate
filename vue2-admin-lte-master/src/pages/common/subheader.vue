@@ -3,7 +3,7 @@
 		<div class="pull-left content-nav">{{navList.childNode.name}}<span class="content-muted-xs hidden-xs">{{navList.childNode.desc}}</span></div>
     <ul class="pull-right clear content-subnav m-t-sm hidden-xs hidden-sm">
       <li class="pull-left" @click="backPrepage">返回上一级</li>
-      <router-link tag="li" :to="navList.parentNode.router" class="pull-left">{{navList.parentNode.name}}</router-link>
+      <a tag="li" :to="navList.parentNode.router" class="pull-left border_right">{{navList.parentNode.name}}</a>
       <router-link tag="li" :to="navList.childNode.router" class="pull-left">{{navList.childNode.name}}</router-link>
     </ul>
 	</div>
@@ -69,5 +69,10 @@
     .content-nav {
       padding-left: 10px;
     }
+  }
+  .border_right{
+      padding-left: 10px;
+    padding-right: 10px;
+    border-right: 1px solid #c5cbd1;
   }
 </style>
