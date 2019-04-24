@@ -4,13 +4,13 @@
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item :to="{name: 'agent_list'}" v-if="fromRouter==='agent_list'">代理商列表</el-breadcrumb-item>
                 <el-breadcrumb-item :to="{name: 'agent_mine'}" v-else>我的代理商</el-breadcrumb-item>
-                <el-breadcrumb-item>{{$route.name.indexOf('edit')>0?'编辑代理商':'添加代理商'}}</el-breadcrumb-item>
+                <el-breadcrumb-item>{{$route.name.indexOf('edit')>0?'查看编辑代理商':'添加代理商'}}</el-breadcrumb-item>
             </el-breadcrumb>
             <a href="javascript:;" class="btn bg-blue1 text-white btn-back" @click="goBack">返回</a>
         </div>
         <div class="p-o-lg p-v-sm" style="padding-bottom: 50px;" v-loading="loading">
             <div class=" border-bottom">
-                <h5 class="border-bottom text-xxlg text-bold p-b-sm">{{$route.name.indexOf('edit')>0?'编辑代理商':'添加代理商'}}</h5>
+                <h5 class="border-bottom text-xxlg text-bold p-b-sm">{{$route.name.indexOf('edit')>0?'查看编辑代理商':'添加代理商'}}</h5>
                 <div class="p-v-md">
                     <div class="clear m-b-sm flex">
                         <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;"><span class="text-red">*</span>所属区域:</div>
@@ -487,8 +487,10 @@
                     contract: this.addInfo.contract.join(',')
                 }).then(res => {
                     if (res.data.code === 1) {
+                        console.log(111);
                         this.$message.success('草稿保存成功')
                         this.isDraft = true
+                        this.$router.go(-1)
                     } else {
                         this.$message.error(res.data.msg)
                     }

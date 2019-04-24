@@ -528,6 +528,7 @@
                 this.getList()
             },
             limit (val) {
+                this.page = 1
                 this.getList()
             },
 //            'detailVal.agent_id' (val) {

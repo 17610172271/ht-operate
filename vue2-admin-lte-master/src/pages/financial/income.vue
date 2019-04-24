@@ -225,6 +225,7 @@
                 this.getList()
             },
             limit (val) {
+                this.page = 1
                 this.getList()
             },
             searchShow (val) {
