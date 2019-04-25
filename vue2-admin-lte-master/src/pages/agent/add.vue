@@ -493,9 +493,7 @@
                 })
             },
             submit () {
-                if(this.$route.query.isDraft===1){
-                    this.saveInfo()
-                }else{
+
                     this.validateRegion()
                     this.validateName()
                     this.validateCity()
@@ -531,6 +529,25 @@
                         this.$message.warning('填写的信息格式不正确')
                         return
                     }
+                if(this.$route.query.isDraft===1){
+                    this.$http.post(api.agent.add, {
+                        id: this.$route.params.id ? this.$route.params.id : '',
+                        ...this.addInfo,
+                        region_id: this.addInfo.region_id.join(','),
+                        province_id: this.addInfo.cityLink.split('/')[0] || '',
+                        city_id: this.addInfo.cityLink.split('/')[1] || '',
+                        county_id: this.addInfo.cityLink.split('/')[2] || '',
+                        contract: this.addInfo.contract.join(',')
+                    }).then(res => {
+                        if (res.data.code === 1) {
+                            this.$message.success('代理商添加成功')
+                            this.isDraft = true
+                            this.$router.go(-1)
+                        } else {
+                            this.$message.error(res.data.msg)
+                        }
+                    })
+                }else{
                     if (this.$route.name.indexOf('edit') > 0) {
                         this.$http.post(api.agent.edit, {
                             ...this.addInfo,
