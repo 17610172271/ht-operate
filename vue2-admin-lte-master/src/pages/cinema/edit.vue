@@ -67,6 +67,63 @@
                         </div>
                     </div>
                 </div>
+                <div class="p-v-md border-bottom">
+                    <h5 class="border-bottom text-xxlg text-bold p-b-sm">公司信息</h5>
+                    <div class="clear m-b-sm flex">
+                        <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;"><span class="text-red">*</span>公司全称:</div>
+                        <div class="col-xs-9">
+                            <el-input v-model="addInfo.company" :class="{'border-red': companyError}" @blur="validateCompany" placeholder="请输入公司全称" style="max-width: 366px;"></el-input>
+                            <p v-if="companyError" class="text-red"><span class="fa fa-close m-r-xs"></span>请输入公司全称</p>
+                        </div>
+                    </div>
+                    <div class="clear m-b-sm flex">
+                        <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;"><span class="text-red">*</span>法人姓名:</div>
+                        <div class="col-xs-9">
+                            <el-input v-model="addInfo.legal_person" :class="{'border-red': legalPersonError}" @blur="validateLegalPerson" placeholder="请输入法人姓名" style="max-width: 366px;"></el-input>
+                            <p v-if="legalPersonError" class="text-red"><span class="fa fa-close m-r-xs"></span>请输入法人姓名</p>
+                        </div>
+                    </div>
+                    <div class="clear m-b-sm flex">
+                        <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;"><span class="text-red">*</span>法人手机号:</div>
+                        <div class="col-xs-9">
+                            <el-input v-model="addInfo.legal_phone" :class="{'border-red': legalPhoneError}" @blur="validateLegalPhone" placeholder="请输入法人手机号" style="max-width: 366px;"></el-input>
+                            <p v-if="legalPhoneError" class="text-red"><span class="fa fa-close m-r-xs"></span>请输入正确的手机号格式</p>
+                        </div>
+                    </div>
+                    <div class="clear m-b-sm flex">
+                        <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;"><span class="text-red">*</span>法人身份证号:</div>
+                        <div class="col-xs-9">
+                            <el-input v-model="addInfo.legal_person_id" :class="{'border-red': legalPersonIdError}" @blur="validateLegalPersonId" placeholder="请输入法人身份证号" style="max-width: 366px;"></el-input>
+                            <p v-if="legalPersonIdError" class="text-red"><span class="fa fa-close m-r-xs"></span>请输入正确的身份证号格式</p>
+                        </div>
+                    </div>
+                    <div class="clear m-b-sm flex">
+                        <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;"><span class="text-red">*</span>邮箱:</div>
+                        <div class="col-xs-9">
+                            <el-input v-model="addInfo.legal_email" :class="{'border-red': legalEmailError}" @blur="validateLegalEmail" placeholder="请输入邮箱" style="max-width: 366px;"></el-input>
+                            <p v-if="legalEmailError" class="text-red"><span class="fa fa-close m-r-xs"></span>请输入正确的邮箱格式</p>
+                        </div>
+                    </div>
+                    <div class="clear m-b-sm flex">
+                        <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;"><span class="text-red">*</span>上传营业执照:</div>
+                        <div class="col-xs-9">
+                            <el-upload
+                                class="avatar-uploader"
+                                :class="{'border-red': licenceError}"
+                                :action="uploadUrl"
+                                :show-file-list="false"
+                                :headers="header"
+                                :before-upload="beforeUpload"
+                                accept="image/jpeg,jpg,png"
+                                :on-success="licenceUpload">
+                                <img v-if="addInfo.business_licence" :src="addInfo.business_licence" class="avatar">
+                                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                            </el-upload>
+                            <p v-if="licenceError" class="text-red"><span class="fa fa-close m-r-xs"></span>请上传营业执照(2M以内jpg格式图片)</p>
+                            <p v-else class="text-999">(请上传2M以内jpg格式图片)</p >
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="p-v-lg clear border-top">
                 <div class="col-xs-3" style="max-width: 200px;"></div>
@@ -103,8 +160,15 @@
                 leader: '',
                 leader_phone: '',
                 num: '',
-                apply_remark: ''
+                apply_remark: '',
+                company:'',
+                legal_person:'',
+                legal_phone:'',
+                legal_person_id:'',
+                legal_email:'',
+                business_licence:'',
             },
+            header: {ContentType: 'application/x-www-form-urlencoded'},
             address: '',
             loading: false,
             regionList: [],
@@ -116,11 +180,22 @@
             addressError: false,
             numError: false,
             phoneError: false,
+            companyError:false,
+            legalPersonError:false,
+            legalPhoneError:false,
+            legalPersonIdError:false,
+            legalEmailError:false,
+            licenceError:false,
         }),
 
         components: {
             CitySelect,
             MapSearch
+        },
+        computed: {
+            uploadUrl () {
+                return api.common.upload
+            }
         },
         methods: {
             getData () {
@@ -164,6 +239,28 @@
                     }
                 })
             },
+            beforeUpload (file) {
+                const isLt2M = file.size / 1024 / 1024 < 2
+                if (!isLt2M) {
+                    this.$message.error('上传图片大小不能超过 2MB!')
+                }
+                return isLt2M
+            },
+            licenceUpload (res, file) {
+                if (res.code === 1) {
+                    this.addInfo.business_licence = res.data.image
+                    this.$message({
+                        type: 'success',
+                        message: '营业执照上传成功'
+                    })
+                    this.licenceError = false
+                } else {
+                    this.$message({
+                        type: 'error',
+                        message: res.msg
+                    })
+                }
+            },
             submit () {
                 this.validateRegion()
                 this.validateName()
@@ -171,7 +268,14 @@
                 this.validateAddress()
                 this.validateNum()
                 this.validatePhone()
-                if (this.regionError || this.nameError || this.cityError || this.addressError || this.numError || this.phoneError) {
+                this.validateCompany()
+                this.validateLegalPerson()
+                this.validateLegalPhone()
+                this.validateLegalPersonId()
+                this.validateLegalEmail()
+                this.validateLicence()
+                if (this.regionError || this.nameError || this.cityError || this.addressError || this.numError || this.phoneError || this.companyError || this.legalPersonError || this.legalPhoneError || this.legalPersonIdError ||
+                    this.legalEmailError || this.licenceError) {
                     this.$message.warning('填写的信息格式不正确')
                     return
                 }
@@ -185,7 +289,13 @@
                     city_id: this.addInfo.cityLink.split('/')[1],
                     county_id: this.addInfo.cityLink.split('/')[2],
                     longitude: this.addInfo.longitude,
-                    latitude: this.addInfo.latitude
+                    latitude: this.addInfo.latitude,
+                    company: this.addInfo.company,
+                    legal_person: this.addInfo.legal_person,
+                    legal_phone: this.addInfo.legal_phone,
+                    legal_person_id: this.addInfo.legal_person_id,
+                    legal_email: this.addInfo.legal_email,
+                    business_licence: this.addInfo.business_licence,
                 }).then(res => {
                     if (res.data.code === 1) {
                         this.$message.success('保存成功')
@@ -237,6 +347,24 @@
                 } else {
                     this.phoneError = false
                 }
+            },
+            validateCompany () {
+                this.companyError = this.addInfo.company ? false : true
+            },
+            validateLegalPerson () {
+                this.legalPersonError = this.addInfo.legal_person ? false : true
+            },
+            validateLegalPhone () {
+                this.legalPhoneError = validate.mobile(this.addInfo.legal_phone)
+            },
+            validateLegalPersonId () {
+                this.legalPersonIdError = /(^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$)|(^[1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{2}$)/.test(this.addInfo.legal_person_id) ? false : true
+            },
+            validateLegalEmail () {
+                this.legalEmailError = validate.email(this.addInfo.legal_email)
+            },
+            validateLicence () {
+                this.licenceError = this.addInfo.business_licence ? false : true
             },
             statusChange () {
                 this.isSelect = true
