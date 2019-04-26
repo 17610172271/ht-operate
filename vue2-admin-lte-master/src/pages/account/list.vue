@@ -44,8 +44,8 @@
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1">
                                 <a href="javascript:;" v-if="getNavList['4080102']" title="编辑" :class="{'disabled': item.id==getAuthInfo.id}" class="link" @click.stop="editItem(item)">编辑</a>
                                 <a href="javascript:;" v-if="getNavList['4080101']" :title="item.status==2?'点击启用':'点击禁用'" class="link" :class="{'disabled': item.id==getAuthInfo.id}" @click.stop="statusChange(item)">{{item.status==2?'开启':'禁用'}}</a>
-                                <a href="javascript:;" v-if="getNavList['4080103']" title="删除" class="link" :class="{'disabled': item.id==getAuthInfo.id}" @click.stop="delItem(item.id)">删除</a>
-                                <span v-if="!getNavList['4080102']&&!getNavList['4080101']&&!getNavList['4080103']">---</span>
+                                <!--<a href="javascript:;" v-if="getNavList['4080103']" title="删除" class="link" :class="{'disabled': item.id==getAuthInfo.id}" @click.stop="delItem(item.id)">删除</a>-->
+                                <span v-if="!getNavList['4080102']&&!getNavList['4080101']">---</span>
                             </li>
                         </ul>
                         <ul class="table-tbody clear" v-if="data.items.length===0">
