@@ -72,7 +72,7 @@
                         v-model="item.value"
                         type="month"
                         clearable
-                        value-format="yyyyMM"
+                        value-format="yyyy-MM"
                         style="width: 100%;"
                         placeholder="选择月份">
                     </el-date-picker>

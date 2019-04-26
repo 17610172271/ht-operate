@@ -94,10 +94,8 @@
                             username: this.username
                         }
                     }).then(res => {
-                        console.log(res.data.code, res.data.msg)
                         if (res.data.code === 1) {
                             this.usernameError = false
-                            console.log(res.data.msg)
                         } else {
                             this.usernameErrorMsg = res.data.msg
                             this.usernameError = true
@@ -140,7 +138,6 @@
                         }
                     }).then(res => {
                         if (res.data.code === 1) {
-                            console.log(res.data.msg)
                             this.telError = false
                         } else {
                             this.telErrorMsg = res.data.msg
@@ -199,7 +196,6 @@
                         })
                         this.$router.replace({name: 'login'})
                     } else {
-                        console.log(res.data.msg)
                         this.$message({
                             type: 'warning',
                             message: res.data.msg

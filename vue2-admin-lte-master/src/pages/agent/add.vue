@@ -469,7 +469,7 @@
                 fileList.map(val => {
                     if (val.response && val.response.code === 1) {
                         this.addInfo.contract.push(val.response.data.image)
-                        this.contractError = false
+//                        this.contractError = false
                     } else if (!val.response && val.isOld) {
                         this.addInfo.contract.push(val.url)
                     }
@@ -495,7 +495,6 @@
                 })
             },
             submit () {
-
                     this.validateRegion()
                     this.validateName()
                     this.validateCity()
@@ -673,7 +672,7 @@
                 this.accountError = this.addInfo.arrival_account_time ? false : true
             },
             validateContract () {
-                this.contractError = this.addInfo.business_licence ? false : true
+                this.contractError = this.addInfo.contract.length>0 ? false : true
             },
             goBack () {
                 this.$router.go(-1)
@@ -738,7 +737,11 @@
             },
             'addInfo.cityLink' (val) {
                 this.validateCity1()
-            }
+            },
+            'addInfo.contract' (val) {
+                this.validateContract()
+            },
+
         }
     }
 </script>

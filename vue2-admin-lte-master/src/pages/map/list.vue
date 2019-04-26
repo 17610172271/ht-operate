@@ -100,14 +100,12 @@
                     },
                     dragend: (e) => {
                         self.$nextTick(() => {
-                            console.log(e)
                         })
                     }
                 },
                 events1: {
                     close: (e) => {
                         self.$nextTick(() => {
-                            console.log(e.target.F.vid);
                             self.markers.map(val => {
                                 if (val.cinema_id === e.target.F.vid) {
                                     val.visible = false

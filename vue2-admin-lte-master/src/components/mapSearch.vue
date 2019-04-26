@@ -28,7 +28,6 @@
                 },
                 events: {
                     dragend: (e) => {
-                        console.log(e)
                         self.$nextTick(() => {
                             self.dragMarker = [e.lnglat.O, e.lnglat.P]
                         })

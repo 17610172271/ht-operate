@@ -280,7 +280,6 @@
         },
         created () {
             this.updateId()
-            console.log('3.29')
         },
         watch: {
             '$route' (val) {
