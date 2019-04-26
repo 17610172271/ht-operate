@@ -13,7 +13,7 @@ module.exports = [
             name: 'home'
         },
         id: 401,
-        isShow: true
+        isShow: false
     },
     {
         type: 'tree',

@@ -45,7 +45,7 @@
                             <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('影院设备')!=-1":title="item.device_num">{{item.device_num}}  套</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('创建时间')!=-1":title="item.create_time">{{item.create_time}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('合同截止日期')!=-1":title="item.contract_after_time">{{item.contract_after_time}}</li>
-                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('状态')!=-1" :title="item.status_name" :class="{'text-green':item.status==1, 'text-red':item.status==3, 'text-orange': item.status==2}">{{item.status_name}}</li>
+                            <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('状态')!=-1" :title="item.status_name" :class="{'text-green':item.status==1, 'text-red':item.status==3 || item.is_draft==1 ||item.status==4, 'text-orange': item.status==2}">{{item.status_name}}</li>
                             <li class="col-xs-24 p-n over-omit" v-show="selectVal.indexOf('分账百分比')!=-1" :title="item.proportion">{{item.proportion}} %</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 130px;">
                                 <router-link :to="{name: 'agent_detail', params: {id: item.id}}" v-if="getNavList['4030201']&&item.is_draft!==1" href="javascript:;" class="link" @click.stop>查看</router-link>

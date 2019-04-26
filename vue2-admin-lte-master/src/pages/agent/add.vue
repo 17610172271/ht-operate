@@ -4,13 +4,13 @@
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item :to="{name: 'agent_list'}" v-if="fromRouter==='agent_list'">代理商列表</el-breadcrumb-item>
                 <el-breadcrumb-item :to="{name: 'agent_mine'}" v-else>我的代理商</el-breadcrumb-item>
-                <el-breadcrumb-item>{{$route.name.indexOf('edit')>0?'查看编辑代理商':'添加代理商'}}</el-breadcrumb-item>
+                <el-breadcrumb-item>{{$route.name.indexOf('edit')>0?'编辑代理商':'添加代理商'}}</el-breadcrumb-item>
             </el-breadcrumb>
             <a href="javascript:;" class="btn bg-blue1 text-white btn-back" @click="goBack">返回</a>
         </div>
         <div class="p-o-lg p-v-sm" style="padding-bottom: 50px;" v-loading="loading">
             <div class=" border-bottom">
-                <h5 class="border-bottom text-xxlg text-bold p-b-sm">{{$route.name.indexOf('edit')>0?'查看编辑代理商':'添加代理商'}}</h5>
+                <h5 class="border-bottom text-xxlg text-bold p-b-sm">{{$route.name.indexOf('edit')>0?'编辑代理商':'添加代理商'}}</h5>
                 <div class="p-v-md">
                     <div class="clear m-b-sm flex">
                         <div class="col-xs-3 p-v-sm text-right" style="max-width: 200px;"><span class="text-red">*</span>所属区域:</div>
@@ -380,9 +380,11 @@
                     }, 500)
                     if (res.data.code === 1) {
                         this.addInfo = res.data.data
-                        this.addInfo.region_id = this.addInfo.region_id.split(',').map(val => {
-                            return parseInt(val)
-                        })
+                        if(this.addInfo.region_id.length==0){
+                            this.$nextTick(() => {
+                                that.regionError = false
+                            })
+                        }
                         this.addInfo.pay_id = this.addInfo.pay_id ? this.addInfo.pay_id : ''
                         this.$set(this.addInfo, 'cityLink', this.addInfo.province_id + '/' + this.addInfo.city_id + '/' + this.addInfo.county_id)
                         this.fileList = this.addInfo.contract.map(val => {
@@ -477,7 +479,7 @@
                 this.$http.post(api.agent.saveDraft, {
                     ...this.addInfo,
                     id: this.$route.params.id ? this.$route.params.id : '',
-                    region_id: this.addInfo.region_id.join(','),
+                    region_id: this.addInfo.region_id.join(',') || [],
                     province_id: this.addInfo.cityLink.split('/')[0] || '',
                     city_id: this.addInfo.cityLink.split('/')[1] || '',
                     county_id: this.addInfo.cityLink.split('/')[2] || '',
@@ -533,7 +535,7 @@
                     this.$http.post(api.agent.add, {
                         id: this.$route.params.id ? this.$route.params.id : '',
                         ...this.addInfo,
-                        region_id: this.addInfo.region_id.join(','),
+                        region_id: this.addInfo.region_id.join(',') || [],
                         province_id: this.addInfo.cityLink.split('/')[0] || '',
                         city_id: this.addInfo.cityLink.split('/')[1] || '',
                         county_id: this.addInfo.cityLink.split('/')[2] || '',
@@ -551,7 +553,7 @@
                     if (this.$route.name.indexOf('edit') > 0) {
                         this.$http.post(api.agent.edit, {
                             ...this.addInfo,
-                            region_id: this.addInfo.region_id.join(','),
+                            region_id: this.addInfo.region_id.join(',') || [],
                             province_id: this.addInfo.cityLink.split('/')[0] || '',
                             city_id: this.addInfo.cityLink.split('/')[1] || '',
                             county_id: this.addInfo.cityLink.split('/')[2] || '',
@@ -568,7 +570,7 @@
                     } else {
                         this.$http.post(api.agent.add, {
                             ...this.addInfo,
-                            region_id: this.addInfo.region_id.join(','),
+                            region_id: this.addInfo.region_id.join(',')|| [] ,
                             province_id: this.addInfo.cityLink.split('/')[0] || '',
                             city_id: this.addInfo.cityLink.split('/')[1] || '',
                             county_id: this.addInfo.cityLink.split('/')[2] || '',
@@ -693,7 +695,7 @@
                     this.$http.post(api.agent.saveDraft, {
                         ...this.addInfo,
                         id: this.$route.params.id ? this.$route.params.id : '',
-                        region_id: this.addInfo.region_id.join(','),
+                        region_id: this.addInfo.region_id.join(',') || [],
                         province_id: this.addInfo.cityLink.split('/')[0] || '',
                         city_id: this.addInfo.cityLink.split('/')[1] || '',
                         county_id: this.addInfo.cityLink.split('/')[2] || '',
