@@ -380,9 +380,14 @@
                     }, 500)
                     if (res.data.code === 1) {
                         this.addInfo = res.data.data
-                        if(this.addInfo.region_id.length==0){
+                        if(res.data.data.region_id.length == 0) {
+                            this.addInfo.region_id = []
                             this.$nextTick(() => {
                                 that.regionError = false
+                            })
+                        }else {
+                            this.addInfo.region_id = this.addInfo.region_id.split(',').map(val => {
+                                return parseInt(val)
                             })
                         }
                         this.addInfo.pay_id = this.addInfo.pay_id ? this.addInfo.pay_id : ''
@@ -469,7 +474,7 @@
                 fileList.map(val => {
                     if (val.response && val.response.code === 1) {
                         this.addInfo.contract.push(val.response.data.image)
-//                        this.contractError = false
+                        this.contractError = false
                     } else if (!val.response && val.isOld) {
                         this.addInfo.contract.push(val.url)
                     }
@@ -739,7 +744,12 @@
                 this.validateCity1()
             },
             'addInfo.contract' (val) {
-                this.validateContract()
+                if(this.$route.name.indexOf('edit') > 0){
+                    this.$nextTick(() => {
+                        that.contractError = false
+                    })
+                }
+
             },
 
         }
