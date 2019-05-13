@@ -154,6 +154,11 @@ const router = new Router({
                             component: rs('financial/clearingDetail')
                         },
                         {
+                            path: 'clearingone/:id',
+                            name: 'clearingone',
+                            component: rs('financial/clearingone')
+                        },
+                        {
                             path: 'report',
                             name: 'financial_report',
                             component: rs('financial/report')
@@ -172,6 +177,11 @@ const router = new Router({
                             path: 'incomes',
                             name: 'financial_incomes',
                             component: rs('financial/incomes')
+                        },
+                        {
+                            path: 'Advertisement',
+                            name: 'financial_Advertisement',
+                            component: rs('financial/Advertisement')
                         },
                         {
                             path: 'incomesDetail/:id',
@@ -250,6 +260,74 @@ const router = new Router({
                     ]
                 },
                 {
+                    path: '/advertisement',
+                    component: rs('advertisement/index'),
+                    meta: {requreAuth: true},
+                    redirect: '/advertisement/project',
+                    children: [
+                        {
+                            path: 'project',
+                            name: 'advertisement_project',
+                            component: rs('advertisement/project')
+                        },
+                        {
+                            path: 'add',
+                            name: 'advertisement_project_add',
+                            component: rs('advertisement/project_add')
+                        },
+                        {
+                            path: 'edit/:id',
+                            name: 'advertisement_project_edit',
+                            component: rs('advertisement/project_add')
+                        },
+                        {
+                            path: 'detail/:id',
+                            name: 'advertisement_project_detail',
+                            component: rs('advertisement/project_detail')
+                        },
+                        {
+                            path: 'list',
+                            name: 'advertisement_list',
+                            component: rs('advertisement/list')
+                        },
+                        {
+                            path: 'listadd',
+                            name: 'advertisement_list_add',
+                            component: rs('advertisement/list_add')
+                        },
+                        {
+                            path: 'listedit/:id',
+                            name: 'advertisement_list_edit',
+                            component: rs('advertisement/project_add')
+                        },
+                        {
+                            path: 'listdetail/:id',
+                            name: 'advertisement_list_detail',
+                            component: rs('advertisement/list_detail')
+                        },
+                        {
+                            path: 'Statistics',
+                            name: 'advertisement_statistics',
+                            component: rs('advertisement/Statistics')
+                        },
+                        {
+                            path: 'effect',
+                            name: 'advertisement_effect',
+                            component: rs('advertisement/effect')
+                        },
+                        {
+                            path: 'effectdetail/:id',
+                            name: 'advertisement_effect_detail',
+                            component: rs('advertisement/effect_detail')
+                        },
+                        {
+                            path: 'effectdetailone/:id',
+                            name: 'advertisement_effect_detailone',
+                            component: rs('advertisement/effect_detailone')
+                        },
+                    ]
+                },
+                {
                     path: '/jurisdiction',
                     component: rs('jurisdiction/index'),
                     meta: {requreAuth: true},
@@ -265,6 +343,19 @@ const router = new Router({
                             name: 'account_group',
                             component: rs('jurisdiction/group')
                         }
+                    ]
+                },
+                {
+                    path: '/before',
+                    component: rs('before/index'),
+                    meta: {requreAuth: true},
+                    redirect: '/before/list',
+                    children: [
+                        {
+                            path: 'list',
+                            name: 'before_list',
+                            component: rs('before/list')
+                        },
                     ]
                 },
                 {

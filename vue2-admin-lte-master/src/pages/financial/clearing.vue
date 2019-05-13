@@ -24,6 +24,7 @@
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">序号</li>
                             <li class="col-xs-2 p-n" v-show="selectVal.indexOf('结算编号')!=-1">结算编号</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('结算对象')!=-1">结算对象</li>
+                            <li class="col-xs-1 p-n" v-show="selectVal.indexOf('结算类型')!=-1">结算类型</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('申请结算月份')!=-1">申请结算月份</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('结算金额')!=-1">结算金额</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('状态')!=-1">状态</li>
@@ -36,20 +37,26 @@
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">{{offset + index + 1}}</li>
                             <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('结算编号')!=-1" :title="item.settlement_code">{{item.settlement_code}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('结算对象')!=-1" :title="item.agent_name">{{item.agent_name}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('结算类型')!=-1" :title="item.settlement_type">{{item.settlement_type}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('申请结算月份')!=-1" :title="item.apply_month">{{item.apply_month}}</li>
                             <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('结算金额')!=-1" :title="item.settlement_money">{{item.settlement_money}}</li>
-                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('状态')!=-1" :title="item.status_name"
-                                :class="{'text-999': item.status_name=='已结算'}">{{item.status_name}}</li>
+                            <li class="col-xs-1 p-n over-omit" v-show="selectVal.indexOf('状态')!=-1" :title="item.status_name" :class="{'text-999': item.status_name=='已结算'}">{{item.status_name}}</li>
                             <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('申请时间')!=-1":title="item.apply_time">{{item.apply_time}}</li>
-                            <li class="col-xs-4 p-n over-omit text-left" v-show="selectVal.indexOf('银行信息')!=-1" style="padding:2px 5px;"
-                                :title="item.account_name + ',' + item.bank_name + ',' + item.bank_account + ',' + item.open_bank">
+                            <li class="col-xs-4 p-n over-omit text-left" v-show="selectVal.indexOf('银行信息')!=-1" style="padding:2px 5px;" :title="item.account_name + ',' + item.bank_name + ',' + item.bank_account + ',' + item.open_bank">
                                 <div class="over-omit" style="line-height: 18px;font-size: 12px;">{{item.account_name}}, {{item.bank_name}}</div>
                                 <div class="over-omit" style="line-height: 18px;font-size: 12px;">{{item.bank_account}}, {{item.open_bank}}</div>
                             </li>
                             <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('结算时间')!=-1":title="item.settlement_time">{{item.settlement_time}}</li>
                             <li class="col-xs-1 p-n" v-show="selectVal.indexOf('操作')!=-1" style="min-width: 130px;">
+                                <!--<span v-if="结算类型==广告类型">-->
                                 <a href="javascript:;" class="link" :class="{'disabled': !(item.status_name=='未结算'&&item.certificate)}" @click.stop="doClearing(item)" v-if="getNavList['4050501']">结算</a>
+                                <span v-if="item.type==1">
                                 <router-link :to="{name: 'clearingDetail', params: {id: item.id}, query: {apply_month: item.apply_month}}" href="javascript:;" class="link" v-if="getNavList['4050502']">详情</router-link>
+                                </span>
+                                <span v-else-if="item.type == 2">
+                                    <router-link :to="{name: 'clearingone', params: {id: item.id}, query: {apply_month: item.apply_month}}" href="javascript:;" class="link" v-if="getNavList['4050502']">详情</router-link>
+                                </span>
+
                                 <a :href="item.certificate" class="link" @click.stop target="_blank" v-if="getNavList['4050504']&&item.certificate">查看凭证</a>
                                 <el-upload
                                     v-else-if="getNavList['4050503']"
@@ -61,6 +68,7 @@
                                     :on-success="uploadCertificate">
                                     <a href="javascript:;" title="上传凭证" class="link" @click="id=item.id">上传凭证</a>
                                 </el-upload>
+
                                 <span v-if="!getNavList['4050501']&&!getNavList['4050502']&&!(getNavList['4050504']&&item.certificate)&&!getNavList['4050503']">---</span>
                             </li>
                         </ul>
@@ -119,8 +127,8 @@
                 items: []
             },
             loading: false,
-            selectVal: ['序号', '结算编号', '结算对象', '申请结算月份', '结算金额', '状态', '申请时间', '银行信息', '结算时间', '操作'],
-            showList: ['序号', '结算编号', '结算对象', '申请结算月份', '结算金额', '状态', '申请时间', '银行信息', '结算时间', '操作'],
+            selectVal: ['序号', '结算编号', '结算对象','结算类型', '申请结算月份', '结算金额', '状态', '申请时间', '银行信息', '结算时间', '操作'],
+            showList: ['序号', '结算编号', '结算对象','结算类型', '申请结算月份', '结算金额', '状态', '申请时间', '银行信息', '结算时间', '操作'],
             options: [10, 25, 50],   //条数数目
             searchShow: false,   //搜索开关
             limit: 10,
@@ -312,6 +320,7 @@
                 this.getList()
             },
             limit (val) {
+                this.page = 1
                 this.getList()
             }
         }

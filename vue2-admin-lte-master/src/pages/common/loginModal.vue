@@ -36,7 +36,7 @@
         </div>
     </div>
 </template>
-<script>
+<script type="text/ecmascript-6">
     import api from '@/api'
     import { mapGetters, mapActions } from 'vuex'
     export default {
@@ -142,11 +142,12 @@
                                             case '401990000':
                                                that.$router.push({name: 'home'})
                                                break
-
                                             case '402990000':
                                                 that.$router.push({name: 'map_list'})
                                                 break
-
+                                            case '402010000':
+                                                that.$router.push({name: 'map_list'})
+                                                break
                                             case '403990000':
                                                that.$router.push({name: 'agent_list'})
                                                break
@@ -279,7 +280,6 @@
         },
         created () {
             this.updateId()
-            console.log('3.29')
         },
         watch: {
             '$route' (val) {

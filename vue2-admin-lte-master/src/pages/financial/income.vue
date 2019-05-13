@@ -23,8 +23,8 @@
                         <ul class="table-thead clear">
                             <li class="col-xs-2 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">序号</li>
                             <li class="col-xs-3 p-n" v-show="selectVal.indexOf('流水号')!=-1">流水号</li>
-                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('影院名称')!=-1">影院名称</li>
-                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('订单编号')!=-1">订单编号</li>
+                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('名称')!=-1">名称</li>
+                            <li class="col-xs-2 p-n" v-show="selectVal.indexOf('编号')!=-1">编号</li>
                             <li class="col-xs-2 p-n" v-show="selectVal.indexOf('收入金额')!=-1">收入金额</li>
                             <li class="col-xs-2 p-n" v-show="selectVal.indexOf('收入类型')!=-1">收入类型</li>
                             <li class="col-xs-4 p-n" v-show="selectVal.indexOf('时间')!=-1">时间</li>
@@ -32,8 +32,8 @@
                         <ul class="table-tbody clear" v-for="(item, index) in data.items">
                             <li class="col-xs-2 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">{{offset + index + 1}}</li>
                             <li class="col-xs-3 p-n over-omit" v-show="selectVal.indexOf('流水号')!=-1" :title="item.serial_number">{{item.serial_number}}</li>
-                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('影院名称')!=-1" :title="item.cinema_name">{{item.cinema_name}}</li>
-                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('订单编号')!=-1" :title="item.trade_id">{{item.trade_id}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('名称')!=-1" :title="item.cinema_name">{{item.cinema_name}}</li>
+                            <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('编号')!=-1" :title="item.trade_id">{{item.trade_id}}</li>
                             <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('收入金额')!=-1" :title="item.income">{{item.income}}</li>
                             <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('收入类型')!=-1" :title="item.income_type">{{item.income_type}}</li>
                             <li class="col-xs-4 p-n over-omit" v-show="selectVal.indexOf('时间')!=-1":title="item.time">{{item.time}}</li>
@@ -92,8 +92,8 @@
                 items: []
             },
             loading: false,
-            selectVal: ['序号', '流水号', '影院名称', '订单编号', '收入金额', '收入类型', '时间'],
-            showList: ['序号', '流水号', '影院名称', '订单编号', '收入金额', '收入类型', '时间'],
+            selectVal: ['序号', '流水号', '名称', '编号', '收入金额', '收入类型', '时间'],
+            showList: ['序号', '流水号', '名称', '编号', '收入金额', '收入类型', '时间'],
             options: [10, 25, 50],   //条数数目
             searchShow: false,   //搜索开关
             limit: 10,
@@ -122,7 +122,7 @@
                 },
                 {
                     type: 'searchSelect',
-                    name: '影院名称',
+                    name: '名称',
                     value: '',
                     options: []
                 },
@@ -225,6 +225,7 @@
                 this.getList()
             },
             limit (val) {
+                this.page = 1
                 this.getList()
             },
             searchShow (val) {

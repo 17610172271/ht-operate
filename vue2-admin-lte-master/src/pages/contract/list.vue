@@ -140,6 +140,13 @@
                                 </div>
                             </div>
                             <div class="clear m-b-sm">
+                                <div class="col-xs-12 col-md-3 line-height-40 text-right min-width-105"><span class="text-red">*</span>合同金额:</div>
+                                <div class="col-xs-12 col-md-7">
+                                    <el-input placeholder="请输入合同金额" :class="{'border-red': moneyError}" v-model="detailVal.money" @blur="validateMoney(detailVal.money)"></el-input>
+                                    <p v-if="moneyError" class="text-red"><span class="fa fa-close m-r-xs"></span>请输入合同金额</p>
+                                </div>
+                            </div>
+                            <div class="clear m-b-sm">
                                 <div class="col-xs-12 col-md-3 line-height-40 text-right min-width-105"><span class="text-red">*</span>签约日期:</div>
                                 <div class="col-xs-12 col-md-7">
                                     <el-date-picker
@@ -261,18 +268,22 @@
                                 <div class="col-xs-7 text-left line-height-40">{{detailVal.type_name}}</div>
                             </div>
                             <div class="clear bg-f9">
+                                <div class="col-xs-3 line-height-40 text-right min-width-105">合同金额:</div>
+                                <div class="col-xs-7 text-left line-height-40">{{detailVal.money}}</div>
+                            </div>
+                            <div class="clear">
                                 <div class="col-xs-3 line-height-40 text-right min-width-105">签约日期:</div>
                                 <div class="col-xs-7 text-left line-height-40">{{detailVal.signing_date}}</div>
                             </div>
-                            <div class="clear">
+                            <div class="clear bg-f9">
                                 <div class="col-xs-3 line-height-40 text-right min-width-105">合同开始时间:</div>
                                 <div class="col-xs-7 text-left line-height-40">{{detailVal.start_time}}</div>
                             </div>
-                            <div class="clear bg-f9">
+                            <div class="clear">
                                 <div class="col-xs-3 line-height-40 text-right min-width-105">合同结束时间:</div>
                                 <div class="col-xs-7 text-left line-height-40">{{detailVal.end_time}}</div>
                             </div>
-                            <div class="clear">
+                            <div class="clear bg-f9">
                                 <div class="col-xs-3 line-height-40 text-right min-width-105">已续约至:</div>
                                 <div class="col-xs-7 text-left line-height-40">{{detailVal.contract_time}}</div>
                             </div>
@@ -367,6 +378,7 @@
             page: 1,
             serial_numberError:false,
             contract_nameError:false,
+            moneyError:false,
             party_aError:false,
             party_bError:false,
             party_cError:false,
@@ -468,7 +480,8 @@
                     start_time:'',
                     end_time:'',
                     contract_time:'',
-                    attachment:[]
+                    attachment:[],
+                    money:''
                 },
                 this.fileList = []
                 this.detailModal = true
@@ -546,6 +559,7 @@
                 // if (!this.detailVal.contract_time) this.contract_timeError = true
                 this.validateSerial_number(this.detailVal.serial_number)
                 this.validateContract_name(this.detailVal.contract_name)
+                this.validateMoney(this.detailVal.money)
                 this.validateParty_a(this.detailVal.party_a)
                 this.validateParty_b(this.detailVal.party_b)
                 this.validateParty_c(this.detailVal.party_c)
@@ -558,7 +572,7 @@
                     return
                 }
                 if (this.serial_numberError || this.contract_nameError || this.party_aError || this.party_bError || this.party_cError || this.typeError
-                || this.signing_dateError || this.start_timeError || this.end_timeError) {
+                || this.signing_dateError || this.start_timeError || this.end_timeError || this.moneyError) {
                     this.$message({
                         type: 'warning',
                         message: '请将信息正确填写'
@@ -591,6 +605,7 @@
                         party_a:this.detailVal.party_a,
                         party_b:this.detailVal.party_b,
                         party_c:this.detailVal.party_c,
+                        money:this.detailVal.money,
                         type:this.detailVal.type,
                         signing_date:this.detailVal.signing_date,
                         start_time:this.detailVal.start_time,
@@ -664,6 +679,9 @@
             validateContract_name (val) {
                 this.contract_nameError = val ? false : true
             },
+            validateMoney(val){
+                this.moneyError =/(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/.test(this.detailVal.money) ? false : true
+            },
             validateParty_a (val) {
                 this.party_aError = val ? false : true
             },
@@ -721,12 +739,14 @@
                 this.getList()
             },
             limit (val) {
+                this.page = 1
                 this.getList()
             },
             detailModal(val) {
                 if(val){
                     this.serial_numberError = false
                     this.contract_nameError = false
+                    this.moneyError = false
                     this.party_aError = false
                     this.party_bError = false
                     this.party_cError = false

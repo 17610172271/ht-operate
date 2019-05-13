@@ -264,7 +264,8 @@
                 <div class="col-xs-3" style="max-width: 200px;"></div>
                 <div class="col-xs-9">
                     <el-button type="primary" @click="saveInfo" v-if="$route.query.isDraft===1 || !$route.params.id">保存草稿</el-button>
-                    <el-button type="primary" @click="submit">{{$route.name.indexOf('edit') > 0 ? '保存' : '开通'}}</el-button>
+                    <!--<el-button type="primary" @click="submit">{{$route.name.indexOf('edit') > 0 ? '保存' : '开通'}}</el-button>-->
+                    <el-button type="primary" @click="submit"></el-button>
                     <el-button @click="goBack">取 消</el-button>
                 </div>
             </div>
@@ -380,9 +381,16 @@
                     }, 500)
                     if (res.data.code === 1) {
                         this.addInfo = res.data.data
-                        this.addInfo.region_id = this.addInfo.region_id.split(',').map(val => {
-                            return parseInt(val)
-                        })
+                        if(res.data.data.region_id.length == 0) {
+                            this.addInfo.region_id = []
+                            this.$nextTick(() => {
+                                that.regionError = false
+                            })
+                        }else {
+                            this.addInfo.region_id = this.addInfo.region_id.split(',').map(val => {
+                                return parseInt(val)
+                            })
+                        }
                         this.addInfo.pay_id = this.addInfo.pay_id ? this.addInfo.pay_id : ''
                         this.$set(this.addInfo, 'cityLink', this.addInfo.province_id + '/' + this.addInfo.city_id + '/' + this.addInfo.county_id)
                         this.fileList = this.addInfo.contract.map(val => {
@@ -434,7 +442,6 @@
                 return isLt2M
             },
             licenceUpload (res, file) {
-                console.log(res)
                 if (res.code === 1) {
                     this.addInfo.business_licence = res.data.image
                     this.$message({
@@ -450,7 +457,6 @@
                 }
             },
             handleRemove(file, fileList) {
-                console.log(fileList)
                 this.addInfo.contract = []
                 fileList.map(val => {
                     if (val.response && val.response.code === 1) {
@@ -465,7 +471,6 @@
                 this.dialogVisible = true
             },
             contractUpload (res, file, fileList) {
-                console.log(fileList)
                 this.addInfo.contract = []
                 fileList.map(val => {
                     if (val.response && val.response.code === 1) {
@@ -480,7 +485,7 @@
                 this.$http.post(api.agent.saveDraft, {
                     ...this.addInfo,
                     id: this.$route.params.id ? this.$route.params.id : '',
-                    region_id: this.addInfo.region_id.join(','),
+                    region_id: this.addInfo.region_id.join(',') || [],
                     province_id: this.addInfo.cityLink.split('/')[0] || '',
                     city_id: this.addInfo.cityLink.split('/')[1] || '',
                     county_id: this.addInfo.cityLink.split('/')[2] || '',
@@ -489,67 +494,53 @@
                     if (res.data.code === 1) {
                         this.$message.success('草稿保存成功')
                         this.isDraft = true
+                        this.$router.go(-1)
                     } else {
                         this.$message.error(res.data.msg)
                     }
                 })
             },
             submit () {
-                this.validateRegion()
-                this.validateName()
-                this.validateCity()
-                this.validateAddress()
-                this.validateIntroduce()
-                this.validateNum()
-                this.validateLeaderPhone()
-                this.validateUsername()
-                this.validateLeader()
-                this.validateCompany()
-                this.validateLegalPerson()
-                this.validateLegalPhone()
-                this.validateLegalPersonId()
-                this.validateLegalEmail()
-                this.validateLicence()
-                this.validateAccountName()
-                this.validateBankAccount()
-                this.validateOpenBank()
-                this.validateBankTypeId()
-                this.validateTime()
-                this.validateendTime()
-                this.validateendPay()
-                this.validateendPay()
-                this.validateendAccount()
-                this.validateContract()
-                if (this.regionError || this.nameError || this.cityError || this.addressError ||
-                    this.numError || this.leaderPhoneError || this.usernameError || this.leaderError ||
-                    this.companyError || this.legalPersonError || this.legalPhoneError || this.legalPersonIdError ||
-                    this.legalEmailError || this.licenceError || this.introduceError || this.accountNameError ||
-                    this.bankAccountError || this.openBankError || this.bankTypeIdError || this.timeError || this.timeendError
-                 || this.payError || this.accountError || this.contractError
-                ) {
-                    this.$message.warning('填写的信息格式不正确')
-                    return
-                }
-                if (this.$route.name.indexOf('edit') > 0) {
-                    this.$http.post(api.agent.edit, {
-                        ...this.addInfo,
-                        region_id: this.addInfo.region_id.join(','),
-                        province_id: this.addInfo.cityLink.split('/')[0] || '',
-                        city_id: this.addInfo.cityLink.split('/')[1] || '',
-                        county_id: this.addInfo.cityLink.split('/')[2] || '',
-                        contract: this.addInfo.contract.join(',')
-                    }).then(res => {
-                        if (res.data.code === 1) {
-                            this.$message.success('保存成功')
-                            this.$router.go(-1)
-                        } else {
-                            this.$message.error(res.data.msg)
-                        }
-                    })
-                } else {
+                    this.validateRegion()
+                    this.validateName()
+                    this.validateCity()
+                    this.validateAddress()
+                    this.validateIntroduce()
+                    this.validateNum()
+                    this.validateLeaderPhone()
+                    this.validateUsername()
+                    this.validateLeader()
+                    this.validateCompany()
+                    this.validateLegalPerson()
+                    this.validateLegalPhone()
+                    this.validateLegalPersonId()
+                    this.validateLegalEmail()
+                    this.validateLicence()
+                    this.validateAccountName()
+                    this.validateBankAccount()
+                    this.validateOpenBank()
+                    this.validateBankTypeId()
+                    this.validateTime()
+                    this.validateendTime()
+                    this.validateendPay()
+                    this.validateendPay()
+                    this.validateendAccount()
+                    this.validateContract()
+                    if (this.regionError || this.nameError || this.cityError || this.addressError ||
+                        this.numError || this.leaderPhoneError || this.usernameError || this.leaderError ||
+                        this.companyError || this.legalPersonError || this.legalPhoneError || this.legalPersonIdError ||
+                        this.legalEmailError || this.licenceError || this.introduceError || this.accountNameError ||
+                        this.bankAccountError || this.openBankError || this.bankTypeIdError || this.timeError || this.timeendError
+                        || this.payError || this.accountError || this.contractError
+                    ) {
+                        this.$message.warning('填写的信息格式不正确')
+                        return
+                    }
+                if(this.$route.query.isDraft===1){
                     this.$http.post(api.agent.add, {
+                        id: this.$route.params.id ? this.$route.params.id : '',
                         ...this.addInfo,
-                        region_id: this.addInfo.region_id.join(','),
+                        region_id: this.addInfo.region_id.join(',') || [],
                         province_id: this.addInfo.cityLink.split('/')[0] || '',
                         city_id: this.addInfo.cityLink.split('/')[1] || '',
                         county_id: this.addInfo.cityLink.split('/')[2] || '',
@@ -557,11 +548,48 @@
                     }).then(res => {
                         if (res.data.code === 1) {
                             this.$message.success('代理商添加成功')
+                            this.isDraft = true
                             this.$router.go(-1)
                         } else {
                             this.$message.error(res.data.msg)
                         }
                     })
+                }else{
+                    if (this.$route.name.indexOf('edit') > 0) {
+                        this.$http.post(api.agent.edit, {
+                            ...this.addInfo,
+                            region_id: this.addInfo.region_id.join(',') || [],
+                            province_id: this.addInfo.cityLink.split('/')[0] || '',
+                            city_id: this.addInfo.cityLink.split('/')[1] || '',
+                            county_id: this.addInfo.cityLink.split('/')[2] || '',
+                            contract: this.addInfo.contract.join(',')
+                        }).then(res => {
+                            if (res.data.code === 1) {
+                                this.$message.success('保存成功')
+                                this.isDraft = true
+                                this.$router.go(-1)
+                            } else {
+                                this.$message.error(res.data.msg)
+                            }
+                        })
+                    } else {
+                        this.$http.post(api.agent.add, {
+                            ...this.addInfo,
+                            region_id: this.addInfo.region_id.join(',')|| [] ,
+                            province_id: this.addInfo.cityLink.split('/')[0] || '',
+                            city_id: this.addInfo.cityLink.split('/')[1] || '',
+                            county_id: this.addInfo.cityLink.split('/')[2] || '',
+                            contract: this.addInfo.contract.join(',')
+                        }).then(res => {
+                            if (res.data.code === 1) {
+                                this.$message.success('代理商添加成功')
+                                this.isDraft = true
+                                this.$router.go(-1)
+                            } else {
+                                this.$message.error(res.data.msg)
+                            }
+                        })
+                    }
                 }
             },
             validateRegion () {
@@ -650,7 +678,7 @@
                 this.accountError = this.addInfo.arrival_account_time ? false : true
             },
             validateContract () {
-                this.contractError = this.addInfo.business_licence ? false : true
+                this.contractError = this.addInfo.contract.length>0 ? false : true
             },
             goBack () {
                 this.$router.go(-1)
@@ -672,7 +700,7 @@
                     this.$http.post(api.agent.saveDraft, {
                         ...this.addInfo,
                         id: this.$route.params.id ? this.$route.params.id : '',
-                        region_id: this.addInfo.region_id.join(','),
+                        region_id: this.addInfo.region_id.join(',') || [],
                         province_id: this.addInfo.cityLink.split('/')[0] || '',
                         city_id: this.addInfo.cityLink.split('/')[1] || '',
                         county_id: this.addInfo.cityLink.split('/')[2] || '',
@@ -715,7 +743,16 @@
             },
             'addInfo.cityLink' (val) {
                 this.validateCity1()
-            }
+            },
+            'addInfo.contract' (val) {
+                if(this.$route.name.indexOf('edit') > 0){
+                    this.$nextTick(() => {
+                        that.contractError = false
+                    })
+                }
+
+            },
+
         }
     }
 </script>
