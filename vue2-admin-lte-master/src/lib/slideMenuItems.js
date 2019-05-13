@@ -189,6 +189,17 @@ module.exports = [
                 },
                 id: 40509,
                 isShow: false
+            },
+            {
+                type: 'item',
+                icon: 'fa fa-circle-o',
+                name: '广告收益',
+                router: {
+                    name: 'financial_Advertisement'
+                },
+                //未定义
+                id: 40509,
+                isShow: false
             }
         ]
     },
@@ -299,5 +310,73 @@ module.exports = [
                 isShow: false
             }
         ]
-    }
+    },
+    {
+        type: 'tree',
+        icon: 'fa fa-registered',
+        name: '广告管理',
+        isShow: false,
+        id: 409,
+        items: [
+            {
+                type: 'item',
+                icon: 'fa fa-circle-o',
+                name: '项目列表',
+                router: {
+                    name: 'advertisement_project'
+                },
+                id: 40901,
+                isShow: false
+            },
+            {
+                type: 'item',
+                icon: 'fa fa-circle-o',
+                name: '广告列表',
+                router: {
+                    name: 'advertisement_list'
+                },
+                id: 40901,
+                isShow: false
+            },
+            {
+                type: 'item',
+                icon: 'fa fa-circle-o',
+                name: '广告统计',
+                router: {
+                    name: 'advertisement_statistics'
+                },
+                id: 40901,
+                isShow: false
+            },
+            {
+                type: 'item',
+                icon: 'fa fa-circle-o',
+                name: '广告效果',
+                router: {
+                    name: 'advertisement_effect'
+                },
+                id: 40901,
+                isShow: false
+            },
+        ]
+    },
+    {
+        type: 'tree',
+        icon: 'fa fa-registered',
+        name: '映前宣传片',
+        isShow: false,
+        id: 409,
+        items: [
+            {
+                type: 'item',
+                icon: 'fa fa-circle-o',
+                name: '映前宣传列表',
+                router: {
+                    name: 'before_list'
+                },
+                id: 40901,
+                isShow: false
+            },
+        ]
+    },
 ]

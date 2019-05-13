@@ -27,7 +27,9 @@
                                 <li class="col-xs-2 p-n over-omit" :title="item.agent_name">{{item.agent_name}}</li>
                                 <li class="col-xs-2 p-n over-omit" :title="item.proportion">{{item.proportion}}</li>
                                 <li class="col-xs-2 p-n over-omit" :title="item.money">{{item.money}}</li>
-                                <li class="col-xs-2 p-n over-omit" v-if="getNavList['405050201']"><a href="javascript:;" class="link" @click="openDetail(item.agent_id, 1)">详情</a></li>
+                                <li class="col-xs-2 p-n over-omit" v-if="getNavList['405050201']">
+                                    <a href="javascript:;" class="link" @click="openDetail(item.agent_id, 1)">详情</a>
+                                </li>
                             </ul>
                             <p class="p-v-sm" v-if="data.agent_list.length<=0">暂无代理商收益信息</p>
                         </div>

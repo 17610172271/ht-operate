@@ -24,6 +24,7 @@
                             <li class="col-xs-2 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">序号</li>
                             <li class="col-xs-3 p-n" v-show="selectVal.indexOf('流水号')!=-1">流水号</li>
                             <li class="col-xs-3 p-n" v-show="selectVal.indexOf('结算编号')!=-1">结算编号</li>
+                            <li class="col-xs-3 p-n" v-show="selectVal.indexOf('结算对象')!=-1">结算对象</li>
                             <li class="col-xs-2 p-n" v-show="selectVal.indexOf('支出金额')!=-1">支出金额</li>
                             <li class="col-xs-2 p-n" v-show="selectVal.indexOf('支出类型')!=-1">支出类型</li>
                             <li class="col-xs-4 p-n" v-show="selectVal.indexOf('时间')!=-1">时间</li>
@@ -33,6 +34,7 @@
                             <li class="col-xs-2 p-n" v-show="selectVal.indexOf('序号')!=-1" style="max-width: 60px;">{{offset + index + 1}}</li>
                             <li class="col-xs-3 p-n over-omit" v-show="selectVal.indexOf('流水号')!=-1" :title="item.serial_number">{{item.serial_number}}</li>
                             <li class="col-xs-3 p-n over-omit" v-show="selectVal.indexOf('结算编号')!=-1" :title="item.settlement_code">{{item.settlement_code}}</li>
+                            <li class="col-xs-3 p-n over-omit" v-show="selectVal.indexOf('结算对象')!=-1" :title="item.agent_name">{{item.agent_name}}</li>
                             <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('支出金额')!=-1" :title="item.defray_money">{{item.defray_money}}</li>
                             <li class="col-xs-2 p-n over-omit" v-show="selectVal.indexOf('支出类型')!=-1" :title="item.defray_type">{{item.defray_type}}</li>
                             <li class="col-xs-4 p-n over-omit" v-show="selectVal.indexOf('时间')!=-1" :title="item.time">{{item.time}}</li>
@@ -92,8 +94,8 @@
                 items: []
             },
             loading: false,
-            selectVal: ['序号', '流水号', '结算编号', '支出金额', '支出类型', '时间', '经办人'],
-            showList: ['序号', '流水号', '结算编号', '支出金额', '支出类型', '时间', '经办人'],
+            selectVal: ['序号', '流水号', '结算编号','结算对象', '支出金额', '支出类型', '时间', '经办人'],
+            showList: ['序号', '流水号', '结算编号','结算对象', '支出金额', '支出类型', '时间', '经办人'],
             options: [10, 25, 50],   //条数数目
             searchShow: false,   //搜索开关
             limit: 10,

@@ -265,7 +265,7 @@
                 <div class="col-xs-9">
                     <el-button type="primary" @click="saveInfo" v-if="$route.query.isDraft===1 || !$route.params.id">保存草稿</el-button>
                     <!--<el-button type="primary" @click="submit">{{$route.name.indexOf('edit') > 0 ? '保存' : '开通'}}</el-button>-->
-                    <el-button type="primary" @click="submit">开通</el-button>
+                    <el-button type="primary" @click="submit"></el-button>
                     <el-button @click="goBack">取 消</el-button>
                 </div>
             </div>

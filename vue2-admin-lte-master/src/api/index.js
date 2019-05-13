@@ -127,6 +127,9 @@ export const financial = {
     agentRouting: '/api/v1/financeReport/proportionList', // 代理商分账列表
     bankList: '/api/v1/bank/bankTypeList', // 银行列表
     contractDetail: '/api/v1/financeReport/viewContract', // 代理商分账管理合同详情
+    clearingone:'/api/v1/finance/settlementDetail', //结算管理广告详情
+    Advertisement:'/api/v1/finance/advertIncome',     //广告收益
+
 }
 
 export const system = {
@@ -143,6 +146,22 @@ export const system = {
     userDisabled: '/api/v1/system/prohibitUser', // 账号禁用
     userDel: '/api/v1/system/delUser', // 账号删除
 }
+
+export const advertisement = {
+    projectList: '/api/v1/adManage/projectList', // 项目列表
+    selectList: '/api/v1/adManage/selectList', // 广告管理下拉列表
+    projectAdd: '/api/v1/adManage/projectAdd', // 新增项目
+    projectEdit: '/api/v1/adManage/projectEdit', // 编辑项目
+    projectDetail: '/api/v1/adManage/projectDetail', // 编辑项目
+    adList:'/api/v1/adManage/adList', // 广告列表
+    adAdd:'/api/v1/adManage/adAdd',   //新增广告
+    adEdit:'/api/v1/adManage/adEdit',  //编辑广告
+    adDetail: '/api/v1/adManage/adDetail',  // 广告详情
+    adScheduling: '/api/v1/adManage/adScheduling',  // 广告排期
+    adstatistics: '/api/v1/adManage/adstatistics',  // 广告统计
+    adstatisticsList: '/api/v1/adManage/adstatisticsList',  // 广告效果列表
+
+}
 export default {
     BASE_URL,
     common,
@@ -155,5 +174,6 @@ export default {
     log,
     financial,
     contract,
-    system
+    system,
+    advertisement
 }
