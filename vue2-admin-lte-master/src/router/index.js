@@ -325,6 +325,11 @@ const router = new Router({
                             name: 'advertisement_effect_detailone',
                             component: rs('advertisement/effect_detailone')
                         },
+                        {
+                            path: 'waiting',
+                            name: 'advertisement_waiting',
+                            component: rs('advertisement/waiting')
+                        },
                     ]
                 },
                 {

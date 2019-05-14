@@ -341,6 +341,16 @@ module.exports = [
             {
                 type: 'item',
                 icon: 'fa fa-circle-o',
+                name: '广告排期',
+                router: {
+                    name: 'advertisement_waiting'
+                },
+                id: 40901,
+                isShow: false
+            },
+            {
+                type: 'item',
+                icon: 'fa fa-circle-o',
                 name: '广告统计',
                 router: {
                     name: 'advertisement_statistics'
