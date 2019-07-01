@@ -381,6 +381,7 @@
                     }, 500)
                     if (res.data.code === 1) {
                         this.addInfo = res.data.data
+                        console.log(this.addInfo)
                         if(res.data.data.region_id.length == 0) {
                             this.addInfo.region_id = []
                             this.$nextTick(() => {
